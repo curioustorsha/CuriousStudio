@@ -1,0 +1,29 @@
+{
+  "title": "How 10-minute delivery actually works",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Calm, curious lo-fi electronic bed for a 60-second explainer, about 92 BPM, soft plucked synth arpeggio, warm sub bass, light ticking hi-hats like a clock, gentle build into the last 15 seconds, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "Your groceries arrive in about ten minutes. The rider averages just fifteen kilometres an hour." },
+    { "id": "naive", "text": "That's Blinkit's own number. From a warehouse fifteen kilometres away, that ride would take an hour." },
+    { "id": "stores", "text": "So Blinkit moves the shop closer. Dark stores are small warehouses with no shoppers, tucked inside neighbourhoods." },
+    { "id": "area", "text": "Each one serves only the homes close around it. The average ride is under two kilometres." },
+    { "id": "clock", "text": "Blinkit's clock looks like this. Picked and packed within two and a half minutes. Then about eight minutes on the road." },
+    {
+      "id": "scale",
+      "text": "That only works with a store near everyone. Blinkit has two thousand seven hundred fifty-one, and expects over three thousand five hundred by March 2027.",
+      "say": "That only works with a store near everyone. Blinkit has two thousand seven hundred fifty-one, and expects over three thousand five hundred by March twenty-twenty-seven."
+    },
+    { "id": "outro", "text": "Deepinder Goyal, then CEO of Blinkit's parent company, said the speed comes from the density of stores around your homes. So the ten minutes isn't really about riding fast. It's mostly decided by where the store is." }
+  ],
+  "keyterms": ["Blinkit", "Deepinder Goyal", "dark stores", "kilometres", "CEO"],
+  "sources": [
+    "The Logical Indian, 3 Jan 2026: Speed comes from proximity, not pressure (Deepinder Goyal on X, 1 Jan 2026)",
+    "Social Samosa, 2 Jan 2026: Zomato CEO addresses gig worker strike calls, defends 10-minute delivery model",
+    "Social Samosa, 22 Jan 2026: Eternal board accepts Deepinder Goyal resignation",
+    "California Management Review, 16 Jan 2026: The Dark Store Revolution",
+    "Kotak Neo, 21 Oct 2026: Eternal Q2 Results FY27, Blinkit adds 308 stores",
+    "Al Jazeera, 28 Jan 2026: India curbs 'grocery under 10 minutes'",
+    "The Week (PTI), 13 Jan 2026: Blinkit drops 10-minute delivery claim"
+  ]
+}

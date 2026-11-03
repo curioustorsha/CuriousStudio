@@ -1,0 +1,734 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "audio/vo/hook.mp3",
+      "text": "Amazon's warehouses are a mess. On purpose. A phone case, next to a cookbook, next to a dog toy.",
+      "words": [
+        {
+          "text": "Amazon's",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "text": "warehouses",
+          "start": 0.64,
+          "end": 1.28
+        },
+        {
+          "text": "are",
+          "start": 1.36,
+          "end": 1.52
+        },
+        {
+          "text": "a",
+          "start": 1.56,
+          "end": 1.6
+        },
+        {
+          "text": "mess.",
+          "start": 1.84,
+          "end": 2.48
+        },
+        {
+          "text": "On",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "purpose.",
+          "start": 2.96,
+          "end": 3.76
+        },
+        {
+          "text": "A",
+          "start": 4,
+          "end": 4.08
+        },
+        {
+          "text": "phone",
+          "start": 4.16,
+          "end": 4.4
+        },
+        {
+          "text": "case,",
+          "start": 4.48,
+          "end": 4.88
+        },
+        {
+          "text": "next",
+          "start": 4.96,
+          "end": 5.12
+        },
+        {
+          "text": "to",
+          "start": 5.2,
+          "end": 5.28
+        },
+        {
+          "text": "a",
+          "start": 5.333,
+          "end": 5.387
+        },
+        {
+          "text": "cookbook,",
+          "start": 5.44,
+          "end": 6.16
+        },
+        {
+          "text": "next",
+          "start": 6.28,
+          "end": 6.4
+        },
+        {
+          "text": "to",
+          "start": 6.44,
+          "end": 6.48
+        },
+        {
+          "text": "a",
+          "start": 6.52,
+          "end": 6.56
+        },
+        {
+          "text": "dog",
+          "start": 6.72,
+          "end": 6.96
+        },
+        {
+          "text": "toy.",
+          "start": 7.04,
+          "end": 7.44
+        }
+      ],
+      "end": 7.44
+    },
+    {
+      "id": "stow",
+      "file": "audio/vo/stow.mp3",
+      "text": "It's called random stow. Items go into whatever bin has space.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "called",
+          "start": 0.24,
+          "end": 0.48
+        },
+        {
+          "text": "random",
+          "start": 0.64,
+          "end": 1.04
+        },
+        {
+          "text": "stow.",
+          "start": 1.2,
+          "end": 2
+        },
+        {
+          "text": "Items",
+          "start": 2.08,
+          "end": 2.4
+        },
+        {
+          "text": "go",
+          "start": 2.48,
+          "end": 2.56
+        },
+        {
+          "text": "into",
+          "start": 2.64,
+          "end": 2.88
+        },
+        {
+          "text": "whatever",
+          "start": 3.08,
+          "end": 3.28
+        },
+        {
+          "text": "bin",
+          "start": 3.4,
+          "end": 3.52
+        },
+        {
+          "text": "has",
+          "start": 3.6,
+          "end": 3.76
+        },
+        {
+          "text": "space.",
+          "start": 3.84,
+          "end": 4.8
+        }
+      ],
+      "end": 4.8
+    },
+    {
+      "id": "track",
+      "file": "audio/vo/track.mp3",
+      "text": "Risky? Not really. Computers track the exact bin of every single item.",
+      "words": [
+        {
+          "text": "Risky?",
+          "start": 0,
+          "end": 0.96
+        },
+        {
+          "text": "Not",
+          "start": 1.08,
+          "end": 1.2
+        },
+        {
+          "text": "really.",
+          "start": 1.28,
+          "end": 2.08
+        },
+        {
+          "text": "Computers",
+          "start": 2.16,
+          "end": 2.64
+        },
+        {
+          "text": "track",
+          "start": 2.72,
+          "end": 2.96
+        },
+        {
+          "text": "the",
+          "start": 3.04,
+          "end": 3.12
+        },
+        {
+          "text": "exact",
+          "start": 3.2,
+          "end": 3.68
+        },
+        {
+          "text": "bin",
+          "start": 3.76,
+          "end": 4
+        },
+        {
+          "text": "of",
+          "start": 4.08,
+          "end": 4.32
+        },
+        {
+          "text": "every",
+          "start": 4.4,
+          "end": 4.72
+        },
+        {
+          "text": "single",
+          "start": 4.88,
+          "end": 5.04
+        },
+        {
+          "text": "item.",
+          "start": 5.12,
+          "end": 5.84
+        }
+      ],
+      "end": 5.84
+    },
+    {
+      "id": "spread",
+      "file": "audio/vo/spread.mp3",
+      "text": "Here's the clever part. The same product sits in many bins, so the system grabs whichever copy is closest. Less travel, faster orders.",
+      "words": [
+        {
+          "text": "Here's",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "the",
+          "start": 0.32,
+          "end": 0.4
+        },
+        {
+          "text": "clever",
+          "start": 0.48,
+          "end": 0.8
+        },
+        {
+          "text": "part.",
+          "start": 0.96,
+          "end": 1.6
+        },
+        {
+          "text": "The",
+          "start": 1.72,
+          "end": 1.84
+        },
+        {
+          "text": "same",
+          "start": 1.96,
+          "end": 2.08
+        },
+        {
+          "text": "product",
+          "start": 2.16,
+          "end": 2.56
+        },
+        {
+          "text": "sits",
+          "start": 2.64,
+          "end": 2.8
+        },
+        {
+          "text": "in",
+          "start": 2.88,
+          "end": 3.12
+        },
+        {
+          "text": "many",
+          "start": 3.24,
+          "end": 3.36
+        },
+        {
+          "text": "bins,",
+          "start": 3.44,
+          "end": 4.187
+        },
+        {
+          "text": "so",
+          "start": 4.293,
+          "end": 4.4
+        },
+        {
+          "text": "the",
+          "start": 4.48,
+          "end": 4.56
+        },
+        {
+          "text": "system",
+          "start": 4.76,
+          "end": 4.96
+        },
+        {
+          "text": "grabs",
+          "start": 5.04,
+          "end": 5.36
+        },
+        {
+          "text": "whichever",
+          "start": 5.493,
+          "end": 5.76
+        },
+        {
+          "text": "copy",
+          "start": 5.92,
+          "end": 6.08
+        },
+        {
+          "text": "is",
+          "start": 6.16,
+          "end": 6.32
+        },
+        {
+          "text": "closest.",
+          "start": 6.8,
+          "end": 7.32
+        },
+        {
+          "text": "Less",
+          "start": 7.36,
+          "end": 7.6
+        },
+        {
+          "text": "travel,",
+          "start": 7.92,
+          "end": 8.28
+        },
+        {
+          "text": "faster",
+          "start": 8.32,
+          "end": 8.72
+        },
+        {
+          "text": "orders.",
+          "start": 8.8,
+          "end": 9.68
+        }
+      ],
+      "end": 9.68
+    },
+    {
+      "id": "benefits",
+      "file": "audio/vo/benefits.mp3",
+      "text": "It can even keep look-alike items apart, so pickers don't grab the wrong one.",
+      "words": [
+        {
+          "text": "It",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "can",
+          "start": 0.24,
+          "end": 0.32
+        },
+        {
+          "text": "even",
+          "start": 0.4,
+          "end": 0.64
+        },
+        {
+          "text": "keep",
+          "start": 0.76,
+          "end": 0.88
+        },
+        {
+          "text": "look-alike",
+          "start": 0.96,
+          "end": 1.36
+        },
+        {
+          "text": "items",
+          "start": 1.44,
+          "end": 1.76
+        },
+        {
+          "text": "apart,",
+          "start": 1.88,
+          "end": 2.56
+        },
+        {
+          "text": "so",
+          "start": 2.64,
+          "end": 2.8
+        },
+        {
+          "text": "pickers",
+          "start": 2.88,
+          "end": 3.2
+        },
+        {
+          "text": "don't",
+          "start": 3.28,
+          "end": 3.44
+        },
+        {
+          "text": "grab",
+          "start": 3.52,
+          "end": 3.68
+        },
+        {
+          "text": "the",
+          "start": 3.76,
+          "end": 3.84
+        },
+        {
+          "text": "wrong",
+          "start": 3.96,
+          "end": 4.08
+        },
+        {
+          "text": "one.",
+          "start": 4.16,
+          "end": 4.88
+        }
+      ],
+      "end": 4.88
+    },
+    {
+      "id": "kiva",
+      "file": "audio/vo/kiva.mp3",
+      "text": "In 2012, Amazon bought Kiva Systems for seven hundred seventy-five million dollars. Its robots lift entire shelves and bring them to workers.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "2012,",
+          "start": 0.32,
+          "end": 1.28
+        },
+        {
+          "text": "Amazon",
+          "start": 1.36,
+          "end": 1.76
+        },
+        {
+          "text": "bought",
+          "start": 1.84,
+          "end": 2
+        },
+        {
+          "text": "Kiva",
+          "start": 2.08,
+          "end": 2.32
+        },
+        {
+          "text": "Systems",
+          "start": 2.4,
+          "end": 2.88
+        },
+        {
+          "text": "for",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "text": "seven",
+          "start": 3.36,
+          "end": 3.52
+        },
+        {
+          "text": "hundred",
+          "start": 3.56,
+          "end": 3.92
+        },
+        {
+          "text": "seventy-five",
+          "start": 4,
+          "end": 4.64
+        },
+        {
+          "text": "million",
+          "start": 4.8,
+          "end": 5.2
+        },
+        {
+          "text": "dollars.",
+          "start": 5.32,
+          "end": 6.2
+        },
+        {
+          "text": "Its",
+          "start": 6.24,
+          "end": 6.4
+        },
+        {
+          "text": "robots",
+          "start": 6.48,
+          "end": 6.88
+        },
+        {
+          "text": "lift",
+          "start": 6.96,
+          "end": 7.2
+        },
+        {
+          "text": "entire",
+          "start": 7.4,
+          "end": 7.84
+        },
+        {
+          "text": "shelves",
+          "start": 7.92,
+          "end": 8.32
+        },
+        {
+          "text": "and",
+          "start": 8.4,
+          "end": 8.48
+        },
+        {
+          "text": "bring",
+          "start": 8.56,
+          "end": 8.64
+        },
+        {
+          "text": "them",
+          "start": 8.72,
+          "end": 8.8
+        },
+        {
+          "text": "to",
+          "start": 8.84,
+          "end": 8.88
+        },
+        {
+          "text": "workers.",
+          "start": 8.96,
+          "end": 9.92
+        }
+      ],
+      "end": 9.92
+    },
+    {
+      "id": "million",
+      "file": "audio/vo/million.mp3",
+      "text": "In July 2025, Amazon announced its one millionth robot, plus an AI called DeepFleet that makes them travel ten percent more efficiently.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "July",
+          "start": 0.36,
+          "end": 0.56
+        },
+        {
+          "text": "2025,",
+          "start": 0.72,
+          "end": 1.96
+        },
+        {
+          "text": "Amazon",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "text": "announced",
+          "start": 2.48,
+          "end": 2.88
+        },
+        {
+          "text": "its",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "text": "one",
+          "start": 3.28,
+          "end": 3.6
+        },
+        {
+          "text": "millionth",
+          "start": 3.68,
+          "end": 4.08
+        },
+        {
+          "text": "robot,",
+          "start": 4.16,
+          "end": 4.92
+        },
+        {
+          "text": "plus",
+          "start": 4.96,
+          "end": 5.36
+        },
+        {
+          "text": "an",
+          "start": 5.44,
+          "end": 5.6
+        },
+        {
+          "text": "AI",
+          "start": 5.76,
+          "end": 6.04
+        },
+        {
+          "text": "called",
+          "start": 6.08,
+          "end": 6.4
+        },
+        {
+          "text": "DeepFleet",
+          "start": 6.56,
+          "end": 7.2
+        },
+        {
+          "text": "that",
+          "start": 7.24,
+          "end": 7.28
+        },
+        {
+          "text": "makes",
+          "start": 7.36,
+          "end": 7.52
+        },
+        {
+          "text": "them",
+          "start": 7.6,
+          "end": 7.76
+        },
+        {
+          "text": "travel",
+          "start": 7.96,
+          "end": 8.16
+        },
+        {
+          "text": "ten",
+          "start": 8.24,
+          "end": 8.4
+        },
+        {
+          "text": "percent",
+          "start": 8.64,
+          "end": 8.88
+        },
+        {
+          "text": "more",
+          "start": 8.96,
+          "end": 9.04
+        },
+        {
+          "text": "efficiently.",
+          "start": 9.28,
+          "end": 10.16
+        }
+      ],
+      "end": 10.16
+    },
+    {
+      "id": "outro",
+      "file": "audio/vo/outro.mp3",
+      "text": "So it's not chaos. It's a system.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "it's",
+          "start": 0.24,
+          "end": 0.4
+        },
+        {
+          "text": "not",
+          "start": 0.52,
+          "end": 0.64
+        },
+        {
+          "text": "chaos.",
+          "start": 0.72,
+          "end": 1.68
+        },
+        {
+          "text": "It's",
+          "start": 1.76,
+          "end": 1.88
+        },
+        {
+          "text": "a",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "text": "system.",
+          "start": 2.08,
+          "end": 2.88
+        }
+      ],
+      "end": 2.88
+    }
+  ],
+  "sfx": {
+    "whoosh": "audio/sfx/whoosh.mp3",
+    "swoosh": "audio/sfx/swoosh.mp3",
+    "pop": "audio/sfx/pop.mp3",
+    "thud": "audio/sfx/thud.mp3",
+    "scan": "audio/sfx/scan.mp3",
+    "data": "audio/sfx/data.mp3",
+    "error": "audio/sfx/error.mp3",
+    "ding": "audio/sfx/ding.mp3",
+    "robot": "audio/sfx/robot.mp3",
+    "impact": "audio/sfx/impact.mp3",
+    "riser": "audio/sfx/riser.mp3",
+    "ticker": "audio/sfx/ticker.mp3",
+    "ambience": "audio/sfx/ambience.mp3"
+  },
+  "music": "audio/music.mp3"
+}

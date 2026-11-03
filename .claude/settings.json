@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Read(//Users/newrishav/Desktop/My Projects/Curiously/**)",
+      "Bash(node tracker/scripts/episode.mjs *)",
+      "Bash(npm --prefix video run *)",
+      "Bash(python3 .claude/skills/yt-package/title.py *)",
+      "Bash(tools/earshot/.venv/bin/python -m earshot *)",
+      "Bash(npm run *)",
+      "Bash(npx eslint *)"
+    ],
+    "deny": [
+      "Bash(rm *local.db*)"
+    ]
+  }
+}

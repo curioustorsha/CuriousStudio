@@ -1,0 +1,27 @@
+# Secrets (ElevenLabs onboard, tracker env)
+.env*
+!.env.example
+
+# Dependencies
+node_modules/
+.venv/
+
+# Databases and backups (tracker data stays local / on Turso)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.db.bak*
+tracker/backups/
+
+# Run logs and build output
+tracker/.runs/
+tracker/.next/
+*.tsbuildinfo
+video/out/
+
+# Third-party toolkit with its own repo (github.com/Leonxlnx/earshot)
+tools/earshot/
+
+# OS
+.DS_Store

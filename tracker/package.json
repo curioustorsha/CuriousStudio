@@ -1,0 +1,45 @@
+{
+  "name": "tracker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "setup": "drizzle-kit push --force && tsx scripts/seed.ts",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "seed": "tsx scripts/seed.ts",
+    "typecheck": "next typegen && tsc --noEmit",
+    "service:install": "bash scripts/service.sh install",
+    "service:restart": "bash scripts/service.sh restart",
+    "service:status": "bash scripts/service.sh status",
+    "service:logs": "bash scripts/service.sh logs",
+    "service:uninstall": "bash scripts/service.sh uninstall"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "drizzle-orm": "^0.45.4",
+    "jose": "^6.2.14",
+    "lucide-react": "^1.66.0",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  }
+}

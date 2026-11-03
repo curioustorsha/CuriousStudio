@@ -1,0 +1,47 @@
+{
+  "title": "Why Amazon warehouses look like chaos on purpose",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "scenes": [
+    {
+      "id": "hook",
+      "text": "Amazon's warehouses are a mess. On purpose. A phone case, next to a cookbook, next to a dog toy."
+    },
+    {
+      "id": "stow",
+      "text": "It's called random stow. Items go into whatever bin has space."
+    },
+    {
+      "id": "track",
+      "text": "Risky? Not really. Computers track the exact bin of every single item."
+    },
+    {
+      "id": "spread",
+      "text": "Here's the clever part. The same product sits in many bins, so the system grabs whichever copy is closest. Less travel, faster orders."
+    },
+    {
+      "id": "benefits",
+      "text": "It can even keep look-alike items apart, so pickers don't grab the wrong one."
+    },
+    {
+      "id": "kiva",
+      "text": "In 2012, Amazon bought Kiva Systems for seven hundred seventy-five million dollars. Its robots lift entire shelves and bring them to workers."
+    },
+    {
+      "id": "million",
+      "text": "In July 2025, Amazon announced its one millionth robot, plus an AI called DeepFleet that makes them travel ten percent more efficiently."
+    },
+    {
+      "id": "outro",
+      "text": "So it's not chaos. It's a system."
+    }
+  ],
+  "sources": [
+    "aboutamazon.com \u2014 'all of the inventory at Amazon fulfillment centers is stowed randomly'; robots bring pods to pick stations; items tracked by computers",
+    "Allgor, Cezik & Chen, INFORMS Journal on Applied Analytics, 2023 (Amazon authors) \u2014 picking algorithm chooses which units on which pods to pick to minimise drive travel",
+    "Jeff Toister, Amazon FC tour, 2017 \u2014 random locations let Amazon assign pickers to tight areas, minimising wandering",
+    "US Patent 8,341,040 (Amazon) \u2014 stow management keeps similar items out of the same bin to prevent picker errors",
+    "TechCrunch, 19 Mar 2012 \u2014 Amazon acquires Kiva Systems for $775M in cash",
+    "Amazon, July 2025 \u2014 1 millionth robot deployed (Japan); DeepFleet improves robot fleet travel efficiency by 10%"
+  ]
+}
