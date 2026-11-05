@@ -91,11 +91,11 @@ Open the PNGs with Read and look properly: overlaps with captions, text running 
 ## 5. Render
 
 ```bash
-npm --prefix video run ep:render -- <CODE>      # → video/out/<slug>/final.mp4 (mastered to -14 LUFS) + cover.png
+npm --prefix video run ep:render -- <CODE>      # → video/out/<slug>/final.mp4 (mastered to -14 LUFS) + cover.png. Re-renders only scenes that changed; sound is always redone
 npm --prefix video run ep:measure -- <CODE>     # resolution, fps, length, loudness checks
 npm --prefix video run ep:frames -- <CODE>      # → video/out/<slug>/frames/sheet.jpg, one frame every 2 s
 ```
-Open `sheet.jpg` and do a final pass. Use `ep:render -- <CODE> --draft` for quick half-size checks while iterating.
+Open `sheet.jpg` and do a final pass. Use `ep:render -- <CODE> --draft` for quick half-size checks while iterating. If reused scenes ever look wrong, `ep:render -- <CODE> --full` renders every frame in one pass.
 
 ## 6. Notes for the reviewer
 

@@ -19,6 +19,8 @@ export const series = sqliteTable("series", {
   format: text("format").notNull().default("video"),
   // Visual style the storyboard and animation/design skills follow (a key from VISUAL_STYLES in lib/styles.ts).
   visualStyle: text("visual_style").notNull().default(""),
+  // Target length of a video episode in seconds. Carousels have no spoken length and ignore it.
+  targetSeconds: integer("target_seconds").notNull().default(60),
   ...timestamps,
 });
 
@@ -40,7 +42,6 @@ export const episodes = sqliteTable("episodes", {
   keyPoints: text("key_points").notNull().default(""),
   visualIdeas: text("visual_ideas").notNull().default(""),
   tags: text("tags").notNull().default(""),
-  targetSeconds: integer("target_seconds").notNull().default(60),
 
   // Research → Storyboard
   research: text("research").notNull().default(""),
@@ -131,6 +132,9 @@ export const feedback = sqliteTable("feedback", {
   body: text("body").notNull(),
   author: text("author").notNull(),
   addressedIn: integer("addressed_in"), // version that answered it; null = still open
+  // Pinned notes: the moment in the render a reviewer tapped, and the scene that moment falls in.
+  atSec: real("at_sec"),
+  scene: text("scene"),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 });
 

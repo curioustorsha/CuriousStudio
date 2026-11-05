@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   BarChart3,
   CalendarClock,
   CalendarDays,
@@ -39,6 +40,61 @@ const NAV = [
   { href: "/series", label: "Series", icon: <Layers {...iconProps} /> },
   { href: "/usage", label: "AI Usage", icon: <Gauge {...iconProps} /> },
 ];
+
+// Lucide ships no brand logos, so these three are inline.
+const brandIcon = { className: "size-[17px]", viewBox: "0 0 24 24", "aria-hidden": true };
+
+const CHANNELS = [
+  {
+    href: "https://studio.youtube.com",
+    label: "YouTube Studio",
+    title: "Sign in as projectcuriositystar@gmail.com",
+    icon: (
+      <svg {...brandIcon} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinejoin="round">
+        <rect x="2" y="5" width="20" height="14" rx="4" />
+        <path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
+    href: "https://www.instagram.com/proj_curiosity/",
+    label: "Instagram",
+    title: "@proj_curiosity",
+    icon: (
+      <svg {...brandIcon} fill="none" stroke="currentColor" strokeWidth={1.8}>
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+  },
+  {
+    href: "https://www.tiktok.com/@proj_curiosity",
+    label: "TikTok",
+    title: "@proj_curiosity",
+    icon: (
+      <svg {...brandIcon} fill="currentColor">
+        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+      </svg>
+    ),
+  },
+];
+
+function ChannelLink({ channel }: { channel: (typeof CHANNELS)[number] }) {
+  return (
+    <a
+      href={channel.href}
+      target="_blank"
+      rel="noreferrer"
+      title={channel.title}
+      className="flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-[9px] px-2.5 py-[7px] text-[13px] font-medium text-fg/80 transition-colors hover:bg-fg/[0.06]"
+    >
+      <span className="text-accent">{channel.icon}</span>
+      <span className="flex-1">{channel.label}</span>
+      <ArrowUpRight className="size-3.5 text-faint" strokeWidth={1.8} aria-label="Opens in a new tab" />
+    </a>
+  );
+}
 
 const SKILL_ICONS: Record<string, React.ReactNode> = {
   research: <Search {...iconProps} />,
@@ -82,6 +138,14 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
               </NavLink>
             ))}
           </nav>
+
+          <NavSection id="channels" label="Channels">
+            <nav className="space-y-0.5">
+              {CHANNELS.map((channel) => (
+                <ChannelLink key={channel.href} channel={channel} />
+              ))}
+            </nav>
+          </NavSection>
 
           {tree.stages.length > 0 && (
             <NavSection id="skills" label="Skills">
@@ -155,6 +219,9 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
               <NavLink key={skill.name} href={`/skills/${skill.name}`} icon={SKILL_ICONS[skill.name] ?? <Sparkles {...iconProps} />}>
                 {skillLabel(skill)}
               </NavLink>
+            ))}
+            {CHANNELS.map((channel) => (
+              <ChannelLink key={channel.href} channel={channel} />
             ))}
           </nav>
           <main className="flex-1 px-5 py-7 md:px-10 md:py-10">{children}</main>

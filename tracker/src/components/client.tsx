@@ -1,13 +1,13 @@
 "use client";
 
-import { ChevronRight, Circle, CircleCheck, Monitor, Moon, Sun, TriangleAlert } from "lucide-react";
+import { ChevronRight, Circle, CircleCheck, Monitor, Moon, Sparkles, Sun, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useActionState, useEffect, useState, useSyncExternalStore, useTransition } from "react";
+import { useActionState, useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { useFormStatus } from "react-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { saveApiKeyAction, toggleChecklistAction } from "@/app/actions";
+import { fillIdeasAction, saveApiKeyAction, toggleChecklistAction } from "@/app/actions";
 import type { checklistItems } from "@/lib/stages";
 import { useDialog } from "./Dialog";
 
@@ -247,6 +247,11 @@ export function RunWatcher({ seconds = 3 }: { seconds?: number }) {
 
 // ── Forms ─────────────────────────────────────────────────────────────
 
+/** A select that applies its filter as soon as it changes, by submitting the form it sits in. */
+export function AutoSubmitSelect(props: React.ComponentProps<"select">) {
+  return <select {...props} onChange={(event) => event.currentTarget.form?.requestSubmit()} />;
+}
+
 export function SubmitButton({
   children,
   className = "btn btn-primary",
@@ -289,6 +294,55 @@ export function SubmitButton({
     >
       {mine ? pendingText : children}
     </button>
+  );
+}
+
+/**
+ * Fills ideas' empty fields with AI. Give `id` for one idea, or `formId` for the Ideas list, whose ticked checkboxes
+ * name that form. Everything it writes can be edited afterwards, and it never replaces what's already there.
+ */
+export function FillIdeasButton({ id, formId, label }: { id?: number; formId?: string; label: string }) {
+  const [state, action, pending] = useActionState(fillIdeasAction, undefined);
+  return (
+    <form id={formId} action={action} className="flex flex-wrap items-center gap-x-3 gap-y-1">
+      {id !== undefined && <input type="hidden" name="ids" value={id} />}
+      <button className="btn btn-sm whitespace-nowrap" disabled={pending}>
+        <Sparkles className="size-3.5" strokeWidth={2} /> {pending ? "Filling…" : label}
+      </button>
+      {state && !pending && <span role="status" className={`text-xs ${state.failed ? "text-danger" : "text-muted"}`}>{state.message}</span>}
+    </form>
+  );
+}
+
+/** Ticks or clears every row checkbox of a form, which on the Ideas list means every idea the filters show. `syncKey` changes when those rows do. */
+export function SelectAllIdeas({ formId, syncKey }: { formId: string; syncKey: string }) {
+  const box = useRef<HTMLInputElement>(null);
+  const rows = () => [...document.querySelectorAll<HTMLInputElement>(`input[type=checkbox][name=ids][form="${formId}"]`)];
+
+  useEffect(() => {
+    const sync = () => {
+      const all = rows();
+      const ticked = all.filter((r) => r.checked).length;
+      if (!box.current) return;
+      box.current.disabled = all.length === 0;
+      box.current.checked = all.length > 0 && ticked === all.length;
+      box.current.indeterminate = ticked > 0 && ticked < all.length;
+    };
+    sync();
+    document.addEventListener("change", sync);
+    return () => document.removeEventListener("change", sync);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formId, syncKey]);
+
+  return (
+    <input
+      ref={box}
+      type="checkbox"
+      aria-label="Select all ideas shown"
+      title="Select all ideas shown"
+      className="check-round block"
+      onChange={(e) => rows().forEach((r) => (r.checked = e.target.checked))}
+    />
   );
 }
 

@@ -96,13 +96,18 @@ function SeriesForm({ series, count }: { series?: Series; count?: number }) {
           <p className="mt-1 text-[11px] text-faint">The make skill follows this style&apos;s rules.</p>
         </div>
       </div>
+      <div className="sm:max-w-[calc(50%-6px)]">
+        <label className="label">Target length (seconds)</label>
+        <input type="number" name="targetSeconds" defaultValue={series?.targetSeconds ?? 60} min={10} max={180} required className="input" />
+        <p className="mt-1 text-[11px] text-faint">Applies to every video in this series. Carousels ignore it.</p>
+      </div>
       <div>
         <label className="label">What it is</label>
         <textarea name="description" defaultValue={series?.description} rows={2} className="input" />
       </div>
       <MarkdownField
         name="formatNotes"
-        label="Playbook: structure, length, depth, tone, visuals, links between episodes"
+        label="Playbook: structure, depth, tone, visuals, links between episodes"
         defaultValue={series?.formatNotes ?? ""}
         rows={14}
         hint="Every skill reads this before working on the series. Series rules live here, so a new series needs only a playbook."

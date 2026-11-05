@@ -108,13 +108,19 @@ export async function startRun(actor: string, episodeId: number) {
   // Say plainly why this run exists, so a re-run after an upstream change needs no comments from the reviewer.
   const history = await getReviewHistory(episodeId);
   const upstream = staleStages(history.revisions)[stage.key];
-  const openNotes = history.feedback.filter((f) => f.stage === stage.key && f.addressedIn === null).length;
+  const open = history.feedback.filter((f) => f.stage === stage.key && f.addressedIn === null);
+  const openNotes = open.length;
+  const pinnedScenes = [...new Set(open.map((f) => f.scene).filter(Boolean))];
+  const allPinned = openNotes > 0 && open.every((f) => f.atSec !== null);
   const latest = history.revisions.filter((r) => r.stage === stage.key).at(-1);
   const why = [
     latest && upstream
       ? `${getStage(upstream).label} has changed since ${stage.label} v${latest.version}: redo this stage's work in full against the updated ${getStage(upstream).label} (don't reuse old verdicts or plans that depended on the old version).`
       : "",
     openNotes ? `There ${openNotes === 1 ? "is 1 open review note" : `are ${openNotes} open review notes`} for this stage: apply them.` : "",
+    allPinned && !upstream
+      ? `Every note is pinned to a moment in the render${pinnedScenes.length ? ` (scenes: ${pinnedScenes.join(", ")})` : ""}: this is a scene-scoped re-run. Follow "Pinned notes" in the make skill and leave every other scene alone.`
+      : "",
     latest && !upstream && !openNotes ? `This is a re-run of ${stage.label} (v${latest.version} exists) with no new notes: check it again from the current inputs.` : "",
   ].filter(Boolean);
   const prompt = [
@@ -225,7 +231,7 @@ export async function backfillUsage() {
   for (const r of rows) await saveUsage(r.id);
 }
 
-async function activeRun(episodeId: number) {
+export async function activeRun(episodeId: number) {
   const [run] = await db
     .select()
     .from(runs)

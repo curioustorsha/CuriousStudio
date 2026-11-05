@@ -13,7 +13,7 @@ Plan every scene of the video before anything is built, so the build is mechanic
 node tracker/scripts/episode.mjs get <CODE>
 ```
 
-Run from the Curiously project root. Read `script` (lines like `**hook:** …`, plus the facts table and "Say it right"), `factcheck` (its script fixes must already be in the script; if they aren't, flag it in the checklist), `research` (facts F1… and visual ideas), `visualIdeas`, `title`, `series.formatNotes`, `series.format`, `series.visualStyle`, `targetSeconds`.
+Run from the Curiously project root. Read `script` (lines like `**hook:** …`, plus the facts table and "Say it right"), `factcheck` (its script fixes must already be in the script; if they aren't, flag it in the checklist), `research` (facts F1… and visual ideas), `visualIdeas`, `title`, `series.formatNotes`, `series.format`, `series.visualStyle`, `series.targetSeconds`.
 
 `series.format` is `video` (sections 2–3) or `carousel` (section 3b instead). `series.visualStyle` names the style to plan in (section 2b).
 

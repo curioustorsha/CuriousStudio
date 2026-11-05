@@ -5,7 +5,7 @@ description: Write the voiceover script (or, for a carousel series, the slide co
 
 # Script stage
 
-Write a voiceover script of the episode's `targetSeconds` (the series playbook gives the usual length), built only from the approved research, then have it fact-checked before you submit. A person reviews the script and the fact-check together and either moves the episode to Make or requests changes, which brings you back here for the next version.
+Write a voiceover script of the series' target length (`series.targetSeconds`), built only from the approved research, then have it fact-checked before you submit. A person reviews the script and the fact-check together and either moves the episode to Make or requests changes, which brings you back here for the next version.
 
 ## 1. Load the episode
 
@@ -15,7 +15,7 @@ node tracker/scripts/episode.mjs get <CODE>
 
 Run from the Curiously project root. Read:
 - **Research:** `research` (the one insight, facts F1…Fn, story beats, the "Don't say" list) and `sources`.
-- **Idea:** `title`, `hook`, `audience`, `targetSeconds`.
+- **Idea:** `title`, `hook`, `audience`. The target length is `series.targetSeconds`.
 - **Series:** `series.formatNotes`. Follow its structure. `series.format` is `video` (a spoken script, sections 2–5) or `carousel` (slide copy, section 5b instead of 2 and 5).
 - **Revision context:** `review.openFeedback` entries with `stage: "script"`, and the current `script` (previous version).
 - **Direction for v1:** open notes with `stage: "script"` and no `version` were written before the first version: they're the team's brief. "Build the script around these research facts" lists the facts they picked. Those facts are the backbone: give each one real time in the script. Use other facts only where the story needs them to make sense, and say in "Changes in this version" how each picked fact was used (or why one couldn't fit).
@@ -32,7 +32,7 @@ This is spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and 
 
 - **Hook in the first line.** It has to stop the scroll in 2 seconds: a surprising claim, a visible contradiction, or a question the viewer already has. No "Have you ever wondered".
 - **One takeaway:** the research's one insight. Cut anything that doesn't serve it, however interesting.
-- **Length:** about `targetSeconds × 2.3` words (≈140 for 60s), never over `targetSeconds × 2.5`. The visuals need breathing room.
+- **Length:** about `series.targetSeconds × 2.3` words (≈140 for 60s), never over `series.targetSeconds × 2.5`. The visuals need breathing room.
 - **Short spoken sentences.** One idea each. Contractions are fine. Write numbers the way they should be said: "seven hundred seventy-five million dollars"; years as digits.
 - **Ending:** loops back to the hook or lands the payoff in one line. No "like and subscribe".
 - **Tone:** curious, calm, confident. Explain jargon or drop it.
@@ -49,7 +49,7 @@ This is spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and 
 
 **Go one level deeper, every series.** Every script carries the research's "Technical layer": a viewer should learn one real mechanism and its proper name, not only what happened. The series playbook (`series.formatNotes`) says what that means here and how the episode links to others. For Claude Lab that means lesson rules: teach only this lesson, use the earlier lessons' terms, and close with a tease for the next one. Follow those rules exactly.
 
-**Name the mechanism.** Include at least one concept from the research's "Technical layer" by its real name (the playbook gives examples for the series), explained in one plain line through the story, so viewers learn the term. A short worked calculation is good when the research has one: say the inputs, the result and what it means. Words like "say" or "roughly" mark any input from the Assumptions list, and the table lists A-numbers next to F-numbers. If the depth pushes the script past the word limit, cut a weaker beat first. If it still doesn't fit, say so under "Needs research" and suggest a longer `targetSeconds` instead of rushing the read.
+**Name the mechanism.** Include at least one concept from the research's "Technical layer" by its real name (the playbook gives examples for the series), explained in one plain line through the story, so viewers learn the term. A short worked calculation is good when the research has one: say the inputs, the result and what it means. Words like "say" or "roughly" mark any input from the Assumptions list, and the table lists A-numbers next to F-numbers. If the depth pushes the script past the word limit, cut a weaker beat first. If it still doesn't fit, say so under "Needs research" and flag that it needs a longer series target or a narrower topic instead of rushing the read. Only a person changes the target, on the Series page.
 
 ## 4. Remove AI tells
 

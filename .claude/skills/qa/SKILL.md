@@ -21,6 +21,8 @@ Run from the Curiously project root. Read `script`, `factcheck`, `storyboard`, `
 
 **Revision:** on a re-run after fixes, re-check everything and say for each issue in the previous report whether it's fixed.
 
+**Pinned-note re-run** (make says every note was pinned and only some scenes changed): run section 2, then `ep:frames` and check the sheet plus the frames inside the changed scenes and across their cuts. Skip the listen-back and scorecard unless narration, music or a sound effect changed; if a sound changed, run `earshot measure` on the video. In the report, name the scenes checked and say that the rest was carried over from the previous version.
+
 ## 2. Technical
 
 ```bash

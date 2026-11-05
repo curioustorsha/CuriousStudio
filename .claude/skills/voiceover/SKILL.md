@@ -64,7 +64,7 @@ npm --prefix video run ep:stt -- <CODE>
 
 It transcribes every clip with Scribe and lists the differences from the text. Judge each one: "2012" heard as "twenty twelve" is fine; "store" for "stow", a dropped word, or a wrong name is not. For a real problem, add or adjust `say` for that scene and regenerate only it. Run at most two rounds; report whatever is left.
 
-Also check the length: the manifest (`video/src/episodes/<slug>/manifest.json`) has each line's `end` in seconds. The total should land near `targetSeconds` (minus ~3 s for the logo).
+Also check the length: the manifest (`video/src/episodes/<slug>/manifest.json`) has each line's `end` in seconds. The total should land near `series.targetSeconds` (minus ~3 s for the logo).
 
 ## 5. Preview
 

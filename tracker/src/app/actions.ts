@@ -6,7 +6,8 @@ import { redirect } from "next/navigation";
 import { comments, db, episodes, series } from "@/db";
 import { checkCredentials, endSession, requireUser, startSession } from "@/lib/auth";
 import * as ep from "@/lib/episodes";
-import { startRun, stopRun } from "@/lib/runner";
+import { fillIdeas, MAX_SELECTED } from "@/lib/ideaFill";
+import { activeRun, startRun, stopRun } from "@/lib/runner";
 import { saveSkill } from "@/lib/skills";
 import { getStage, isFormat, isStage, stepStage } from "@/lib/stages";
 import { isVisualStyle } from "@/lib/styles";
@@ -75,6 +76,56 @@ export async function approveStageAction(id: number, formData: FormData) {
 export async function sendBackAction(id: number) {
   const user = await requireUser();
   await ep.sendBack(user.username, id);
+  refreshAll();
+}
+
+/** Stops anything still running on the episode, so it doesn't keep spending after the delete, then removes it and all its tracker data. */
+async function removeEpisode(actor: string, id: number) {
+  const [row] = await db.select().from(episodes).where(eq(episodes.id, id));
+  if (!row) return false;
+  const active = await activeRun(id);
+  if (active) await stopRun(actor, active.id);
+  await db.delete(episodes).where(eq(episodes.id, id));
+  await ep.logActivity(actor, `deleted ${row.code} “${row.title}”`);
+  return true;
+}
+
+/** Deletes from the Ideas list, at any stage, and stays on the list. */
+export async function deleteIdeaAction(id: number) {
+  const user = await requireUser();
+  await removeEpisode(user.username, id);
+  refreshAll();
+}
+
+export async function fillIdeasAction(_prev: { message: string; failed: boolean } | undefined, formData: FormData) {
+  const user = await requireUser();
+  const ids = [...new Set(formData.getAll("ids").map(Number).filter(Number.isInteger))];
+  if (!ids.length) return { message: "Tick at least one idea first.", failed: true };
+  if (ids.length > MAX_SELECTED) return { message: `Tick up to ${MAX_SELECTED} ideas at a time.`, failed: true };
+  const results = await fillIdeas(user.username, ids);
+  refreshAll();
+  const failures = results.filter((r) => r.error);
+  const done = results.filter((r) => r.filled > 0).length;
+  const skipped = results.length - failures.length - done;
+  const parts = [
+    done ? `Filled ${done} ${done === 1 ? "idea" : "ideas"}.` : "",
+    skipped ? `Skipped ${skipped}: already filled or past the Idea stage.` : "",
+    ...failures.map((r) => `${r.code}: ${r.error}.`),
+  ];
+  return { message: parts.filter(Boolean).join(" "), failed: failures.length > 0 };
+}
+
+export async function addPinnedNoteAction(id: number, atSec: number, body: string) {
+  const user = await requireUser();
+  const text = body.trim();
+  if (!text || !Number.isFinite(atSec) || atSec < 0) return;
+  await ep.addPinnedNote(user.username, id, atSec, text);
+  refreshAll();
+}
+
+export async function deletePinnedNoteAction(noteId: number) {
+  const user = await requireUser();
+  await ep.deletePinnedNote(user.username, noteId);
   refreshAll();
 }
 
@@ -151,10 +202,7 @@ export async function toggleChecklistAction(id: number, key: string, checked: bo
 
 export async function deleteEpisodeAction(id: number) {
   const user = await requireUser();
-  const [row] = await db.select().from(episodes).where(eq(episodes.id, id));
-  if (!row) return;
-  await db.delete(episodes).where(eq(episodes.id, id));
-  await ep.logActivity(user.username, `deleted ${row.code} “${row.title}”`);
+  if (!(await removeEpisode(user.username, id))) return;
   refreshAll();
   redirect("/board");
 }
@@ -181,6 +229,7 @@ export async function saveSeriesAction(formData: FormData) {
     formatNotes: String(formData.get("formatNotes") ?? ""),
     format: isFormat(formData.get("format")) ? String(formData.get("format")) : "video",
     visualStyle: isVisualStyle(formData.get("visualStyle")) ? String(formData.get("visualStyle")) : "",
+    targetSeconds: Math.min(180, Math.max(10, Math.round(Number(formData.get("targetSeconds"))) || 60)),
   };
   if (!values.name || !values.prefix) return;
   if (id) await db.update(series).set(values).where(eq(series.id, id));

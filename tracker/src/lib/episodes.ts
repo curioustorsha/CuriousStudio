@@ -1,6 +1,8 @@
 import "server-only";
 import { and, asc, desc, eq, isNull, like, max, sql } from "drizzle-orm";
 import { activity, db, episodes, feedback, revisions, series, type Episode, type Revision } from "@/db";
+import { episodeScenes, sceneAt } from "@/lib/scenes";
+import { timecode } from "@/lib/timecode";
 import {
   canMove,
   getStage,
@@ -29,7 +31,7 @@ export const TEXT_FIELDS = [
   "postedYt", "postedIg", "postedTiktok", "analyticsNotes",
 ] as const;
 
-export const NUMBER_FIELDS = ["targetSeconds", "views", "likes", "shares", "avgRetention"] as const;
+export const NUMBER_FIELDS = ["views", "likes", "shares", "avgRetention"] as const;
 
 export type EpisodePatch = Partial<
   Pick<Episode, (typeof TEXT_FIELDS)[number] | (typeof NUMBER_FIELDS)[number]> & {
@@ -57,7 +59,6 @@ export function parsePatch(input: Record<string, unknown>): EpisodePatch {
     }
   }
   if (typeof patch.title === "string" && !patch.title.trim()) delete patch.title;
-  if (patch.targetSeconds === null) delete patch.targetSeconds;
 
   if ("stage" in input && isStage(String(input.stage))) patch.stage = String(input.stage);
   if ("priority" in input && (PRIORITIES as readonly string[]).includes(String(input.priority))) {
@@ -87,15 +88,6 @@ export async function logActivity(actor: string, message: string, episodeId?: nu
   await db.insert(activity).values({ actor, message, episodeId: episodeId ?? null });
 }
 
-/** Default target length for a new episode, by series prefix. How It Scales runs longer for its technical layer. */
-const DEFAULT_SECONDS: Record<string, number> = { HIS: 80 };
-
-async function defaultSeconds(seriesId: number | null) {
-  if (!seriesId) return undefined;
-  const [s] = await db.select({ prefix: series.prefix }).from(series).where(eq(series.id, seriesId));
-  return s ? DEFAULT_SECONDS[s.prefix] : undefined;
-}
-
 async function nextCode(seriesId: number | null) {
   let prefix = "PB";
   if (seriesId) {
@@ -122,7 +114,6 @@ export async function createEpisode(actor: string, input: Record<string, unknown
   const [created] = await db
     .insert(episodes)
     .values({
-      ...(patch.targetSeconds == null ? { targetSeconds: await defaultSeconds(seriesId) } : {}),
       ...patch,
       title,
       seriesId,
@@ -334,6 +325,29 @@ export async function requestChanges(actor: string, id: number, body: string) {
 }
 
 /** Every version and review note for an episode, oldest first. */
+/** A note pinned to a moment in the render, for the next Make run. Filed under Make, whether it's written in Make or Review. */
+export async function addPinnedNote(actor: string, id: number, atSec: number, body: string) {
+  const [ep] = await db.select().from(episodes).where(eq(episodes.id, id));
+  if (!ep) throw new Error("Episode not found");
+  if (ep.stage !== "make" && ep.stage !== "review") throw new Error("Notes can only be pinned while an episode is in Make or Review.");
+  const [{ top }] = await db
+    .select({ top: max(revisions.version) })
+    .from(revisions)
+    .where(and(eq(revisions.episodeId, id), eq(revisions.stage, "make")));
+  const scene = sceneAt(episodeScenes(ep.code), atSec)?.id ?? null;
+  await db.insert(feedback).values({ episodeId: id, stage: "make", version: top ?? null, body, author: actor, atSec, scene });
+  if (ep.stage === "make") await db.update(episodes).set({ readyForReview: false }).where(eq(episodes.id, id));
+  await logActivity(actor, `pinned a note at ${timecode(atSec)}${scene ? ` (${scene})` : ""} on ${ep.code}`, id);
+}
+
+/** Removes a pinned note nobody has acted on yet. Answered notes stay as history. */
+export async function deletePinnedNote(actor: string, noteId: number) {
+  const [note] = await db.select().from(feedback).where(eq(feedback.id, noteId));
+  if (!note || note.atSec === null || note.addressedIn !== null) return;
+  await db.delete(feedback).where(eq(feedback.id, noteId));
+  await logActivity(actor, `removed a pinned note at ${timecode(note.atSec)}`, note.episodeId);
+}
+
 export async function getReviewHistory(episodeId: number) {
   const [revs, notes] = await Promise.all([
     db.select().from(revisions).where(eq(revisions.episodeId, episodeId)).orderBy(asc(revisions.id)),

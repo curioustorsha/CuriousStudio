@@ -4,6 +4,7 @@ import Link from "next/link";
 import { activity, db, episodes, series as seriesTable, type Episode, type Series } from "@/db";
 import { Avatar, Empty, formatDate, PageHeader, PipelineBar, SeriesTag, StageBadge, stageColor, timeAgo } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
+import { runwayWindow, seriesRunway, weeklyPace } from "@/lib/runway";
 import { LAUNCH, READY_FROM, stageIndex, STAGES } from "@/lib/stages";
 
 const YEAR_GOAL = 156; // 3 per week × 52
@@ -43,6 +44,16 @@ export default async function Dashboard() {
   const posted = counts.posted ?? 0;
   const ready = all.filter((e) => stageIndex(e.stage) >= READY_FROM && e.stage !== "posted");
   const inProgress = all.filter((e) => e.stage !== "idea" && stageIndex(e.stage) < READY_FROM);
+  const perWeek = seriesList.reduce((n, s) => n + s.cadenceDays.split(",").filter(Boolean).length, 0);
+  const window = runwayWindow(today);
+  const runways = seriesList.map((s) => ({
+    series: s,
+    ...seriesRunway(s.cadenceDays, all.filter((e) => e.seriesId === s.id), window),
+  }));
+  const need = runways.reduce((n, r) => n + r.need, 0);
+  const banked = runways.reduce((n, r) => n + Math.min(r.ready, r.need), 0);
+  const building = runways.reduce((n, r) => n + r.building, 0);
+  const pace = window.preLaunch ? weeklyPace(need - banked, today, LAUNCH) : null;
   const upcoming = all
     .filter((e) => e.publishDate && e.publishDate >= today && e.stage !== "posted")
     .sort((a, b) => a.publishDate!.localeCompare(b.publishDate!))
@@ -73,7 +84,7 @@ export default async function Dashboard() {
           tint="var(--stage-10)"
           label="Ready to publish"
           value={ready.length}
-          sub={`${(ready.length / 3).toFixed(1)} weeks of runway at 3 per week`}
+          sub={perWeek ? `${(ready.length / perWeek).toFixed(1)} weeks of runway at ${perWeek} per week` : "No publishing days set"}
         />
         <Stat icon={<Clapperboard />} tint="var(--stage-3)" label="In production" value={inProgress.length} sub={`${counts.idea} ideas in the backlog`} />
         <Stat
@@ -112,10 +123,27 @@ export default async function Dashboard() {
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <section className="card p-6 lg:col-span-2">
-          <h2 className="section-title mb-5">Runway by Series</h2>
+          <div className="mb-5">
+            <div className="flex items-baseline justify-between gap-3">
+              <h2 className="section-title">One Month Ahead</h2>
+              <span className="text-[13px] font-semibold tabular-nums">
+                {banked}<span className="font-normal text-faint">/{need} ready</span>
+              </span>
+            </div>
+            <p className="mt-1 text-[13px] text-muted">
+              {banked >= need
+                ? `All ${need} posts up to ${formatDate(window.end, { day: "numeric", month: "long" })} are made. `
+                : window.preLaunch
+                  ? `Make all ${need} posts up to ${formatDate(window.end, { day: "numeric", month: "long" })} by launch. `
+                  : `Keep the next month's ${need} posts made in advance. ${need - banked} still to make. `}
+              {building > 0 && `${building} in progress. `}
+              {banked < need && pace !== null && <span className="font-medium text-fg">That’s about {pace.toFixed(1)} a week.</span>}
+            </p>
+            <p className="mt-1 text-xs text-faint">An episode counts as ready once it reaches Review.</p>
+          </div>
           <div className="space-y-5">
-            {seriesList.map((s) => (
-              <Runway key={s.id} series={s} episodes={all.filter((e) => e.seriesId === s.id)} />
+            {runways.map((r) => (
+              <Runway key={r.series.id} {...r} />
             ))}
             {seriesList.length === 0 && <Empty>Create your series first on the Series page.</Empty>}
           </div>
@@ -229,30 +257,30 @@ function Stat({
   );
 }
 
-function Runway({ series, episodes }: { series: Series; episodes: Episode[] }) {
-  const perWeek = series.cadenceDays.split(",").filter(Boolean).length;
-  const ready = episodes.filter((e) => stageIndex(e.stage) >= READY_FROM && e.stage !== "posted").length;
-  const building = episodes.filter((e) => e.stage !== "idea" && stageIndex(e.stage) < READY_FROM).length;
-  const ideas = episodes.filter((e) => e.stage === "idea").length;
-  const weeks = perWeek ? ready / perWeek : 0;
-  const target = 12; // ~3 months
+function Runway({ series, need, ready, building, ideas, ideasShort }: { series: Series } & ReturnType<typeof seriesRunway>) {
+  const readyPct = need ? Math.min(100, (ready / need) * 100) : 0;
+  const buildingPct = need ? Math.min(100 - readyPct, (building / need) * 100) : 0;
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between text-[13px]">
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-0.5 text-[13px]">
         <SeriesTag series={series} />
         <span className="text-xs text-muted">
-          {perWeek ? (
+          {need ? (
             <>
-              <span className="font-semibold text-fg tabular-nums">{weeks.toFixed(1)}</span> weeks ready
+              <span className="font-semibold text-fg tabular-nums">{ready}/{need}</span> ready
             </>
           ) : (
-            "No cadence set"
+            "No publishing days set"
           )}
-          <span className="text-faint"> · {building} in progress · {ideas} ideas</span>
+          <span className="text-faint"> · {building} in progress · {ideas} {ideas === 1 ? "idea" : "ideas"}</span>
+          {ideasShort > 0 && (
+            <span className="font-medium text-warn"> · needs {ideasShort} more {ideasShort === 1 ? "idea" : "ideas"}</span>
+          )}
         </span>
       </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-panel-2">
-        <div className="h-full rounded-full" style={{ width: `${Math.min(100, (weeks / target) * 100)}%`, background: series.color }} />
+      <div className="flex h-1.5 overflow-hidden rounded-full bg-panel-2">
+        <div className="h-full" style={{ width: `${readyPct}%`, background: series.color }} />
+        <div className="h-full opacity-35" style={{ width: `${buildingPct}%`, background: series.color }} />
       </div>
     </div>
   );

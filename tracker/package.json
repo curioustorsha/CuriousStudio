@@ -19,6 +19,7 @@
     "service:uninstall": "bash scripts/service.sh uninstall"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.5.0",
     "@libsql/client": "^0.18.0",
     "drizzle-orm": "^0.45.4",
     "jose": "^6.2.14",

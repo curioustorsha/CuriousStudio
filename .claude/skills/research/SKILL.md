@@ -16,7 +16,7 @@ node tracker/scripts/episode.mjs get <CODE>
 Run from the Curiously project root. If the tracker isn't reachable, tell the user and stop.
 
 From the JSON, read:
-- **Idea:** `title`, `hook`, `summary`, `whyNow`, `audience`, `keyPoints`, `visualIdeas`, `targetSeconds`.
+- **Idea:** `title`, `hook`, `summary`, `whyNow`, `audience`, `keyPoints`, `visualIdeas`. The target length is `series.targetSeconds`.
 - **Series:** `series.formatNotes` (structure, tone, freshness rules for this series).
 - **Revision context:** `review.openFeedback` entries with `stage: "research"`, plus the current `research` and `sources` (the previous version).
 
@@ -65,7 +65,7 @@ One or two sentences: the single thing a viewer should walk away knowing.
 (Number every fact F1, F2… The script and fact-check refer to these IDs. Label each Primary, Secondary or Reported.)
 
 ## How it works
-A plain explanation pitched for the episode's `targetSeconds` (How It Scales runs about 75–90 s to carry the technical layer). Short paragraphs.
+A plain explanation pitched for `series.targetSeconds`. Short paragraphs.
 
 ## The technical layer
 (Every series.) Each concept or mechanism: its name, one line on what it is, how it shows up in this story, and the facts it rests on. Include any worked maths step by step.
@@ -74,7 +74,7 @@ A plain explanation pitched for the episode's `targetSeconds` (How It Scales run
 (Only if the maths needs one.) **A1.** The assumption and why it's reasonable. Never a fact.
 
 ## Suggested story beats
-Hook → setup → 2–3 beats → payoff, each beat pointing to the facts it uses (F1, F3). Fit the series structure and `targetSeconds`.
+Hook → setup → 2–3 beats → payoff, each beat pointing to the facts it uses (F1, F3). Fit the series structure and `series.targetSeconds`.
 
 ## Visual ideas
 Diagrams, counters, comparisons that would make each beat visible. No emoji.

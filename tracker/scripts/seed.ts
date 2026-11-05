@@ -25,6 +25,7 @@ async function main() {
         cadenceDays: "1",
         format: "video",
         visualStyle: "isometric",
+        targetSeconds: 80,
         description: "Scenario-based system design: how real products survive massive scale.",
         formatNotes: [
           "**Structure:** Hook with the scale problem, show the naive approach failing, explain 2–3 real techniques, end on the payoff insight.",
@@ -40,6 +41,7 @@ async function main() {
         cadenceDays: "3",
         format: "video",
         visualStyle: "flat-metaphor",
+        targetSeconds: 60,
         description: "Claude Code, Cowork, Desktop, skills, notable repos and vibe-coded apps.",
         formatNotes: [
           "**Structure:** Hook with the outcome, explain it in one line, show it working, then how to try it.",
@@ -66,11 +68,11 @@ async function main() {
         prefix: "CS",
         color: "#3ddc97",
         cadenceDays: "4",
-        format: "carousel",
-        visualStyle: "carousel-editorial",
+        format: "video",
+        visualStyle: "flat-metaphor",
         description: "Great Claude skills to look out for: what each one does, a real example, and how to install it.",
         formatNotes: [
-          "**Format:** Carousel, about 7 slides: cover (the hook) → 3–4 skill slides (what it lets you do, an example, when to use it, where to get it) → the short version → follow. Slideshow Short for YouTube.",
+          "**Format:** Narrated vertical Short: hook → 3 skills (what it lets you do, an example, when to use it, where to get it) → the short version → where to get them.",
           "**Vetting:** Recommend only skills you have opened: read the SKILL.md, the licence, the last update and what any scripts do.",
         ].join("\n\n"),
       },

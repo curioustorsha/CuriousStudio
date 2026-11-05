@@ -28,14 +28,18 @@ import {
   updateEpisodeAction,
 } from "@/app/actions";
 import { activity, comments, db, series as seriesTable, type Episode, type Run } from "@/db";
-import { Checklist, Markdown, MarkdownField, SubmitButton } from "@/components/client";
+import { Checklist, FillIdeasButton, Markdown, MarkdownField, SubmitButton } from "@/components/client";
 import { StageFlow } from "@/components/StageFlow";
 import { Avatar, ReadyBadge, StageBadge, timeAgo } from "@/components/ui";
 import { listUsers, requireUser } from "@/lib/auth";
 import { RunCard } from "@/components/RunCard";
+import { TimedReview } from "@/components/TimedReview";
 import { findEpisode, getReviewHistory, parseSendBack, researchFacts, staleStages } from "@/lib/episodes";
 import { busyElsewhere, latestRun } from "@/lib/runner";
+import { emptyIdeaFields, IDEA_FILL_FIELDS } from "@/lib/ideaFields";
+import { episodeScenes } from "@/lib/scenes";
 import { getSkill, PROJECT_DIR } from "@/lib/skills";
+import { timecode } from "@/lib/timecode";
 import { checklistItems, checklistProgress, getStage, isFormat, stageIndex, stagesFor, stepStage, type Format } from "@/lib/stages";
 
 export default async function EpisodePage({ params }: PageProps<"/episodes/[id]">) {
@@ -55,8 +59,9 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
   const users = listUsers();
   const idx = stageIndex(ep.stage);
   const save = updateEpisodeAction.bind(null, ep.id);
-  const seriesFormat = seriesList.find((s) => s.id === ep.seriesId)?.format;
-  const format: Format = isFormat(seriesFormat) ? seriesFormat : "video";
+  const epSeries = seriesList.find((s) => s.id === ep.seriesId);
+  const format: Format = isFormat(epSeries?.format) ? epSeries.format : "video";
+  const targetSeconds = epSeries?.targetSeconds ?? 60;
   const pipeline = stagesFor(format);
 
   return (
@@ -120,14 +125,14 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
         panels={Object.fromEntries(
           pipeline.map((st) => [
             st.key,
-            <StagePanel key={st.key} ep={ep} format={format} stageKey={st.key} review={review} run={run} busy={busy} save={save} />,
+            <StagePanel key={st.key} ep={ep} format={format} targetSeconds={targetSeconds} stageKey={st.key} review={review} run={run} busy={busy} save={save} />,
           ]),
         )}
         sidePanels={Object.fromEntries(
           pipeline.map((st) => [
             st.key,
             <div key={st.key} className="space-y-4">
-              <StageChecklist ep={ep} stageKey={st.key} format={format} staleFrom={staleStages(review.revisions)[st.key]} />
+              <StageChecklist ep={ep} stageKey={st.key} format={format} staleFrom={staleStages(review.revisions)[st.key]} pinnedOpen={openPinned(review).length} />
               <StageHistory stageKey={st.key} review={review} />
             </div>,
           ]),
@@ -181,7 +186,13 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
           </section>
 
           <form action={deleteEpisodeAction.bind(null, ep.id)} className="flex justify-center">
-            <SubmitButton className="btn btn-ghost btn-danger btn-sm" pendingText="Deleting…">
+            <SubmitButton
+              className="btn btn-ghost btn-danger btn-sm"
+              pendingText="Deleting…"
+              confirmText={`Delete ${ep.code}?`}
+              confirmMessage={`“${ep.title}” and all its work will be removed for good.`}
+              confirmLabel="Delete"
+            >
               <Trash2Icon className="size-3.5" strokeWidth={2} /> Delete Episode
             </SubmitButton>
           </form>
@@ -241,9 +252,10 @@ const STAGE_CONTENT: Record<string, (props: TabProps) => React.ReactNode> = {
  * One stage of an episode: its fields (Claude's output lands here), and for the current stage the
  * Run button and the Review box (checklist, one comment box, Request changes / Approve).
  */
-function StagePanel({ ep, format, stageKey, review, run, busy, save }: {
+function StagePanel({ ep, format, targetSeconds, stageKey, review, run, busy, save }: {
   ep: Episode;
   format: Format;
+  targetSeconds: number;
   stageKey: string;
   review: Awaited<ReturnType<typeof getReviewHistory>>;
   run: Run | null;
@@ -265,6 +277,7 @@ function StagePanel({ ep, format, stageKey, review, run, busy, save }: {
   const Content = STAGE_CONTENT[stageKey];
   const sectionNames = stage.fields.map((f) => FIELD_LABELS[f] ?? f);
   const facts = stageKey === "script" && isCurrent ? researchFacts(ep.research) : [];
+  const pinned = openPinned(review);
 
   let status: string;
   if (!isCurrent) status = idx < stageIndex(ep.stage) ? "Done" : "Not started";
@@ -353,7 +366,7 @@ function StagePanel({ ep, format, stageKey, review, run, busy, save }: {
         )}
 
         <div key={ep.updatedAt}>
-          <Content ep={ep} format={format} save={save} />
+          <Content ep={ep} format={format} targetSeconds={targetSeconds} save={save} stageKey={stageKey} pinned={pinned} running={run?.status === "running"} />
         </div>
       </section>
 
@@ -415,6 +428,14 @@ function StagePanel({ ep, format, stageKey, review, run, busy, save }: {
   );
 }
 
+/** Notes pinned to a moment in the render that the next Make run hasn't answered yet. */
+function openPinned(review: Awaited<ReturnType<typeof getReviewHistory>>) {
+  return review.feedback
+    .filter((f) => f.stage === "make" && f.addressedIn === null && f.atSec !== null)
+    .map((f) => ({ id: f.id, atSec: f.atSec as number, scene: f.scene, body: f.body, author: f.author }))
+    .sort((a, b) => a.atSec - b.atSec);
+}
+
 /** A stage's versions and review comments, newest first, in the right column under its checklist. */
 function StageHistory({ stageKey, review }: { stageKey: string; review: Awaited<ReturnType<typeof getReviewHistory>> }) {
   const stage = getStage(stageKey);
@@ -454,6 +475,11 @@ function StageHistory({ stageKey, review }: { stageKey: string; review: Awaited<
               <div className="min-w-0 flex-1">
                 <div className="text-xs">
                   <span className="font-medium">{t.f.author}</span>{" "}
+                  {t.f.atSec !== null && (
+                    <span className="mr-1 rounded-md bg-accent/10 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-accent">
+                      {timecode(t.f.atSec)}{t.f.scene ? ` ${t.f.scene}` : ""}
+                    </span>
+                  )}
                   <span className="text-muted">{t.f.version ? `requested changes on v${t.f.version}` : "gave direction"}</span>{" "}
                   <span className="text-faint">{timeAgo(t.f.createdAt)}</span>
                   <span className={`ml-2 font-medium ${t.f.addressedIn ? "text-ok" : "text-warn"}`}>
@@ -473,7 +499,7 @@ function StageHistory({ stageKey, review }: { stageKey: string; review: Awaited<
 }
 
 /** The stage's own checklist, shown at the top of the right column for whichever stage is open. */
-function StageChecklist({ ep, stageKey, format, staleFrom }: { ep: Episode; stageKey: string; format: Format; staleFrom?: string }) {
+function StageChecklist({ ep, stageKey, format, staleFrom, pinnedOpen }: { ep: Episode; stageKey: string; format: Format; staleFrom?: string; pinnedOpen: number }) {
   const stage = getStage(stageKey);
   const progress = checklistProgress(stageKey, ep.checklist);
   const openChecks = progress.total - progress.done;
@@ -483,6 +509,7 @@ function StageChecklist({ ep, stageKey, format, staleFrom }: { ep: Episode; stag
   const next = isCurrent ? stepStage(stageKey, format) : undefined;
   const prev = isCurrent ? stepStage(stageKey, format, -1) : undefined;
   const proposal = isCurrent ? parseSendBack(ep) : null;
+  const pinnedWaiting = stageKey === "make" || stageKey === "review" ? pinnedOpen : 0;
   return (
     <section className="card p-5">
       <div className="mb-1 flex items-center gap-2">
@@ -518,6 +545,8 @@ function StageChecklist({ ep, stageKey, format, staleFrom }: { ep: Episode; stag
             confirmText={
               proposal
                 ? `${stage.label} says ${getStage(proposal.stage).label} needs changes`
+                : pinnedWaiting > 0
+                  ? `${pinnedWaiting} pinned note${pinnedWaiting === 1 ? "" : "s"} not fixed yet`
                 : staleFrom && stage.skill
                   ? `${stage.label} is out of date`
                   : openChecks > 0
@@ -527,6 +556,8 @@ function StageChecklist({ ep, stageKey, format, staleFrom }: { ep: Episode; stag
             confirmMessage={
               proposal
                 ? `Approve and move to ${next.label} anyway? The fixes won't reach ${getStage(proposal.stage).label}. Use "Send fixes to ${getStage(proposal.stage).label}" instead.`
+                : pinnedWaiting > 0
+                  ? `Approve and move to ${next.label} anyway? The render still has what those notes describe. To fix them, run Make with the notes first.`
                 : staleFrom && stage.skill
                   ? `It was made before ${getStage(staleFrom).label} changed. Approve and move to ${next.label} anyway, or run ${stage.label} again first?`
                   : `Approve ${stage.label} and move to ${next.label} anyway?`
@@ -548,7 +579,29 @@ function StageChecklist({ ep, stageKey, format, staleFrom }: { ep: Episode; stag
   );
 }
 
-type TabProps = { ep: Episode; format: Format; save: (formData: FormData) => Promise<void> };
+type TabProps = {
+  ep: Episode;
+  format: Format;
+  targetSeconds: number;
+  save: (formData: FormData) => Promise<void>;
+  stageKey: string;
+  pinned: ReturnType<typeof openPinned>;
+  running: boolean;
+};
+
+/** The render with its pinned notes. Notes can be added while this stage is the episode's current one and Make isn't running. */
+function PinnedPlayer({ ep, stageKey, pinned, running }: TabProps) {
+  return (
+    <TimedReview
+      episodeId={ep.id}
+      src={fresh(ep, ep.renderUrl)}
+      poster={outFile(ep, "cover.png") ?? undefined}
+      scenes={episodeScenes(ep.code)}
+      notes={pinned}
+      canNote={stageKey === ep.stage && !running}
+    />
+  );
+}
 
 /**
  * A stage's fields. `readOnly` drops the Save button: filled-in notes show as formatted text and change through
@@ -578,7 +631,17 @@ function Field({ label, children, hint }: { label: string; children: React.React
 }
 
 function IdeaTab({ ep, save }: TabProps) {
+  const empty = emptyIdeaFields(ep);
   return (
+    <>
+    {ep.stage === "idea" && empty.length > 0 && (
+      <div className="mb-5 rounded-xl bg-panel-2 px-4 py-3">
+        <FillIdeasButton id={ep.id} label="Fill empty fields with AI" />
+        <p className="mt-1.5 text-xs text-faint">
+          Empty: {empty.map((f) => IDEA_FILL_FIELDS[f].label).join(", ")}. It won’t change what’s already written, and Research checks the facts later.
+        </p>
+      </div>
+    )}
     <TabForm save={save}>
       <Field label="Hook: the first 2 seconds">
         <input name="hook" defaultValue={ep.hook} className="input" placeholder="A line that stops the scroll" />
@@ -594,13 +657,9 @@ function IdeaTab({ ep, save }: TabProps) {
       </div>
       <MarkdownField name="keyPoints" label="Key points to cover" defaultValue={ep.keyPoints} rows={5} />
       <MarkdownField name="visualIdeas" label="Visual ideas" defaultValue={ep.visualIdeas} rows={4} />
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Tags"><input name="tags" defaultValue={ep.tags} className="input" placeholder="Comma separated" /></Field>
-        <Field label="Target length (seconds)">
-          <input type="number" name="targetSeconds" defaultValue={ep.targetSeconds} min={10} max={180} className="input" />
-        </Field>
-      </div>
+      <Field label="Tags"><input name="tags" defaultValue={ep.tags} className="input" placeholder="Comma separated" /></Field>
     </TabForm>
+    </>
   );
 }
 
@@ -620,7 +679,7 @@ function ResearchTab({ ep, save }: TabProps) {
   );
 }
 
-function ScriptTab({ ep, save }: TabProps) {
+function ScriptTab({ ep, targetSeconds, save }: TabProps) {
   return (
     <TabForm save={save} readOnly={Boolean(ep.script)}>
       <MarkdownField
@@ -630,7 +689,7 @@ function ScriptTab({ ep, save }: TabProps) {
         rows={18}
         showWordCount
         placeholder={"**HOOK (0–2s):** …\n\n**SETUP (2–10s):** …\n\n**HOW IT WORKS (10–45s):** …\n\n**PAYOFF (45–55s):** …\n\n**LOOP / CTA (55–60s):** …"}
-        hint={`Target ${ep.targetSeconds}s, about ${Math.round(ep.targetSeconds * 2.5)} words at a natural ElevenLabs pace.`}
+        hint={`Series target ${targetSeconds}s, about ${Math.round(targetSeconds * 2.5)} words at a natural ElevenLabs pace.`}
       />
     </TabForm>
   );
@@ -738,14 +797,16 @@ function VoiceoverTab({ ep, save }: TabProps) {
   );
 }
 
-function AnimationTab({ ep, save }: TabProps) {
+function AnimationTab(props: TabProps) {
+  const { ep, save } = props;
   return (
+    <>
+    {ep.renderUrl ? (
+      <PinnedPlayer {...props} />
+    ) : (
+      <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No render yet. Run Make above (after the storyboard is approved).</p>
+    )}
     <TabForm save={save}>
-      {ep.renderUrl ? (
-        <VideoPlayer ep={ep} src={ep.renderUrl} />
-      ) : (
-        <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No render yet. Run Make above (after the storyboard is approved).</p>
-      )}
       <MarkdownField
         name="renderNotes"
         label="Animation notes"
@@ -757,6 +818,7 @@ function AnimationTab({ ep, save }: TabProps) {
         <input name="renderUrl" defaultValue={ep.renderUrl} className="input font-mono text-[13px]" />
       </Field>
     </TabForm>
+    </>
   );
 }
 
@@ -815,29 +877,46 @@ function DesignTab({ ep, save }: TabProps) {
   );
 }
 
-function ReviewTab({ ep, save }: TabProps) {
+function ReviewTab(props: TabProps) {
+  const { ep, format, save, pinned, stageKey } = props;
   const sheet = outFile(ep, "frames/sheet.jpg");
+  const video = format === "video" && ep.renderUrl;
   return (
-    <TabForm save={save} readOnly={Boolean(ep.reviewReport)}>
-      <SlideGallery ep={ep} />
-      <div className="grid gap-5 md:grid-cols-[340px_1fr]">
-        {ep.renderUrl ? <VideoPlayer ep={ep} src={ep.renderUrl} /> : <p className="text-[13px] text-muted">No render yet.</p>}
-        {sheet && (
-          <div>
-            <div className="label">Every 2 seconds</div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={sheet} alt="Contact sheet of the render" className="w-full rounded-xl" />
+    <>
+      {video && <PinnedPlayer {...props} />}
+      {video && pinned.length > 0 && ep.stage === stageKey && (
+        <form action={moveEpisodeAction.bind(null, ep.id, "make")} className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-warn/10 px-4 py-3">
+          <span className="text-[13px] text-warn">
+            {pinned.length} pinned note{pinned.length === 1 ? "" : "s"} ready. Make will change only {pinned.length === 1 ? "that moment’s scene" : "the scenes they’re in"}.
+          </span>
+          <SubmitButton className="btn btn-primary btn-sm" pendingText="Sending…">
+            <ChevronLeft className="size-3.5" strokeWidth={2.2} /> Send to Make
+          </SubmitButton>
+        </form>
+      )}
+      <div className={video ? "mt-5" : undefined}>
+        <TabForm save={save} readOnly={Boolean(ep.reviewReport)}>
+          <SlideGallery ep={ep} />
+          <div className="grid gap-5 md:grid-cols-[340px_1fr]">
+            {!video && (ep.renderUrl ? <VideoPlayer ep={ep} src={ep.renderUrl} /> : <p className="text-[13px] text-muted">No render yet.</p>)}
+            {sheet && (
+              <div className={video ? "md:col-span-2" : undefined}>
+                <div className="label">Every 2 seconds</div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={sheet} alt="Contact sheet of the render" className="w-full rounded-xl" />
+              </div>
+            )}
           </div>
-        )}
+          <MarkdownField
+            name="reviewReport"
+            label="Review report"
+            defaultValue={ep.reviewReport}
+            rows={12}
+            placeholder="Technical checks, listen-back, visual issues with timestamps."
+          />
+        </TabForm>
       </div>
-      <MarkdownField
-        name="reviewReport"
-        label="Review report"
-        defaultValue={ep.reviewReport}
-        rows={12}
-        placeholder="Technical checks, listen-back, visual issues with timestamps."
-      />
-    </TabForm>
+    </>
   );
 }
 

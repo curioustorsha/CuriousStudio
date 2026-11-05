@@ -34,6 +34,12 @@ Run from the Curiously project root. Read:
 
 **Re-runs with notes:** each open note names what to change (a scene, a line, a slide). Redo only the steps it touches: a voiceover line means re-rendering that scene, and a slide note means re-rendering that slide. Answer every note in "Changes in this version" in the notes of the step you changed. A note that changes the plan itself goes back through the plan pass, so un-tick nothing yourself: say in the report that the plan needs re-approval.
 
+**Pinned notes:** a note in `review.openFeedback` with `at` and `scene` was pinned to that moment of the render by someone watching it. When every open note is pinned, and `review.stale.make` is empty, keep the run small:
+- Read only the named scenes' files, the files they import, and the storyboard rows for those scenes. Skip the storyboard and voiceover steps, and don't re-read the style references, unless a note asks for a new line of narration or a new plan.
+- Change only the named scenes. A note can mean a different scene from the one it's pinned to (a problem that starts earlier, say): change that scene if so, and say why in "Changes in this version".
+- Check the changed scenes with `ep:still -- <CODE> --scene <id>`, then run `ep:render`. It re-renders only what changed and prints which scenes it reused. If a shared file such as `world.tsx` has to change, every scene that imports it re-renders, so prefer a fix inside the scene when it's just as good.
+- Run the **qa** skill's pinned-note checks. Answer each note by its time and scene in "Changes in this version". Resubmit only the fields that changed, plus `reviewReport` and `checks`.
+
 ## 3. Checklist
 
 `review.checklist` items: 0 "Plan approved" (`humanOnly`: never tick it; on the plan pass, add a note on what to look at in the plan), 1 rendered at full size, 2 automatic checks pass, 3 brand end card or slide template applied. On the build pass, tick 1–3 only from the measure results, stills and the QA report. A flagged item with a precise note (scene, timestamp, slide) beats a tick nobody can trust. JSON: `[{ "item": 2, "done": false, "note": "…" }]`.

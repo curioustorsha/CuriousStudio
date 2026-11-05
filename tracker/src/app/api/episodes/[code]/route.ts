@@ -15,6 +15,7 @@ import {
   updateEpisode,
   type CheckUpdate,
 } from "@/lib/episodes";
+import { timecode } from "@/lib/timecode";
 import { checklistItems, isFormat, makeSteps, stagesFor } from "@/lib/stages";
 
 /**
@@ -43,6 +44,7 @@ export async function GET(request: NextRequest, ctx: RouteContext<"/api/episodes
           // "Visual styles" to follow ("isometric", "flat-metaphor", "carousel-editorial"; "" = none set).
           format: s.format,
           visualStyle: s.visualStyle,
+          targetSeconds: s.targetSeconds,
         }
       : null,
     // The stages this episode goes through, in order (the same for every series; Make differs by format).
@@ -53,7 +55,15 @@ export async function GET(request: NextRequest, ctx: RouteContext<"/api/episodes
       versions,
       openFeedback: history.feedback
         .filter((f) => f.addressedIn === null)
-        .map(({ stage, version, body, author, createdAt }) => ({ stage, version, body, author, createdAt })),
+        .map(({ stage, version, body, author, createdAt, atSec, scene }) => ({
+          stage,
+          version,
+          body,
+          author,
+          createdAt,
+          // Set when the note is pinned to a moment in the render: `at` is that moment, `scene` the scene it falls in.
+          ...(atSec === null ? {} : { at: timecode(atSec), scene }),
+        })),
       stale: staleStages(history.revisions),
       // The current stage's checklist. Submit `checks` to tick items and leave notes.
       checklist: checklistItems(ep.stage, ep.checklist),
