@@ -14,7 +14,7 @@ npm run setup                # creates the database + seeds series and starter i
 npm run dev                  # http://localhost:3000
 ```
 
-Logins come from `APP_USERS` in `.env.local` (`username:password,username:password`).
+The first sign-in copies `APP_USERS` from `.env.local` (`username:password,username:password`) into the database as admins. After that, accounts live on the **Users** page and `APP_USERS` is ignored.
 
 ### Always-on at login (macOS)
 
@@ -101,7 +101,7 @@ The loop is the same for every stage:
 2. Review it. To approve, move the card on. To ask for changes, use **Request changes**. The card shows **Changes requested**.
 3. Press **Run again with my notes**. It reads your notes and the previous version, writes the next version, and marks the notes as addressed.
 
-Runs use the Claude Code program from the VS Code extension (or a standalone install, or `CLAUDE_BIN` in `.env.local`) and your Claude login. A run may only read and write files, search and read the web, and call `scripts/episode.mjs` to read and submit the episode. Logs are kept in `.runs/`. Running skills needs the tracker running on this Mac; it won't work from a hosted deploy.
+Runs use the Claude Code program from the VS Code extension (or a standalone install, or `CLAUDE_BIN` in `.env.local`) and your Claude login. A run may only read and write files, search and read the web, and call `scripts/episode.mjs` to read and submit the episode. Logs are kept in `.runs/`. Claude does one job at a time: every run, idea fills included, joins a first-in, first-out queue (see **Queue**). Running skills needs the tracker running on this Mac; it won't work from a hosted deploy.
 
 **Send back with fixes:** any stage skill that finds a problem belonging to an earlier stage (Make spotting a script problem, Publish finding an unusable cover frame) attaches a proposal: the earlier stage plus exact fixes. The stage shows it in a highlighted panel with **Send fixes to …**, the board card shows "Fixes for …", and Approve warns before carrying the problem forward. Sending moves the episode straight back to that stage (several steps if needed) and files the fixes there as a Request Changes note; run that stage again, and the stages after it are flagged out of date. Skills submit `sendBack=@sendback.json` (`{ "stage": "script", "notes": "…" }`) or `sendBack=none`.
 

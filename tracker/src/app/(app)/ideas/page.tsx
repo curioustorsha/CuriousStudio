@@ -1,4 +1,4 @@
-import { ArrowRight, Lightbulb, Plus, Search, Trash2 } from "lucide-react";
+import { ArrowRight, Lightbulb, MessageSquare, Plus, Search, Trash2 } from "lucide-react";
 import Form from "next/form";
 import Link from "next/link";
 import { createEpisodeAction, deleteIdeaAction, moveEpisodeAction } from "@/app/actions";
@@ -6,6 +6,7 @@ import { db, series as seriesTable } from "@/db";
 import { AutoSubmitSelect, FillIdeasButton, SelectAllIdeas, SubmitButton } from "@/components/client";
 import { PageHeader, PriorityDot, ReadyBadge, SeriesTag, StageBadge, timeAgo } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
+import { commentCounts } from "@/lib/comments";
 import { listEpisodes } from "@/lib/episodes";
 import { FORMATS, isStage, PRIORITIES, STAGES } from "@/lib/stages";
 
@@ -26,6 +27,7 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
   const query = param(params.q).trim();
   const filtered = Boolean(seriesId || stage || priority || format || query);
 
+  const counts = await commentCounts();
   const [all, seriesList] = await Promise.all([listEpisodes({ seriesId, stage: stage || undefined }), db.select().from(seriesTable)]);
   const seriesById = new Map(seriesList.map((s) => [s.id, s]));
   const needle = query.toLowerCase();
@@ -147,6 +149,11 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
                           {idea.title}
                         </Link>
                         {idea.readyForReview && <ReadyBadge />}
+                        {!!counts.get(idea.id) && (
+                          <Link href={`/episodes/${idea.id}#feed`} aria-label={`${counts.get(idea.id)} comments on ${idea.code}`} className="flex shrink-0 items-center gap-1 text-xs text-muted hover:text-accent">
+                            <MessageSquare className="size-3" strokeWidth={2} /> {counts.get(idea.id)}
+                          </Link>
+                        )}
                       </div>
                     </td>
                     <td className="truncate px-2 py-2">

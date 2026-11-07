@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, Circle, CircleCheck, Monitor, Moon, Sparkles, Sun, TriangleAlert } from "lucide-react";
+import { ChevronRight, Circle, CircleCheck, Eye, EyeOff, Monitor, Moon, Sparkles, Sun, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useActionState, useEffect, useRef, useState, useSyncExternalStore, useTransition } from "react";
@@ -11,7 +11,7 @@ import { fillIdeasAction, saveApiKeyAction, toggleChecklistAction } from "@/app/
 import type { checklistItems } from "@/lib/stages";
 import { useDialog } from "./Dialog";
 
-export function NavLink({ href, icon, children }: { href: string; icon?: React.ReactNode; children: React.ReactNode }) {
+export function NavLink({ href, icon, badge, badgeLabel, children }: { href: string; icon?: React.ReactNode; badge?: number; badgeLabel?: string; children: React.ReactNode }) {
   const pathname = usePathname();
   const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
   return (
@@ -23,6 +23,11 @@ export function NavLink({ href, icon, children }: { href: string; icon?: React.R
     >
       {icon && <span className={active ? "text-white" : "text-accent"}>{icon}</span>}
       {children}
+      {!!badge && (
+        <span aria-label={`${badge} ${badgeLabel}`} className={`ml-auto rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${active ? "bg-white/25 text-white" : "bg-accent text-white"}`}>
+          {badge}
+        </span>
+      )}
     </Link>
   );
 }
@@ -131,6 +136,164 @@ export function SkillGroup({
 // ── Claude API key ────────────────────────────────────────────────────
 
 /** Paste, replace or remove the Claude API key. The key is never sent back to the browser. */
+export function PasswordInput({ className = "", ...props }: Omit<React.ComponentProps<"input">, "type">) {
+  const [visible, setVisible] = useState(false);
+  const Icon = visible ? EyeOff : Eye;
+  return (
+    <div className="relative w-full">
+      <input {...props} type={visible ? "text" : "password"} className={`${className} pr-10`} />
+      <button
+        type="button"
+        onClick={() => setVisible(!visible)}
+        aria-label={visible ? "Hide password" : "Show password"}
+        title={visible ? "Hide password" : "Show password"}
+        className="absolute inset-y-0 right-0 grid w-10 place-items-center text-muted hover:text-fg"
+      >
+        <Icon className="size-4" strokeWidth={1.8} />
+      </button>
+    </div>
+  );
+}
+
+/** Older notes and history, folded away. Opens itself when a link points at the feed or at a comment inside it. */
+export function FeedDisclosure({ summary, children }: { summary: string; children: React.ReactNode }) {
+  const details = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    const reveal = () => {
+      const { hash } = window.location;
+      if (!details.current || !/^#(feed$|comment-\d+$)/.test(hash)) return;
+      details.current.open = true;
+      document.querySelector(hash)?.scrollIntoView({ block: "center" });
+    };
+    reveal();
+    window.addEventListener("hashchange", reveal);
+    return () => window.removeEventListener("hashchange", reveal);
+  }, []);
+  return (
+    <details ref={details} className="group mt-3">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[13px] font-medium text-muted hover:text-fg [&::-webkit-details-marker]:hidden">
+        <ChevronRight className="size-4 transition-transform group-open:rotate-90" strokeWidth={2} />
+        {summary}
+      </summary>
+      <div className="scroll-thin mt-3 max-h-96 overflow-y-auto p-1.5">{children}</div>
+    </details>
+  );
+}
+
+/** A comment box that suggests people when you type @. */
+export function MentionInput({
+  users,
+  label,
+  placeholder,
+}: {
+  users: { username: string; name: string }[];
+  label: string;
+  placeholder: string;
+}) {
+  const box = useRef<HTMLTextAreaElement>(null);
+  const [query, setQuery] = useState<string | null>(null);
+  const [selected, setSelected] = useState(0);
+  const matches =
+    query === null
+      ? []
+      : users.filter((u) => u.username !== query && (u.username.startsWith(query) || u.name.toLowerCase().startsWith(query))).slice(0, 6);
+
+  const update = () => {
+    const el = box.current;
+    if (!el) return;
+    const typed = el.value.slice(0, el.selectionStart).match(/(?:^|\s)@([a-z0-9_-]*)$/i);
+    setQuery(typed ? typed[1].toLowerCase() : null);
+    setSelected(0);
+  };
+  const choose = (username: string) => {
+    const el = box.current;
+    if (!el || query === null) return;
+    const caret = el.selectionStart;
+    const start = caret - query.length;
+    el.value = `${el.value.slice(0, start)}${username} ${el.value.slice(caret)}`;
+    el.selectionStart = el.selectionEnd = start + username.length + 1;
+    el.focus();
+    setQuery(null);
+  };
+
+  return (
+    <div className="relative">
+      <textarea
+        ref={box}
+        name="body"
+        rows={2}
+        required
+        maxLength={5000}
+        aria-label={label}
+        placeholder={placeholder}
+        className="input text-[13px]"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={matches.length > 0}
+        aria-controls="mention-options"
+        aria-activedescendant={matches.length ? `mention-${matches[selected]?.username}` : undefined}
+        onInput={update}
+        onClick={update}
+        onBlur={() => setQuery(null)}
+        onKeyDown={(e) => {
+          if (!matches.length) return;
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+            setSelected((selected + (e.key === "ArrowDown" ? 1 : matches.length - 1)) % matches.length);
+          } else if (e.key === "Enter" || e.key === "Tab") {
+            e.preventDefault();
+            choose(matches[selected].username);
+          } else if (e.key === "Escape") {
+            setQuery(null);
+          }
+        }}
+      />
+      {matches.length > 0 && (
+        <ul id="mention-options" role="listbox" aria-label="People" className="absolute left-0 z-20 mt-1 w-56 overflow-hidden rounded-xl border border-line bg-panel py-1 shadow-lg">
+          {matches.map((u, i) => (
+            <li
+              key={u.username}
+              id={`mention-${u.username}`}
+              role="option"
+              aria-selected={i === selected}
+              // Keeps the textarea focused so its blur doesn't close this list before the click lands.
+              onMouseDown={(e) => {
+                e.preventDefault();
+                choose(u.username);
+              }}
+              className={`cursor-pointer px-3 py-1.5 text-[13px] ${i === selected ? "bg-accent text-white" : ""}`}
+            >
+              {u.name} <span className={i === selected ? "text-white/70" : "text-faint"}>@{u.username}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+/** A form whose server action reports `{ error }` or `{ ok }` under the fields. */
+export function ResultForm({
+  action,
+  okText = "Saved.",
+  className,
+  children,
+}: {
+  action: (prev: { error?: string; ok?: boolean } | undefined, formData: FormData) => Promise<{ error?: string; ok?: boolean } | undefined>;
+  okText?: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const [state, formAction] = useActionState(action, undefined);
+  return (
+    <form action={formAction} className={className}>
+      {children}
+      {state?.error && <p role="alert" className="text-xs text-danger">{state.error}</p>}
+      {state?.ok && <p role="status" className="text-xs text-ok">{okText}</p>}
+    </form>
+  );
+}
+
 export function ApiKeyForm({ isSet }: { isSet: boolean }) {
   const [state, action, pending] = useActionState(saveApiKeyAction, undefined);
   return (
@@ -307,7 +470,7 @@ export function FillIdeasButton({ id, formId, label }: { id?: number; formId?: s
     <form id={formId} action={action} className="flex flex-wrap items-center gap-x-3 gap-y-1">
       {id !== undefined && <input type="hidden" name="ids" value={id} />}
       <button className="btn btn-sm whitespace-nowrap" disabled={pending}>
-        <Sparkles className="size-3.5" strokeWidth={2} /> {pending ? "Filling…" : label}
+        <Sparkles className="size-3.5" strokeWidth={2} /> {pending ? "Queuing…" : label}
       </button>
       {state && !pending && <span role="status" className={`text-xs ${state.failed ? "text-danger" : "text-muted"}`}>{state.message}</span>}
     </form>
@@ -494,7 +657,7 @@ export function Checklist({
  * A skill's instructions as formatted text (frontmatter hidden). "Edit" opens the full SKILL.md, frontmatter
  * included, and saving rewrites the file. Remount with `key={content}` so it closes again after a save.
  */
-export function SkillInstructions({ content, save }: { content: string; save: (formData: FormData) => Promise<void> }) {
+export function SkillInstructions({ content, save, canEdit }: { content: string; save: (formData: FormData) => Promise<void>; canEdit: boolean }) {
   const [editing, setEditing] = useState(false);
   const body = content.replace(/^---\n[\s\S]*?\n---\n?/, "");
 
@@ -519,13 +682,15 @@ export function SkillInstructions({ content, save }: { content: string; save: (f
   }
   return (
     <div className="relative">
-      <button
-        type="button"
-        onClick={() => setEditing(true)}
-        className="absolute right-0 top-0 text-xs font-medium text-accent hover:opacity-80"
-      >
-        Edit
-      </button>
+      {canEdit && (
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          className="absolute right-0 top-0 text-xs font-medium text-accent hover:opacity-80"
+        >
+          Edit
+        </button>
+      )}
       <Markdown>{body}</Markdown>
     </div>
   );

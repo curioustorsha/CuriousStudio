@@ -10,11 +10,12 @@ type Step = { key: string; label: string; done: number; total: number; state: "d
  * Full-width stage bar for an episode: where it is in the pipeline and each stage's checklist count.
  * Clicking a stage shows that stage's panel. Remount with `key={stage}` so it follows stage moves.
  */
-export function StageFlow({ steps, current, panels, sidePanels, aside }: {
+export function StageFlow({ steps, current, panels, feed, sidePanels, aside }: {
   steps: Step[];
   current: string;
   panels: Record<string, React.ReactNode>;
   /** Per-stage cards at the top of the right column (the stage's checklist). */
+  feed: React.ReactNode;
   sidePanels: Record<string, React.ReactNode>;
   aside: React.ReactNode;
 }) {
@@ -63,6 +64,7 @@ export function StageFlow({ steps, current, panels, sidePanels, aside }: {
 
       <div className="grid gap-6 lg:grid-cols-[7fr_3fr]">
         <div className="min-w-0 space-y-6">
+          {feed}
           {/* All panels stay mounted so unsaved edits survive switching stages */}
           {steps.map((s) => (
             <div key={s.key} hidden={viewing !== s.key} className="space-y-6">

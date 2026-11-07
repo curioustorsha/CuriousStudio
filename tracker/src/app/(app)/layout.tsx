@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   BarChart3,
+  Bell,
   CalendarClock,
   CalendarDays,
   Clapperboard,
@@ -10,9 +11,11 @@ import {
   Gauge,
   Images,
   Mic,
+  MessagesSquare,
   Package,
   FileText,
   Layers,
+  ListOrdered,
   LayoutGrid,
   Lightbulb,
   LogOut,
@@ -20,6 +23,7 @@ import {
   ShieldCheck,
   Sparkles,
   SquareKanban,
+  Users,
   WandSparkles,
 } from "lucide-react";
 import { logout } from "@/app/actions";
@@ -28,18 +32,32 @@ import { DialogProvider } from "@/components/Dialog";
 import { Logo } from "@/components/Logo";
 import { Avatar } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
+import { unreadCount } from "@/lib/comments";
+import { liveJobCount } from "@/lib/runner";
 import { skillLabel, skillTree } from "@/lib/skills";
 
 const iconProps = { className: "size-[17px]", strokeWidth: 1.8 };
 
-const NAV = [
+const WORKSPACE = [
   { href: "/", label: "Dashboard", icon: <LayoutGrid {...iconProps} /> },
   { href: "/ideas", label: "Ideas", icon: <Lightbulb {...iconProps} /> },
   { href: "/board", label: "Pipeline", icon: <SquareKanban {...iconProps} /> },
   { href: "/calendar", label: "Calendar", icon: <CalendarDays {...iconProps} /> },
   { href: "/series", label: "Series", icon: <Layers {...iconProps} /> },
-  { href: "/usage", label: "AI Usage", icon: <Gauge {...iconProps} /> },
 ];
+
+const TEAM = [
+  { href: "/feed", label: "Feed", icon: <MessagesSquare {...iconProps} /> },
+  { href: "/notifications", label: "Notifications", icon: <Bell {...iconProps} />, badgeLabel: "unread" },
+  { href: "/queue", label: "Queue", icon: <ListOrdered {...iconProps} />, badgeLabel: "in the queue" },
+];
+
+const SETTINGS = [
+  { href: "/usage", label: "AI Usage", icon: <Gauge {...iconProps} /> },
+  { href: "/users", label: "Users", icon: <Users {...iconProps} /> },
+];
+
+type NavItem = { href: string; label: string; icon: React.ReactNode; badgeLabel?: string };
 
 // Lucide ships no brand logos, so these three are inline.
 const brandIcon = { className: "size-[17px]", viewBox: "0 0 24 24", "aria-hidden": true };
@@ -116,6 +134,14 @@ const SKILL_ICONS: Record<string, React.ReactNode> = {
 export default async function AppLayout({ children }: LayoutProps<"/">) {
   const user = await requireUser();
   const tree = skillTree();
+  const [unread, jobs] = await Promise.all([unreadCount(user.username), liveJobCount()]);
+  const badges: Record<string, number> = { "/notifications": unread, "/queue": jobs };
+  const navLinks = (items: NavItem[]) =>
+    items.map((item) => (
+      <NavLink key={item.href} href={item.href} icon={item.icon} badge={badges[item.href]} badgeLabel={item.badgeLabel}>
+        {item.label}
+      </NavLink>
+    ));
   const stageSkills = tree.stages.map((s) => s.skill);
 
   return (
@@ -131,21 +157,11 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
           </div>
 
           <div className="mb-1.5 px-2.5 text-[11px] font-semibold text-faint">Workspace</div>
-          <nav className="space-y-0.5">
-            {NAV.map((item) => (
-              <NavLink key={item.href} href={item.href} icon={item.icon}>
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
+          <nav className="space-y-0.5">{navLinks(WORKSPACE)}</nav>
 
-          <NavSection id="channels" label="Channels">
-            <nav className="space-y-0.5">
-              {CHANNELS.map((channel) => (
-                <ChannelLink key={channel.href} channel={channel} />
-              ))}
-            </nav>
-          </NavSection>
+          {/* Not foldable, so the unread and queue counts are always in view. */}
+          <div className="mb-1.5 mt-6 px-2.5 text-[11px] font-semibold text-faint">Team</div>
+          <nav className="space-y-0.5">{navLinks(TEAM)}</nav>
 
           {tree.stages.length > 0 && (
             <NavSection id="skills" label="Skills">
@@ -190,13 +206,25 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
             </NavSection>
           )}
 
+          <NavSection id="channels" label="Channels">
+            <nav className="space-y-0.5">
+              {CHANNELS.map((channel) => (
+                <ChannelLink key={channel.href} channel={channel} />
+              ))}
+            </nav>
+          </NavSection>
+
+          <NavSection id="settings" label="Settings">
+            <nav className="space-y-0.5">{navLinks(SETTINGS)}</nav>
+          </NavSection>
+
         <div className="mt-auto space-y-3 pt-6">
             <ThemeToggle />
             <div className="flex items-center gap-2.5 rounded-xl bg-fg/[0.04] p-2">
               <Avatar username={user.username} size={28} />
               <div className="min-w-0 flex-1 leading-tight">
                 <div className="truncate text-[13px] font-medium">{user.name}</div>
-                <div className="text-[11px] text-muted">Signed in</div>
+                <div className="text-[11px] capitalize text-muted">{user.role}</div>
               </div>
               <form action={logout}>
                 <button className="btn btn-ghost btn-icon" title="Sign out" aria-label="Sign out">
@@ -210,11 +238,7 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
         <div className="flex min-w-0 flex-1 flex-col">
           {/* Compact nav for narrow windows */}
           <nav className="vibrancy scroll-thin sticky top-0 z-10 flex items-center gap-1 overflow-x-auto border-b border-line px-3 py-2 md:hidden">
-            {NAV.map((item) => (
-              <NavLink key={item.href} href={item.href} icon={item.icon}>
-                {item.label}
-              </NavLink>
-            ))}
+            {navLinks([...WORKSPACE, ...TEAM, ...SETTINGS])}
             {stageSkills.map((skill) => (
               <NavLink key={skill.name} href={`/skills/${skill.name}`} icon={SKILL_ICONS[skill.name] ?? <Sparkles {...iconProps} />}>
                 {skillLabel(skill)}
@@ -223,6 +247,11 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
             {CHANNELS.map((channel) => (
               <ChannelLink key={channel.href} channel={channel} />
             ))}
+            <form action={logout} className="shrink-0">
+              <button className="btn btn-ghost btn-sm whitespace-nowrap">
+                <LogOut className="size-4" strokeWidth={1.8} /> Sign out
+              </button>
+            </form>
           </nav>
           <main className="flex-1 px-5 py-7 md:px-10 md:py-10">{children}</main>
         </div>

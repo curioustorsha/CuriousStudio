@@ -1,14 +1,10 @@
-import { desc, eq } from "drizzle-orm";
 import {
-  Activity as ActivityIcon,
   Check,
   ChevronLeft,
   ChevronRight,
   History,
   ListChecks,
-  MessageSquare,
   Play,
-  LoaderCircle,
   Sparkles,
   Trash2Icon,
   TriangleAlert,
@@ -27,15 +23,17 @@ import {
   sendBackAction,
   updateEpisodeAction,
 } from "@/app/actions";
-import { activity, comments, db, series as seriesTable, type Episode, type Run } from "@/db";
-import { Checklist, FillIdeasButton, Markdown, MarkdownField, SubmitButton } from "@/components/client";
+import { db, series as seriesTable, type Episode, type Run } from "@/db";
+import { FeedItems } from "@/components/FeedItems";
+import { Checklist, FeedDisclosure, FillIdeasButton, Markdown, MarkdownField, MentionInput, SubmitButton } from "@/components/client";
 import { StageFlow } from "@/components/StageFlow";
 import { Avatar, ReadyBadge, StageBadge, timeAgo } from "@/components/ui";
 import { listUsers, requireUser } from "@/lib/auth";
+import { loadFeed } from "@/lib/comments";
 import { RunCard } from "@/components/RunCard";
 import { TimedReview } from "@/components/TimedReview";
 import { findEpisode, getReviewHistory, parseSendBack, researchFacts, staleStages } from "@/lib/episodes";
-import { busyElsewhere, latestRun } from "@/lib/runner";
+import { latestRun } from "@/lib/runner";
 import { emptyIdeaFields, IDEA_FILL_FIELDS } from "@/lib/ideaFields";
 import { episodeScenes } from "@/lib/scenes";
 import { getSkill, PROJECT_DIR } from "@/lib/skills";
@@ -48,15 +46,13 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
   const ep = await findEpisode(id);
   if (!ep) notFound();
 
-  const [seriesList, commentList, history, review] = await Promise.all([
+  const [seriesList, feedItems, review] = await Promise.all([
     db.select().from(seriesTable),
-    db.select().from(comments).where(eq(comments.episodeId, ep.id)).orderBy(comments.id),
-    db.select().from(activity).where(eq(activity.episodeId, ep.id)).orderBy(desc(activity.id)).limit(20),
+    loadFeed(ep.id),
     getReviewHistory(ep.id),
   ]);
   const run = await latestRun(ep.id, ep.stage);
-  const busy = await busyElsewhere(getStage(ep.stage).skill, ep.id);
-  const users = listUsers();
+  const users = await listUsers();
   const idx = stageIndex(ep.stage);
   const save = updateEpisodeAction.bind(null, ep.id);
   const epSeries = seriesList.find((s) => s.id === ep.seriesId);
@@ -94,7 +90,8 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
           <Field label="Owner">
             <select name="owner" defaultValue={ep.owner ?? ""} className="input">
               <option value="">Unassigned</option>
-              {users.map((u) => <option key={u.username} value={u.username}>{u.name}</option>)}
+              {/* A disabled owner stays listed, or saving this form would silently unassign them. */}
+              {users.filter((u) => u.active || u.username === ep.owner).map((u) => <option key={u.username} value={u.username}>{u.name}</option>)}
             </select>
           </Field>
           <Field label="Priority">
@@ -125,7 +122,7 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
         panels={Object.fromEntries(
           pipeline.map((st) => [
             st.key,
-            <StagePanel key={st.key} ep={ep} format={format} targetSeconds={targetSeconds} stageKey={st.key} review={review} run={run} busy={busy} save={save} />,
+            <StagePanel key={st.key} ep={ep} format={format} targetSeconds={targetSeconds} stageKey={st.key} review={review} run={run} save={save} />,
           ]),
         )}
         sidePanels={Object.fromEntries(
@@ -137,54 +134,23 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
             </div>,
           ]),
         )}
-        aside={
-        <aside className="space-y-4">
-          <section className="card p-5">
-            <h3 className="mb-4 flex items-center gap-2 text-[15px] font-semibold tracking-tight">
-              <MessageSquare className="size-4 text-accent" strokeWidth={2} /> Team Chat
-            </h3>
-            <p className="-mt-2 mb-4 text-xs leading-relaxed text-muted">
-              Notes between the two of you. Claude doesn’t read these; use the stage’s Review box for that.
-            </p>
-            <div className="space-y-4">
-              {commentList.map((c) => (
-                <div key={c.id} className="flex gap-2.5">
-                  <Avatar username={c.author} size={24} />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs">
-                      <span className="font-medium">{c.author}</span> <span className="text-faint">{timeAgo(c.createdAt)}</span>
-                    </div>
-                    <div className="mt-0.5 rounded-2xl rounded-tl-md bg-panel-2 px-3 py-1.5 text-[13px]">
-                      <Markdown>{c.body}</Markdown>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {commentList.length === 0 && <p className="text-xs text-faint">No comments yet.</p>}
-            </div>
-            <form action={addCommentAction.bind(null, ep.id)} className="mt-4 space-y-2">
-              <textarea name="body" rows={2} className="input text-[13px]" placeholder="Leave a note…" required />
+        feed={
+          <section id="feed" className="card scroll-mt-20 p-5">
+            <form action={addCommentAction.bind(null, ep.id)} className="space-y-2">
+              <MentionInput users={users.filter((u) => u.active)} label="Leave a comment" placeholder="Leave a comment. Type @ to tag someone. Claude doesn’t read these." />
               <div className="flex justify-end">
-                <SubmitButton className="btn btn-sm" pendingText="Posting…">Comment</SubmitButton>
+                <SubmitButton className="btn btn-primary btn-sm" pendingText="Posting…">Post</SubmitButton>
               </div>
             </form>
+            {feedItems.length > 0 && (
+              <FeedDisclosure summary={`Notes and history (${feedItems.length})`}>
+                <FeedItems items={feedItems} usernames={users.map((u) => u.username)} showEpisode={false} />
+              </FeedDisclosure>
+            )}
           </section>
-
-          <section className="card p-5">
-            <h3 className="mb-3 flex items-center gap-2 text-[15px] font-semibold tracking-tight">
-              <ActivityIcon className="size-4 text-accent" strokeWidth={2} /> History
-            </h3>
-            <ul className="space-y-2.5">
-              {history.map((a) => (
-                <li key={a.id} className="flex gap-2 text-xs">
-                  <Avatar username={a.actor} size={16} />
-                  <span className="flex-1 text-muted">{a.message}</span>
-                  <span className="shrink-0 text-faint">{timeAgo(a.createdAt)}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
+        }
+        aside={
+        <aside className="space-y-4">
           <form action={deleteEpisodeAction.bind(null, ep.id)} className="flex justify-center">
             <SubmitButton
               className="btn btn-ghost btn-danger btn-sm"
@@ -252,15 +218,13 @@ const STAGE_CONTENT: Record<string, (props: TabProps) => React.ReactNode> = {
  * One stage of an episode: its fields (Claude's output lands here), and for the current stage the
  * Run button and the Review box (checklist, one comment box, Request changes / Approve).
  */
-function StagePanel({ ep, format, targetSeconds, stageKey, review, run, busy, save }: {
+function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: {
   ep: Episode;
   format: Format;
   targetSeconds: number;
   stageKey: string;
   review: Awaited<ReturnType<typeof getReviewHistory>>;
   run: Run | null;
-  /** Another episode is running this stage's skill, and it may only run one at a time. */
-  busy: { code: string; episodeId: number } | null;
   save: TabProps["save"];
 }) {
   const stage = getStage(stageKey);
@@ -273,6 +237,7 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, busy, sa
   const staleFrom = staleStages(review.revisions)[stageKey];
   const skill = stage.skill ? getSkill(stage.skill) : null;
   const running = isCurrent && run?.status === "running";
+  const queued = isCurrent && run?.status === "queued";
   const proposal = isCurrent ? parseSendBack(ep) : null;
   const Content = STAGE_CONTENT[stageKey];
   const sectionNames = stage.fields.map((f) => FIELD_LABELS[f] ?? f);
@@ -282,6 +247,7 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, busy, sa
   let status: string;
   if (!isCurrent) status = idx < stageIndex(ep.stage) ? "Done" : "Not started";
   else if (running) status = `Claude is writing ${latest ? `v${latest.version + 1}` : "v1"}…`;
+  else if (queued) status = "Waiting in the queue";
   else if (open.length) status = `Changes requested. Run it again to get ${latest ? `v${latest.version + 1}` : "a new version"}.`;
   else if (staleFrom && latest && skill)
     status = `${getStage(staleFrom).label} changed since v${latest.version}. Run ${stage.label} again to update it.`;
@@ -340,17 +306,9 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, busy, sa
 
         {isCurrent && skill && (
           <div className="mb-6 space-y-3">
-            {!running && busy && (
-              <p className="flex items-center gap-2 rounded-xl bg-panel-2 px-3 py-2 text-[13px] text-muted">
-                <LoaderCircle className="size-3.5 animate-spin" strokeWidth={2.2} />
-                {stage.label} is running on{" "}
-                <Link href={`/episodes/${busy.episodeId}`} className="font-medium text-accent">{busy.code}</Link>. Only one{" "}
-                {stage.label.toLowerCase()} runs at a time; you can start this one when it finishes.
-              </p>
-            )}
-            {!running && !busy && (
+            {!running && !queued && (
               <form action={runSkillAction.bind(null, ep.id)}>
-                <SubmitButton className="btn btn-primary" pendingText="Starting…">
+                <SubmitButton className="btn btn-primary" pendingText="Adding to the queue…">
                   <Sparkles className="size-4" strokeWidth={2} />
                   {!latest
                     ? `Run ${stage.label}`

@@ -3,10 +3,10 @@ import { spawn } from "node:child_process";
 import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join } from "node:path";
-import { and, desc, eq, isNull, ne, sql } from "drizzle-orm";
-import { db, episodes, runs, type Run } from "@/db";
+import { and, asc, desc, eq, inArray, isNull, lt, notInArray, sql } from "drizzle-orm";
+import { db, episodes, runs, type Episode, type Run } from "@/db";
 import { getStage } from "./stages";
-import { getReviewHistory, logActivity, staleStages } from "./episodes";
+import { API_ACTOR, getReviewHistory, logActivity, staleStages } from "./episodes";
 import { stageModel } from "./settings";
 import { getSkill, PROJECT_DIR } from "./skills";
 
@@ -61,47 +61,94 @@ export function claudeBin(): string | null {
 
 const logPath = (id: number) => join(RUNS_DIR, `${id}.jsonl`);
 
-/**
- * Skills that may only run on one episode at a time. Animation renders with Remotion, which bundles every
- * episode: another episode's half-written scenes could break the render, and two renders fight for the CPU.
- */
-export const EXCLUSIVE_SKILLS = ["make"];
+const LIVE = ["queued", "running"];
+const IDEA_FILL = "idea-fill";
 
-/** If this skill is exclusive and already running on another episode, that run (with its episode code). */
-export async function busyElsewhere(skill: string | null, episodeId: number) {
-  if (!skill || !EXCLUSIVE_SKILLS.includes(skill)) return null;
-  const rows = await db
-    .select({ run: runs, code: episodes.code })
-    .from(runs)
-    .innerJoin(episodes, eq(runs.episodeId, episodes.id))
-    .where(and(eq(runs.skill, skill), eq(runs.status, "running")));
-  for (const r of rows) {
-    if (r.run.episodeId === episodeId) continue;
-    const fresh = await syncRun(r.run.id);
-    if (fresh?.status === "running") return { code: r.code, episodeId: r.run.episodeId, runId: r.run.id };
-  }
-  return null;
+export function runLabel(run: Pick<Run, "skill" | "stage">) {
+  return run.skill === IDEA_FILL ? "Idea fill" : `${getStage(run.stage).label} skill`;
 }
 
-/** Starts the episode's current-stage skill in the background. Returns the run id, or null if it has to wait. */
-export async function startRun(actor: string, episodeId: number) {
+/** Joins the back of the queue, unless the episode already has a job waiting or running. Returns the run id. */
+async function addToQueue(actor: string, ep: Episode, skill: string) {
+  const active = await activeRun(ep.id);
+  if (active) return active.id;
+  const values = { episodeId: ep.id, stage: ep.stage, skill, startedBy: actor, status: "queued", queuedAt: sql`(datetime('now'))` };
+  const [run] = await db.insert(runs).values(values).returning();
+  await logActivity(actor, `queued ${runLabel(run)} on ${ep.code}`, ep.id);
+  await pumpQueue();
+  return run.id;
+}
+
+/** Queues the episode's current-stage skill. */
+export async function enqueueRun(actor: string, episodeId: number) {
   const [ep] = await db.select().from(episodes).where(eq(episodes.id, episodeId));
   if (!ep) throw new Error("Episode not found");
   const stage = getStage(ep.stage);
   if (!stage.skill || !getSkill(stage.skill)) throw new Error(`${stage.label} has no skill`);
-  const active = await activeRun(episodeId);
-  if (active) return active.id;
-  if (await busyElsewhere(stage.skill, episodeId)) return null;
+  return addToQueue(actor, ep, stage.skill);
+}
+
+export const enqueueIdeaFill = (actor: string, ep: Episode) => addToQueue(actor, ep, IDEA_FILL);
+
+/**
+ * Takes the oldest queued job, only if nothing is running. One statement, so concurrent calls can't both win
+ * and SQLite can't start two jobs. The tracker's own pid marks the run alive until it has a process of its own.
+ */
+async function claimNext() {
+  const [run] = await db
+    .update(runs)
+    .set({ status: "running", pid: process.pid, startedAt: sql`(datetime('now'))` })
+    .where(
+      and(
+        eq(runs.id, sql`(select min(id) from runs where status = 'queued')`),
+        sql`not exists (select 1 from runs where status = 'running')`,
+      ),
+    )
+    .returning();
+  return run;
+}
+
+/** Starts the next job if Claude is free. Safe to call any time, from anywhere. */
+export async function pumpQueue() {
+  const running = await db.select({ id: runs.id }).from(runs).where(eq(runs.status, "running"));
+  for (const r of running) await syncRun(r.id);
+  for (let run = await claimNext(); run; run = await claimNext()) {
+    try {
+      if (await launch(run)) return;
+    } catch (e) {
+      await finish(run.id, "failed", (e as Error).message);
+    }
+  }
+}
+
+/** Starts a claimed job. False if it ended straight away, so the next one can go. */
+async function launch(run: Run) {
+  const [ep] = await db.select().from(episodes).where(eq(episodes.id, run.episodeId));
+  if (!ep) return false;
+  if (ep.stage !== run.stage) {
+    await finish(run.id, "stopped", `Skipped: ${ep.code} had moved on from ${getStage(run.stage).label} by the time this came up.`);
+    await logActivity(API_ACTOR, `skipped ${runLabel(run)} on ${ep.code}: the episode had moved on`, ep.id);
+    return false;
+  }
+  await logActivity(run.startedBy, `started ${runLabel(run)} on ${ep.code}`, ep.id);
+  if (run.skill === IDEA_FILL) {
+    const { runIdeaFill } = await import("./ideaFill"); // ideaFill imports this file
+    void runIdeaFill(run.id, ep)
+      .then(({ status, result }) => finish(run.id, status, result))
+      .catch((e) => finish(run.id, "failed", (e as Error).message))
+      .then(pumpQueue);
+    return true;
+  }
+  const stage = getStage(ep.stage);
+  if (!stage.skill || !getSkill(stage.skill)) throw new Error(`${stage.label} has no skill`);
+  const episodeId = ep.id;
 
   const chosen = await stageModel(stage.key);
-  const [run] = await db
-    .insert(runs)
-    .values({ episodeId, stage: stage.key, skill: stage.skill, startedBy: actor, model: chosen?.model, effort: chosen?.effort })
-    .returning();
+  await db.update(runs).set({ model: chosen?.model, effort: chosen?.effort }).where(eq(runs.id, run.id));
   const bin = claudeBin();
   if (!bin) {
     await finish(run.id, "failed", "Couldn't find Claude Code on this Mac. Install it, or set CLAUDE_BIN in tracker/.env.local.");
-    return run.id;
+    return false;
   }
 
   mkdirSync(join(RUNS_DIR, String(run.id)), { recursive: true });
@@ -148,29 +195,51 @@ export async function startRun(actor: string, episodeId: number) {
     },
   );
   closeSync(out);
-  child.on("exit", () => void syncRun(run.id));
+  const ended = () => void syncRun(run.id).then(pumpQueue).catch((e) => console.error("Queue:", e));
+  child.on("exit", ended);
+  child.on("error", ended);
   child.unref();
-  await db.update(runs).set({ pid: child.pid ?? null }).where(eq(runs.id, run.id));
-  await logActivity(actor, `started ${stage.label} skill on ${ep.code}`, episodeId);
-  return run.id;
+  const [still] = await db
+    .update(runs)
+    .set({ pid: child.pid ?? null })
+    .where(and(eq(runs.id, run.id), eq(runs.status, "running")))
+    .returning();
+  // Removed while it was launching: don't leave Claude working alongside the next job.
+  if (!still && child.pid) process.kill(-child.pid, "SIGTERM");
+  return true;
 }
 
+/** Stops a running job, or takes a waiting one out of the queue. */
 export async function stopRun(actor: string, runId: number) {
-  const [run] = await db.select().from(runs).where(eq(runs.id, runId));
-  if (!run || run.status !== "running") return;
-  if (run.pid) {
+  const [row] = await db
+    .select({ run: runs, code: episodes.code })
+    .from(runs)
+    .innerJoin(episodes, eq(runs.episodeId, episodes.id))
+    .where(eq(runs.id, runId));
+  if (!row || !LIVE.includes(row.run.status)) return;
+  const { run, code } = row;
+  const wasRunning = run.status === "running";
+  // shortcut: a running idea fill can't be stopped or it would overlap the next job; it ends within 2 minutes. Deleting the idea does free the slot early.
+  if (wasRunning && run.skill === IDEA_FILL) return;
+  if (wasRunning && run.pid && run.pid !== process.pid) {
     try {
       process.kill(-run.pid, "SIGTERM");
     } catch {}
   }
-  await finish(runId, "stopped", `Stopped by ${actor}.`);
+  await finish(runId, "stopped", `${wasRunning ? "Stopped" : "Removed from the queue"} by ${actor}.`);
+  await logActivity(actor, `${wasRunning ? "stopped" : "removed from the queue:"} ${runLabel(run)} on ${code}`, run.episodeId);
+  await pumpQueue();
 }
 
 async function finish(id: number, status: Run["status"], result: string) {
-  await db
+  const [ended] = await db
     .update(runs)
     .set({ status, result, finishedAt: sql`(datetime('now'))` })
-    .where(and(eq(runs.id, id), eq(runs.status, "running")));
+    .where(and(eq(runs.id, id), inArray(runs.status, LIVE)))
+    .returning();
+  if (!ended || status === "stopped") return;
+  const [ep] = await db.select({ code: episodes.code }).from(episodes).where(eq(episodes.id, ended.episodeId));
+  if (ep) await logActivity(API_ACTOR, `${status === "done" ? "finished" : "failed"} ${runLabel(ended)} on ${ep.code}`, ended.episodeId);
 }
 
 function alive(pid: number | null) {
@@ -205,7 +274,7 @@ export async function syncRun(id: number) {
  */
 async function saveUsage(id: number) {
   const [run] = await db.select().from(runs).where(eq(runs.id, id));
-  if (!run || run.status === "running" || run.billing) return;
+  if (!run || LIVE.includes(run.status) || run.billing) return;
   const { result, usage } = readLog(id);
   await db
     .update(runs)
@@ -227,20 +296,48 @@ export async function backfillUsage() {
   const rows = await db
     .select({ id: runs.id })
     .from(runs)
-    .where(and(isNull(runs.billing), ne(runs.status, "running")));
+    .where(and(isNull(runs.billing), notInArray(runs.status, LIVE)));
   for (const r of rows) await saveUsage(r.id);
 }
 
+/** The episode's job that's running or waiting in the queue. */
 export async function activeRun(episodeId: number) {
   const [run] = await db
     .select()
     .from(runs)
-    .where(and(eq(runs.episodeId, episodeId), eq(runs.status, "running")))
+    .where(and(eq(runs.episodeId, episodeId), inArray(runs.status, LIVE)))
     .orderBy(desc(runs.id))
     .limit(1);
   if (!run) return null;
   const fresh = await syncRun(run.id);
-  return fresh?.status === "running" ? fresh : null;
+  return fresh && LIVE.includes(fresh.status) ? fresh : null;
+}
+
+/** How many jobs are ahead of this one, the running one included. */
+export async function jobsAhead(runId: number) {
+  const [row] = await db
+    .select({ n: sql<number>`count(*)` })
+    .from(runs)
+    .where(and(inArray(runs.status, LIVE), lt(runs.id, runId)));
+  return row.n;
+}
+
+export async function liveJobCount() {
+  const [row] = await db.select({ n: sql<number>`count(*)` }).from(runs).where(inArray(runs.status, LIVE));
+  return row.n;
+}
+
+export async function loadQueue() {
+  const select = () =>
+    db
+      .select({ run: runs, code: episodes.code, title: episodes.title })
+      .from(runs)
+      .innerJoin(episodes, eq(runs.episodeId, episodes.id));
+  const [live, recent] = await Promise.all([
+    select().where(inArray(runs.status, LIVE)).orderBy(asc(runs.id)),
+    select().where(notInArray(runs.status, LIVE)).orderBy(desc(runs.id)).limit(10),
+  ]);
+  return { live, recent };
 }
 
 /** Latest run of an episode's stage, with its status synced. */

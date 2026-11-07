@@ -18,7 +18,8 @@ const STATUS_STYLE: Record<string, string> = {
 
 /** A skill: its instructions as a preview, and for stage skills the model it runs on and its recent runs. */
 export default async function SkillPage({ params }: PageProps<"/skills/[name]">) {
-  await requireUser();
+  const user = await requireUser();
+  const isAdmin = user.role === "admin";
   const { name } = await params;
   const skill = getSkill(name);
   if (!skill) notFound();
@@ -35,12 +36,12 @@ export default async function SkillPage({ params }: PageProps<"/skills/[name]">)
 
       <div className={`grid gap-6 ${stage ? "lg:grid-cols-[1fr_480px]" : ""}`}>
         <section className="card min-w-0 p-6">
-          <SkillInstructions key={skill.content} content={skill.content} save={saveSkillAction.bind(null, skill.name)} />
+          <SkillInstructions key={skill.content} content={skill.content} save={saveSkillAction.bind(null, skill.name)} canEdit={isAdmin} />
         </section>
 
         {stage && (
           <aside className="space-y-4">
-            {chosen && (
+            {chosen && isAdmin && (
               <section className="card p-5">
                 <h3 className="mb-3 text-[15px] font-semibold tracking-tight">Model</h3>
                 <form action={saveStageModelAction.bind(null, stage.key)} className="space-y-2">

@@ -6,6 +6,18 @@ const timestamps = {
   updatedAt: text("updated_at").notNull().default(sql`(datetime('now'))`),
 };
 
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  username: text("username").notNull().unique(), // stored on episodes, comments and activity, so it never changes
+  name: text("name").notNull(),
+  passwordHash: text("password_hash").notNull(),
+  role: text("role").notNull().default("member"), // "admin" or "member"
+  active: integer("active", { mode: "boolean" }).notNull().default(true),
+  // Sessions carry this number; bumping it signs the user out everywhere.
+  sessionVersion: integer("session_version").notNull().default(0),
+  ...timestamps,
+});
+
 export const series = sqliteTable("series", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
@@ -92,11 +104,22 @@ export const episodes = sqliteTable("episodes", {
 
 export const comments = sqliteTable("comments", {
   id: integer("id").primaryKey({ autoIncrement: true }),
-  episodeId: integer("episode_id")
-    .notNull()
-    .references(() => episodes.id, { onDelete: "cascade" }),
+  // Null for a post on the team feed.
+  episodeId: integer("episode_id").references(() => episodes.id, { onDelete: "cascade" }),
   author: text("author").notNull(),
   body: text("body").notNull(),
+  createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
+});
+
+/** One per person tagged per comment, so five tags in five places are five notifications. */
+export const notifications = sqliteTable("notifications", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  recipient: text("recipient").notNull(),
+  actor: text("actor").notNull(),
+  commentId: integer("comment_id")
+    .notNull()
+    .references(() => comments.id, { onDelete: "cascade" }),
+  readAt: text("read_at"),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 });
 
@@ -146,7 +169,7 @@ export const runs = sqliteTable("runs", {
     .references(() => episodes.id, { onDelete: "cascade" }),
   stage: text("stage").notNull(),
   skill: text("skill").notNull(),
-  status: text("status").notNull().default("running"), // running | done | failed | stopped
+  status: text("status").notNull().default("running"), // queued | running | done | failed | stopped
   pid: integer("pid"),
   result: text("result").notNull().default(""), // Claude's final message
   model: text("model"), // model the run was started on (--model)
@@ -161,7 +184,8 @@ export const runs = sqliteTable("runs", {
   durationSec: integer("duration_sec"),
   billing: text("billing"), // "api-key" or "subscription": how the run was paid for
   startedBy: text("started_by").notNull(),
-  startedAt: text("started_at").notNull().default(sql`(datetime('now'))`),
+  queuedAt: text("queued_at"), // when it joined the queue; empty on runs from before the queue
+  startedAt: text("started_at").notNull().default(sql`(datetime('now'))`), // reset when it leaves the queue
   finishedAt: text("finished_at"),
 });
 
@@ -172,6 +196,7 @@ export const settings = sqliteTable("settings", {
   updatedAt: text("updated_at").notNull().default(sql`(datetime('now'))`),
 });
 
+export type User = typeof users.$inferSelect;
 export type Series = typeof series.$inferSelect;
 export type Episode = typeof episodes.$inferSelect;
 export type Comment = typeof comments.$inferSelect;

@@ -1,7 +1,8 @@
-import { CircleCheck, CircleX, FileText, Globe, LoaderCircle, Search, Square, Upload, Wrench } from "lucide-react";
+import { CircleCheck, CircleX, Clock, FileText, Globe, LoaderCircle, Search, Square, Upload, Wrench } from "lucide-react";
+import Link from "next/link";
 import { stopRunAction } from "@/app/actions";
 import type { Run } from "@/db";
-import { readLog, type RunStep } from "@/lib/runner";
+import { jobsAhead, readLog, type RunStep } from "@/lib/runner";
 import { Markdown, RunWatcher, SubmitButton } from "./client";
 import { timeAgo } from "./ui";
 
@@ -21,8 +22,27 @@ const STATUS = {
   stopped: { label: "Stopped", className: "text-faint" },
 } as const;
 
-/** Live view of a skill run: progress steps while it works, then Claude's summary. */
-export function RunCard({ run }: { run: Run }) {
+/** Live view of a skill run: its place in line, progress steps while it works, then Claude's summary. */
+export async function RunCard({ run }: { run: Run }) {
+  if (run.status === "queued") {
+    const ahead = await jobsAhead(run.id);
+    return (
+      <div className="flex items-center gap-2 rounded-xl bg-panel-2 p-3 text-xs">
+        <Clock className="size-3.5 shrink-0 text-accent" strokeWidth={2.2} />
+        <span className="font-semibold text-accent">In the queue</span>
+        <span className="text-faint">
+          {ahead} {ahead === 1 ? "job" : "jobs"} ahead · {run.startedBy}
+        </span>
+        <Link href="/queue" className="ml-auto font-medium text-accent hover:opacity-80">See the queue</Link>
+        <form action={stopRunAction.bind(null, run.id)}>
+          <SubmitButton className="btn btn-ghost btn-sm" pendingText="Removing…" confirmText="Remove this job from the queue?" confirmMessage="To run it later, it joins the back of the line." confirmLabel="Remove">
+            Remove
+          </SubmitButton>
+        </form>
+        <RunWatcher />
+      </div>
+    );
+  }
   const { steps, result } = readLog(run.id);
   const status = STATUS[run.status as keyof typeof STATUS] ?? STATUS.failed;
   const running = run.status === "running";

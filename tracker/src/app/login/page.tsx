@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { useActionState } from "react";
 import { login } from "@/app/actions";
+import { PasswordInput } from "@/components/client";
 import { Logo } from "@/components/Logo";
 
 export default function LoginPage() {
@@ -28,9 +29,8 @@ export default function LoginPage() {
               className="w-full bg-transparent px-4 py-3.5 text-[15px] outline-none placeholder:text-faint focus-visible:outline-none"
             />
             <div className="mx-4 h-px bg-line" />
-            <input
+            <PasswordInput
               name="password"
-              type="password"
               aria-label="Password"
               placeholder="Password"
               autoComplete="current-password"

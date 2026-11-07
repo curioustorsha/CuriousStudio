@@ -3,11 +3,22 @@
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { comments, db, episodes, series } from "@/db";
-import { checkCredentials, endSession, requireUser, startSession } from "@/lib/auth";
+import { db, episodes, series } from "@/db";
+import {
+  changeOwnPassword,
+  checkCredentials,
+  createUser,
+  endSession,
+  requireAdmin,
+  requireUser,
+  resetPassword,
+  startSession,
+  updateUserAccess,
+} from "@/lib/auth";
 import * as ep from "@/lib/episodes";
-import { fillIdeas, MAX_SELECTED } from "@/lib/ideaFill";
-import { activeRun, startRun, stopRun } from "@/lib/runner";
+import { addComment, markAllRead } from "@/lib/comments";
+import { MAX_SELECTED, queueIdeaFills } from "@/lib/ideaFill";
+import { activeRun, enqueueRun, stopRun } from "@/lib/runner";
 import { saveSkill } from "@/lib/skills";
 import { getStage, isFormat, isStage, stepStage } from "@/lib/stages";
 import { isVisualStyle } from "@/lib/styles";
@@ -20,7 +31,7 @@ function refreshAll() {
 // ── Auth ──────────────────────────────────────────────────────────────
 
 export async function login(_prev: { error?: string } | undefined, formData: FormData) {
-  const user = checkCredentials(String(formData.get("username") ?? ""), String(formData.get("password") ?? ""));
+  const user = await checkCredentials(String(formData.get("username") ?? ""), String(formData.get("password") ?? ""));
   if (!user) return { error: "Wrong username or password." };
   await startSession(user);
   redirect("/");
@@ -29,6 +40,60 @@ export async function login(_prev: { error?: string } | undefined, formData: For
 export async function logout() {
   await endSession();
   redirect("/login");
+}
+
+// ── Users ─────────────────────────────────────────────────────────────
+
+type FormResult = { error?: string; ok?: boolean } | undefined;
+
+async function formResult(change: () => Promise<void>): Promise<FormResult> {
+  try {
+    await change();
+  } catch (e) {
+    return { error: (e as Error).message };
+  }
+  refreshAll();
+  return { ok: true };
+}
+
+const field = (formData: FormData, name: string) => String(formData.get(name) ?? "");
+
+export async function createUserAction(_prev: FormResult, formData: FormData) {
+  const actor = await requireAdmin();
+  return formResult(async () => {
+    await createUser({
+      username: field(formData, "username"),
+      name: field(formData, "name"),
+      password: field(formData, "password"),
+      role: field(formData, "role"),
+    });
+    await ep.logActivity(actor.username, `added user ${field(formData, "username").trim().toLowerCase()}`);
+  });
+}
+
+export async function updateUserAction(username: string, _prev: FormResult, formData: FormData) {
+  const actor = await requireAdmin();
+  return formResult(async () => {
+    await updateUserAccess(actor, username, {
+      name: field(formData, "name"),
+      role: field(formData, "role"),
+      active: formData.get("active") === "on",
+    });
+    await ep.logActivity(actor.username, `updated user ${username}`);
+  });
+}
+
+export async function resetPasswordAction(username: string, _prev: FormResult, formData: FormData) {
+  const actor = await requireAdmin();
+  return formResult(async () => {
+    await resetPassword(username, field(formData, "password"));
+    await ep.logActivity(actor.username, `reset the password of ${username}`);
+  });
+}
+
+export async function changeOwnPasswordAction(_prev: FormResult, formData: FormData) {
+  const user = await requireUser();
+  return formResult(() => changeOwnPassword(user, field(formData, "current"), field(formData, "next")));
 }
 
 // ── Episodes ──────────────────────────────────────────────────────────
@@ -65,9 +130,7 @@ export async function approveStageAction(id: number, formData: FormData) {
   const next = stepStage(row.stage, await ep.formatOf(row.seriesId));
   if (!next) return;
   const note = String(formData.get("body") ?? "").trim();
-  if (note) {
-    await db.insert(comments).values({ episodeId: id, author: user.username, body: `Approved ${getStage(row.stage).label}: ${note}` });
-  }
+  if (note) await addComment(user.username, `Approved ${getStage(row.stage).label}: ${note}`, id);
   await ep.updateEpisode(user.username, id, { stage: next.key });
   refreshAll();
 }
@@ -102,17 +165,13 @@ export async function fillIdeasAction(_prev: { message: string; failed: boolean 
   const ids = [...new Set(formData.getAll("ids").map(Number).filter(Number.isInteger))];
   if (!ids.length) return { message: "Tick at least one idea first.", failed: true };
   if (ids.length > MAX_SELECTED) return { message: `Tick up to ${MAX_SELECTED} ideas at a time.`, failed: true };
-  const results = await fillIdeas(user.username, ids);
+  const { queued, skipped } = await queueIdeaFills(user.username, ids);
   refreshAll();
-  const failures = results.filter((r) => r.error);
-  const done = results.filter((r) => r.filled > 0).length;
-  const skipped = results.length - failures.length - done;
   const parts = [
-    done ? `Filled ${done} ${done === 1 ? "idea" : "ideas"}.` : "",
+    queued ? `Added ${queued} ${queued === 1 ? "idea" : "ideas"} to the queue.` : "",
     skipped ? `Skipped ${skipped}: already filled or past the Idea stage.` : "",
-    ...failures.map((r) => `${r.code}: ${r.error}.`),
   ];
-  return { message: parts.filter(Boolean).join(" "), failed: failures.length > 0 };
+  return { message: parts.filter(Boolean).join(" "), failed: false };
 }
 
 export async function addPinnedNoteAction(id: number, atSec: number, body: string) {
@@ -156,7 +215,7 @@ export async function requestChangesAction(id: number, formData: FormData) {
 /** Runs the skill for the episode's current stage in the background. */
 export async function runSkillAction(episodeId: number) {
   const user = await requireUser();
-  await startRun(user.username, episodeId);
+  await enqueueRun(user.username, episodeId);
   refreshAll();
 }
 
@@ -167,8 +226,9 @@ export async function stopRunAction(runId: number) {
 }
 
 export async function saveSkillAction(name: string, formData: FormData) {
-  await requireUser();
+  const actor = await requireAdmin();
   saveSkill(name, String(formData.get("content") ?? ""));
+  await ep.logActivity(actor.username, `edited the ${name} skill`);
   refreshAll();
 }
 
@@ -177,13 +237,13 @@ export async function runSkillFromPageAction(formData: FormData) {
   const user = await requireUser();
   const id = Number(formData.get("episodeId"));
   if (!id) return;
-  await startRun(user.username, id);
+  await enqueueRun(user.username, id);
   redirect(`/episodes/${id}`);
 }
 
 export async function toggleChecklistAction(id: number, key: string, checked: boolean) {
   const user = await requireUser();
-  const [row] = await db.select({ checklist: episodes.checklist }).from(episodes).where(eq(episodes.id, id));
+  const [row] = await db.select({ checklist: episodes.checklist, code: episodes.code }).from(episodes).where(eq(episodes.id, id));
   if (!row) return;
   let map: Record<string, unknown> = {};
   try {
@@ -197,6 +257,7 @@ export async function toggleChecklistAction(id: number, key: string, checked: bo
     delete map[`by:${key}`];
   }
   await db.update(episodes).set({ checklist: JSON.stringify(map) }).where(eq(episodes.id, id));
+  await ep.logActivity(user.username, `${checked ? "ticked" : "unticked"} a checklist item on ${row.code}`, id);
   refreshAll();
 }
 
@@ -207,18 +268,23 @@ export async function deleteEpisodeAction(id: number) {
   redirect("/board");
 }
 
-export async function addCommentAction(id: number, formData: FormData) {
+/** On an episode, or on the team feed when id is null. */
+export async function addCommentAction(id: number | null, formData: FormData) {
   const user = await requireUser();
-  const body = String(formData.get("body") ?? "").trim();
-  if (!body) return;
-  await db.insert(comments).values({ episodeId: id, author: user.username, body });
+  await addComment(user.username, String(formData.get("body") ?? ""), id);
+  refreshAll();
+}
+
+export async function markAllNotificationsReadAction() {
+  const user = await requireUser();
+  await markAllRead(user.username);
   refreshAll();
 }
 
 // ── Series ────────────────────────────────────────────────────────────
 
 export async function saveSeriesAction(formData: FormData) {
-  await requireUser();
+  const user = await requireUser();
   const id = Number(formData.get("id")) || null;
   const values = {
     name: String(formData.get("name") ?? "").trim(),
@@ -234,6 +300,7 @@ export async function saveSeriesAction(formData: FormData) {
   if (!values.name || !values.prefix) return;
   if (id) await db.update(series).set(values).where(eq(series.id, id));
   else await db.insert(series).values(values);
+  await ep.logActivity(user.username, `${id ? "updated" : "created"} the ${values.name} series`);
   refreshAll();
 }
 
@@ -241,28 +308,31 @@ export async function saveSeriesAction(formData: FormData) {
 
 /** From a skill's page: which model and effort the stage runs on. Picking the default clears the override. */
 export async function saveStageModelAction(stage: string, formData: FormData) {
-  await requireUser();
+  const actor = await requireAdmin();
   await saveStageModel(stage, String(formData.get("model") ?? ""), String(formData.get("effort") ?? ""));
+  await ep.logActivity(actor.username, `changed the model for the ${getStage(stage).label} stage`);
   refreshAll();
 }
 
 export async function savePlanFeesAction(formData: FormData) {
-  await requireUser();
+  const actor = await requireAdmin();
   for (const p of Object.values(PLAN_KEYS)) {
     const raw = String(formData.get(p.key) ?? "").trim();
     if (raw === "" || Number.isFinite(Number(raw))) await setSetting(p.key, raw === "" ? null : String(Number(raw)));
   }
+  await ep.logActivity(actor.username, "updated the monthly plan fees");
   refreshAll();
 }
 
 export async function saveApiKeyAction(_prev: { error?: string; ok?: boolean } | undefined, formData: FormData) {
-  await requireUser();
+  const actor = await requireAdmin();
   const remove = formData.get("remove") === "1";
   try {
     saveAnthropicKey(remove ? null : String(formData.get("key") ?? ""));
   } catch (e) {
     return { error: (e as Error).message };
   }
+  await ep.logActivity(actor.username, `${remove ? "removed" : "changed"} the Claude API key`);
   refreshAll();
   return { ok: true };
 }

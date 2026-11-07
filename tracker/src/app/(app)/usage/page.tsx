@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, ne } from "drizzle-orm";
 import Link from "next/link";
 import { savePlanFeesAction } from "@/app/actions";
 import { ApiKeyForm, SubmitButton } from "@/components/client";
@@ -28,7 +28,7 @@ function lastMonths(n: number) {
 }
 
 export default async function UsagePage() {
-  await requireUser();
+  const user = await requireUser();
   await backfillUsage();
 
   const [rows, el, claudeFee, elFeeSetting] = await Promise.all([
@@ -36,6 +36,7 @@ export default async function UsagePage() {
       .select({ run: runs, code: episodes.code, title: episodes.title })
       .from(runs)
       .innerJoin(episodes, eq(runs.episodeId, episodes.id))
+      .where(ne(runs.status, "queued"))
       .orderBy(desc(runs.id)),
     elevenLabsUsage(6),
     planFee("claude"),
@@ -275,6 +276,7 @@ export default async function UsagePage() {
           </section>
 
           {/* Plans */}
+          {user.role === "admin" && (
           <section className="card p-5">
             <h3 className="text-[15px] font-semibold tracking-tight">Monthly plans</h3>
             <p className="mb-3 mt-1 text-xs text-muted">Fixed fees, in USD. Leave ElevenLabs empty to use the amount on its next invoice.</p>
@@ -296,8 +298,10 @@ export default async function UsagePage() {
               <SubmitButton className="btn btn-ghost btn-sm w-full">Save Plans</SubmitButton>
             </form>
           </section>
+          )}
 
           {/* API key */}
+          {user.role === "admin" && (
           <section className="card p-5">
             <h3 className="text-[15px] font-semibold tracking-tight">Claude API key</h3>
             <p className="mb-3 mt-1 text-xs text-muted">
@@ -307,6 +311,7 @@ export default async function UsagePage() {
             </p>
             <ApiKeyForm isSet={key.set} />
           </section>
+          )}
         </aside>
       </div>
     </div>

@@ -54,7 +54,7 @@ export default async function BoardPage({ searchParams }: PageProps<"/board">) {
         </div>
         <div className="segmented">
           <Link href={query({ owner: undefined })} data-active={!ownerFilter}>Everyone</Link>
-          {listUsers().map((u) => (
+          {(await listUsers()).filter((u) => u.active).map((u) => (
             <Link key={u.username} href={query({ owner: u.username })} data-active={ownerFilter === u.username}>
               {u.name}
             </Link>

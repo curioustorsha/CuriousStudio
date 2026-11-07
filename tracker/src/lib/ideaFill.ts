@@ -6,15 +6,13 @@ import { eq } from "drizzle-orm";
 import { db, episodes, runs, series as seriesTable, type Episode, type Series } from "@/db";
 import { API_ACTOR, updateEpisode } from "./episodes";
 import { emptyIdeaFields, IDEA_FILL_FIELDS, type IdeaFillField } from "./ideaFields";
-import { claudeBin } from "./runner";
+import { claudeBin, enqueueIdeaFill } from "./runner";
 
 const MODEL = "claude-haiku-5-5";
 const EFFORT = "medium";
 const USD_PER_TOKEN = { input: 0.1 / 1e6, output: 0.5 / 1e6 };
 const MAX_USD_PER_IDEA = "0.25";
 const TIMEOUT_MS = 120_000;
-/** Enough for a selection to finish quickly without hitting rate limits. */
-const AT_ONCE = 3;
 /** More than the whole backlog today: a guard against a runaway selection, not a working limit. */
 export const MAX_SELECTED = 100;
 
@@ -120,52 +118,48 @@ function reason(e: unknown) {
   return e instanceof Error ? e.message : "something went wrong";
 }
 
-/** Fills one idea's empty fields. Returns how many it filled, or why it couldn't. */
-async function fillIdea(actor: string, id: number): Promise<{ code: string; filled: number; error?: string }> {
-  const [ep] = await db.select().from(episodes).where(eq(episodes.id, id));
-  if (!ep) return { code: `#${id}`, filled: 0, error: "not found" };
-  if (ep.stage !== "idea") return { code: ep.code, filled: 0 }; // Changing an idea now would mark later stages out of date.
+/** Fills one idea's empty fields, as a job from the queue. Says how the job ended. */
+export async function runIdeaFill(runId: number, ep: Episode): Promise<{ status: "done" | "failed"; result: string }> {
   const fields = emptyIdeaFields(ep);
-  if (!fields.length) return { code: ep.code, filled: 0 };
+  if (!fields.length) return { status: "done", result: "Nothing left to fill." };
 
   const [s] = ep.seriesId ? await db.select().from(seriesTable).where(eq(seriesTable.id, ep.seriesId)) : [];
   const started = Date.now();
-  const log = (values: Partial<typeof runs.$inferInsert> & { status: string; result: string; billing: string }) =>
-    db.insert(runs).values({
-      episodeId: id, stage: "idea", skill: "idea-fill", model: MODEL, effort: EFFORT, startedBy: actor,
-      durationSec: Math.round((Date.now() - started) / 1000), finishedAt: new Date().toISOString(), ...values,
-    });
   const billing = process.env.ANTHROPIC_API_KEY ? "api-key" : "subscription";
+  const usage = (values: Partial<typeof runs.$inferInsert>) =>
+    db
+      .update(runs)
+      .set({ model: MODEL, effort: EFFORT, billing, durationSec: Math.round((Date.now() - started) / 1000), ...values })
+      .where(eq(runs.id, runId));
   try {
     const prompt = promptFor(ep, s, fields);
     const r = await (billing === "api-key" ? callApi : callClaudeCode)(prompt, fields);
     // Someone may have typed into a field while this ran: only write to what's still empty.
-    const [now] = await db.select().from(episodes).where(eq(episodes.id, id));
-    if (!now) return { code: ep.code, filled: 0, error: "deleted while filling" };
+    const [now] = await db.select().from(episodes).where(eq(episodes.id, ep.id));
+    if (!now) return { status: "failed", result: "Deleted while filling." };
     const patch = Object.fromEntries(
       emptyIdeaFields(now).flatMap((f) => {
         const value = r.values[f];
         return fields.includes(f) && typeof value === "string" && value.trim() ? [[f, value.trim()]] : [];
       }),
     );
-    if (Object.keys(patch).length) await updateEpisode(API_ACTOR, id, patch);
-    const filled = Object.keys(patch).length;
-    await log({ status: "done", result: `Filled ${filled} idea fields.`, billing: r.billing, costUsd: r.costUsd, inputTokens: r.inputTokens, outputTokens: r.outputTokens });
-    return { code: ep.code, filled };
+    if (Object.keys(patch).length) await updateEpisode(API_ACTOR, ep.id, patch);
+    await usage({ billing: r.billing, costUsd: r.costUsd, inputTokens: r.inputTokens, outputTokens: r.outputTokens });
+    return { status: "done", result: `Filled ${Object.keys(patch).length} idea fields.` };
   } catch (e) {
-    const error = reason(e);
-    await log({ status: "failed", result: error, billing });
-    return { code: ep.code, filled: 0, error };
+    await usage({});
+    return { status: "failed", result: reason(e) };
   }
 }
 
-export async function fillIdeas(actor: string, ids: number[]) {
-  const queue = [...ids];
-  const results: Awaited<ReturnType<typeof fillIdea>>[] = [];
-  await Promise.all(
-    Array.from({ length: Math.min(AT_ONCE, queue.length) }, async () => {
-      for (let id = queue.shift(); id !== undefined; id = queue.shift()) results.push(await fillIdea(actor, id));
-    }),
-  );
-  return results;
+/** Queues the ideas that still have empty fields. The rest are skipped. */
+export async function queueIdeaFills(actor: string, ids: number[]) {
+  let queued = 0;
+  for (const id of ids) {
+    const [ep] = await db.select().from(episodes).where(eq(episodes.id, id));
+    if (!ep || ep.stage !== "idea" || !emptyIdeaFields(ep).length) continue;
+    await enqueueIdeaFill(actor, ep);
+    queued++;
+  }
+  return { queued, skipped: ids.length - queued };
 }
