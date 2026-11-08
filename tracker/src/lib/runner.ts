@@ -4,7 +4,7 @@ import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync }
 import { homedir } from "node:os";
 import { basename, dirname, join } from "node:path";
 import { and, asc, desc, eq, inArray, isNull, lt, notInArray, sql } from "drizzle-orm";
-import { db, episodes, runs, type Episode, type Run } from "@/db";
+import { db, episodes, notifications, runs, type Episode, type Run } from "@/db";
 import { getStage } from "./stages";
 import { API_ACTOR, getReviewHistory, logActivity, staleStages } from "./episodes";
 import { stageModel } from "./settings";
@@ -237,9 +237,41 @@ async function finish(id: number, status: Run["status"], result: string) {
     .set({ status, result, finishedAt: sql`(datetime('now'))` })
     .where(and(eq(runs.id, id), inArray(runs.status, LIVE)))
     .returning();
-  if (!ended || status === "stopped") return;
-  const [ep] = await db.select({ code: episodes.code }).from(episodes).where(eq(episodes.id, ended.episodeId));
-  if (ep) await logActivity(API_ACTOR, `${status === "done" ? "finished" : "failed"} ${runLabel(ended)} on ${ep.code}`, ended.episodeId);
+  if (!ended) return;
+  if (status !== "stopped") {
+    const [ep] = await db.select({ code: episodes.code }).from(episodes).where(eq(episodes.id, ended.episodeId));
+    if (ep) await logActivity(API_ACTOR, `${status === "done" ? "finished" : "failed"} ${runLabel(ended)} on ${ep.code}`, ended.episodeId);
+  }
+  await notifyStarter(ended);
+}
+
+/**
+ * Tells whoever started the job how it went, once their last job of this kind has ended, so a batch of
+ * 72 idea fills is one notification. Stopped jobs don't count: the person stopping them already knows.
+ */
+async function notifyStarter(ended: Run) {
+  const mine = and(eq(runs.startedBy, ended.startedBy), eq(runs.skill, ended.skill));
+  const [live] = await db.select({ id: runs.id }).from(runs).where(and(mine, inArray(runs.status, LIVE))).limit(1);
+  if (live) return;
+  const batch = await db
+    .select({ run: runs, code: episodes.code })
+    .from(runs)
+    .innerJoin(episodes, eq(runs.episodeId, episodes.id))
+    .where(and(mine, inArray(runs.status, ["done", "failed"]), eq(runs.notified, false)))
+    .orderBy(asc(runs.id));
+  if (!batch.length) return;
+  const failed = batch.filter((b) => b.run.status === "failed").length;
+  const [{ run, code }] = batch.slice(-1);
+  const one = batch.length === 1;
+  await db.insert(notifications).values({
+    recipient: run.startedBy,
+    actor: API_ACTOR,
+    message: one
+      ? `${runLabel(run)} ${failed ? "failed" : "finished"} on ${code}${failed ? `: ${run.result.slice(0, 200)}` : ""}`
+      : `${runLabel(run)}: ${batch.length} jobs finished, ${batch.length - failed} done${failed ? `, ${failed} failed` : ""}`,
+    href: one ? `/episodes/${run.episodeId}` : "/queue",
+  });
+  await db.update(runs).set({ notified: true }).where(inArray(runs.id, batch.map((b) => b.run.id)));
 }
 
 function alive(pid: number | null) {

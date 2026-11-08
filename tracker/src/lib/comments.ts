@@ -57,7 +57,6 @@ export async function unreadCount(username: string) {
   const [row] = await db
     .select({ n: sql<number>`count(*)` })
     .from(notifications)
-    .innerJoin(comments, eq(notifications.commentId, comments.id))
     .where(and(eq(notifications.recipient, username), isNull(notifications.readAt)));
   return row.n;
 }
@@ -66,7 +65,7 @@ export function listNotifications(username: string) {
   return db
     .select({ notification: notifications, comment: comments, code: episodes.code })
     .from(notifications)
-    .innerJoin(comments, eq(notifications.commentId, comments.id))
+    .leftJoin(comments, eq(notifications.commentId, comments.id))
     .leftJoin(episodes, eq(comments.episodeId, episodes.id))
     .where(eq(notifications.recipient, username))
     .orderBy(desc(notifications.id));
@@ -75,13 +74,13 @@ export function listNotifications(username: string) {
 /** Marks the notification read and says where its comment is. Null if it isn't this user's. */
 export async function openNotification(username: string, id: number) {
   const [row] = await db
-    .select({ comment: comments })
+    .select({ comment: comments, href: notifications.href })
     .from(notifications)
-    .innerJoin(comments, eq(notifications.commentId, comments.id))
+    .leftJoin(comments, eq(notifications.commentId, comments.id))
     .where(and(eq(notifications.id, id), eq(notifications.recipient, username)));
   if (!row) return null;
   await db.update(notifications).set({ readAt: sql`(datetime('now'))` }).where(and(eq(notifications.id, id), isNull(notifications.readAt)));
-  return commentHref(row.comment);
+  return row.comment ? commentHref(row.comment) : row.href || null;
 }
 
 export async function markAllRead(username: string) {

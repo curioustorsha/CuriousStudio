@@ -116,9 +116,10 @@ export const notifications = sqliteTable("notifications", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   recipient: text("recipient").notNull(),
   actor: text("actor").notNull(),
-  commentId: integer("comment_id")
-    .notNull()
-    .references(() => comments.id, { onDelete: "cascade" }),
+  // A notification is about a comment (an @mention), or about jobs that finished when there's no comment.
+  commentId: integer("comment_id").references(() => comments.id, { onDelete: "cascade" }),
+  message: text("message").notNull().default(""), // run notifications only
+  href: text("href").notNull().default(""), // run notifications only
   readAt: text("read_at"),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 });
@@ -187,6 +188,7 @@ export const runs = sqliteTable("runs", {
   queuedAt: text("queued_at"), // when it joined the queue; empty on runs from before the queue
   startedAt: text("started_at").notNull().default(sql`(datetime('now'))`), // reset when it leaves the queue
   finishedAt: text("finished_at"),
+  notified: integer("notified", { mode: "boolean" }).notNull().default(false), // its starter has been told how it ended
 });
 
 /** Small app-wide settings edited from the UI: per-stage model overrides, monthly plan fees. */

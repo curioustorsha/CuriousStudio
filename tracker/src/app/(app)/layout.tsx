@@ -11,7 +11,6 @@ import {
   Gauge,
   Images,
   Mic,
-  MessagesSquare,
   Package,
   FileText,
   Layers,
@@ -47,14 +46,13 @@ const WORKSPACE = [
 ];
 
 const TEAM = [
-  { href: "/feed", label: "Feed", icon: <MessagesSquare {...iconProps} /> },
   { href: "/notifications", label: "Notifications", icon: <Bell {...iconProps} />, badgeLabel: "unread" },
   { href: "/queue", label: "Queue", icon: <ListOrdered {...iconProps} />, badgeLabel: "in the queue" },
+  { href: "/users", label: "Users", icon: <Users {...iconProps} /> },
 ];
 
 const SETTINGS = [
   { href: "/usage", label: "AI Usage", icon: <Gauge {...iconProps} /> },
-  { href: "/users", label: "Users", icon: <Users {...iconProps} /> },
 ];
 
 type NavItem = { href: string; label: string; icon: React.ReactNode; badgeLabel?: string };

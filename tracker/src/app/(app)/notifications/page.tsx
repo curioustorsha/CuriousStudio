@@ -19,7 +19,7 @@ export default async function NotificationsPage() {
           </form>
         )}
       </PageHeader>
-      {rows.length === 0 && <Empty icon={<Bell className="size-5" strokeWidth={1.8} />}>When someone tags you in a comment, it shows up here.</Empty>}
+      {rows.length === 0 && <Empty icon={<Bell className="size-5" strokeWidth={1.8} />}>When someone tags you in a comment, or a job you started finishes, it shows up here.</Empty>}
       <ul className="space-y-2">
         {rows.map(({ notification: n, comment, code }) => (
           <li key={n.id}>
@@ -28,10 +28,16 @@ export default async function NotificationsPage() {
               <Avatar username={n.actor} size={28} />
               <div className="min-w-0 flex-1">
                 <div className="text-[13px]">
-                  <span className="font-semibold">{n.actor}</span> tagged you {code ? `on ${code}` : "in the feed"}
+                  {comment ? (
+                    <>
+                      <span className="font-semibold">{n.actor}</span> tagged you {code ? `on ${code}` : "in the feed"}
+                    </>
+                  ) : (
+                    n.message
+                  )}
                   {!n.readAt && <span className="ml-2 rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-semibold text-white">New</span>}
                 </div>
-                <p className="mt-0.5 truncate text-[13px] text-muted">{comment.body}</p>
+                {comment && <p className="mt-0.5 truncate text-[13px] text-muted">{comment.body}</p>}
               </div>
               <span className="shrink-0 text-xs text-faint">{timeAgo(n.createdAt)}</span>
             </a>
