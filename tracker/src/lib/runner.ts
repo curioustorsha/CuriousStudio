@@ -102,7 +102,7 @@ async function claimNext() {
     .set({ status: "running", pid: process.pid, startedAt: sql`(datetime('now'))` })
     .where(
       and(
-        eq(runs.id, sql`(select min(id) from runs where status = 'queued')`),
+        eq(runs.id, sql`(select min(id) from runs where status = 'queued' and held_for = '')`),
         sql`not exists (select 1 from runs where status = 'running')`,
       ),
     )
@@ -117,6 +117,7 @@ export async function pumpQueue() {
   const running = await db.select({ id: runs.id }).from(runs).where(eq(runs.status, "running"));
   for (const r of running) await syncRun(r.id);
   if (await queuePause()) return;
+  await releaseHeld();
   for (let run = await claimNext(); run; run = await claimNext()) {
     try {
       if (await launch(run)) return;
@@ -137,8 +138,7 @@ async function launch(run: Run) {
   }
   const short = await voiceoverCreditsShort(ep);
   if (short) {
-    await finish(run.id, "failed", short);
-    await logActivity(API_ACTOR, `didn't start ${runLabel(run)} on ${ep.code}: not enough ElevenLabs credits`, ep.id);
+    await holdForCredits(run, ep, short);
     return false;
   }
   await logActivity(run.startedBy, `started ${runLabel(run)} on ${ep.code}`, ep.id);
@@ -319,7 +319,38 @@ async function voiceoverCreditsShort(ep: Episode) {
   const left = usage.limit - usage.used;
   if (left >= need) return null;
   const resets = usage.resetsAt.toLocaleDateString("en-GB", { day: "numeric", month: "long" });
-  return `Not started: ElevenLabs has ${left.toLocaleString("en-US")} credits left and this voiceover needs about ${need.toLocaleString("en-US")}. Credits reset on ${resets}. Top up or wait, then press Run again.`;
+  return `Waiting for ElevenLabs credits: ${left.toLocaleString("en-US")} left, this voiceover needs about ${need.toLocaleString("en-US")}. They reset on ${resets}, or top up. It starts by itself once there's enough.`;
+}
+
+/** How often the Mac checks whether held voiceovers can go (ElevenLabs answers are cached for 10 minutes anyway). */
+const CREDIT_CHECK_MS = 15 * 60_000;
+let lastCreditCheck = 0;
+
+/** Sets a Make run aside, still in the queue, until there are credits for its voiceover. The starter is told once. */
+async function holdForCredits(run: Run, ep: Episode, why: string) {
+  await db.update(runs).set({ status: "queued", pid: null, heldFor: why }).where(eq(runs.id, run.id));
+  if (run.heldFor) return; // released, then short again: already told
+  await logActivity(API_ACTOR, `set ${runLabel(run)} on ${ep.code} aside until ElevenLabs has enough credits`, ep.id);
+  await db.insert(notifications).values({
+    recipient: run.startedBy,
+    actor: API_ACTOR,
+    message: `${runLabel(run)} on ${ep.code} is waiting for ElevenLabs credits. It starts by itself once there's enough.`,
+    href: `/episodes/${ep.id}`,
+  });
+}
+
+/** Lets held voiceovers back into the queue once the credits are there; they keep their place (oldest first). */
+async function releaseHeld() {
+  if (Date.now() - lastCreditCheck < CREDIT_CHECK_MS) return;
+  const held = await db.select().from(runs).where(and(eq(runs.status, "queued"), ne(runs.heldFor, "")));
+  if (!held.length) return;
+  lastCreditCheck = Date.now();
+  for (const run of held) {
+    const [ep] = await db.select().from(episodes).where(eq(episodes.id, run.episodeId));
+    const short = ep ? await voiceoverCreditsShort(ep) : null;
+    await db.update(runs).set({ heldFor: short ?? "" }).where(and(eq(runs.id, run.id), eq(runs.status, "queued")));
+    if (!short && ep) await logActivity(API_ACTOR, `ElevenLabs credits are back: ${runLabel(run)} on ${ep.code} is in line again`, ep.id);
+  }
 }
 
 /** Ends Claude for jobs stopped from either copy of the site. The pid is cleared so it's only tried once. */
@@ -456,7 +487,7 @@ export async function jobsAhead(runId: number) {
   const [row] = await db
     .select({ n: sql<number>`count(*)` })
     .from(runs)
-    .where(and(inArray(runs.status, LIVE), lt(runs.id, runId)));
+    .where(and(inArray(runs.status, LIVE), eq(runs.heldFor, ""), lt(runs.id, runId)));
   return row.n;
 }
 

@@ -54,7 +54,9 @@ export default async function QueuePage() {
               <li key={row.run.id} className="card flex items-center gap-3 p-4">
                 <span className="grid size-7 shrink-0 place-items-center rounded-full bg-fg/[0.06] text-xs font-semibold tabular-nums" aria-label={`Number ${i + 1} in line`}>{i + 1}</span>
                 <JobTitle row={row} />
-                <span className="shrink-0 text-xs text-faint">Queued {timeAgo(row.run.queuedAt ?? row.run.startedAt)}</span>
+                <span className="shrink-0 text-xs text-faint">
+                  {row.run.heldFor ? "Waiting for ElevenLabs credits" : `Queued ${timeAgo(row.run.queuedAt ?? row.run.startedAt)}`}
+                </span>
                 <form action={stopRunAction.bind(null, row.run.id)}>
                   <SubmitButton className="btn btn-ghost btn-sm" pendingText="Removing…" confirmText="Remove this job from the queue?" confirmMessage="Everything behind it moves up one place. To run it later, it joins the back of the line." confirmLabel="Remove">
                     <Square className="size-3" strokeWidth={2.4} /> Remove

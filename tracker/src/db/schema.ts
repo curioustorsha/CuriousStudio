@@ -193,6 +193,8 @@ export const runs = sqliteTable("runs", {
   finishedAt: text("finished_at"),
   // What the run did so far ({ steps, skillsUsed }), copied from its log on the Mac so the hosted site can show it.
   progress: text("progress").notNull().default(""),
+  // Set while a queued job is held back for something other than its turn (ElevenLabs credits): why, for people.
+  heldFor: text("held_for").notNull().default(""),
   notified: integer("notified", { mode: "boolean" }).notNull().default(false), // its starter has been told how it ended
 });
 

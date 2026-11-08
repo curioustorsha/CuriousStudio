@@ -24,6 +24,19 @@ const STATUS = {
 
 /** Live view of a skill run: its place in line, progress steps while it works, then Claude's summary. */
 export async function RunCard({ run }: { run: Run }) {
+  if (run.status === "queued" && run.heldFor) {
+    return (
+      <div className="flex items-start gap-2 rounded-xl bg-panel-2 p-3 text-xs">
+        <Clock className="mt-px size-3.5 shrink-0 text-accent" strokeWidth={2.2} />
+        <span className="text-muted">{run.heldFor}</span>
+        <form action={stopRunAction.bind(null, run.id)} className="ml-auto">
+          <SubmitButton className="btn btn-ghost btn-sm" pendingText="Removing…" confirmText="Remove this job from the queue?" confirmMessage="It won't start when the credits are back. Press Run to queue it again." confirmLabel="Remove">
+            Remove
+          </SubmitButton>
+        </form>
+      </div>
+    );
+  }
   if (run.status === "queued") {
     const ahead = await jobsAhead(run.id);
     return (
