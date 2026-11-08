@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   ArrowUpRight,
   BarChart3,
@@ -146,13 +147,13 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
     <DialogProvider>
       <div className="flex min-h-screen">
         <aside className="vibrancy scroll-thin sticky top-0 hidden h-screen w-[232px] shrink-0 flex-col overflow-y-auto border-r border-line px-3 pb-3 pt-5 md:flex">
-          <div className="mb-6 flex items-center gap-2.5 px-2">
+          <Link href="/" className="mb-6 flex items-center gap-2.5 px-2" aria-label="Curiously Studio, go to Dashboard">
             <Logo size={30} />
             <div className="leading-tight">
               <div className="text-[13px] font-semibold tracking-tight">Curiously</div>
               <div className="text-[11px] text-muted">Studio</div>
             </div>
-          </div>
+          </Link>
 
           <div className="mb-1.5 px-2.5 text-[11px] font-semibold text-faint">Workspace</div>
           <nav className="space-y-0.5">{navLinks(WORKSPACE)}</nav>
