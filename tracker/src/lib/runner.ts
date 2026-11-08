@@ -1,14 +1,15 @@
 import "server-only";
 import { execFileSync, spawn } from "node:child_process";
-import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync } from "node:fs";
+import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync, renameSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join } from "node:path";
 import { and, asc, desc, eq, inArray, isNotNull, isNull, lt, ne, notInArray, sql } from "drizzle-orm";
-import { db, episodes, notifications, runs, type Episode, type Run } from "@/db";
+import { db, episodes, notifications, runs, series, type Episode, type Run } from "@/db";
 import { getStage } from "./stages";
 import { API_ACTOR, getReviewHistory, logActivity, staleStages } from "./episodes";
 import { IS_WORKER, PROJECT_DIR, publishMedia } from "./media";
-import { stageModel } from "./settings";
+import { elevenLabsUsage } from "./elevenlabs";
+import { getSetting, setSetting, stageModel } from "./settings";
 import { getSkill } from "./skills";
 
 const RUNS_DIR = join(process.cwd(), ".runs");
@@ -115,6 +116,7 @@ export async function pumpQueue() {
   await reapStopped();
   const running = await db.select({ id: runs.id }).from(runs).where(eq(runs.status, "running"));
   for (const r of running) await syncRun(r.id);
+  if (await queuePause()) return;
   for (let run = await claimNext(); run; run = await claimNext()) {
     try {
       if (await launch(run)) return;
@@ -133,11 +135,17 @@ async function launch(run: Run) {
     await logActivity(API_ACTOR, `skipped ${runLabel(run)} on ${ep.code}: the episode had moved on`, ep.id);
     return false;
   }
+  const short = await voiceoverCreditsShort(ep);
+  if (short) {
+    await finish(run.id, "failed", short);
+    await logActivity(API_ACTOR, `didn't start ${runLabel(run)} on ${ep.code}: not enough ElevenLabs credits`, ep.id);
+    return false;
+  }
   await logActivity(run.startedBy, `started ${runLabel(run)} on ${ep.code}`, ep.id);
   if (run.skill === IDEA_FILL) {
     const { runIdeaFill } = await import("./ideaFill"); // ideaFill imports this file
     void runIdeaFill(run.id, ep)
-      .then(({ status, result }) => finish(run.id, status, result))
+      .then(({ status, result }) => (status === "limit" ? holdForLimit(run, null) : finish(run.id, status, result)))
       .catch((e) => finish(run.id, "failed", (e as Error).message))
       .then(pumpQueue);
     return true;
@@ -244,6 +252,76 @@ async function finish(id: number, status: Run["status"], result: string) {
   if (IS_WORKER && ended.skill !== IDEA_FILL) await publishMedia(ended.episodeId).catch((e) => console.error("Media upload:", e));
 }
 
+// ── Usage limits ──────────────────────────────────────────────────────
+
+/** Words Claude Code uses when the plan's limit is reached, for runs whose log has no rate-limit status. */
+export const LIMIT_TEXT = /usage limit|hit your limit|limit reached|rate limit/i;
+const PAUSE_KEY = "queue:paused";
+/** When Claude doesn't say when the limit resets, try again after this long. */
+const RETRY_MINUTES = 30;
+
+/** Why and until when the queue is paused, or null. Clears an expired pause. */
+export async function queuePause(): Promise<{ until: string; reason: string } | null> {
+  const raw = await getSetting(PAUSE_KEY);
+  if (!raw) return null;
+  let pause: { until: string; reason: string };
+  try {
+    pause = JSON.parse(raw);
+  } catch {
+    pause = { until: "", reason: "" };
+  }
+  if (pause.until > new Date().toISOString()) return pause;
+  await setSetting(PAUSE_KEY, null);
+  return null;
+}
+
+/**
+ * A job stopped by the Claude usage limit: it goes back to the front of the queue (it keeps the oldest id) and
+ * the queue waits until the limit resets, plus a minute. Its log is set aside so the retry starts clean.
+ */
+async function holdForLimit(run: Run, resetsAt: Date | null) {
+  const [held] = await db
+    .update(runs)
+    .set({ status: "queued", pid: null, result: "", progress: "" })
+    .where(and(eq(runs.id, run.id), eq(runs.status, "running")))
+    .returning();
+  if (!held) return;
+  try {
+    renameSync(logPath(run.id), join(RUNS_DIR, `${run.id}.limit-${Date.now()}.jsonl`));
+  } catch {}
+  const until = new Date((resetsAt?.getTime() ?? Date.now() + RETRY_MINUTES * 60_000) + 60_000).toISOString();
+  await setSetting(PAUSE_KEY, JSON.stringify({ until, reason: "Claude usage limit reached" }));
+  const [ep] = await db.select({ code: episodes.code }).from(episodes).where(eq(episodes.id, run.episodeId));
+  await logActivity(API_ACTOR, `paused the queue at the Claude usage limit; ${runLabel(run)} on ${ep?.code ?? "?"} goes again first`, run.episodeId);
+}
+
+/** Lifts the pause now, for when the limit reset early or the plan changed. */
+export async function resumeQueue(actor: string) {
+  await setSetting(PAUSE_KEY, null);
+  await logActivity(actor, "resumed the queue");
+  await pumpQueue();
+}
+
+/** Voiceover takes about one ElevenLabs credit per character; listen-back retries need some spare. */
+const CREDITS_PER_CHAR = 1.2;
+
+/**
+ * Why a Make run can't record its voiceover with the credits left, or null. Only checked when the next step is
+ * the voiceover (video series, storyboard done, no voiceover yet), and skipped if ElevenLabs can't be reached.
+ */
+async function voiceoverCreditsShort(ep: Episode) {
+  if (ep.stage !== "make" || !ep.storyboard.trim() || ep.voiceoverUrl.trim() || !ep.script.trim()) return null;
+  const [s] = ep.seriesId ? await db.select({ format: series.format }).from(series).where(eq(series.id, ep.seriesId)) : [];
+  if (s?.format === "carousel") return null;
+  const usage = await elevenLabsUsage(1);
+  if (!usage) return null;
+  const need = Math.ceil(ep.script.length * CREDITS_PER_CHAR);
+  const left = usage.limit - usage.used;
+  if (left >= need) return null;
+  const resets = usage.resetsAt.toLocaleDateString("en-GB", { day: "numeric", month: "long" });
+  return `Not started: ElevenLabs has ${left.toLocaleString("en-US")} credits left and this voiceover needs about ${need.toLocaleString("en-US")}. Credits reset on ${resets}. Top up or wait, then press Run again.`;
+}
+
 /** Ends Claude for jobs stopped from either copy of the site. The pid is cleared so it's only tried once. */
 async function reapStopped() {
   const stopped = await db
@@ -312,10 +390,12 @@ function alive(pid: number | null) {
 export async function syncRun(id: number) {
   const [run] = await db.select().from(runs).where(eq(runs.id, id));
   if (!IS_WORKER || !run || run.status !== "running") return run;
-  const { result, errors, steps, skillsUsed } = readLog(id);
+  const { result, errors, steps, skillsUsed, limit } = readLog(id);
   const progress = JSON.stringify({ steps, skillsUsed });
   if (run.skill !== IDEA_FILL && progress !== run.progress) await db.update(runs).set({ progress }).where(eq(runs.id, id));
-  if (result) {
+  if (result && !result.ok && limit) {
+    await holdForLimit(run, limit.resetsAt);
+  } else if (result) {
     await finish(id, result.ok ? "done" : "failed", result.text || (result.ok ? "Done." : "The run failed."));
   } else if (!alive(run.pid)) {
     await finish(id, "failed", errors.at(-1) ?? "The run stopped before finishing.");
@@ -457,6 +537,9 @@ export function readLog(id: number) {
   };
   // Skills the run loaded (Skill tool) or opened (read a file in .claude/skills/<name>/), in order of first use.
   const skillsUsed: string[] = [];
+  // Claude Code reports the plan's usage window as it goes; "rejected" means the limit was hit.
+  type RateLimit = { status?: string; resetsAt?: number };
+  let rateLimit: RateLimit | null = null;
   const used = (name: string | undefined) => name && !skillsUsed.includes(name) && skillsUsed.push(name);
   let raw = "";
   try {
@@ -474,6 +557,10 @@ export function readLog(id: number) {
     if (msg.type === "system" && msg.subtype === "init") {
       // "none" means Claude Code signed in with the subscription; anything else is an API key.
       if (msg.apiKeySource && msg.apiKeySource !== "none") usage.billing = "api-key";
+      continue;
+    }
+    if (msg.type === "rate_limit_event") {
+      rateLimit = (msg.rate_limit_info ?? null) as RateLimit | null;
       continue;
     }
     if (msg.type === "result") {
@@ -515,5 +602,7 @@ export function readLog(id: number) {
       }
     }
   }
-  return { steps, result, errors, usage, skillsUsed };
+  const limitHit = rateLimit?.status === "rejected" || (result !== null && !result.ok && LIMIT_TEXT.test(result.text));
+  const limit = limitHit ? { resetsAt: rateLimit?.resetsAt ? new Date(rateLimit.resetsAt * 1000) : null } : null;
+  return { steps, result, errors, usage, skillsUsed, limit };
 }

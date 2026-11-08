@@ -26,14 +26,14 @@ import {
   Users,
   WandSparkles,
 } from "lucide-react";
-import { logout } from "@/app/actions";
-import { AutoRefresh, HelperLink, NavLink, NavSection, SkillGroup, ThemeToggle } from "@/components/client";
+import { logout, resumeQueueAction } from "@/app/actions";
+import { AutoRefresh, HelperLink, LocalTime, NavLink, NavSection, SkillGroup, SubmitButton, ThemeToggle } from "@/components/client";
 import { DialogProvider } from "@/components/Dialog";
 import { Logo } from "@/components/Logo";
 import { Avatar } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
 import { unreadCount } from "@/lib/comments";
-import { liveJobCount } from "@/lib/runner";
+import { liveJobCount, queuePause } from "@/lib/runner";
 import { skillLabel, skillTree } from "@/lib/skills";
 
 const iconProps = { className: "size-[17px]", strokeWidth: 1.8 };
@@ -133,7 +133,7 @@ const SKILL_ICONS: Record<string, React.ReactNode> = {
 export default async function AppLayout({ children }: LayoutProps<"/">) {
   const user = await requireUser();
   const tree = skillTree();
-  const [unread, jobs] = await Promise.all([unreadCount(user.username), liveJobCount()]);
+  const [unread, jobs, pause] = await Promise.all([unreadCount(user.username), liveJobCount(), queuePause()]);
   const badges: Record<string, number> = { "/notifications": unread, "/queue": jobs };
   const navLinks = (items: NavItem[]) =>
     items.map((item) => (
@@ -252,7 +252,21 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
               </button>
             </form>
           </nav>
-          <main className="flex-1 px-5 py-7 md:px-10 md:py-10">{children}</main>
+          <main className="flex-1 px-5 py-7 md:px-10 md:py-10">
+            {pause && (
+              <div role="status" className="card mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 border-l-4 border-l-accent p-4 text-[13px]">
+                <span>
+                  <span className="font-semibold">Queue paused:</span> {pause.reason}. Jobs wait and start again at <LocalTime iso={pause.until} />. Nothing in the queue is lost.
+                </span>
+                {user.role === "admin" && (
+                  <form action={resumeQueueAction} className="ml-auto">
+                    <SubmitButton className="btn btn-ghost btn-sm" pendingText="Resuming…">Resume now</SubmitButton>
+                  </form>
+                )}
+              </div>
+            )}
+            {children}
+          </main>
         </div>
         <AutoRefresh />
       </div>

@@ -6,7 +6,10 @@ import { eq } from "drizzle-orm";
 import { db, episodes, runs, series as seriesTable, type Episode, type Series } from "@/db";
 import { API_ACTOR, updateEpisode } from "./episodes";
 import { emptyIdeaFields, IDEA_FILL_FIELDS, type IdeaFillField } from "./ideaFields";
-import { claudeBin, enqueueIdeaFill } from "./runner";
+import { claudeBin, enqueueIdeaFill, LIMIT_TEXT } from "./runner";
+
+/** The Claude plan's usage limit: the job goes back in line instead of failing. */
+class LimitError extends Error {}
 
 const MODEL = "claude-haiku-5-5";
 const EFFORT = "medium";
@@ -96,7 +99,8 @@ function callClaudeCode(prompt: string, fields: IdeaFillField[]): Promise<Result
       } catch {
         return reject(new Error(error?.killed ? "it took too long" : "Claude Code didn't return an answer"));
       }
-      if (out.is_error || !out.structured_output) return reject(new Error("Claude Code couldn't finish. Your plan's usage limit may have been reached."));
+      if (out.is_error && LIMIT_TEXT.test(String(out.result ?? ""))) return reject(new LimitError());
+      if (out.is_error || !out.structured_output) return reject(new Error("Claude Code couldn't finish."));
       resolve({
         values: out.structured_output,
         costUsd: out.total_cost_usd ?? null,
@@ -119,7 +123,7 @@ function reason(e: unknown) {
 }
 
 /** Fills one idea's empty fields, as a job from the queue. Says how the job ended. */
-export async function runIdeaFill(runId: number, ep: Episode): Promise<{ status: "done" | "failed"; result: string }> {
+export async function runIdeaFill(runId: number, ep: Episode): Promise<{ status: "done" | "failed" | "limit"; result: string }> {
   const fields = emptyIdeaFields(ep);
   if (!fields.length) return { status: "done", result: "Nothing left to fill." };
 
@@ -148,6 +152,7 @@ export async function runIdeaFill(runId: number, ep: Episode): Promise<{ status:
     return { status: "done", result: `Filled ${Object.keys(patch).length} idea fields.` };
   } catch (e) {
     await usage({});
+    if (e instanceof LimitError) return { status: "limit", result: "" };
     return { status: "failed", result: reason(e) };
   }
 }

@@ -18,7 +18,7 @@ import {
 import * as ep from "@/lib/episodes";
 import { addComment, markAllRead } from "@/lib/comments";
 import { MAX_SELECTED, queueIdeaFills } from "@/lib/ideaFill";
-import { activeRun, enqueueRun, stopRun } from "@/lib/runner";
+import { activeRun, enqueueRun, resumeQueue, stopRun } from "@/lib/runner";
 import { saveSkill } from "@/lib/skills";
 import { getStage, isFormat, isStage, stepStage } from "@/lib/stages";
 import { isVisualStyle } from "@/lib/styles";
@@ -217,6 +217,12 @@ export async function requestChangesAction(id: number, formData: FormData) {
 export async function runSkillAction(episodeId: number) {
   const user = await requireUser();
   await enqueueRun(user.username, episodeId);
+  refreshAll();
+}
+
+export async function resumeQueueAction() {
+  const user = await requireAdmin();
+  await resumeQueue(user.username);
   refreshAll();
 }
 

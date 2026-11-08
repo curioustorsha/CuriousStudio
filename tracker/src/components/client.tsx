@@ -695,3 +695,15 @@ export function SkillInstructions({ content, save, canEdit }: { content: string;
     </div>
   );
 }
+
+const noSubscribe = () => () => {};
+
+/** A time in the viewer's own time zone (the server may be in another). Blank until the page is in the browser. */
+export function LocalTime({ iso }: { iso: string }) {
+  const text = useSyncExternalStore(
+    noSubscribe,
+    () => new Date(iso).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" }),
+    () => "",
+  );
+  return <time dateTime={iso}>{text}</time>;
+}
