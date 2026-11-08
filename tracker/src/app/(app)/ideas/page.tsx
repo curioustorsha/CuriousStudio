@@ -108,16 +108,17 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
           <div className="mb-3">
             <FillIdeasButton formId="fill-selected" label="Fill empty fields with AI" />
           </div>
-          <div className="card w-fit max-w-full overflow-x-auto">
-            <table className="w-[928px] table-fixed border-collapse text-[13px]">
+          <div className="card overflow-x-auto">
+            {/* Column shares of the width: 36 · 88 · 360 · 116 · 110 · 64 · 154 out of 928 */}
+            <table className="w-full min-w-[800px] table-fixed border-collapse text-[13px]">
               <colgroup>
-                <col className="w-[36px]" />
-                <col className="w-[88px]" />
-                <col className="w-[360px]" />
-                <col className="w-[116px]" />
-                <col className="w-[110px]" />
-                <col className="w-[64px]" />
-                <col className="w-[154px]" />
+                <col className="w-[3.9%]" />
+                <col className="w-[9.5%]" />
+                <col className="w-[38.8%]" />
+                <col className="w-[12.5%]" />
+                <col className="w-[11.8%]" />
+                <col className="w-[6.9%]" />
+                <col className="w-[16.6%]" />
               </colgroup>
               <thead>
                 <tr className="border-b border-fg/10 text-[10px] font-semibold uppercase tracking-wide text-faint">
