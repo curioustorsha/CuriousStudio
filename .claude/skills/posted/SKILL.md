@@ -83,4 +83,4 @@ When you read real numbers, add them: `views=12400 likes=890 shares=120 avgReten
 
 ## 9. Report back
 
-Which links are confirmed, the pinned comment, stats (or what's missing and when they're due), the lessons, and the link `http://localhost:3000/episodes/<id>`.
+Which links are confirmed, the pinned comment, stats (or what's missing and when they're due), the lessons, and the link `/episodes/<id>`.

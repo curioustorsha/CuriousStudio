@@ -15,6 +15,9 @@ export const users = sqliteTable("users", {
   active: integer("active", { mode: "boolean" }).notNull().default(true),
   // Sessions carry this number; bumping it signs the user out everywhere.
   sessionVersion: integer("session_version").notNull().default(0),
+  // Login lockout: wrong passwords in a row, and when the account opens again after too many.
+  failedLogins: integer("failed_logins").notNull().default(0),
+  lockedUntil: text("locked_until"), // ISO time
   ...timestamps,
 });
 
@@ -188,6 +191,8 @@ export const runs = sqliteTable("runs", {
   queuedAt: text("queued_at"), // when it joined the queue; empty on runs from before the queue
   startedAt: text("started_at").notNull().default(sql`(datetime('now'))`), // reset when it leaves the queue
   finishedAt: text("finished_at"),
+  // What the run did so far ({ steps, skillsUsed }), copied from its log on the Mac so the hosted site can show it.
+  progress: text("progress").notNull().default(""),
   notified: integer("notified", { mode: "boolean" }).notNull().default(false), // its starter has been told how it ended
 });
 

@@ -70,4 +70,4 @@ node tracker/scripts/episode.mjs submit <CODE> slides=@<path>/slides.txt renderU
 - **Plan pass:** the look in one line, the scene or slide count, the estimated length, anything new to build (components, sounds, logos), and: "Read the plan, tick **Plan approved** and press Run on Make again, or request changes."
 - **Build pass:** the length, what each helper did, every open QA issue with its timestamp or slide number, and: "Watch it on your phone, then move it to Review."
 - **Helpers:** every helper skill you loaded or read this run, each with one line on what it actually changed ("yt-seo: rewrote the first two description lines for search") or "loaded, didn't change anything". Also name any helper these instructions mention that you didn't use, and why. This decides which helpers stay, so be honest.
-- The link `http://localhost:3000/episodes/<id>`.
+- The link `/episodes/<id>`.

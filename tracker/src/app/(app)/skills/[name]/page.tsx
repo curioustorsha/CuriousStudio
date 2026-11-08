@@ -4,7 +4,8 @@ import { saveSkillAction, saveStageModelAction } from "@/app/actions";
 import { SkillInstructions, SubmitButton } from "@/components/client";
 import { PageHeader, StageBadge, timeAgo } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
-import { readLog, recentRuns } from "@/lib/runner";
+import { IS_WORKER } from "@/lib/media";
+import { recentRuns, runProgress } from "@/lib/runner";
 import { stageModel } from "@/lib/settings";
 import { getSkill, skillLabel } from "@/lib/skills";
 import { EFFORTS, modelLabel, MODELS } from "@/lib/stages";
@@ -36,7 +37,7 @@ export default async function SkillPage({ params }: PageProps<"/skills/[name]">)
 
       <div className={`grid gap-6 ${stage ? "lg:grid-cols-[1fr_480px]" : ""}`}>
         <section className="card min-w-0 p-6">
-          <SkillInstructions key={skill.content} content={skill.content} save={saveSkillAction.bind(null, skill.name)} canEdit={isAdmin} />
+          <SkillInstructions key={skill.content} content={skill.content} save={saveSkillAction.bind(null, skill.name)} canEdit={isAdmin && IS_WORKER} />
         </section>
 
         {stage && (
@@ -89,7 +90,7 @@ export default async function SkillPage({ params }: PageProps<"/skills/[name]">)
                         <td className={`py-1.5 capitalize ${STATUS_STYLE[run.status] ?? ""}`}>{run.status}</td>
                         <td className="py-1.5 text-muted">{run.model ? modelLabel(run.model) : "—"}</td>
                         <td className="py-1.5 text-muted">
-                          {readLog(run.id).skillsUsed.filter((s) => s !== skill.name).join(", ") || "—"}
+                          {runProgress(run).skillsUsed.filter((s) => s !== skill.name).join(", ") || "—"}
                         </td>
                         <td className="py-1.5 text-right tabular-nums text-muted">
                           {run.costUsd != null ? `$${run.costUsd.toFixed(2)}` : "—"}

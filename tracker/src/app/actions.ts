@@ -32,6 +32,7 @@ function refreshAll() {
 
 export async function login(_prev: { error?: string } | undefined, formData: FormData) {
   const user = await checkCredentials(String(formData.get("username") ?? ""), String(formData.get("password") ?? ""));
+  if (user === "locked") return { error: "Too many wrong passwords. This account is locked for 15 minutes, or an admin can reset its password." };
   if (!user) return { error: "Wrong username or password." };
   await startSession(user);
   redirect("/");

@@ -68,6 +68,7 @@ export function anthropicKeyStatus() {
 }
 
 export function saveAnthropicKey(key: string | null) {
+  if (process.env.VERCEL) throw new Error("The API key is set in the tracker on the Mac, where runs happen.");
   const clean = key?.trim() ?? "";
   if (clean && !/^sk-ant-[A-Za-z0-9_-]{20,}$/.test(clean)) throw new Error("That doesn't look like a Claude API key (sk-ant-…).");
   let lines: string[] = [];

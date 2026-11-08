@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/ui";
 import { db, episodes, runs } from "@/db";
 import { requireUser } from "@/lib/auth";
 import { elevenLabsUsage } from "@/lib/elevenlabs";
+import { IS_WORKER } from "@/lib/media";
 import { backfillUsage } from "@/lib/runner";
 import { anthropicKeyStatus, getSetting, planFee, PLAN_KEYS } from "@/lib/settings";
 import { getStage, modelLabel, STAGES } from "@/lib/stages";
@@ -301,7 +302,8 @@ export default async function UsagePage() {
           )}
 
           {/* API key */}
-          {user.role === "admin" && (
+          {/* The key lives in the Mac's .env.local, where runs happen: the hosted copy can't see or change it. */}
+          {user.role === "admin" && IS_WORKER && (
           <section className="card p-5">
             <h3 className="text-[15px] font-semibold tracking-tight">Claude API key</h3>
             <p className="mb-3 mt-1 text-xs text-muted">

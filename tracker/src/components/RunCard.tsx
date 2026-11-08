@@ -2,7 +2,7 @@ import { CircleCheck, CircleX, Clock, FileText, Globe, LoaderCircle, Search, Squ
 import Link from "next/link";
 import { stopRunAction } from "@/app/actions";
 import type { Run } from "@/db";
-import { jobsAhead, readLog, type RunStep } from "@/lib/runner";
+import { jobsAhead, runProgress, type RunStep } from "@/lib/runner";
 import { Markdown, RunWatcher, SubmitButton } from "./client";
 import { timeAgo } from "./ui";
 
@@ -43,7 +43,7 @@ export async function RunCard({ run }: { run: Run }) {
       </div>
     );
   }
-  const { steps, result } = readLog(run.id);
+  const { steps } = runProgress(run);
   const status = STATUS[run.status as keyof typeof STATUS] ?? STATUS.failed;
   const running = run.status === "running";
   const shown = running ? steps.slice(-8) : steps;
@@ -61,7 +61,7 @@ export async function RunCard({ run }: { run: Run }) {
         <span className={`font-semibold ${status.className}`}>{status.label}</span>
         <span className="text-faint">
           {running ? `started ${timeAgo(run.startedAt)}` : timeAgo(run.finishedAt ?? run.startedAt)} · {run.startedBy}
-          {result?.seconds ? ` · ${Math.round(result.seconds / 60) || "<1"} min` : ""}
+          {run.durationSec ? ` · ${Math.round(run.durationSec / 60) || "<1"} min` : ""}
         </span>
         {running && (
           <form action={stopRunAction.bind(null, run.id)} className="ml-auto">

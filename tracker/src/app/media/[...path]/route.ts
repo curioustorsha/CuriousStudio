@@ -1,38 +1,26 @@
 import { createReadStream, statSync } from "node:fs";
-import { extname, join, resolve, sep } from "node:path";
+import { extname } from "node:path";
 import { Readable } from "node:stream";
 import { NextResponse, type NextRequest } from "next/server";
 import { getUser } from "@/lib/auth";
-import { PROJECT_DIR } from "@/lib/skills";
-
-/** Only these folders of the video project are served: renders and stills, and generated audio. */
-const ROOTS: Record<string, string> = {
-  out: join(PROJECT_DIR, "video", "out"),
-  public: join(PROJECT_DIR, "video", "public"),
-};
-
-const TYPES: Record<string, string> = {
-  ".mp4": "video/mp4",
-  ".mp3": "audio/mpeg",
-  ".wav": "audio/wav",
-  ".png": "image/png",
-  ".jpg": "image/jpeg",
-  ".jpeg": "image/jpeg",
-  ".json": "application/json",
-};
+import { IS_WORKER, localMediaFile, MEDIA_TYPES, mediaUrl } from "@/lib/media";
 
 /**
- * GET /media/out/his-003/final.mp4 — streams a file from the video project for the episode page's players.
+ * GET /media/out/his-003/final.mp4 — streams a file from the video project for the episode page's players
+ * (on the Mac), or redirects to its uploaded copy (hosted).
  * Supports Range requests so video and audio can seek.
  */
 export async function GET(request: NextRequest, ctx: RouteContext<"/media/[...path]">) {
   if (!(await getUser())) return new NextResponse("Unauthorized", { status: 401 });
-  const [rootKey, ...rest] = (await ctx.params).path;
-  const root = ROOTS[rootKey];
-  const type = TYPES[extname(rest.at(-1) ?? "").toLowerCase()];
-  if (!root || !type || !rest.length) return new NextResponse("Not found", { status: 404 });
-  const file = resolve(root, ...rest);
-  if (!file.startsWith(root + sep)) return new NextResponse("Not found", { status: 404 });
+  const path = (await ctx.params).path.join("/");
+  const file = localMediaFile(path);
+  if (!file) return new NextResponse("Not found", { status: 404 });
+  // Hosted: the Mac uploaded the file to Blob; send the browser there so it streams and seeks from the CDN.
+  if (!IS_WORKER) {
+    const url = mediaUrl(path);
+    return url ? NextResponse.redirect(url + request.nextUrl.search, { headers: { "Cache-Control": "private, no-store" } }) : new NextResponse("Not found", { status: 404 });
+  }
+  const type = MEDIA_TYPES[extname(path).toLowerCase()];
 
   let size: number;
   try {

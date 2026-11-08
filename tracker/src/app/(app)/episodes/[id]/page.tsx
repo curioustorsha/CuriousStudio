@@ -11,8 +11,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
 import {
   addCommentAction,
   approveStageAction,
@@ -36,7 +34,8 @@ import { findEpisode, getReviewHistory, parseSendBack, researchFacts, staleStage
 import { latestRun } from "@/lib/runner";
 import { emptyIdeaFields, IDEA_FILL_FIELDS } from "@/lib/ideaFields";
 import { episodeScenes } from "@/lib/scenes";
-import { getSkill, PROJECT_DIR } from "@/lib/skills";
+import { getSkill } from "@/lib/skills";
+import { hasOutFile } from "@/lib/media";
 import { timecode } from "@/lib/timecode";
 import { checklistItems, checklistProgress, getStage, isFormat, stageIndex, stagesFor, stepStage, type Format } from "@/lib/stages";
 
@@ -548,13 +547,13 @@ type TabProps = {
 };
 
 /** The render with its pinned notes. Notes can be added while this stage is the episode's current one and Make isn't running. */
-function PinnedPlayer({ ep, stageKey, pinned, running }: TabProps) {
+async function PinnedPlayer({ ep, stageKey, pinned, running }: TabProps) {
   return (
     <TimedReview
       episodeId={ep.id}
       src={fresh(ep, ep.renderUrl)}
-      poster={outFile(ep, "cover.png") ?? undefined}
-      scenes={episodeScenes(ep.code)}
+      poster={(await outFile(ep, "cover.png")) ?? undefined}
+      scenes={await episodeScenes(ep.code)}
       notes={pinned}
       canNote={stageKey === ep.stage && !running}
     />
@@ -706,9 +705,8 @@ function StoryboardTab({ ep, save }: TabProps) {
 }
 
 /** URL of a file in the video project's out/ folder for this episode, if it exists (served by /media). */
-function outFile(ep: Episode, name: string) {
-  const rel = join("video", "out", ep.code.toLowerCase(), name);
-  return existsSync(join(PROJECT_DIR, rel)) ? `/media/out/${ep.code.toLowerCase()}/${name}?v=${encodeURIComponent(ep.updatedAt)}` : null;
+async function outFile(ep: Episode, name: string) {
+  return (await hasOutFile(ep.code, name)) ? `/media/out/${ep.code.toLowerCase()}/${name}?v=${encodeURIComponent(ep.updatedAt)}` : null;
 }
 
 /** Adds a cache-busting version to a /media URL so a re-render shows up without a hard refresh. */
@@ -716,12 +714,12 @@ function fresh(ep: Episode, url: string) {
   return url.startsWith("/media/") ? `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(ep.updatedAt)}` : url;
 }
 
-function VideoPlayer({ ep, src }: { ep: Episode; src: string }) {
+async function VideoPlayer({ ep, src }: { ep: Episode; src: string }) {
   return (
     <video
       key={src}
       src={fresh(ep, src)}
-      poster={outFile(ep, "cover.png") ?? undefined}
+      poster={(await outFile(ep, "cover.png")) ?? undefined}
       controls
       playsInline
       preload="metadata"
@@ -835,9 +833,9 @@ function DesignTab({ ep, save }: TabProps) {
   );
 }
 
-function ReviewTab(props: TabProps) {
+async function ReviewTab(props: TabProps) {
   const { ep, format, save, pinned, stageKey } = props;
-  const sheet = outFile(ep, "frames/sheet.jpg");
+  const sheet = await outFile(ep, "frames/sheet.jpg");
   const video = format === "video" && ep.renderUrl;
   return (
     <>
@@ -878,8 +876,8 @@ function ReviewTab(props: TabProps) {
   );
 }
 
-function PackagingTab({ ep, save }: TabProps) {
-  const cover = outFile(ep, "cover.png");
+async function PackagingTab({ ep, save }: TabProps) {
+  const cover = await outFile(ep, "cover.png");
   return (
     <TabForm save={save}>
       {cover && (
@@ -909,9 +907,9 @@ function PackagingTab({ ep, save }: TabProps) {
   );
 }
 
-function ScheduledTab({ ep, save }: TabProps) {
-  const video = outFile(ep, "final.mp4");
-  const cover = outFile(ep, "cover.png");
+async function ScheduledTab({ ep, save }: TabProps) {
+  const video = await outFile(ep, "final.mp4");
+  const cover = await outFile(ep, "cover.png");
   return (
     <TabForm save={save}>
       <div className="grid gap-4 sm:grid-cols-[200px_1fr] sm:items-end">

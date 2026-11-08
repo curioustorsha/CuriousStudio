@@ -1,10 +1,11 @@
 import "server-only";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { IS_WORKER, PROJECT_DIR } from "./media";
 import { STAGES } from "./stages";
 
-/** Claude Code skills live in the Curiously project folder, one level above the tracker. */
-export const PROJECT_DIR = join(process.cwd(), "..");
+export { PROJECT_DIR };
+
 const SKILLS_DIR = join(PROJECT_DIR, ".claude", "skills");
 
 export type Skill = {
@@ -121,6 +122,8 @@ export function skillLabel(skill: Skill) {
 
 /** Overwrites a skill's SKILL.md. Only existing skills can be saved (no new paths from form input). */
 export function saveSkill(name: string, content: string) {
+  // Runs read skills from the Mac's folder, so an edit on the hosted copy would never reach them.
+  if (!IS_WORKER) throw new Error("Skills are edited in the tracker on the Mac.");
   if (!getSkill(name)) throw new Error("Unknown skill");
   writeFileSync(join(SKILLS_DIR, name, "SKILL.md"), content.replace(/\r\n/g, "\n"));
 }

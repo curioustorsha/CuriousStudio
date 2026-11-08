@@ -334,7 +334,7 @@ export async function addPinnedNote(actor: string, id: number, atSec: number, bo
     .select({ top: max(revisions.version) })
     .from(revisions)
     .where(and(eq(revisions.episodeId, id), eq(revisions.stage, "make")));
-  const scene = sceneAt(episodeScenes(ep.code), atSec)?.id ?? null;
+  const scene = sceneAt(await episodeScenes(ep.code), atSec)?.id ?? null;
   await db.insert(feedback).values({ episodeId: id, stage: "make", version: top ?? null, body, author: actor, atSec, scene });
   if (ep.stage === "make") await db.update(episodes).set({ readyForReview: false }).where(eq(episodes.id, id));
   await logActivity(actor, `pinned a note at ${timecode(atSec)}${scene ? ` (${scene})` : ""} on ${ep.code}`, id);

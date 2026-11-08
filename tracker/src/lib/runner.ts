@@ -1,14 +1,15 @@
 import "server-only";
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join } from "node:path";
-import { and, asc, desc, eq, inArray, isNull, lt, notInArray, sql } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNotNull, isNull, lt, ne, notInArray, sql } from "drizzle-orm";
 import { db, episodes, notifications, runs, type Episode, type Run } from "@/db";
 import { getStage } from "./stages";
 import { API_ACTOR, getReviewHistory, logActivity, staleStages } from "./episodes";
+import { IS_WORKER, PROJECT_DIR, publishMedia } from "./media";
 import { stageModel } from "./settings";
-import { getSkill, PROJECT_DIR } from "./skills";
+import { getSkill } from "./skills";
 
 const RUNS_DIR = join(process.cwd(), ".runs");
 
@@ -47,7 +48,7 @@ const ALLOWED_TOOLS = [
 export function claudeBin(): string | null {
   if (process.env.CLAUDE_BIN && existsSync(process.env.CLAUDE_BIN)) return process.env.CLAUDE_BIN;
   for (const p of [join(homedir(), ".local/bin/claude"), "/opt/homebrew/bin/claude", "/usr/local/bin/claude"]) {
-    if (existsSync(p)) return p;
+    if (existsSync(/*turbopackIgnore: true*/ p)) return p;
   }
   const extDir = join(homedir(), ".vscode/extensions");
   if (!existsSync(extDir)) return null;
@@ -110,6 +111,8 @@ async function claimNext() {
 
 /** Starts the next job if Claude is free. Safe to call any time, from anywhere. */
 export async function pumpQueue() {
+  if (!IS_WORKER) return;
+  await reapStopped();
   const running = await db.select({ id: runs.id }).from(runs).where(eq(runs.status, "running"));
   for (const r of running) await syncRun(r.id);
   for (let run = await claimNext(); run; run = await claimNext()) {
@@ -180,7 +183,7 @@ async function launch(run: Run) {
   ].join(" ");
   const out = openSync(logPath(run.id), "a");
   const child = spawn(
-    bin,
+    /*turbopackIgnore: true*/ bin,
     [
       "-p", prompt,
       "--output-format", "stream-json", "--verbose",
@@ -221,11 +224,6 @@ export async function stopRun(actor: string, runId: number) {
   const wasRunning = run.status === "running";
   // shortcut: a running idea fill can't be stopped or it would overlap the next job; it ends within 2 minutes. Deleting the idea does free the slot early.
   if (wasRunning && run.skill === IDEA_FILL) return;
-  if (wasRunning && run.pid && run.pid !== process.pid) {
-    try {
-      process.kill(-run.pid, "SIGTERM");
-    } catch {}
-  }
   await finish(runId, "stopped", `${wasRunning ? "Stopped" : "Removed from the queue"} by ${actor}.`);
   await logActivity(actor, `${wasRunning ? "stopped" : "removed from the queue:"} ${runLabel(run)} on ${code}`, run.episodeId);
   await pumpQueue();
@@ -243,6 +241,32 @@ async function finish(id: number, status: Run["status"], result: string) {
     if (ep) await logActivity(API_ACTOR, `${status === "done" ? "finished" : "failed"} ${runLabel(ended)} on ${ep.code}`, ended.episodeId);
   }
   await notifyStarter(ended);
+  if (IS_WORKER && ended.skill !== IDEA_FILL) await publishMedia(ended.episodeId).catch((e) => console.error("Media upload:", e));
+}
+
+/** Ends Claude for jobs stopped from either copy of the site. The pid is cleared so it's only tried once. */
+async function reapStopped() {
+  const stopped = await db
+    .select({ id: runs.id, pid: runs.pid })
+    .from(runs)
+    .where(and(eq(runs.status, "stopped"), isNotNull(runs.pid), ne(runs.pid, process.pid)));
+  for (const r of stopped) {
+    // After a restart the pid may belong to something else now: only end it if it's still Claude Code.
+    if (r.pid && alive(r.pid) && /claude/i.test(processCommand(r.pid))) {
+      try {
+        process.kill(-r.pid, "SIGTERM");
+      } catch {}
+    }
+    await db.update(runs).set({ pid: null }).where(eq(runs.id, r.id));
+  }
+}
+
+function processCommand(pid: number) {
+  try {
+    return execFileSync("ps", ["-o", "command=", "-p", String(pid)], { encoding: "utf8" });
+  } catch {
+    return "";
+  }
 }
 
 /**
@@ -287,8 +311,10 @@ function alive(pid: number | null) {
 /** Brings a running run's status up to date from its log: finished, failed, or still going. */
 export async function syncRun(id: number) {
   const [run] = await db.select().from(runs).where(eq(runs.id, id));
-  if (!run || run.status !== "running") return run;
-  const { result, errors } = readLog(id);
+  if (!IS_WORKER || !run || run.status !== "running") return run;
+  const { result, errors, steps, skillsUsed } = readLog(id);
+  const progress = JSON.stringify({ steps, skillsUsed });
+  if (run.skill !== IDEA_FILL && progress !== run.progress) await db.update(runs).set({ progress }).where(eq(runs.id, id));
   if (result) {
     await finish(id, result.ok ? "done" : "failed", result.text || (result.ok ? "Done." : "The run failed."));
   } else if (!alive(run.pid)) {
@@ -306,7 +332,7 @@ export async function syncRun(id: number) {
  */
 async function saveUsage(id: number) {
   const [run] = await db.select().from(runs).where(eq(runs.id, id));
-  if (!run || LIVE.includes(run.status) || run.billing) return;
+  if (!IS_WORKER || !run || LIVE.includes(run.status) || run.billing) return;
   const { result, usage } = readLog(id);
   await db
     .update(runs)
@@ -392,6 +418,24 @@ export async function recentRuns(skill: string, limit = 15) {
     .orderBy(desc(runs.id))
     .limit(limit);
   return Promise.all(rows.map(async (r) => ({ ...r, run: (await syncRun(r.run.id)) ?? r.run })));
+}
+
+/** What a run did, as last copied from its log by the worker. */
+export function runProgress(run: Run): { steps: RunStep[]; skillsUsed: string[] } {
+  try {
+    return JSON.parse(run.progress);
+  } catch {
+    return { steps: [], skillsUsed: [] };
+  }
+}
+
+/** Copies progress from the logs of runs that ended before progress was kept in the database. Worker only. */
+export async function backfillProgress() {
+  const rows = await db.select({ id: runs.id }).from(runs).where(and(eq(runs.progress, ""), ne(runs.skill, IDEA_FILL), notInArray(runs.status, LIVE)));
+  for (const r of rows) {
+    const { steps, skillsUsed } = readLog(r.id);
+    await db.update(runs).set({ progress: JSON.stringify({ steps, skillsUsed }) }).where(eq(runs.id, r.id));
+  }
 }
 
 export type RunStep = { kind: "search" | "read" | "tool" | "submit" | "note"; text: string };

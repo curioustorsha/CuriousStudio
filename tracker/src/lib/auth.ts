@@ -11,6 +11,8 @@ export type AppUser = { username: string; name: string; role: string; active: bo
 
 const MAX_ACTIVE_USERS = 10;
 const MIN_PASSWORD_LENGTH = 10;
+const MAX_FAILED_LOGINS = 5;
+const LOCK_MINUTES = 15;
 // Compared against when the username is unknown, so a wrong username takes as long as a wrong password.
 const NO_USER_HASH = hashPassword("no such user");
 
@@ -112,6 +114,8 @@ export async function resetPassword(username: string, password: string) {
     .update(users)
     .set({
       passwordHash: await hashPassword(password),
+      failedLogins: 0,
+      lockedUntil: null,
       sessionVersion: sql`${users.sessionVersion} + 1`,
       updatedAt: sql`(datetime('now'))`,
     })
@@ -126,10 +130,24 @@ export async function changeOwnPassword(user: AppUser, current: string, next: st
   await startSession(user);
 }
 
-export async function checkCredentials(username: string, password: string): Promise<AppUser | null> {
+/** "locked" after too many wrong passwords in a row, until the lock runs out. */
+export async function checkCredentials(username: string, password: string): Promise<AppUser | null | "locked"> {
   const row = (await userRows()).find((u) => u.username === username.trim().toLowerCase());
+  if (row?.lockedUntil && row.lockedUntil > new Date().toISOString()) return "locked";
   const ok = await verifyPassword(password, row?.passwordHash ?? (await NO_USER_HASH));
-  return row?.active && ok ? toAppUser(row) : null;
+  // shortcut: unknown usernames aren't counted or slowed down beyond the hash; add a per-IP limit if guessing shows up.
+  if (!row) return null;
+  if (ok) {
+    if (row.failedLogins) await db.update(users).set({ failedLogins: 0, lockedUntil: null }).where(eq(users.id, row.id));
+    return row.active ? toAppUser(row) : null;
+  }
+  const failed = row.failedLogins + 1;
+  const lock = failed >= MAX_FAILED_LOGINS;
+  await db
+    .update(users)
+    .set({ failedLogins: lock ? 0 : failed, lockedUntil: lock ? new Date(Date.now() + LOCK_MINUTES * 60_000).toISOString() : row.lockedUntil })
+    .where(eq(users.id, row.id));
+  return lock ? "locked" : null;
 }
 
 export async function startSession(user: AppUser) {

@@ -28,16 +28,20 @@ npm run service:uninstall  # stop and remove auto-start
 
 It runs as a LaunchAgent (`~/Library/LaunchAgents/com.curiously.tracker.plist`). It starts at login and restarts itself if it crashes.
 
-## Share it between two people (Vercel + Turso, free tiers)
+## Hosted for the team (Vercel + Turso + Blob, Mac as the worker)
 
-Running locally keeps the data on one laptop. To work from the same board on two machines:
+The site runs on Vercel so anyone can sign in from anywhere. Claude still runs on the Mac: the tracker there
+(the LaunchAgent above) shares the same Turso database, takes jobs from the queue, and uploads what the episode
+page shows (voiceover, render, cover, slides, scene timings) to Vercel Blob. When the Mac is off, everything
+works except runs, which wait in the queue.
 
-1. Create a free database at [turso.tech](https://turso.tech) and copy its URL (`libsql://…`) and auth token.
-2. Point `.env.local` at it (`DATABASE_URL`, `DATABASE_AUTH_TOKEN`) and run `npm run setup` once.
-3. Push the repo to a private GitHub repo and import it in [Vercel](https://vercel.com) with **Root Directory = `tracker`**.
-4. In Vercel → Settings → Environment Variables, add `APP_USERS`, `AUTH_SECRET`, `API_TOKEN`, `DATABASE_URL` and `DATABASE_AUTH_TOKEN`.
-
-Both of you then sign in at the Vercel URL. Pages refresh every 20s, so you see each other’s changes.
+- Vercel project: **Root Directory = `tracker`**. Add Turso (Marketplace) and a **public** Blob store.
+- Vercel env: `AUTH_SECRET`, `API_TOKEN`, `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `MEDIA_BASE_URL`, `ELEVENLABS_API_KEY`.
+- Mac `.env.local`: the same `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `MEDIA_BASE_URL`, plus `BLOB_READ_WRITE_TOKEN`.
+- `MEDIA_BASE_URL` is the Blob store URL plus a long random folder (`https://<store>.public.blob.vercel-storage.com/m-<random>`).
+  The folder name keeps the files unlisted; the site only hands out links to signed-in people.
+- Hosted, skills and the Claude API key are read-only: edit them in the tracker on the Mac (`http://localhost:3000`).
+- Five wrong passwords in a row lock an account for 15 minutes; an admin resetting the password unlocks it.
 
 ## Pages
 
@@ -101,7 +105,7 @@ The loop is the same for every stage:
 2. Review it. To approve, move the card on. To ask for changes, use **Request changes**. The card shows **Changes requested**.
 3. Press **Run again with my notes**. It reads your notes and the previous version, writes the next version, and marks the notes as addressed.
 
-Runs use the Claude Code program from the VS Code extension (or a standalone install, or `CLAUDE_BIN` in `.env.local`) and your Claude login. A run may only read and write files, search and read the web, and call `scripts/episode.mjs` to read and submit the episode. Logs are kept in `.runs/`. Claude does one job at a time: every run, idea fills included, joins a first-in, first-out queue (see **Queue**). Running skills needs the tracker running on this Mac; it won't work from a hosted deploy.
+Runs use the Claude Code program from the VS Code extension (or a standalone install, or `CLAUDE_BIN` in `.env.local`) and your Claude login. A run may only read and write files, search and read the web, and call `scripts/episode.mjs` to read and submit the episode. Logs are kept in `.runs/`. Claude does one job at a time: every run, idea fills included, joins a first-in, first-out queue (see **Queue**). Runs happen on this Mac: the hosted site only queues them (see **Hosted for the team**).
 
 **Send back with fixes:** any stage skill that finds a problem belonging to an earlier stage (Make spotting a script problem, Publish finding an unusable cover frame) attaches a proposal: the earlier stage plus exact fixes. The stage shows it in a highlighted panel with **Send fixes to …**, the board card shows "Fixes for …", and Approve warns before carrying the problem forward. Sending moves the episode straight back to that stage (several steps if needed) and files the fixes there as a Request Changes note; run that stage again, and the stages after it are flagged out of date. Skills submit `sendBack=@sendback.json` (`{ "stage": "script", "notes": "…" }`) or `sendBack=none`.
 

@@ -25,3 +25,6 @@ tools/earshot/
 
 # OS
 .DS_Store
+
+# Next.js writes a small build cache here when its root is the Curiously folder
+/.next/

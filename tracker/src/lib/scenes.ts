@@ -1,7 +1,5 @@
 import "server-only";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-import { PROJECT_DIR } from "@/lib/skills";
+import { readManifest } from "@/lib/media";
 
 export type SceneSpan = { id: string; from: number; to: number; text: string };
 
@@ -11,12 +9,12 @@ const LOGO_SECONDS = 96 / FPS;
 /**
  * Where each scene of a rendered episode falls, in seconds, from its voiceover manifest. Scene lengths match the video
  * engine (0.3 s after the last word, 0.6 s on the last scene), followed by the logo sting.
- * Empty when the episode has no manifest yet, or the tracker is running somewhere without the video project.
+ * Empty when the episode has no manifest yet (or, hosted, it hasn't been uploaded).
  */
-export function episodeScenes(code: string): SceneSpan[] {
+export async function episodeScenes(code: string): Promise<SceneSpan[]> {
   let manifest: { scenes: { id: string; text: string; end: number }[] };
   try {
-    manifest = JSON.parse(readFileSync(join(PROJECT_DIR, "video", "src", "episodes", code.toLowerCase(), "manifest.json"), "utf8"));
+    manifest = (await readManifest(code)) as typeof manifest;
   } catch {
     return [];
   }

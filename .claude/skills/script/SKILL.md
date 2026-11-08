@@ -170,4 +170,4 @@ Checklist item "Every claim checked against its source" is yours to tick once th
 - Anything in "Needs research".
 - For a revision, how each note was handled.
 - The fact-check verdict and the fixes you applied.
-- The link `http://localhost:3000/episodes/<id>`. Tell them to read the script and the fact-check, then approve it by moving to Make, or request changes.
+- The link `/episodes/<id>`. Tell them to read the script and the fact-check, then approve it by moving to Make, or request changes.

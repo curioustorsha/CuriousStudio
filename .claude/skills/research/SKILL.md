@@ -140,4 +140,4 @@ Keep it short:
 - How many facts, and how many are Primary vs Reported.
 - Weak spots: single-source claims, open questions, anything the reviewer should look at first.
 - For a revision, how each note was handled.
-- The link: `http://localhost:3000/episodes/<id>`. Tell them to approve it by moving the card to Script, or to request changes on the page.
+- The link: `/episodes/<id>`. Tell them to approve it by moving the card to Script, or to request changes on the page.
