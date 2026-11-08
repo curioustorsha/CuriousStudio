@@ -108,12 +108,12 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
           <div className="mb-3">
             <FillIdeasButton formId="fill-selected" label="Fill empty fields with AI" />
           </div>
-          <div className="card overflow-x-auto">
-            <table className="w-full min-w-[800px] table-fixed border-collapse text-[13px]">
+          <div className="card w-fit max-w-full overflow-x-auto">
+            <table className="w-[928px] table-fixed border-collapse text-[13px]">
               <colgroup>
                 <col className="w-[36px]" />
                 <col className="w-[88px]" />
-                <col />
+                <col className="w-[360px]" />
                 <col className="w-[116px]" />
                 <col className="w-[110px]" />
                 <col className="w-[64px]" />
