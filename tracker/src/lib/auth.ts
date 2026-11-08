@@ -10,7 +10,7 @@ import { SESSION_COOKIE, signSession, verifySession } from "./session";
 export type AppUser = { username: string; name: string; role: string; active: boolean };
 
 const MAX_ACTIVE_USERS = 10;
-const MIN_PASSWORD_LENGTH = 10;
+const MIN_PASSWORD_LENGTH = 9;
 const MAX_FAILED_LOGINS = 5;
 const LOCK_MINUTES = 15;
 // Compared against when the username is unknown, so a wrong username takes as long as a wrong password.

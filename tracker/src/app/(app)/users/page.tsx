@@ -24,7 +24,7 @@ export default async function UsersPage() {
               </div>
               <div>
                 <label className="label" htmlFor="new-password">New password</label>
-                <PasswordInput id="new-password" name="next" autoComplete="new-password" minLength={10} required className="input" />
+                <PasswordInput id="new-password" name="next" autoComplete="new-password" minLength={9} required className="input" />
               </div>
             </div>
             <SubmitButton className="btn btn-ghost btn-sm">Change Password</SubmitButton>
@@ -56,7 +56,7 @@ export default async function UsersPage() {
                 </div>
                 <div>
                   <label className="label" htmlFor="new-user-password">Temporary password</label>
-                  <PasswordInput id="new-user-password" name="password" autoComplete="new-password" minLength={10} required className="input" />
+                  <PasswordInput id="new-user-password" name="password" autoComplete="new-password" minLength={9} required className="input" />
                 </div>
                 <div>
                   <label className="label" htmlFor="new-role">Role</label>
@@ -123,7 +123,7 @@ function UserCard({ user, isMe }: { user: AppUser; isMe: boolean }) {
         <ResultForm action={resetPasswordAction.bind(null, user.username)} okText="Password reset. They're signed out everywhere." className="mt-4 space-y-2 border-t border-line pt-4">
           <label className="label" htmlFor={`reset-${user.username}`}>Set a new password</label>
           <div className="flex gap-2">
-            <PasswordInput id={`reset-${user.username}`} name="password" autoComplete="new-password" minLength={10} required className="input" />
+            <PasswordInput id={`reset-${user.username}`} name="password" autoComplete="new-password" minLength={9} required className="input" />
             <SubmitButton className="btn btn-ghost btn-sm shrink-0">Reset</SubmitButton>
           </div>
         </ResultForm>
