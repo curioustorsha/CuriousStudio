@@ -13,7 +13,7 @@ import { Million } from "./scenes/Million";
 import { Outro } from "./scenes/Outro";
 import { Cover } from "./scenes/Cover";
 import { LOGO_FRAMES, LogoSting } from "./scenes/LogoSting";
-import { Asterisk } from "./brand";
+import { Asterisk, LogoMark } from "./brand";
 import { EPISODES } from "./episodes";
 import { CarouselSlide, Slideshow, slideshowFrames, type SlideProps, type SlideshowProps } from "./carousel/Slides";
 import { IsoDemo } from "./engine/IsoDemo";
@@ -141,6 +141,14 @@ const SAMPLE_SLIDE: SlideProps = {
 
 const SAMPLE_SHOW: SlideshowProps = { series: "AI THIS WEEK", slides: [SAMPLE_SLIDE.slide] };
 
+// Square logo for profile pictures and app icons. `bg` null = transparent; the mark stays inside the circle crop.
+type AvatarProps = { bg: string | null; cColor: string };
+const Avatar: React.FC<AvatarProps> = ({ bg, cColor }) => (
+  <AbsoluteFill style={{ background: bg ?? "transparent", alignItems: "center", justifyContent: "center" }}>
+    <LogoMark size={640} cColor={cColor} />
+  </AbsoluteFill>
+);
+
 export const RemotionRoot: React.FC = () => (
   <>
     <Composition id="AmazonChaos" component={AmazonChaos} durationInFrames={totalFrames() + LOGO_FRAMES} fps={FPS} width={W} height={H} />
@@ -158,6 +166,8 @@ export const RemotionRoot: React.FC = () => (
       defaultProps={SAMPLE_SHOW}
       calculateMetadata={({ props }) => ({ durationInFrames: slideshowFrames(props) })}
     />
+    {/* Logo square: npx remotion still Avatar ../brand/curiously-logo-dark.png --props='{"bg":"#07080C","cColor":"#F5F5F7"}' */}
+    <Still id="Avatar" component={Avatar} width={1024} height={1024} defaultProps={{ bg: C.bg, cColor: C.text } as AvatarProps} />
     {/* Isometric kit preview for How It Scales */}
     <Still id="IsoDemo" component={IsoDemo} width={W} height={H} />
     {EPISODES.map((ep) => (
