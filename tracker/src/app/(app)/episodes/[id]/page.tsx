@@ -327,9 +327,10 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
           </div>
         )}
 
-        <div key={ep.updatedAt}>
+        {/* Claude stages show the editor once v1 exists, so before the first run it's just Direction → Run. */}
+        {(latest || !skill) && <div key={ep.updatedAt}>
           <Content ep={ep} format={format} targetSeconds={targetSeconds} save={save} stageKey={stageKey} pinned={pinned} running={run?.status === "running"} />
-        </div>
+        </div>}
       </section>
 
       {latest && reviewCard}
