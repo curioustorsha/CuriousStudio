@@ -15,7 +15,7 @@ node tracker/scripts/episode.mjs get <CODE>
 
 Run from the Curiously project root. Read:
 - **Research:** `research` (the one insight, facts F1…Fn, story beats, the "Don't say" list) and `sources`.
-- **Idea:** `title`, `hook`, `audience`. The target length is `series.targetSeconds`.
+- **Idea:** `title`, `hook`, `audience`. The target length is `series.targetSeconds`. Where research's "Corrections to the idea" disagree with the idea, research wins.
 - **Series:** `series.formatNotes`. Follow its structure. `series.format` is `video` (a spoken script, sections 2–5) or `carousel` (slide copy, section 5b instead of 2 and 5).
 - **Revision context:** `review.openFeedback` entries with `stage: "script"`, and the current `script` (previous version).
 - **Direction for v1:** open notes with `stage: "script"` and no `version` were written before the first version: they're the team's brief. "Build the script around these research facts" lists the facts they picked. Those facts are the backbone: give each one real time in the script. Use other facts only where the story needs them to make sense, and say in "Changes in this version" how each picked fact was used (or why one couldn't fit).

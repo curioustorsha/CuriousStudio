@@ -254,8 +254,13 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
   else if (!latest && skill) status = `Run ${stage.label} to write v1, or fill it in yourself`;
   else status = "In progress";
 
+  const reviewCard = isCurrent && skill && (
+    <ReviewCard ep={ep} stageKey={stageKey} latest={latest} facts={facts} sectionNames={sectionNames} />
+  );
+
   return (
     <>
+      {!latest && reviewCard}
       <section className="card p-6">
         <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1">
           <h2 className="text-xl font-semibold tracking-tight">{stage.label}</h2>
@@ -327,7 +332,21 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
         </div>
       </section>
 
-      {isCurrent && skill && (
+      {latest && reviewCard}
+    </>
+  );
+}
+
+/** Review card: direction before v1 (so it sits above Run), comments after. */
+function ReviewCard({ ep, stageKey, latest, facts, sectionNames }: {
+  ep: { id: number };
+  stageKey: string;
+  latest: unknown;
+  facts: ReturnType<typeof researchFacts>;
+  sectionNames: string[];
+}) {
+  const stage = getStage(stageKey);
+  return (
         <section className="card p-6 ring-2 ring-accent/30">
           <h3 className="flex items-center gap-2 text-[15px] font-semibold tracking-tight">
             <ListChecks className="size-4 text-accent" strokeWidth={2} />
@@ -379,9 +398,6 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
             </div>
           </form>
         </section>
-      )}
-
-    </>
   );
 }
 

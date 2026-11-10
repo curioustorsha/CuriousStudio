@@ -73,6 +73,9 @@ A plain explanation pitched for `series.targetSeconds`. Short paragraphs.
 ## Assumptions
 (Only if the maths needs one.) **A1.** The assumption and why it's reasonable. Never a fact.
 
+## Corrections to the idea
+(Only if the idea's premise, hook, key points or visual ideas turned out wrong or vague.) Each one: what the idea says → what's actually true, with its fact (F2). The script follows these, not the idea. The Idea tab stays as it is.
+
 ## Suggested story beats
 Hook → setup → 2–3 beats → payoff, each beat pointing to the facts it uses (F1, F3). Fit the series structure and `series.targetSeconds`.
 
@@ -110,17 +113,9 @@ Write the result as JSON:
 ]
 ```
 
-## 6. Send back (only when an earlier stage has to change)
+## 6. No send-backs from research
 
-Your own output is one thing; a problem that lives in an **earlier stage** is another. Don't work around it here. Propose a send-back when the idea's premise or hook turns out to be false or unprovable ("Hook says IRCTC sells 1 lakh tickets a minute; the real peak is ~28,000. Change the hook to …"). Typical target for this stage: `idea`.
-
-Write the proposal as JSON, with exact, minimal fixes the earlier stage's skill can apply without guessing:
-
-```json
-{ "stage": "idea", "notes": "- **outro:** \"current line\" → \"replacement line\"\n- …" }
-```
-
-Submit it with `sendBack=@<path>/sendback.json`. If nothing needs to go back, submit `sendBack=none` (this also clears an old proposal from an earlier run). The tracker shows the proposal with a **Send fixes to …** button, and a person decides. Never send back over taste or style; only over something that's wrong.
+The idea is a high-level pitch; making it concrete is this stage's job. When its premise, hook or key points turn out wrong or vague ("Hook says IRCTC sells 1 lakh tickets a minute; the real peak is ~28,000"), don't send it back to Idea: put the fix under **Corrections to the idea** and build the beats on the corrected version. Always submit `sendBack=none` (this also clears an old proposal from an earlier run). If the idea can't stand at all, say so in a `done: false` checklist note and in the report; a person decides.
 
 ## 7. Submit
 
