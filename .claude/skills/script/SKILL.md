@@ -87,7 +87,7 @@ Spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and conversa
 
 **Facts:** every factual line comes from a fact in your research (track the F-numbers). Keep numbers exactly: "nearly half" for 47% is fine; "half" for 41% is not. Say "reportedly" for Reported facts, and name whose fact it is when it's a peer company's ("Zepto says a packer needs about fifty seconds"); the visuals show each company's logo when it's named. Nothing from "Don't say". If the script needs a fact you don't have, research it and add it to the notes; never slip in an unsourced line.
 
-**Series links:** the playbook says how episodes connect (Claude Lab is a course: teach only this lesson, use earlier lessons' terms, end with a tease for the next). Follow it exactly.
+**Next-lesson tease (Claude Lab only):** Claude Lab is a course, so each lesson hands over to the next one. Teach only this lesson, use earlier lessons' terms, and put one scene between the outro and the sign-off that names the next lesson's topic: `**next:** In the next episode, we'll talk about tokens.` Take the topic from the next row of `docs/claude-lab-curriculum.md` (its "Tease" column is a good lead-in for the outro). Keep it to one short line, and don't explain the next topic. No other series gets this scene: How It Scales and the rest end on the outro and then the sign-off. Follow any other links the playbook describes.
 
 ## 4. Remove AI tells
 
@@ -131,7 +131,7 @@ Use exactly this shape. Each scene line becomes one voiceover clip and one scene
 **Changes in this version:** (revisions only) one line per review note: the note, then what changed.
 ```
 
-Before submitting, check yourself: every factual line has an F-number in the table, the word count is in range, the first line is the hook, the second is the series intro, the last is the sign-off, a non-technical viewer could follow every line, and there are no em dashes in the narration.
+Before submitting, check yourself: every factual line has an F-number in the table, the word count is in range, the first line is the hook, the second is the series intro, the last is the sign-off (with the `next` tease just before it for Claude Lab, and for no other series), a non-technical viewer could follow every line, and there are no em dashes in the narration.
 
 ## 5b. Carousel series: slide copy instead of a voiceover
 
