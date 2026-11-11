@@ -241,7 +241,8 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
   const queued = isCurrent && run?.status === "queued";
   const proposal = isCurrent ? parseSendBack(ep) : null;
   const Content = STAGE_CONTENT[stageKey];
-  const sectionNames = stage.fields.map((f) => FIELD_LABELS[f] ?? f);
+  // Voiceover and animation notes aren't shown (the run report and QA report cover them), so don't offer them as review sections.
+  const sectionNames = stage.fields.filter((f) => f !== "voiceoverNotes" && f !== "renderNotes").map((f) => FIELD_LABELS[f] ?? f);
   const facts = stageKey === "script" && isCurrent ? researchFacts(ep.research) : [];
   const pinned = openPinned(review);
   const makeStep = stageKey === "make" && isCurrent ? makePhase(ep, format, running || queued) : null;
@@ -857,13 +858,6 @@ function VoiceoverTab({ ep, save }: TabProps) {
       ) : (
         <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No voiceover yet. Run Make above (after the storyboard is approved).</p>
       )}
-      <MarkdownField
-        name="voiceoverNotes"
-        label="Voiceover check"
-        defaultValue={ep.voiceoverNotes}
-        rows={10}
-        placeholder="Pronunciation check per line, timings, anything to listen for."
-      />
       <Field label="Voiceover file" hint="Set by the Voiceover skill. A /media/… path plays here.">
         <input name="voiceoverUrl" defaultValue={ep.voiceoverUrl} className="input font-mono text-[13px]" />
       </Field>
@@ -881,13 +875,6 @@ function AnimationTab(props: TabProps) {
       <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No render yet. Run Make above (after the storyboard is approved).</p>
     )}
     <TabForm save={save}>
-      <MarkdownField
-        name="renderNotes"
-        label="Animation notes"
-        defaultValue={ep.renderNotes}
-        rows={10}
-        placeholder="What each scene shows, sound design, anything to check."
-      />
       <Field label="Render file" hint="Set by the Animation skill. A /media/… path plays here.">
         <input name="renderUrl" defaultValue={ep.renderUrl} className="input font-mono text-[13px]" />
       </Field>
