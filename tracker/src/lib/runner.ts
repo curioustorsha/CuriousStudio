@@ -421,7 +421,8 @@ function alive(pid: number | null) {
 export async function syncRun(id: number) {
   const [run] = await db.select().from(runs).where(eq(runs.id, id));
   if (!IS_WORKER || !run || run.status !== "running") return run;
-  const { result, errors, steps, skillsUsed, limit } = readLog(id);
+  const { result, errors, steps, skillsUsed, limit, windows } = readLog(id);
+  await saveClaudeLimits(windows);
   const progress = JSON.stringify({ steps, skillsUsed });
   if (run.skill !== IDEA_FILL && progress !== run.progress) await db.update(runs).set({ progress }).where(eq(runs.id, id));
   if (result && !result.ok && limit) {
@@ -434,6 +435,28 @@ export async function syncRun(id: number) {
   await saveUsage(id);
   const [fresh] = await db.select().from(runs).where(eq(runs.id, id));
   return fresh;
+}
+
+/** The plan's usage windows as Claude Code last reported them: utilization 0–1 (can pass 1), resetsAt in unix seconds. */
+type Window = { utilization?: number; resetsAt?: number; status?: string };
+export type ClaudeLimits = { at: string /* UTC, SQLite format */; windows: { five_hour?: Window; seven_day?: Window } };
+const LIMITS_KEY = "claude-limits";
+let lastLimits = "";
+
+/** Keeps the latest session (5-hour) and weekly reading for the Usage page. Only writes when it changed. */
+async function saveClaudeLimits(windows: ClaudeLimits["windows"] | null) {
+  const key = JSON.stringify(windows ?? null);
+  if (!windows || key === lastLimits) return;
+  lastLimits = key;
+  await setSetting(LIMITS_KEY, JSON.stringify({ at: new Date().toISOString().slice(0, 19).replace("T", " "), windows }));
+}
+
+export async function getClaudeLimits(): Promise<ClaudeLimits | null> {
+  try {
+    return JSON.parse((await getSetting(LIMITS_KEY)) ?? "null");
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -569,7 +592,7 @@ export function readLog(id: number) {
   // Skills the run loaded (Skill tool) or opened (read a file in .claude/skills/<name>/), in order of first use.
   const skillsUsed: string[] = [];
   // Claude Code reports the plan's usage window as it goes; "rejected" means the limit was hit.
-  type RateLimit = { status?: string; resetsAt?: number };
+  type RateLimit = { status?: string; resetsAt?: number; unifiedWindows?: ClaudeLimits["windows"] };
   let rateLimit: RateLimit | null = null;
   const used = (name: string | undefined) => name && !skillsUsed.includes(name) && skillsUsed.push(name);
   let raw = "";
@@ -635,5 +658,5 @@ export function readLog(id: number) {
   }
   const limitHit = rateLimit?.status === "rejected" || (result !== null && !result.ok && LIMIT_TEXT.test(result.text));
   const limit = limitHit ? { resetsAt: rateLimit?.resetsAt ? new Date(rateLimit.resetsAt * 1000) : null } : null;
-  return { steps, result, errors, usage, skillsUsed, limit };
+  return { steps, result, errors, usage, skillsUsed, limit, windows: rateLimit?.unifiedWindows ?? null };
 }

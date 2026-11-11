@@ -2,12 +2,12 @@ import { desc, eq, ne } from "drizzle-orm";
 import Link from "next/link";
 import { savePlanFeesAction } from "@/app/actions";
 import { ApiKeyForm, SubmitButton } from "@/components/client";
-import { PageHeader } from "@/components/ui";
+import { PageHeader, timeAgo } from "@/components/ui";
 import { db, episodes, runs } from "@/db";
 import { requireUser } from "@/lib/auth";
 import { elevenLabsUsage } from "@/lib/elevenlabs";
 import { IS_WORKER } from "@/lib/media";
-import { backfillUsage } from "@/lib/runner";
+import { backfillUsage, getClaudeLimits, type ClaudeLimits } from "@/lib/runner";
 import { anthropicKeyStatus, getSetting, planFee, PLAN_KEYS } from "@/lib/settings";
 import { getStage, modelLabel, STAGES } from "@/lib/stages";
 
@@ -32,7 +32,7 @@ export default async function UsagePage() {
   const user = await requireUser();
   await backfillUsage();
 
-  const [rows, el, claudeFee, elFeeSetting] = await Promise.all([
+  const [rows, el, claudeFee, elFeeSetting, limits] = await Promise.all([
     db
       .select({ run: runs, code: episodes.code, title: episodes.title })
       .from(runs)
@@ -42,6 +42,7 @@ export default async function UsagePage() {
     elevenLabsUsage(6),
     planFee("claude"),
     getSetting(PLAN_KEYS.elevenlabs.key),
+    getClaudeLimits(),
   ]);
   // ElevenLabs fee: what you typed in, else the plan's next invoice as ElevenLabs reports it.
   const elFee = elFeeSetting !== null ? Number(elFeeSetting) || 0 : (el?.nextInvoiceUsd ?? 0);
@@ -227,6 +228,8 @@ export default async function UsagePage() {
         </div>
 
         <aside className="space-y-4">
+          <ClaudeLimitsCard limits={limits} nowMs={new Date().getTime()} />
+
           {/* ElevenLabs credits */}
           <section className="card p-5">
             <h3 className="text-[15px] font-semibold tracking-tight">ElevenLabs credits</h3>
@@ -317,6 +320,48 @@ export default async function UsagePage() {
         </aside>
       </div>
     </div>
+  );
+}
+
+/** Claude plan usage: the 5-hour session and the weekly limit, from the latest reading a run reported. */
+function ClaudeLimitsCard({ limits, nowMs }: { limits: ClaudeLimits | null; nowMs: number }) {
+  const rows = [
+    { label: "Session (5 hours)", w: limits?.windows.five_hour, when: { hour: "numeric", minute: "2-digit" } as const },
+    { label: "Weekly", w: limits?.windows.seven_day, when: { weekday: "short", hour: "numeric", minute: "2-digit" } as const },
+  ];
+  return (
+    <section className="card p-5">
+      <h3 className="text-[15px] font-semibold tracking-tight">Claude plan</h3>
+      {limits ? (
+        <>
+          <p className="mb-3 mt-1 text-xs text-muted">Last reading: {timeAgo(limits.at).toLowerCase()}, from a tracker run. Your own Claude use counts too.</p>
+          <div className="space-y-4">
+            {rows.map(({ label, w, when }) => {
+              const pct = Math.round((w?.utilization ?? 0) * 100);
+              // A reset time in the past means the window has started over since this reading.
+              const reset = w?.resetsAt ? new Date(w.resetsAt * 1000) : null;
+              const stale = reset !== null && reset.getTime() < nowMs;
+              return (
+                <div key={label}>
+                  <div className="mb-1.5 flex items-baseline justify-between text-[13px] tabular-nums">
+                    <span className="font-medium">{label}</span>
+                    <span className={pct >= 90 && !stale ? "text-warn" : "text-muted"}>{stale ? "reset since" : `${pct}% used`}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-fg/[0.06]" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={stale ? 0 : Math.min(100, pct)} aria-label={`Claude ${label} usage`}>
+                    <div className={`h-full rounded-full ${pct >= 90 ? "bg-warn" : "bg-accent"}`} style={{ width: `${stale ? 0 : Math.min(100, pct)}%` }} />
+                  </div>
+                  {reset && !stale && (
+                    <p className="mt-1 text-xs text-faint">Resets {reset.toLocaleString("en-IN", { ...when, timeZone: "Asia/Kolkata" })}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <p className="mt-1 text-xs text-muted">No reading yet. It appears after the next Claude run.</p>
+      )}
+    </section>
   );
 }
 
