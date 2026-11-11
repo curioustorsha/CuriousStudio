@@ -1,5 +1,5 @@
 import "server-only";
-import { execFileSync, spawn } from "node:child_process";
+import { execFile, execFileSync, spawn } from "node:child_process";
 import { closeSync, existsSync, mkdirSync, openSync, readdirSync, readFileSync, renameSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join } from "node:path";
@@ -448,7 +448,37 @@ async function saveClaudeLimits(windows: ClaudeLimits["windows"] | null) {
   const key = JSON.stringify(windows ?? null);
   if (!windows || key === lastLimits) return;
   lastLimits = key;
-  await setSetting(LIMITS_KEY, JSON.stringify({ at: new Date().toISOString().slice(0, 19).replace("T", " "), windows }));
+  await writeLimits(windows);
+}
+
+const writeLimits = (windows: ClaudeLimits["windows"]) =>
+  setSetting(LIMITS_KEY, JSON.stringify({ at: new Date().toISOString().slice(0, 19).replace("T", " "), windows }));
+
+/**
+ * Live reading between runs: the same numbers Claude's /usage shows, using Claude Code's saved login on this Mac.
+ * shortcut: unofficial endpoint and no token refresh (Claude Code refreshes it on its next run); on any failure we
+ * keep the last run's reading. Upgrade if Anthropic publishes a usage API for subscriptions.
+ */
+export async function pollClaudeUsage() {
+  if (!IS_WORKER) return;
+  const raw = await new Promise<string>((resolve, reject) =>
+    execFile("security", ["find-generic-password", "-s", "Claude Code-credentials", "-w"], (err, out) => (err ? reject(err) : resolve(out))),
+  );
+  const token = JSON.parse(raw)?.claudeAiOauth?.accessToken;
+  if (!token) return;
+  const res = await fetch("https://api.anthropic.com/api/oauth/usage", {
+    headers: { Authorization: `Bearer ${token}`, "anthropic-beta": "oauth-2025-04-20" },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!res.ok) throw new Error(`usage endpoint ${res.status}`);
+  const body = (await res.json()) as Record<string, { utilization?: number; resets_at?: string } | null>;
+  // This endpoint gives percent (17.0) and ISO times; runs give 0–1 and unix seconds. Store the run format.
+  const win = (w: { utilization?: number; resets_at?: string } | null) =>
+    w && typeof w.utilization === "number"
+      ? { utilization: w.utilization / 100, resetsAt: w.resets_at ? Math.round(Date.parse(w.resets_at) / 1000) : undefined }
+      : undefined;
+  const windows = { five_hour: win(body.five_hour), seven_day: win(body.seven_day) };
+  if (windows.five_hour || windows.seven_day) await writeLimits(windows);
 }
 
 export async function getClaudeLimits(): Promise<ClaudeLimits | null> {

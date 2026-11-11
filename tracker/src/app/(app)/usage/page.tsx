@@ -1,7 +1,7 @@
 import { desc, eq, ne } from "drizzle-orm";
 import Link from "next/link";
 import { savePlanFeesAction } from "@/app/actions";
-import { ApiKeyForm, SubmitButton } from "@/components/client";
+import { ApiKeyForm, LocalTime, SubmitButton } from "@/components/client";
 import { PageHeader, timeAgo } from "@/components/ui";
 import { db, episodes, runs } from "@/db";
 import { requireUser } from "@/lib/auth";
@@ -326,17 +326,17 @@ export default async function UsagePage() {
 /** Claude plan usage: the 5-hour session and the weekly limit, from the latest reading a run reported. */
 function ClaudeLimitsCard({ limits, nowMs }: { limits: ClaudeLimits | null; nowMs: number }) {
   const rows = [
-    { label: "Session (5 hours)", w: limits?.windows.five_hour, when: { hour: "numeric", minute: "2-digit" } as const },
-    { label: "Weekly", w: limits?.windows.seven_day, when: { weekday: "short", hour: "numeric", minute: "2-digit" } as const },
+    { label: "Session (5 hours)", w: limits?.windows.five_hour },
+    { label: "Weekly", w: limits?.windows.seven_day },
   ];
   return (
     <section className="card p-5">
       <h3 className="text-[15px] font-semibold tracking-tight">Claude plan</h3>
       {limits ? (
         <>
-          <p className="mb-3 mt-1 text-xs text-muted">Last reading: {timeAgo(limits.at).toLowerCase()}, from a tracker run. Your own Claude use counts too.</p>
+          <p className="mb-3 mt-1 text-xs text-muted">Updated {timeAgo(limits.at).toLowerCase()}. Checked every 5 minutes on the Mac; includes your own Claude use.</p>
           <div className="space-y-4">
-            {rows.map(({ label, w, when }) => {
+            {rows.map(({ label, w }) => {
               const pct = Math.round((w?.utilization ?? 0) * 100);
               // A reset time in the past means the window has started over since this reading.
               const reset = w?.resetsAt ? new Date(w.resetsAt * 1000) : null;
@@ -351,7 +351,9 @@ function ClaudeLimitsCard({ limits, nowMs }: { limits: ClaudeLimits | null; nowM
                     <div className={`h-full rounded-full ${pct >= 90 ? "bg-warn" : "bg-accent"}`} style={{ width: `${stale ? 0 : Math.min(100, pct)}%` }} />
                   </div>
                   {reset && !stale && (
-                    <p className="mt-1 text-xs text-faint">Resets {reset.toLocaleString("en-IN", { ...when, timeZone: "Asia/Kolkata" })}</p>
+                    <p className="mt-1 text-xs text-faint">
+                      Resets <LocalTime iso={reset.toISOString()} />
+                    </p>
                   )}
                 </div>
               );
@@ -359,7 +361,7 @@ function ClaudeLimitsCard({ limits, nowMs }: { limits: ClaudeLimits | null; nowM
           </div>
         </>
       ) : (
-        <p className="mt-1 text-xs text-muted">No reading yet. It appears after the next Claude run.</p>
+        <p className="mt-1 text-xs text-muted">No reading yet. The Mac checks every 5 minutes while the tracker is running.</p>
       )}
     </section>
   );
