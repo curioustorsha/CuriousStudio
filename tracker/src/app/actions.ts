@@ -112,7 +112,7 @@ export async function updateEpisodeAction(id: number, formData: FormData) {
   refreshAll();
 }
 
-/** Also usable as a bound form action: `moveEpisodeAction.bind(null, id, "research")`. */
+/** Also usable as a bound form action: `moveEpisodeAction.bind(null, id, "script")`. */
 export async function moveEpisodeAction(id: number, stage: string, position?: unknown) {
   const user = await requireUser();
   if (!isStage(stage)) throw new Error("Unknown stage");

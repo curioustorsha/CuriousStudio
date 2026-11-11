@@ -1,11 +1,13 @@
 ---
 name: script
-description: Write the voiceover script (or, for a carousel series, the slide copy) for a Curiously episode from its approved research, fact-check it claim by claim in a fresh subagent, apply the fixes, and submit both to the tracker for review. Use when asked to write or rewrite an episode's script, usually from the tracker's Run button, including a new version after "request changes" notes.
+description: The Research & Script stage of a Curiously episode - find a few solid facts from good sources, write a plain-words voiceover script (or carousel slide copy) on them, fact-check it claim by claim in a fresh subagent, apply the fixes, and submit research notes, script, fact-check and references to the tracker for one review. Use when asked to research or script an episode, usually from the tracker's Run button, including a new version after "request changes" notes.
 ---
 
-# Script stage
+# Research & Script stage
 
-Write a voiceover script of the series' target length (`series.targetSeconds`), built only from the approved research, then have it fact-checked before you submit. A person reviews the script and the fact-check together and either moves the episode to Make or requests changes, which brings you back here for the next version.
+One run turns an approved idea into a checked script: research just enough to answer the idea's question, write the script from those facts, fact-check it, submit. A person reviews it all on one page (research notes, script, fact-check, references) and either moves the episode to Make or requests changes, which brings you back here for the next version.
+
+**Who it's for.** Normal people, not engineers. A viewer with no tech background should follow every line and come away knowing what happens behind the scenes, plus **one real idea** by its proper name, explained so simply they could repeat it to a friend. Short and correct beats deep and rushed.
 
 ## 1. Load the episode
 
@@ -13,43 +15,79 @@ Write a voiceover script of the series' target length (`series.targetSeconds`), 
 node tracker/scripts/episode.mjs get <CODE>
 ```
 
-Run from the Curiously project root. Read:
-- **Research:** `research` (the one insight, facts F1…Fn, story beats, the "Don't say" list) and `sources`.
-- **Idea:** `title`, `hook`, `audience`. The target length is `series.targetSeconds`. Where research's "Corrections to the idea" disagree with the idea, research wins.
-- **Series:** `series.formatNotes`. Follow its structure. `series.format` is `video` (a spoken script, sections 2–5) or `carousel` (slide copy, section 5b instead of 2 and 5).
-- **Revision context:** `review.openFeedback` entries with `stage: "script"`, and the current `script` (previous version).
-- **Direction for v1:** open notes with `stage: "script"` and no `version` were written before the first version: they're the team's brief. "Build the script around these research facts" lists the facts they picked. Those facts are the backbone: give each one real time in the script. Use other facts only where the story needs them to make sense, and say in "Changes in this version" how each picked fact was used (or why one couldn't fit).
-- **Series playbook:** `series.formatNotes`. Follow its structure, length, depth, links between episodes and company rules.
-- **Fact-check context:** if a `factcheck` exists from an earlier round, apply every "Fix wording" and "Unsupported" item it lists.
+Run from the Curiously project root. If the tracker isn't reachable, tell the user and stop. Read:
+- **Idea:** `title`, `hook`, `summary`, `audience`, `keyPoints`, `visualIdeas`. The target length is `series.targetSeconds`.
+- **Series playbook:** `series.formatNotes`: structure, hook rule, tone, company and freshness rules. Follow it. `series.format` is `video` (a spoken script) or `carousel` (slide copy, section 5b).
+- **Revision context:** `review.openFeedback` entries with `stage: "script"`, and the current `research`, `script`, `factcheck`, `sources` (the previous version).
+- **Direction for v1:** open notes with `stage: "script"` and no `version` were written before the first version: they're the team's brief. If one says "Build the script around these research facts", those facts are the backbone: give each real time, and say in "Changes in this version" how each was used.
 
-**Check the stage.** If `stage` is not `script`, stop and say which stage it's in. Only a person moves stages. If `review.stale.script` is set, the research changed after the last script, so write against the new research. No review note is needed for that: the change itself is the reason for the run.
+**Check the stage.** If `stage` is not `script`, stop and say which stage it's in. Only a person moves stages.
 
-For a revision, treat each open note as a required change, keep what wasn't criticised, and answer every note in "Changes in this version".
+**First version or revision?** No open feedback and no script: write v1 from scratch. Open feedback: treat each note as a required change, keep what wasn't criticised (including research that still holds; only research again what the notes need), and answer every note in "Changes in this version".
 
-## 2. Write it for the ear
+## 2. Research (just enough)
 
-This is spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and conversational) over animated visuals.
+Find what you need to answer the idea's question correctly, and stop. Aim for **6–10 facts from 3–5 good sources**, including the source behind the episode's one big idea (see below). Don't survey the industry or collect extra detail the script won't use: every fact you gather should earn a line in the script.
 
-- **Hook in the first line.** It has to stop the scroll in 2 seconds: a surprising claim, a visible contradiction, or a question the viewer already has. No "Have you ever wondered".
-- **One takeaway:** the research's one insight. Cut anything that doesn't serve it, however interesting.
-- **Length:** about `series.targetSeconds × 2.3` words (≈140 for 60s), never over `series.targetSeconds × 2.5`. The visuals need breathing room.
+Use WebSearch and WebFetch; send independent searches in parallel.
+
+**Source order, best first:** (1) primary: the company's engineering blog, official announcements, docs, papers, talks by the people who built it; (2) reputable reporting (Reuters, AP, Bloomberg, The Verge, TechCrunch, Ars Technica, major Indian outlets for Indian topics); (3) everything else only to find leads. Never cite content farms, SEO listicles or AI summaries.
+
+**Rules:**
+- Every number, date, name and version needs a source you actually opened. Note the exact figure or quote and its date.
+- If the company never published a number, it's "reported" and the script says "reportedly".
+- If the headline company hasn't said how a step works, a peer that has is fine (Zepto for Blinkit, Lyft for Uber), but say whose fact it is.
+- Never invent or round into a fact. If you can't verify it, leave it out.
+- **Look for a real-world moment** that shows the mechanism at work: an experiment, a stunt, an outage, an incident (e.g. the artist who pulled 99 phones through Berlin in a handcart and turned a street red on Google Maps). It usually makes the best scene after the intro and the episode's number moment.
+- Name organisations exactly as the source does (DeepMind is Alphabet's AI lab, which partnered with Google; it is not "Google's lab").
+- If the idea's premise or hook turns out wrong ("1 lakh tickets a minute" when the real peak is ~28,000), fix it here: note it under "Corrections to the idea" and write the script on the corrected version. Don't send it back; if the idea can't stand at all, say so in a `done: false` checklist note.
+
+Write `research` as Markdown in this shape (short; it's for the reviewer to scan):
+
+```markdown
+## The question
+The one question this episode answers, as a viewer would ask it.
+
+## The answer in one line
+What a viewer should walk away knowing, in everyday words.
+
+## The big idea
+The one real technical term this episode teaches (e.g. graph neural network, caching, a queue), the everyday picture that explains it (dots and lines, a counter with a line of people), and the facts it rests on (F5, F6).
+
+## Key facts
+- **F1.** Claim in plain words. "Exact quote or figure." ([Publisher, 12 Mar 2025](https://…)) · Primary
+- **F2.** … · Reported (company hasn't confirmed)
+
+## Corrections to the idea
+(Only if needed.) What the idea says → what's actually true (F2).
+
+## Don't say
+(Only if needed.) Tempting claims that aren't supported.
+```
+
+Write `sources` (shown as References) as a Markdown list, one line per source actually used: `- [Title](url): publisher, date`.
+
+## 3. Write it for the ear
+
+Spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and conversational) over animated visuals.
+
+- **Hook in the first line.** It has to stop the scroll in 2 seconds. Follow the playbook's hook rule (How It Scales always opens with a question the viewer has already half-wondered: "How does Google Maps know there's a traffic jam before you reach it?"). No "Have you ever wondered".
+- **Answer the hook.** The script exists to answer that one question. Cut anything that doesn't serve the answer, however interesting.
+- **Plain words first.** Explain what happens behind the scenes the way you'd tell a friend, with everyday comparisons.
+- **Then one big idea.** Teach exactly one real technical term from "The big idea": name it once, and explain it straight away with its everyday picture ("Think of every stretch of road as a dot…"). The visuals will draw that picture. No other jargon: anything else gets described, not named.
+- **One number moment.** At most one simple number moment: a striking sourced figure, or a comparison a viewer can do in their head. No multi-step maths.
+- **Length** (intro and sign-off included): about `series.targetSeconds × 2.3` words (≈140 for 60s), never over `series.targetSeconds × 2.5`, and never more than 2 minutes. If it doesn't fit, narrow the answer instead of rushing the read.
 - **Short spoken sentences.** One idea each. Contractions are fine. Write numbers the way they should be said: "seven hundred seventy-five million dollars"; years as digits.
-- **Ending:** loops back to the hook or lands the payoff in one line. No "like and subscribe".
-- **Tone:** curious, calm, confident. Explain jargon or drop it.
+- **Series intro (every video):** the second scene is always `**intro:** Welcome to <series.name>, by Curiously.` Nothing else on that line, no facts.
+- **Ending:** the last content scene answers the hook in one line (a callback to the opening moment is good).
+- **Sign-off (every video):** the final scene is always exactly `**cta:** If you like this kind of content, like, share and follow Curiously.` It's the same for every episode and never mentions the topic.
+- **Don't overclaim the cause.** If a source lists several inputs (phones, driver reports, government data), don't let a line imply one is the only one: "the phones stuck in it help tell Google", not "the phones tell Google".
+- **Tone:** curious, calm, confident.
 - Avoid words that TTS often mispronounces, or flag them (see the output format).
 
-## 3. Facts: research only
+**Facts:** every factual line comes from a fact in your research (track the F-numbers). Keep numbers exactly: "nearly half" for 47% is fine; "half" for 41% is not. Say "reportedly" for Reported facts, and name whose fact it is when it's a peer company's ("Zepto says a packer needs about fifty seconds"); the visuals show each company's logo when it's named. Nothing from "Don't say". If the script needs a fact you don't have, research it and add it to the notes; never slip in an unsourced line.
 
-- Every factual statement must come from a fact in the research. Track which F-number each line uses.
-- Keep numbers and dates exactly as the research has them. "Nearly half" for 47% is fine; "half" for 41% is not.
-- Say "reportedly" for facts marked Reported.
-- Nothing from the "Don't say" list.
-- **No new facts.** If the story needs something the research doesn't have, leave it out and list it under "Needs research". Don't look it up and slip it in: that would skip the review.
-- **Several companies are fine.** Don't cut a fact because it comes from a peer company. Say whose it is ("Zepto says a packer needs about fifty seconds"), so a peer's fact never sounds like the headline company's. The visuals will show each company's logo when it's named.
-
-**Go one level deeper, every series.** Every script carries the research's "Technical layer": a viewer should learn one real mechanism and its proper name, not only what happened. The series playbook (`series.formatNotes`) says what that means here and how the episode links to others. For Claude Lab that means lesson rules: teach only this lesson, use the earlier lessons' terms, and close with a tease for the next one. Follow those rules exactly.
-
-**Name the mechanism.** Include at least one concept from the research's "Technical layer" by its real name (the playbook gives examples for the series), explained in one plain line through the story, so viewers learn the term. A short worked calculation is good when the research has one: say the inputs, the result and what it means. Words like "say" or "roughly" mark any input from the Assumptions list, and the table lists A-numbers next to F-numbers. If the depth pushes the script past the word limit, cut a weaker beat first. If it still doesn't fit, say so under "Needs research" and flag that it needs a longer series target or a narrower topic instead of rushing the read. Only a person changes the target, on the Series page.
+**Series links:** the playbook says how episodes connect (Claude Lab is a course: teach only this lesson, use earlier lessons' terms, end with a tease for the next). Follow it exactly.
 
 ## 4. Remove AI tells
 
@@ -62,32 +100,42 @@ Run the narration through the **humanizer** skill (embedded mode: return only th
 Use exactly this shape. Each scene line becomes one voiceover clip and one scene later, so keep one beat per line and give each a short lowercase id:
 
 ```markdown
-**hook:** Amazon's warehouses are a mess. On purpose.
-**stow:** It's called random stow. Items go into whatever bin has space.
-**track:** …
-**outro:** So it's not chaos. It's a system.
+**hook:** How does Google Maps know there's a traffic jam ahead, before you even get there?
+**intro:** Welcome to How It Scales, by Curiously.
+**cart:** In 2020, an artist in Berlin pulled ninety-nine phones down a street in a handcart. Google Maps turned that street from green to red.
+**phones:** That's the trick. Google pools anonymous location data from phones that have location turned on. Lots of phones crawling along one road looks like a jam.
+**future:** But a jam right now isn't enough. You need the road twenty minutes from now, when you actually get there.
+**memory:** So Google also uses past traffic patterns for roads, and mixes them with what's happening live.
+**graph:** The clever part came from DeepMind, Alphabet's AI lab. It's called a graph neural network. Picture every stretch of road as a dot, and connected stretches as lines joining the dots.
+**spill:** Each dot passes messages to its neighbours. So the model can learn how a jam on one road spreads to the roads around it.
+**outro:** So Google doesn't see the jam. The phones stuck in it help tell Google. Even if they're in a handcart.
+**cta:** If you like this kind of content, like, share and follow Curiously.
 
 ---
 
-**Words:** 138 · **Est. length:** ~58s
+**Words:** 195 · **Est. length:** ~84s
 
 | Scene | Facts used |
 |---|---|
 | hook | F1 |
-| stow | F1, F2 |
+| intro | (series intro) |
+| cart | F7, F8 |
+| phones | F1, F9 |
+| … | … |
+| cta | (sign-off) |
 
-**Say it right:** Kiva (KEE-vuh), DeepFleet. Leave this out if there's nothing tricky.
+**Say it right:** DeepMind (DEEP-mind). Leave this out if there's nothing tricky.
 
-**Needs research:** anything the story wanted but the research didn't support. Leave this out if empty.
+(This is the approved reference for the style: a question hook, a real-world moment, plain words, one big idea with its picture, one number moment, an ending that answers the hook.)
 
 **Changes in this version:** (revisions only) one line per review note: the note, then what changed.
 ```
 
-Before submitting, check yourself: every factual line has an F-number in the table, the word count is in range, the first line is the hook, and there are no em dashes in the narration.
+Before submitting, check yourself: every factual line has an F-number in the table, the word count is in range, the first line is the hook, the second is the series intro, the last is the sign-off, a non-technical viewer could follow every line, and there are no em dashes in the narration.
 
 ## 5b. Carousel series: slide copy instead of a voiceover
 
-When `series.format` is `carousel` (AI This Week), nobody speaks: people read slides while swiping. Write the copy for each slide in the fixed weekly template, still built only from the research facts:
+When `series.format` is `carousel` (AI This Week), nobody speaks: people read slides while swiping. Write the copy for each slide in the fixed weekly template, still built only from your research facts:
 
 ```markdown
 **cover:** 3 AI stories you missed
@@ -107,19 +155,20 @@ When `series.format` is `carousel` (AI This Week), nobody speaks: people read sl
 **takeaway:** The short version
 - point: … (3 points, ≤ 8 words each)
 
-**outro:** New stories every Friday
-- cta: Follow @curiously
+**outro:** Like, share and follow
+- cta: Follow Curiously for more
 ```
 
-Rules: 3–4 stories (from `series.formatNotes`); headline ≤ 9 words; every story has a source with a date from this week; the cover is the hook (same job as a video's first line); plain words, no hype, no em dashes. Run the copy through the **humanizer** skill (headlines may stay punchy). Replace the header line with `**Slides:** 7 · **Words:** 118` and keep the facts table (one row per slide id). The script checklist items about voiceover length apply as: "~150 words or less" = total slide copy; "Ending loops or has a CTA" = the outro slide.
+Rules: 3–4 stories (from `series.formatNotes`); headline ≤ 9 words; every story has a source with a date from this week; the cover is the hook (same job as a video's first line); plain words, no hype, no em dashes. Run the copy through the **humanizer** skill (headlines may stay punchy). Replace the header line with `**Slides:** 7 · **Words:** 118` and keep the facts table (one row per slide id). The script checklist items about voiceover length apply as: "~150 words or less" = total slide copy; the last slide is always the like, share and follow slide above (same every week, never about the stories).
 
 ## 5c. Fact-check before you submit
 
-Script and fact-check are one stage, so the person reviews a script that has already been checked.
-1. Hand the finished draft to a fresh `general-purpose` subagent (model `sonnet`) with the **factcheck** skill's instructions, the draft, the research and the sources. It works independently: it opens every source itself and returns the report (the `factcheck` field) with a **Script fixes** section.
+Research, script and fact-check are one stage, so the person reviews a script that has already been checked.
+1. Hand the finished draft to a fresh `general-purpose` subagent (model `sonnet`) with the **factcheck** skill's instructions, the draft, your research notes and the sources. It works independently: it opens every source itself and returns the report (the `factcheck` field) with a **Script fixes** section.
 2. Apply every "Fix wording" item to the script exactly. Cut or rephrase every "Unsupported" claim. Keep the facts table in step.
+   If it marks a claim Unsupported but a source you opened quotes it word for word (its fetch tool can return a shortened digest that misses sentences), keep the claim, add the quote to the research notes, and say in the report which finding you overruled and why.
 3. If you changed any line, update the report's verdict to say the fixes are applied. Don't run a second full check; one pass is enough.
-4. If a fix needs a fact the research doesn't have, leave the claim out and list it under "Needs research".
+4. If a fix needs a fact you don't have, research it (add it to the notes and references) or cut the claim.
 
 ## 6. Checklist
 
@@ -140,34 +189,22 @@ Write the result as JSON:
 ]
 ```
 
-## 7. Send back (only when an earlier stage has to change)
+## 7. Submit
 
-Your own output is one thing; a problem that lives in an **earlier stage** is another. Don't work around it here. Propose a send-back when the story needs a fact the research doesn't have (the "Needs research" items: what to find and why). Typical target for this stage: `research`.
-
-Write the proposal as JSON, with exact, minimal fixes the earlier stage's skill can apply without guessing:
-
-```json
-{ "stage": "research", "notes": "- **outro:** \"current line\" → \"replacement line\"\n- …" }
-```
-
-Submit it with `sendBack=@<path>/sendback.json`. If nothing needs to go back, submit `sendBack=none` (this also clears an old proposal from an earlier run). The tracker shows the proposal with a **Send fixes to …** button, and a person decides. Never send back over taste or style; only over something that's wrong.
-
-## 8. Submit
-
-Write the field to a file in your scratchpad, then:
+Write the four fields to files in your scratchpad, then (`sendBack=none` also clears an old proposal; there is no earlier AI stage to send back to):
 
 ```bash
-node tracker/scripts/episode.mjs submit <CODE> script=@<path>/script.md factcheck=@<path>/factcheck.md checks=@<path>/checks.json sendBack=none
+node tracker/scripts/episode.mjs submit <CODE> research=@<path>/research.md script=@<path>/script.md factcheck=@<path>/factcheck.md sources=@<path>/sources.md checks=@<path>/checks.json sendBack=none
 ```
 
 Checklist item "Every claim checked against its source" is yours to tick once the fact-check fixes are applied. "Second person read-through" is for a person (`humanOnly`).
 
-## 9. Report back
+## 8. Report back
 
 - Checklist: what you ticked, and every item you flagged with its note, so the reviewer knows where to look first.
 - The script itself (it's short; paste it in full).
 - Word count and estimated length.
-- Anything in "Needs research".
+- The question, the one-line answer, and how many facts (Primary vs Reported) from how many sources.
 - For a revision, how each note was handled.
 - The fact-check verdict and the fixes you applied.
-- The link `/episodes/<id>`. Tell them to read the script and the fact-check, then approve it by moving to Make, or request changes.
+- The link `/episodes/<id>`. Tell them to read the research, script and fact-check, then approve it by moving to Make, or request changes.

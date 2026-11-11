@@ -13,7 +13,7 @@ Title, cover, description and captions decide whether anyone watches. Built from
 node tracker/scripts/episode.mjs get <CODE>
 ```
 
-Run from the Curiously project root. Read `title`, `hook`, `script`, `research` (the main insight), `factcheck` (only verified claims go in copy; "reportedly" stays "reportedly"), `sources`, `series.name`, `renderNotes`, and the current packaging fields (previous version).
+Run from the Curiously project root. Read `title`, `hook`, `script`, `research` (its one-line answer), `factcheck` (only verified claims go in copy; "reportedly" stays "reportedly"), `sources`, `series.name`, `renderNotes`, and the current packaging fields (previous version).
 
 **Where this runs.** Inside the **publish** skill, as its first step (`stage` is `publish`). If the render or script changed since the last packaging, rewrite anything that no longer matches.
 

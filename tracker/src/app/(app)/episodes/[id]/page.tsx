@@ -170,7 +170,7 @@ export default async function EpisodePage({ params }: PageProps<"/episodes/[id]"
 
 const FIELD_LABELS: Record<string, string> = {
   hook: "Hook", summary: "Details", whyNow: "Why now", audience: "Audience", keyPoints: "Key points",
-  visualIdeas: "Visual ideas", research: "Research notes", sources: "Sources", script: "Script",
+  visualIdeas: "Visual ideas", research: "Research notes", sources: "References", script: "Script",
   factcheck: "Fact-check", storyboard: "Storyboard", voiceoverUrl: "Voiceover file", renderUrl: "Render file",
   voiceoverNotes: "Voiceover check", renderNotes: "Animation notes", reviewReport: "Review report",
   slides: "Slides", designNotes: "Design notes",
@@ -183,11 +183,12 @@ const FIELD_LABELS: Record<string, string> = {
 /** Each stage's fields. Script, Make and Publish each show the parts they hold; Make's depend on the format. */
 const STAGE_CONTENT: Record<string, (props: TabProps) => React.ReactNode> = {
   idea: IdeaTab,
-  research: ResearchTab,
   script: (p) => (
     <>
+      <ResearchTab {...p} />
       <ScriptTab {...p} />
       <FactcheckTab {...p} />
+      <SourcesTab {...p} />
     </>
   ),
   make: (p) => (
@@ -639,16 +640,23 @@ function IdeaTab({ ep, save }: TabProps) {
 
 function ResearchTab({ ep, save }: TabProps) {
   return (
-    <TabForm save={save} readOnly={Boolean(ep.research && ep.sources)}>
+    <TabForm save={save} readOnly={Boolean(ep.research)}>
       <MarkdownField
         name="research"
         label="Research notes"
         defaultValue={ep.research}
         rows={16}
-        placeholder={"## The one insight\n…\n\n## Key facts and numbers\n- … (source)\n\n## How it works\n…\n\n## Open questions\n- …"}
-        hint="Run Research above and Claude fills this in. You can also edit it yourself."
+        placeholder={"## The question\n…\n\n## The answer in one line\n…\n\n## Key facts\n- **F1.** … (source)"}
+        hint="Run Research & Script above and Claude fills this in. You can also edit it yourself."
       />
-      <MarkdownField name="sources" label="Sources" defaultValue={ep.sources} rows={6} placeholder={"- [Engineering blog title](https://…)\n- [Paper or talk](https://…)"} />
+    </TabForm>
+  );
+}
+
+function SourcesTab({ ep, save }: TabProps) {
+  return (
+    <TabForm save={save} readOnly={Boolean(ep.sources)}>
+      <MarkdownField name="sources" label="References" defaultValue={ep.sources} rows={6} placeholder={"- [Engineering blog title](https://…)\n- [Paper or talk](https://…)"} />
     </TabForm>
   );
 }

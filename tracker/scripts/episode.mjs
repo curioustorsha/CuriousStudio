@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Tracker helper for the stage skills (/research, /script, /make, /publish). Talks to the running tracker's API.
+ * Tracker helper for the stage skills (/script, /make, /publish). Talks to the running tracker's API.
  *
  *   node tracker/scripts/episode.mjs get AIW-001
  *       Full episode as JSON, with series format notes, open review feedback, versions and stale stages.
  *
- *   node tracker/scripts/episode.mjs submit AIW-001 research=@/path/research.md sources=@/path/sources.md checks=@/path/checks.json
+ *   node tracker/scripts/episode.mjs submit AIW-001 research=@/path/research.md script=@/path/script.md sources=@/path/sources.md checks=@/path/checks.json
  *       Writes the fields (value or @file) and marks the stage "Ready for review". Never changes the stage.
  *       checks (JSON) updates the current stage's checklist: [{ "item": 0, "done": true, "note": "…" }].
  *       sendBack (JSON) proposes sending the episode back to an earlier stage with fixes:

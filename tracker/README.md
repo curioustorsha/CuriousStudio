@@ -87,8 +87,7 @@ One 7-stage pipeline for every series. What a series wants (structure, length, d
 | Stage | Who | Writes | Uses |
 |---|---|---|---|
 | Idea | People | hook, details, key points | |
-| Research | `research` skill | `research` (insight, facts F1…, technical layer, assumptions) + `sources` | web search |
-| Script | `script` skill | `script` (one line per scene, or slide copy) + `factcheck` (claim-by-claim, fixes already applied) | **factcheck** helper in a fresh subagent, humanizer |
+| Research & Script | `script` skill | `research` (the question, one-line answer, facts F1…), `script` (one line per scene, or slide copy), `factcheck` (claim-by-claim, fixes already applied), `sources` (references) | web search, **factcheck** helper in a fresh subagent, humanizer |
 | Make | `make` skill | Plan pass: `storyboard` (scenes or slide plan), then it pauses until a person ticks **Plan approved**. Build pass: video → `voiceoverUrl`, `voiceoverNotes`, `renderUrl`, `renderNotes`; carousel → `slides`, `renderUrl`, `designNotes`; both → `reviewReport` | helpers **storyboard**, **voiceover**, **animate**, **design**, **qa**; ElevenLabs, Remotion |
 | Review | People | phone check | |
 | Publish | `publish` skill | titles, captions, hashtags, cover notes, `publishDate` (from `episode.mjs slot`), `publishPlan` (upload kit, pinned comment) | helpers **package**, **schedule**; yt-package, yt-seo |

@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { checkApiToken } from "@/lib/auth";
 import { API_ACTOR, createEpisode, listEpisodes } from "@/lib/episodes";
 
-/** GET /api/episodes?stage=research&series=1 — list episodes (for Claude Code / scripts). */
+/** GET /api/episodes?stage=script&series=1 — list episodes (for Claude Code / scripts). */
 export async function GET(request: NextRequest) {
   if (!checkApiToken(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const q = request.nextUrl.searchParams;

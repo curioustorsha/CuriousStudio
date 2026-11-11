@@ -37,29 +37,20 @@ export const STAGES = [
     checklist: ["Hook written (the first 2 seconds)", "Series assigned", "Clear 'why would someone share this?'"],
   },
   {
-    key: "research",
-    label: "Research",
-    color: 1,
-    fields: ["research", "sources"],
-    skill: "research",
-    model: "claude-opus-5-5",
-    effort: "high",
-    description: "Gather sources and facts. Decide the one insight and the technical layer.",
-    checklist: ["3+ credible sources linked", "Key numbers noted with their source", "Angle decided: the one insight", "Technical layer found"],
-  },
-  {
     key: "script",
-    label: "Script",
+    label: "Research & Script",
     color: 2,
-    fields: ["script", "factcheck"],
+    // Shown in this order on the episode page: research notes, script, fact-check, references.
+    fields: ["research", "script", "factcheck", "sources"],
     skill: "script",
     model: "claude-opus-5-5",
     effort: "high",
-    description: "Voiceover script (or slide copy for a carousel), then every claim checked against its source in the same run.",
+    description: "One run: solid facts from good sources, a plain-words script that teaches one big idea, then every claim checked against its source.",
     checklist: [
-      "Hook in the first line",
-      "Length fits the target",
-      "One clear takeaway and one technical idea",
+      "2+ credible sources linked, every number sourced",
+      "Hook in the first line (a question for How It Scales)",
+      "Plain words, plus one big idea explained simply",
+      "Length fits the target (never over 2 minutes)",
       "Every claim checked against its source",
       "Second person read-through",
     ],
@@ -125,6 +116,7 @@ export const STAGES = [
 
 /** Old stage keys (before the 7-stage pipeline) → the stage that now holds their work. */
 export const LEGACY_STAGES: Record<string, string> = {
+  research: "script",
   factcheck: "script",
   storyboard: "make",
   voiceover: "make",
@@ -215,7 +207,7 @@ export const PRIORITIES = ["high", "medium", "low"] as const;
 
 /** Checklist items only a person can tick (by index per stage). Claude may leave a note but never ticks these. */
 export const HUMAN_CHECKS: Partial<Record<StageKey, number[]>> = {
-  script: [4], // Second person read-through
+  script: [5], // Second person read-through
   make: [0], // Plan approved: the make skill only builds after a person ticks this
   review: [0, 1, 2, 3], // Review is done by people, on a phone
   publish: [3, 4, 5], // Scheduled on YouTube, Instagram, TikTok (done in each app)

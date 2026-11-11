@@ -39,7 +39,7 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
 
   return (
     <div>
-      <PageHeader title="Ideas" subtitle="Every idea and how far it has got. Promote the best ones into research.">
+      <PageHeader title="Ideas" subtitle="Every idea and how far it has got. Promote the best ones into Research & Script.">
         <form action={createEpisodeAction}>
           <input type="hidden" name="_open" value="1" />
           <input type="hidden" name="owner" value={user.username} />
@@ -167,7 +167,7 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
                     <td className="px-3 py-2 text-right">
                       <div className="flex items-center justify-end gap-1">
                         {idea.stage === "idea" && (
-                          <form action={moveEpisodeAction.bind(null, idea.id, "research")}>
+                          <form action={moveEpisodeAction.bind(null, idea.id, "script")}>
                             <SubmitButton className="btn btn-sm whitespace-nowrap" pendingText="Moving…">
                               Research <ArrowRight className="size-3" strokeWidth={2.2} />
                             </SubmitButton>

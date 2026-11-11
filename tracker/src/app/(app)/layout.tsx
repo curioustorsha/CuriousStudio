@@ -19,7 +19,6 @@ import {
   LayoutGrid,
   Lightbulb,
   LogOut,
-  Search,
   ShieldCheck,
   Sparkles,
   SquareKanban,
@@ -114,7 +113,6 @@ function ChannelLink({ channel }: { channel: (typeof CHANNELS)[number] }) {
 }
 
 const SKILL_ICONS: Record<string, React.ReactNode> = {
-  research: <Search {...iconProps} />,
   script: <FileText {...iconProps} />,
   factcheck: <ShieldCheck {...iconProps} />,
   storyboard: <Clapperboard {...iconProps} />,

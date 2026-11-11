@@ -366,6 +366,7 @@ export function staleStages(revs: Revision[]) {
   const stale: Record<string, string> = {};
   for (const [stage, id] of latest) {
     for (const [upstream, upId] of latest) {
+      if (stageIndex(upstream) === -1) continue; // versions from a retired stage (the old Research)
       if (stageIndex(upstream) < stageIndex(stage) && upId > id) {
         if (!stale[stage] || stageIndex(upstream) < stageIndex(stale[stage])) stale[stage] = upstream;
       }

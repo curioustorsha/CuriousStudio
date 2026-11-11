@@ -73,7 +73,13 @@ AI This Week carousels. See section 3b.
 
 ## 3. Plan
 
-Find one visual metaphor for the research's main insight and carry it through. Every scene shows something moving *because of* a spoken word: cue animations to words ("on 'purpose': a stamp slams in").
+Find one visual metaphor for the research's one-line answer and carry it through. Every scene shows something moving *because of* a spoken word: cue animations to words ("on 'purpose': a stamp slams in").
+
+Two scenes are the same in every video:
+- **intro** ("Welcome to <series>, by Curiously."): a short series title card: the series name with the Curiously wordmark and asterisk (`video/src/brand.tsx`), over the episode's world from the hook. Keep it under 3 seconds.
+- **cta** ("If you like this kind of content, like, share and follow Curiously."): the logo end card (the engine's), with like, share and follow drawn as Phosphor duotone icons cued to each word. Never anything about the topic.
+
+The big idea gets the picture the script uses for it (e.g. roads as dots joined by lines), built up on screen as the words say it.
 
 Write `storyboard` as Markdown in exactly this shape:
 
