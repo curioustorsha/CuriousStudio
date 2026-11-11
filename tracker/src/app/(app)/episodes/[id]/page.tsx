@@ -647,7 +647,7 @@ function ResearchTab({ ep, save }: TabProps) {
         defaultValue={ep.research}
         rows={16}
         placeholder={"## The question\n…\n\n## The answer in one line\n…\n\n## Key facts\n- **F1.** … (source)"}
-        hint="Run Research & Script above and Claude fills this in. You can also edit it yourself."
+        hint="Run Write above and Claude fills this in. You can also edit it yourself."
       />
     </TabForm>
   );

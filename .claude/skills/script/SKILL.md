@@ -1,9 +1,9 @@
 ---
 name: script
-description: The Research & Script stage of a Curiously episode - find a few solid facts from good sources, write a plain-words voiceover script (or carousel slide copy) on them, fact-check it claim by claim in a fresh subagent, apply the fixes, and submit research notes, script, fact-check and references to the tracker for one review. Use when asked to research or script an episode, usually from the tracker's Run button, including a new version after "request changes" notes.
+description: The Write stage of a Curiously episode - find a few solid facts from good sources, write a plain-words voiceover script (or carousel slide copy) on them, fact-check it claim by claim in a fresh subagent, apply the fixes, and submit research notes, script, fact-check and references to the tracker for one review. Use when asked to research or script an episode, usually from the tracker's Run button, including a new version after "request changes" notes.
 ---
 
-# Research & Script stage
+# Write stage
 
 One run turns an approved idea into a checked script: research just enough to answer the idea's question, write the script from those facts, fact-check it, submit. A person reviews it all on one page (research notes, script, fact-check, references) and either moves the episode to Make or requests changes, which brings you back here for the next version.
 

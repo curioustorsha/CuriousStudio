@@ -38,7 +38,7 @@ export const STAGES = [
   },
   {
     key: "script",
-    label: "Research & Script",
+    label: "Write",
     color: 2,
     // Shown in this order on the episode page: research notes, script, fact-check, references.
     fields: ["research", "script", "factcheck", "sources"],
