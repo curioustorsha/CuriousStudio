@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UsageFooter } from "@/components/UsageFooter";
 import {
   ArrowUpRight,
   BarChart3,
@@ -32,7 +33,7 @@ import { Logo } from "@/components/Logo";
 import { Avatar } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
 import { unreadCount } from "@/lib/comments";
-import { liveJobCount, queuePause } from "@/lib/runner";
+import { getClaudeLimits, liveJobCount, queuePause } from "@/lib/runner";
 import { skillLabel, skillTree } from "@/lib/skills";
 
 const iconProps = { className: "size-[17px]", strokeWidth: 1.8 };
@@ -131,7 +132,7 @@ const SKILL_ICONS: Record<string, React.ReactNode> = {
 export default async function AppLayout({ children }: LayoutProps<"/">) {
   const user = await requireUser();
   const tree = skillTree();
-  const [unread, jobs, pause] = await Promise.all([unreadCount(user.username), liveJobCount(), queuePause()]);
+  const [unread, jobs, pause, limits] = await Promise.all([unreadCount(user.username), liveJobCount(), queuePause(), getClaudeLimits()]);
   const badges: Record<string, number> = { "/notifications": unread, "/queue": jobs };
   const navLinks = (items: NavItem[]) =>
     items.map((item) => (
@@ -265,6 +266,7 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
             )}
             {children}
           </main>
+          <UsageFooter limits={limits} nowMs={new Date().getTime()} />
         </div>
         <AutoRefresh />
       </div>
