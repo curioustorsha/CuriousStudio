@@ -193,7 +193,7 @@ const STAGE_CONTENT: Record<string, (props: TabProps) => React.ReactNode> = {
     </>
   ),
   make: (p) => (
-    <>
+    <div className="space-y-6">
       <StoryboardTab {...p} />
       {p.format === "carousel" ? (
         <DesignTab {...p} />
@@ -203,7 +203,7 @@ const STAGE_CONTENT: Record<string, (props: TabProps) => React.ReactNode> = {
           <AnimationTab {...p} />
         </>
       )}
-    </>
+    </div>
   ),
   review: ReviewTab,
   publish: (p) => (
@@ -847,39 +847,40 @@ async function VideoPlayer({ ep, src }: { ep: Episode; src: string }) {
   );
 }
 
-function VoiceoverTab({ ep, save }: TabProps) {
+/** One titled block of the Make page (voiceover, video). Skills fill these in; nothing here is typed or saved. */
+function MakeSection({ title, hint, children }: { title: string; hint: string; children: React.ReactNode }) {
   return (
-    <TabForm save={save}>
+    <section className="space-y-3 border-t border-line pt-6">
+      <div>
+        <h3 className="text-[15px] font-semibold tracking-tight">{title}</h3>
+        <p className="text-[12px] text-muted">{hint}</p>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function NotBuiltYet({ what }: { what: string }) {
+  return <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No {what} yet. It&apos;s made in step 3, Build, after the plan is approved.</p>;
+}
+
+function VoiceoverTab({ ep }: TabProps) {
+  return (
+    <MakeSection title="Voiceover" hint="The narration, one clip per scene, checked by listening back.">
       {ep.voiceoverUrl ? (
-        <div>
-          <div className="label">Listen</div>
-          <audio key={ep.voiceoverUrl} src={fresh(ep, ep.voiceoverUrl)} controls preload="metadata" className="w-full" />
-        </div>
+        <audio key={ep.voiceoverUrl} src={fresh(ep, ep.voiceoverUrl)} controls preload="metadata" className="w-full" />
       ) : (
-        <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No voiceover yet. Run Make above (after the storyboard is approved).</p>
+        <NotBuiltYet what="voiceover" />
       )}
-      <Field label="Voiceover file" hint="Set by the Voiceover skill. A /media/… path plays here.">
-        <input name="voiceoverUrl" defaultValue={ep.voiceoverUrl} className="input font-mono text-[13px]" />
-      </Field>
-    </TabForm>
+    </MakeSection>
   );
 }
 
 function AnimationTab(props: TabProps) {
-  const { ep, save } = props;
   return (
-    <>
-    {ep.renderUrl ? (
-      <PinnedPlayer {...props} />
-    ) : (
-      <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No render yet. Run Make above (after the storyboard is approved).</p>
-    )}
-    <TabForm save={save}>
-      <Field label="Render file" hint="Set by the Animation skill. A /media/… path plays here.">
-        <input name="renderUrl" defaultValue={ep.renderUrl} className="input font-mono text-[13px]" />
-      </Field>
-    </TabForm>
-    </>
+    <MakeSection title="Video" hint="The finished render. Use Add note to pin a change to the exact moment.">
+      {props.ep.renderUrl ? <PinnedPlayer {...props} /> : <NotBuiltYet what="video" />}
+    </MakeSection>
   );
 }
 
