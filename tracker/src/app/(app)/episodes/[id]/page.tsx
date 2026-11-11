@@ -13,6 +13,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   addCommentAction,
+  approvePlanAction,
   approveStageAction,
   deleteEpisodeAction,
   moveEpisodeAction,
@@ -243,6 +244,7 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
   const sectionNames = stage.fields.map((f) => FIELD_LABELS[f] ?? f);
   const facts = stageKey === "script" && isCurrent ? researchFacts(ep.research) : [];
   const pinned = openPinned(review);
+  const makeStep = stageKey === "make" && isCurrent ? makePhase(ep, format, running || queued) : null;
 
   let status: string;
   if (!isCurrent) status = idx < stageIndex(ep.stage) ? "Done" : "Not started";
@@ -251,6 +253,7 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
   else if (open.length) status = `Changes requested. Run it again to get ${latest ? `v${latest.version + 1}` : "a new version"}.`;
   else if (staleFrom && latest && skill)
     status = `${getStage(staleFrom).label} changed since v${latest.version}. Run ${stage.label} again to update it.`;
+  else if (makeStep === "approve") status = "Paused: the plan is waiting for your OK";
   else if (ep.readyForReview && latest) status = `v${latest.version} is ready for your review`;
   else if (!latest && skill) status = `Run ${stage.label} to write v1, or fill it in yourself`;
   else status = "In progress";
@@ -309,9 +312,11 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
           </div>
         )}
 
+        {makeStep && <MakeSteps ep={ep} format={format} phase={makeStep} hasNotes={open.length > 0} />}
+
         {isCurrent && skill && (
           <div className="mb-6 space-y-3">
-            {!running && !queued && (
+            {!running && !queued && makeStep !== "approve" && (
               <form action={runSkillAction.bind(null, ep.id)}>
                 <SubmitButton className="btn btn-primary" pendingText="Adding to the queue…">
                   <Sparkles className="size-4" strokeWidth={2} />
@@ -336,6 +341,94 @@ function StagePanel({ ep, format, targetSeconds, stageKey, review, run, save }: 
 
       {latest && reviewCard}
     </>
+  );
+}
+
+type MakePhase = "plan" | "planning" | "approve" | "build" | "building" | "done";
+
+/** Where Make is in its two passes: plan → (pause for a person's OK) → build. */
+function makePhase(ep: Episode, format: Format, busy: boolean): MakePhase {
+  const approved = checklistItems("make", ep.checklist)[0]?.done ?? false;
+  const built = format === "carousel" ? slideList(ep).length > 0 : Boolean(ep.renderUrl);
+  if (busy) return approved ? "building" : "planning";
+  if (!ep.storyboard) return "plan";
+  if (!approved) return "approve";
+  return built ? "done" : "build";
+}
+
+/** The Make stage's two steps and the pause between them, with the one button that matters right now. */
+function MakeSteps({ ep, format, phase, hasNotes }: { ep: Episode; format: Format; phase: MakePhase; hasNotes: boolean }) {
+  const plan = format === "carousel" ? "slide plan" : "storyboard";
+  const build = format === "carousel" ? "Slides and the slideshow Short, then automatic checks" : "Voiceover, animation and render, then automatic checks";
+  const steps = [
+    {
+      n: 1,
+      title: `Plan (the ${plan})`,
+      body: `Claude plans every ${format === "carousel" ? "slide" : "scene"}. Cheap and quick.`,
+      state: phase === "plan" || phase === "planning" ? "now" : "done",
+    },
+    {
+      n: 2,
+      title: "Your OK",
+      body: "Make pauses here so nothing expensive is built from a plan nobody has checked.",
+      state: phase === "approve" ? "now" : phase === "plan" || phase === "planning" ? "next" : "done",
+    },
+    {
+      n: 3,
+      title: "Build",
+      body: `${build}. Uses ElevenLabs credits and most of the Claude time.`,
+      state: phase === "build" || phase === "building" ? "now" : phase === "done" ? "done" : "next",
+    },
+  ] as const;
+  const message: Record<MakePhase, string> = {
+    plan: `Press Run Make. Claude writes the ${plan}, then stops and waits for you.`,
+    planning: `Claude is writing the ${plan}. It will stop for your OK before building anything.`,
+    approve: `Read the ${plan} below. Happy with it? Approve to start the build. Not happy? Write your notes in the review box and press Request changes, and Claude redoes the plan.`,
+    build: "Plan approved. Press Run Make to build it.",
+    building: "Plan approved. Claude is building it now.",
+    done: "Built. Watch it below, then approve Make from the checklist.",
+  };
+  return (
+    <div className={`mb-6 rounded-2xl p-4 ring-1 ${phase === "approve" ? "bg-accent/10 ring-accent/40" : "bg-panel-2 ring-line"}`}>
+      <ol className="grid gap-3 sm:grid-cols-3">
+        {steps.map((s) => (
+          <li key={s.n} className={`flex gap-2.5 ${s.state === "next" ? "opacity-50" : ""}`}>
+            <span
+              className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold ${
+                s.state === "done" ? "bg-ok text-white" : s.state === "now" ? "bg-accent text-white" : "bg-fg/[0.08] text-muted"
+              }`}
+            >
+              {s.state === "done" ? <Check className="size-3" strokeWidth={3} /> : s.n}
+            </span>
+            <span>
+              <span className="block text-[13px] font-semibold">{s.title}</span>
+              <span className="block text-[12px] text-muted">{s.body}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-4 text-[13px]">{message[phase]}</p>
+      {phase === "approve" && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          <form action={approvePlanAction.bind(null, ep.id)}>
+            <SubmitButton
+              className="btn btn-primary"
+              pendingText="Starting the build…"
+              confirmText={`Approve the ${plan} and build ${ep.code}?`}
+              confirmMessage={hasNotes ? "You have open notes on Make. They'll be handled during the build. If they change the plan, request changes instead." : `This ticks Plan approved and starts the build: ${build.toLowerCase()}.`}
+              confirmLabel="Approve & build"
+            >
+              <Play className="size-4" strokeWidth={2.2} /> Approve plan &amp; build
+            </SubmitButton>
+          </form>
+          <form action={runSkillAction.bind(null, ep.id)}>
+            <SubmitButton className="btn btn-ghost" pendingText="Adding to the queue…">
+              <Sparkles className="size-4" strokeWidth={2} /> {hasNotes ? "Redo the plan with my comments" : "Redo the plan"}
+            </SubmitButton>
+          </form>
+        </div>
+      )}
+    </div>
   );
 }
 

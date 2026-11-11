@@ -220,6 +220,23 @@ export async function runSkillAction(episodeId: number) {
   refreshAll();
 }
 
+/** Make's pause: a person approves the plan (ticks "Plan approved") and the build pass is queued in one click. */
+export async function approvePlanAction(episodeId: number) {
+  const user = await requireUser();
+  const [row] = await db.select({ checklist: episodes.checklist, code: episodes.code }).from(episodes).where(eq(episodes.id, episodeId));
+  if (!row) return;
+  let map: Record<string, unknown> = {};
+  try {
+    map = JSON.parse(row.checklist);
+  } catch {}
+  map["make:0"] = true;
+  map["by:make:0"] = user.username;
+  await db.update(episodes).set({ checklist: JSON.stringify(map) }).where(eq(episodes.id, episodeId));
+  await ep.logActivity(user.username, `approved the plan for ${row.code}`, episodeId);
+  await enqueueRun(user.username, episodeId);
+  refreshAll();
+}
+
 export async function resumeQueueAction() {
   const user = await requireAdmin();
   await resumeQueue(user.username);
