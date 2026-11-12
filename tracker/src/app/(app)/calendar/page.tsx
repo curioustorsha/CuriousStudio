@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, CircleCheck, CircleDashed, Rocket } from "lucide-react";
 import Link from "next/link";
+import { updateEpisodeAction } from "@/app/actions";
 import { db, episodes as episodesTable, series as seriesTable } from "@/db";
 import { PageHeader, StageBadge } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
@@ -48,6 +49,11 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
   };
   const unscheduled = all.filter((e) => !e.publishDate && stageIndex(e.stage) >= READY_FROM && e.stage !== "posted");
   const inMonth = all.filter((e) => e.publishDate?.startsWith(monthKey(year, month)));
+  // What an open slot can be filled with: the series' episodes that aren't posted or dated yet, furthest along first.
+  const candidates = (seriesId: number) =>
+    all
+      .filter((e) => e.seriesId === seriesId && !e.publishDate && e.stage !== "posted")
+      .sort((a, b) => stageIndex(b.stage) - stageIndex(a.stage) || a.position - b.position);
 
   return (
     <div>
@@ -127,16 +133,40 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
                         </Link>
                       );
                     })}
-                    {openSlots.map((s) => (
-                      <div
-                        key={s.id}
-                        className="flex items-center gap-1 truncate rounded-md border border-dashed px-1.5 py-0.5 text-[10px] font-medium"
-                        style={{ borderColor: `color-mix(in srgb, ${s.color} 50%, transparent)`, color: s.color }}
-                      >
-                        <CircleDashed className="size-2.5 shrink-0" strokeWidth={2.4} />
-                        <span className="truncate" title={`Open slot: ${s.name}`}>{s.name}</span>
-                      </div>
-                    ))}
+                    {openSlots.map((s) => {
+                      const options = candidates(s.id);
+                      return (
+                        <details key={s.id} className="relative">
+                          <summary
+                            className="flex cursor-pointer list-none items-center gap-1 truncate rounded-md border border-dashed px-1.5 py-0.5 text-[10px] font-medium hover:bg-fg/[0.04] [&::-webkit-details-marker]:hidden"
+                            style={{ borderColor: `color-mix(in srgb, ${s.color} 50%, transparent)`, color: s.color }}
+                            title={`Open slot: ${s.name}. Click to schedule an episode here.`}
+                          >
+                            <CircleDashed className="size-2.5 shrink-0" strokeWidth={2.4} />
+                            <span className="truncate">{s.name}</span>
+                          </summary>
+                          <div className={`card absolute top-full z-20 mt-1 w-64 p-1.5 shadow-lg ${[5, 6, 0].includes(d.getDay()) ? "right-0" : "left-0"}`}>
+                            <div className="px-2 pb-1 pt-0.5 text-[11px] font-semibold text-muted">
+                              Schedule {s.name} on {d.toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
+                            </div>
+                            {options.length === 0 && <p className="px-2 py-1.5 text-[12px] text-faint">No unscheduled episodes in this series.</p>}
+                            <ul className="scroll-thin max-h-64 overflow-auto">
+                              {options.map((e) => (
+                                <li key={e.id}>
+                                  <form action={updateEpisodeAction.bind(null, e.id)}>
+                                    <input type="hidden" name="publishDate" value={key} />
+                                    <button type="submit" className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[12px] hover:bg-panel-2">
+                                      <span className="min-w-0 flex-1 truncate">{e.title}</span>
+                                      <StageBadge stage={e.stage} />
+                                    </button>
+                                  </form>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </details>
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -146,7 +176,7 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
 
         <aside className="card h-fit p-5">
           <h2 className="section-title mb-1">Ready, Not Scheduled</h2>
-          <p className="mb-3 text-xs text-muted">Open one and set its publish date to fill a slot.</p>
+          <p className="mb-3 text-xs text-muted">Click a dashed slot in the calendar to schedule one there.</p>
           {unscheduled.length === 0 && <p className="py-2 text-[13px] text-faint">Nothing waiting.</p>}
           <ul className="-mx-2">
             {unscheduled.map((e) => (
