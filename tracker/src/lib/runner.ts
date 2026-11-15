@@ -38,6 +38,9 @@ const ALLOWED_TOOLS = [
   "Bash(mkdir -p video/public/audio/assets/*)",
   "Bash(curl -sSfL -o video/public/audio/assets/*)",
   "Bash(tools/earshot/.venv/bin/ffmpeg *)",
+  // Claude Skills proof media (repo demos, before/after outputs) lives in the episode's proof folder.
+  "Bash(mkdir -p video/public/episodes/*/proof*)",
+  "Bash(curl -sSfL -o video/public/episodes/*/proof/*)",
   "Bash(tools/earshot/.venv/bin/ffprobe *)",
   "Bash(tools/earshot/.venv/bin/python -I .claude/skills/real-sound/scripts/*)",
 ];

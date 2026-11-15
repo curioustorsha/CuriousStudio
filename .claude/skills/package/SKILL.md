@@ -25,6 +25,8 @@ Run from the Curiously project root. Read `title`, `hook`, `script`, `research` 
 - **TikTok photo post:** TikTok photo posts have a title (≤ 90 characters) and a caption. Put the title on the first line of `tiktokCaption`, then a blank line, then a 1–2 line caption.
 - Hashtags: 5–8, e.g. #ai #ainews plus the companies named in the stories.
 
+**Claude Skills** (series prefix `CS`): every caption and the description carry the repo link `github.com/owner/repo` and "checked on <date>" (from the research). The first two description lines say what the repo does and who it's for; then the install command; then "Sources:" (the repo pages); then a "Demo:" credit line naming the maker for any of their demo footage used. Tell the schedule step: the pinned comment is the repo link plus one line on the catch. Maker's claims stay attributed ("the maker says"). Hashtags include #claude #claudecode #aitools and the repo's subject (#webdesign, #coding…).
+
 ## 2. Voice
 
 Read `.claude/skills/package/voice.md`. When the **yt-package** or **yt-seo** skills (or yt-comment) ask for `~/.claude/youtube/voice.md`, use this file instead. Don't ask for three videos and don't create the home-folder file. No emoji anywhere.

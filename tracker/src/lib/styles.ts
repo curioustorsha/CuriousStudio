@@ -6,6 +6,7 @@
 export const VISUAL_STYLES = [
   { key: "isometric", label: "Isometric 2D", hint: "Systems as isometric blocks, grids and flows" },
   { key: "flat-metaphor", label: "Flat 2D vector + metaphors", hint: "Flat shapes, one visual metaphor per idea" },
+  { key: "product-ui", label: "Product launch UI", hint: "Glossy app windows and terminals with the real output inside" },
   { key: "carousel-editorial", label: "Carousel: editorial slides", hint: "Fixed weekly slide template, bold type" },
 ] as const;
 

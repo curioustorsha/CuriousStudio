@@ -17,6 +17,8 @@ import { Asterisk, LogoMark } from "./brand";
 import { EPISODES } from "./episodes";
 import { CarouselSlide, Slideshow, slideshowFrames, type SlideProps, type SlideshowProps } from "./carousel/Slides";
 import { IsoDemo } from "./engine/IsoDemo";
+import { AsterSheet } from "./aster/Aster";
+import { ProductUISample, SAMPLE_FRAMES } from "./productui/Sample";
 
 const SCENES: Record<SceneId, React.FC> = {
   hook: Hook,
@@ -170,6 +172,8 @@ export const RemotionRoot: React.FC = () => (
     <Still id="Avatar" component={Avatar} width={1024} height={1024} defaultProps={{ bg: C.bg, cColor: C.text } as AvatarProps} />
     {/* Isometric kit preview for How It Scales */}
     <Still id="IsoDemo" component={IsoDemo} width={W} height={H} />
+    <Still id="AsterSheet" component={AsterSheet} width={1920} height={1080} />
+    <Composition id="ProductUISample" component={ProductUISample} durationInFrames={SAMPLE_FRAMES} fps={FPS} width={W} height={H} />
     {EPISODES.map((ep) => (
       <React.Fragment key={ep.code}>
         <Composition id={ep.code} component={ep.Video} durationInFrames={ep.durationInFrames} fps={FPS} width={W} height={H} />

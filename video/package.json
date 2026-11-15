@@ -13,6 +13,7 @@
     "ep:render": "node scripts/render.mjs",
     "ep:carousel": "node scripts/carousel.mjs",
     "ep:frames": "node scripts/frames.mjs",
+    "ep:shot": "node scripts/shot.mjs",
     "ep:measure": "node scripts/measure.mjs",
     "typecheck": "tsc --noEmit"
   },

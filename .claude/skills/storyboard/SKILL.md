@@ -62,11 +62,33 @@ How It Scales. The system is an isometric 2D world seen at 30°: servers, databa
 ### flat-metaphor
 Claude Lab. Flat 2D vector shapes with one concrete **visual metaphor per idea**: context is a desk that fills up, a subagent is a teammate at their own desk passing back one card, a skill is a manual on a shelf whose spine is all Claude reads until it needs it, a hook is a tripwire.
 - **Use the series' metaphor world when the playbook names one.** Claude Lab's is "Claude's workshop", with its metaphor sheet in `docs/claude-lab-curriculum.md` (context window = the desk, subagent = a teammate at their own desk, skill = a manual on a shelf). Use those objects exactly. When an episode introduces a new idea that isn't on the sheet yet, define its object, add a row to the sheet (idea, object, episode), and say so in your report.
+- **Aster hosts every Claude Lab lesson.** Aster is the Curiously asterisk, hovering behind the workbench where Claude works, and it acts out what Claude does. It has no face, arms or eyes: it acts only through motion, so keep it grown-up, never cartoony. Plan its part in every scene with a mood timed to a word:
+  - **idle:** turns slowly (default)
+  - **think:** slower turn with pulsing rings (reading, weighing options)
+  - **no:** a quick side-to-side shake (rejecting a wrong idea, like "not a search engine")
+  - **gotit:** a crisp spin with a burst of light (a word lands, the payoff)
+  - **unsure:** its rays sag and it slows (a limit, a surprise, a dead end)
+  - **pointing:** when something is placed, one ray reaches towards it
+  - **Fixed moments:** in the intro, Aster rises and a C draws around it on "Curiously", so the host becomes the logo. In the sign-off, Aster flies up and settles into the end card's logo.
 - In "Look", list the metaphors this lesson uses: idea → object, with its colour. Each idea keeps its object (and colour) in every lesson.
 - If the playbook numbers its episodes (Claude Lab's lessons), every scene shows the kicker in the header (`LESSON 14 · PROJECTS`), and the last scene shows the tease for the next episode as a small "Next:" card, timed to the closing line.
-- Flat shapes and Phosphor duotone icons only (`video/src/products.tsx` has `toolbox`, `team`, `idea`, `plugin`, `robot`, `files`, `terminal`, `flow`, `branch`, `chat`…). No gradients, no 3D, no emoji.
+- Flat shapes and Phosphor duotone icons only (`video/src/products.tsx` has `toolbox`, `team`, `idea`, `plugin`, `robot`, `files`, `terminal`, `flow`, `branch`, `chat`…). No gradients, no 3D, no emoji. Aster's soft glow is the one exception. Dark background only. Never the Claude logo.
 - At most one "proof" beat with a simple flat terminal or editor mockup. Never a screenshot or screen recording.
 - Big objects, few per scene, amber as the only accent.
+
+### product-ui
+Claude Skills. It looks like a product launch film (Apple, Linear, Vercel): dark, glossy app windows and terminals floating in a deep space, a moving cursor, code typing itself, and the repo's **real output** shown inside the windows. Each episode features one repo; its proof files are in `video/public/episodes/<slug>/proof/` (listed in the research notes' "Proof" section).
+- In "Look", list the windows the episode uses (browser, terminal, editor, chat) and which proof file each shows, plus the accent colour (amber by default).
+- **Recurring pieces, the same every episode:**
+  - **Repo card** on the intro: `owner/repo`, the maker, and a star counter that ticks up to the research's count on the word "Curiously". Kicker: `CLAUDE SKILLS · github.com/owner/repo · ★191k`.
+  - **Before/after split** (before/after episodes): two windows side by side or stacked, labelled `WITHOUT` (dimmed, grey accent) and `WITH <REPO>` (bright, amber accent). For a tall page, the window scrolls through the screenshot. For code, a line counter.
+  - **Demo window** (showcases): the repo's own demo playing inside a browser window, with a credit tag `Demo · <maker>` on screen the whole time.
+  - **The trick:** one glowing callout over the real output (a highlighted line of the SKILL.md, a circled detail on the page), timed to the word that names it.
+  - **The catch card:** a small amber-outlined warning card with one line.
+  - **Install bar:** a terminal window typing the install command, with the link `github.com/owner/repo` under it.
+- Real screenshots and recordings are welcome here (unlike flat-metaphor), but only of real proof files: never a mockup of a tool's output. Simple drawn windows are fine for the frame around them.
+- Logos: the maker's logo when it's a company (HeyGen, Cloudflare, Obsidian…), from `video/src/logos.tsx`. Never the Claude logo.
+- Camera: windows move in slow 3D space (a gentle tilt, a push-in on the detail that matters), never fast spins. One or two windows per scene.
 
 ### carousel-editorial
 AI This Week carousels. See section 3b.

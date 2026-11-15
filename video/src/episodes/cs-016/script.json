@@ -1,0 +1,24 @@
+{
+  "title": "Ponytail: 116 lines → 10",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Sleek, minimal product-launch bed for a 62-second tech short, about 100 BPM, soft analog synth pulses, a warm sub bass, crisp light hi-hats, glassy plucks, a small lift when the ten-line answer appears around 22 seconds and a calm resolve into the end card, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "You ask your AI to debounce a search box. It writes a hundred and sixteen lines." },
+    { "id": "intro", "text": "Welcome to Claude Skills, by Curiously." },
+    { "id": "repo", "text": "This is Ponytail, a free skill with over a hundred and ninety thousand stars on GitHub." },
+    { "id": "before", "text": "In the maker's own test, Claude without it built a helper, a wrapper and a config object." },
+    { "id": "after", "text": "Same prompt, same model, with Ponytail: ten lines. A timer is the debounce." },
+    { "id": "trick", "text": "The trick is one short list. Before writing anything, Claude asks: does this need to exist? Is it already in your code, or built into the language? Only then does it write the minimum." },
+    { "id": "safe", "text": "And it never cuts validation, error handling or security." },
+    { "id": "catch", "text": "The catch: it's for coding only, and those numbers are the maker's own benchmark." },
+    { "id": "install", "text": "Install it with two commands. The link is in the description." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Claude", "Curiously", "Claude Skills", "Ponytail", "debounce", "GitHub", "config", "validation"],
+  "sources": [
+    "github.com/DietrichGebert/ponytail README (stars 190,910 via GitHub API, 14 Nov 2026), MIT licence",
+    "github.com/DietrichGebert/ponytail examples/debounce.md: maker's benchmark, Claude Haiku 4.5, 116 → 10 lines of code",
+    "github.com/DietrichGebert/ponytail skills/ponytail/SKILL.md, lines 25-32 and 44"
+  ]
+}

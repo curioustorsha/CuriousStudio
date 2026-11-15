@@ -69,6 +69,8 @@ Paste the three links into the Posted tab.
 - **TikTok photo post:** Upload → Photo mode → slides in order → title + caption from `tiktokCaption`. If TikTok's web scheduler doesn't offer photo posts on the day, write "post from the app at the time".
 - **YouTube Shorts:** as a normal Short, with the slideshow video and slide 1 as the cover. The narration line about AI content doesn't apply (no voice); only tick the altered-content box if the slides contain generated imagery.
 
+**Claude Skills** (series prefix `CS`): "After posting" also has the comment to pin on YouTube and Instagram: the repo link `github.com/owner/repo`, "checked on <date>", and one line on the catch, as packaging wrote it.
+
 Copy the title, description, captions and hashtags in exactly from the packaging fields (the reviewer approved them); don't rewrite them.
 
 If the team later wants real automatic scheduling, Postiz (open source, self-hosted, 40k+ GitHub stars) can post to all three through their APIs. Mention it in one line; don't set it up.

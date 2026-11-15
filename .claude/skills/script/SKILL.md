@@ -9,6 +9,8 @@ One run turns an approved idea into a checked script: research just enough to an
 
 **Who it's for.** Normal people, not engineers. A viewer with no tech background should follow every line and come away knowing what happens behind the scenes, plus **one real idea** by its proper name, explained so simply they could repeat it to a friend. Short and correct beats deep and rushed.
 
+**Claude Skills is different** (series prefix `CS`): it's for advanced Claude users, each episode features one GitHub repo, and the research is the repo itself plus a proof run. Follow section 2c instead of section 2's research rules, and the shape in its playbook (`series.formatNotes`). Everything else here still applies (intro, sign-off, humanizer, fact-check, checklist, submit).
+
 ## 1. Load the episode
 
 ```bash
@@ -66,6 +68,40 @@ The one real technical term this episode teaches (e.g. graph neural network, cac
 ```
 
 Write `sources` (shown as References) as a Markdown list, one line per source actually used: `- [Title](url): publisher, date`.
+
+## 2c. Claude Skills only: the repo, the vetting and the proof run
+
+The episode features one repo (in the idea's title and summary). The playbook decides the shape; this is how to get the material. Proof files go in `video/public/episodes/<slug>/proof/` (`mkdir -p` it first; `<slug>` is the code in lower case, e.g. `cs-016`).
+
+**1. Read the repo** with WebFetch: the README, every SKILL.md, the plugin manifest if any, and every script or hook it ships (raw files from `raw.githubusercontent.com/<owner>/<repo>/<branch>/…`). Get the star count, licence, last push and creation date from `https://api.github.com/repos/<owner>/<repo>` and write them with today's date. If anything turns out different from the idea (renamed, archived, new licence, a different install command), fix it under "Corrections to the idea".
+
+**2. Vet it.** Note what it installs, runs and sends over the network, whether it runs in the background, needs accounts, keys or personal data, and any paid upsell. A repo that runs unknown code or collects data without saying so isn't featured: stop and say so in a `done: false` checklist note. Every claim from the README (benchmarks, "X% fewer tokens", user counts) is the maker's: attribute it in the script ("the maker says") or verify it from an independent source.
+
+**3. Pick the format** and say which in the research notes, with one line why:
+- **Before/after** only when the skill is plain instructions (SKILL.md plus reference files) that can be followed without installing anything, and the task's output is a file you can show: a web page, a diagram, code, text.
+- **Showcase** otherwise (plugins with hooks or background services, accounts, personal data, long runs), or when step 4 doesn't give a clear difference.
+
+**4. Before/after run.** Choose one small, realistic task that shows the repo's main point (the idea's key points suggest one). Then start two fresh `general-purpose` subagents in parallel, each told to write its output only into the proof folder:
+- **before:** the task alone. Output to `proof/before/`.
+- **after:** the same task, plus the repo's SKILL.md and the reference files it points to, pasted in full as instructions to follow. Output to `proof/after/`.
+Never install the repo or run its scripts. For web pages and diagrams, screenshot both: `npm --prefix video run ep:shot -- video/public/episodes/<slug>/proof/before/index.html video/public/episodes/<slug>/proof/before.png` (add `--size 1080x1920` for a phone view). For code or text, count what matters (lines, words, files) and keep both versions. Look at the results with Read. If the difference isn't clear, switch to a showcase: never stage or exaggerate a difference.
+
+**5. Showcase media.** Download the repo's own demo images, GIFs or videos (from the README) with `curl -sSfL -o video/public/episodes/<slug>/proof/demo-<n>.<ext> <url>`, one at a time. Convert GIFs to MP4 with `tools/earshot/.venv/bin/ffmpeg -i demo-1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" demo-1.mp4` (Remotion can't play GIFs). Note each file's source URL and the repo's licence: the maker is credited on screen whenever their demo shows.
+
+**6. Write `research`** in the same shape as section 2, read this way: "The question" is the problem the repo fixes; "The big idea" is the one trick inside it (how it works, in plain words); "Key facts" are the repo facts (stars with date, licence, last update, what it installs, maker's claims marked as theirs) and the proof-run results. Add a section:
+
+```markdown
+## Proof
+Format: Before/after (why in one line)
+Task: "…"
+- before: proof/before.png — what plain Claude did (e.g. 214 lines, generic gradient hero)
+- after: proof/after.png — what Claude with the skill did
+- demo-1.mp4 — from the README (source URL), credit: <maker>
+```
+
+`sources` lists the repo pages you opened (README, SKILL.md, API data) and any independent source.
+
+**Writing it:** advanced viewers, so naming tools and terms is fine, but keep the sentences plain and spoken. No "one big idea" or "one number" rule: the six beats in the playbook replace them. Name the repo and maker the way the repo does. The catch is always said out loud. The install line is said briefly ("Install it with one command, link in the description") and shown on screen.
 
 ## 3. Write it for the ear
 
@@ -131,7 +167,7 @@ Use exactly this shape. Each scene line becomes one voiceover clip and one scene
 **Changes in this version:** (revisions only) one line per review note: the note, then what changed.
 ```
 
-Before submitting, check yourself: every factual line has an F-number in the table, the word count is in range, the first line is the hook, the second is the series intro, the last is the sign-off (with the `next` tease just before it for Claude Lab, and for no other series), a non-technical viewer could follow every line, and there are no em dashes in the narration.
+Before submitting, check yourself: every factual line has an F-number in the table, the word count is in range, the first line is the hook, the second is the series intro, the last is the sign-off (with the `next` tease just before it for Claude Lab, and for no other series), a non-technical viewer could follow every line (for Claude Skills: an advanced user could, and the catch and the install line are there), and there are no em dashes in the narration.
 
 ## 5b. Carousel series: slide copy instead of a voiceover
 

@@ -55,12 +55,21 @@ How It Scales. Systems are drawn as an isometric 2D world.
 
 ### flat-metaphor
 Claude Lab. Flat 2D vector shapes, and every idea shown as a concrete metaphor instead of a screenshot.
-- Build each metaphor from simple shapes plus Phosphor duotone icons (`<Product p="toolbox" />`, `team`, `idea`, `plugin`, `robot`, `files`, `terminal`, `flow`, `branch`…; add icons to `products.tsx` if needed). No gradients, no glows beyond the kit's soft icon shadow, no 3D, no emoji.
+- Build each metaphor from simple shapes plus Phosphor duotone icons (`<Product p="toolbox" />`, `team`, `idea`, `plugin`, `robot`, `files`, `terminal`, `flow`, `branch`…; add icons to `products.tsx` if needed). No gradients, no glows beyond the kit's soft icon shadow and Aster's own glow, no 3D, no emoji.
 - One metaphor per concept, from the series' metaphor world when the playbook names one (Claude Lab: the **Claude's workshop** sheet in `docs/claude-lab-curriculum.md`). Build each object once as a shared component (`video/src/workshop/` for the workshop; create it on first use) and reuse it in every later episode, so the desk in lesson 40 is the same desk as in lesson 3. Keep the same objects, colours and positions every time a concept comes back.
+- **Aster, the host (Claude Lab):** draw it with `<Host f={f} {...hands} {...moodAt(f, cues)} />` from `video/src/workshop` (`host.tsx`), in place of any figure. The cues are `[frame, mood]` pairs on the storyboard's words (`idle`, `think`, `no`, `gotit`, `unsure`). Pass the placing "hands" (`placingHands`) and Aster points a ray at each word as it lands. `HOST_C` is its centre, for anything that looks at or into it, like a lens. Copy the intro reveal from `video/src/episodes/cl-005/scenes/Intro.tsx` (Aster rises, then `LogoMark` draws its C around it) and the sign-off from `Cta.tsx` (Aster flies into `EndCard` with `starIn`). The design is `video/src/aster/Aster.tsx`, with its sheet `AsterSheet`. Never draw the Claude logo.
 - If the playbook numbers its episodes, every scene's header has the kicker (`LESSON 14 · PROJECTS`), and the final scene shows the "Next:" tease card on the closing line, then the logo end card.
 - Palette: the theme colours on the dark background, with amber as the one accent; at most 3 colours in a scene.
 - Real UI (a terminal or editor) only as a short "proof" beat, drawn as a simple flat mockup, never a screen recording.
 - Motion: objects snap in with springs on their words, then hold still so the viewer can read them. Prefer one big object over many small ones.
+
+### product-ui
+Claude Skills. A product launch look: glossy app windows in a dark, deep space, with the repo's real output inside them.
+- **Shared components** live in `video/src/productui/` (create them on the first episode, then reuse them so every episode matches): `Space` (near-black backdrop with a soft vignette and a faint grid fading into depth), `Window` (rounded, 1px light border, soft shadow and a slight top sheen; variants `browser` with a URL bar, `terminal`, `editor`, `chat`), `Cursor` (moves on a spring between points and clicks with a small ring), `TypeOn` (text typing at a steady rate, cued to a word), `RepoCard` (owner/repo, maker, star counter that counts up with an ease-out), `Split` (WITHOUT / WITH layout), `Callout` (a glow ring or highlight over a region), `CatchCard`, `InstallBar`.
+- **Proof media:** show files from `video/public/episodes/<slug>/proof/` with `<Img src={staticFile(...)} />` for PNGs and `<OffthreadVideo src={staticFile(...)} muted />` for MP4s. A tall screenshot scrolls inside its window by animating `translateY` with `interpolate`. Keep the credit tag on screen whenever the maker's demo shows. Never redraw or fake a tool's output: if a proof file is missing, flag it and ask for it.
+- **Depth and motion:** windows sit in 3D space with `perspective` and a small `rotateX`/`rotateY` (≤ 12°), drifting slowly; push in with a critically damped spring on the word that names the detail. Glass sheen and soft shadows are allowed here (unlike flat-metaphor). One accent colour (amber by default) plus white and greys; WITHOUT is desaturated.
+- **Fixed moments:** the intro builds the repo card and ticks the stars up to the research count; the close types the install command into the terminal, then the logo end card. Layout rules are the same as every series (header 170–400, visual 400–1250, captions 1300–1500 kept clear).
+- Make each new component work for the next episode too, and list new or changed components in the render notes.
 
 ## 3. Sound
 
