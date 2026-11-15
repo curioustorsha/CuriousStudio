@@ -1,0 +1,1476 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/his-001/vo/hook.mp3",
+      "text": "Tatkal opens at ten, and it feels like all of India hits Book at once. How does IRCTC keep up?",
+      "words": [
+        {
+          "text": "Tatkal",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "text": "opens",
+          "start": 0.56,
+          "end": 0.88
+        },
+        {
+          "text": "at",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "ten,",
+          "start": 1.12,
+          "end": 1.68
+        },
+        {
+          "text": "and",
+          "start": 1.76,
+          "end": 1.84
+        },
+        {
+          "text": "it",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "text": "feels",
+          "start": 2.04,
+          "end": 2.24
+        },
+        {
+          "text": "like",
+          "start": 2.4,
+          "end": 2.56
+        },
+        {
+          "text": "all",
+          "start": 2.72,
+          "end": 2.88
+        },
+        {
+          "text": "of",
+          "start": 2.96,
+          "end": 3.04
+        },
+        {
+          "text": "India",
+          "start": 3.2,
+          "end": 3.36
+        },
+        {
+          "text": "hits",
+          "start": 3.48,
+          "end": 3.6
+        },
+        {
+          "text": "Book",
+          "start": 3.68,
+          "end": 3.76
+        },
+        {
+          "text": "at",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "text": "once.",
+          "start": 4.08,
+          "end": 4.96
+        },
+        {
+          "text": "How",
+          "start": 5.04,
+          "end": 5.12
+        },
+        {
+          "text": "does",
+          "start": 5.2,
+          "end": 5.36
+        },
+        {
+          "text": "IRCTC",
+          "start": 5.44,
+          "end": 6.16
+        },
+        {
+          "text": "keep",
+          "start": 6.24,
+          "end": 6.4
+        },
+        {
+          "text": "up?",
+          "start": 6.48,
+          "end": 6.88
+        }
+      ],
+      "end": 6.88
+    },
+    {
+      "id": "intro",
+      "file": "episodes/his-001/vo/intro.mp3",
+      "text": "Welcome to How It Scales, by Curiously.",
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "to",
+          "start": 0.48,
+          "end": 0.56
+        },
+        {
+          "text": "How",
+          "start": 0.64,
+          "end": 0.8
+        },
+        {
+          "text": "It",
+          "start": 0.88,
+          "end": 0.96
+        },
+        {
+          "text": "Scales,",
+          "start": 1.04,
+          "end": 1.68
+        },
+        {
+          "text": "by",
+          "start": 1.76,
+          "end": 1.92
+        },
+        {
+          "text": "Curiously.",
+          "start": 2,
+          "end": 3.2
+        }
+      ],
+      "end": 3.2
+    },
+    {
+      "id": "record",
+      "file": "episodes/his-001/vo/record.mp3",
+      "text": "In May 2025, IRCTC booked a record nearly thirty-two thousand tickets in one minute.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "May",
+          "start": 0.24,
+          "end": 0.4
+        },
+        {
+          "text": "2025,",
+          "start": 0.48,
+          "end": 1.92
+        },
+        {
+          "text": "IRCTC",
+          "start": 2.08,
+          "end": 2.88
+        },
+        {
+          "text": "booked",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "text": "a",
+          "start": 3.28,
+          "end": 3.44
+        },
+        {
+          "text": "record",
+          "start": 3.52,
+          "end": 4.16
+        },
+        {
+          "text": "nearly",
+          "start": 4.24,
+          "end": 4.64
+        },
+        {
+          "text": "thirty-two",
+          "start": 4.68,
+          "end": 5.44
+        },
+        {
+          "text": "thousand",
+          "start": 5.68,
+          "end": 6.16
+        },
+        {
+          "text": "tickets",
+          "start": 6.44,
+          "end": 6.72
+        },
+        {
+          "text": "in",
+          "start": 6.84,
+          "end": 6.96
+        },
+        {
+          "text": "one",
+          "start": 7.04,
+          "end": 7.2
+        },
+        {
+          "text": "minute.",
+          "start": 7.28,
+          "end": 8.08
+        }
+      ],
+      "end": 8.08
+    },
+    {
+      "id": "follow",
+      "file": "episodes/his-001/vo/follow.mp3",
+      "text": "Let's follow one booking, from tap to ticket.",
+      "words": [
+        {
+          "text": "Let's",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "follow",
+          "start": 0.32,
+          "end": 0.64
+        },
+        {
+          "text": "one",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "text": "booking,",
+          "start": 0.96,
+          "end": 1.56
+        },
+        {
+          "text": "from",
+          "start": 1.6,
+          "end": 1.84
+        },
+        {
+          "text": "tap",
+          "start": 2.12,
+          "end": 2.4
+        },
+        {
+          "text": "to",
+          "start": 2.48,
+          "end": 2.56
+        },
+        {
+          "text": "ticket.",
+          "start": 3,
+          "end": 3.52
+        }
+      ],
+      "end": 3.52
+    },
+    {
+      "id": "bots",
+      "file": "episodes/his-001/vo/bots.mp3",
+      "text": "Step one, getting in. Up to half the login attempts at Tatkal's opening were bots. Most are now blocked, the Railways says.",
+      "words": [
+        {
+          "text": "Step",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "one,",
+          "start": 0.4,
+          "end": 1.04
+        },
+        {
+          "text": "getting",
+          "start": 1.12,
+          "end": 1.44
+        },
+        {
+          "text": "in.",
+          "start": 1.56,
+          "end": 2.24
+        },
+        {
+          "text": "Up",
+          "start": 2.32,
+          "end": 2.4
+        },
+        {
+          "text": "to",
+          "start": 2.48,
+          "end": 2.64
+        },
+        {
+          "text": "half",
+          "start": 2.72,
+          "end": 3.04
+        },
+        {
+          "text": "the",
+          "start": 3.12,
+          "end": 3.2
+        },
+        {
+          "text": "login",
+          "start": 3.36,
+          "end": 3.52
+        },
+        {
+          "text": "attempts",
+          "start": 3.6,
+          "end": 3.92
+        },
+        {
+          "text": "at",
+          "start": 4,
+          "end": 4.08
+        },
+        {
+          "text": "Tatkal's",
+          "start": 4.12,
+          "end": 4.64
+        },
+        {
+          "text": "opening",
+          "start": 4.72,
+          "end": 5.2
+        },
+        {
+          "text": "were",
+          "start": 5.28,
+          "end": 5.44
+        },
+        {
+          "text": "bots.",
+          "start": 5.52,
+          "end": 6.52
+        },
+        {
+          "text": "Most",
+          "start": 6.56,
+          "end": 6.8
+        },
+        {
+          "text": "are",
+          "start": 6.84,
+          "end": 6.88
+        },
+        {
+          "text": "now",
+          "start": 6.96,
+          "end": 7.12
+        },
+        {
+          "text": "blocked,",
+          "start": 7.4,
+          "end": 7.707
+        },
+        {
+          "text": "the",
+          "start": 7.733,
+          "end": 7.76
+        },
+        {
+          "text": "Railways",
+          "start": 7.88,
+          "end": 8.16
+        },
+        {
+          "text": "says.",
+          "start": 8.24,
+          "end": 9.04
+        }
+      ],
+      "end": 9.04
+    },
+    {
+      "id": "gate",
+      "file": "episodes/his-001/vo/gate.mp3",
+      "text": "Online Tatkal now needs an Aadhaar-verified account, and authorised agents can't book in the first half hour.",
+      "words": [
+        {
+          "text": "Online",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "Tatkal",
+          "start": 0.48,
+          "end": 1.04
+        },
+        {
+          "text": "now",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "text": "needs",
+          "start": 1.36,
+          "end": 1.6
+        },
+        {
+          "text": "an",
+          "start": 1.72,
+          "end": 1.84
+        },
+        {
+          "text": "Aadhaar-verified",
+          "start": 1.92,
+          "end": 2.72
+        },
+        {
+          "text": "account,",
+          "start": 2.8,
+          "end": 3.48
+        },
+        {
+          "text": "and",
+          "start": 3.52,
+          "end": 3.68
+        },
+        {
+          "text": "authorised",
+          "start": 3.76,
+          "end": 4.24
+        },
+        {
+          "text": "agents",
+          "start": 4.32,
+          "end": 4.8
+        },
+        {
+          "text": "can't",
+          "start": 4.88,
+          "end": 5.2
+        },
+        {
+          "text": "book",
+          "start": 5.28,
+          "end": 5.36
+        },
+        {
+          "text": "in",
+          "start": 5.44,
+          "end": 5.52
+        },
+        {
+          "text": "the",
+          "start": 5.6,
+          "end": 5.68
+        },
+        {
+          "text": "first",
+          "start": 5.84,
+          "end": 6
+        },
+        {
+          "text": "half",
+          "start": 6.08,
+          "end": 6.24
+        },
+        {
+          "text": "hour.",
+          "start": 6.32,
+          "end": 7.04
+        }
+      ],
+      "end": 7.04
+    },
+    {
+      "id": "reading",
+      "file": "episodes/his-001/vo/reading.mp3",
+      "text": "Step two, you search. The trains, the seats left. That's reading. Nothing changes.",
+      "words": [
+        {
+          "text": "Step",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "two,",
+          "start": 0.4,
+          "end": 1.04
+        },
+        {
+          "text": "you",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "text": "search.",
+          "start": 1.36,
+          "end": 2.16
+        },
+        {
+          "text": "The",
+          "start": 2.24,
+          "end": 2.32
+        },
+        {
+          "text": "trains,",
+          "start": 2.4,
+          "end": 3.28
+        },
+        {
+          "text": "the",
+          "start": 3.36,
+          "end": 3.44
+        },
+        {
+          "text": "seats",
+          "start": 3.48,
+          "end": 3.76
+        },
+        {
+          "text": "left.",
+          "start": 3.84,
+          "end": 4.52
+        },
+        {
+          "text": "That's",
+          "start": 4.56,
+          "end": 4.8
+        },
+        {
+          "text": "reading.",
+          "start": 4.88,
+          "end": 5.6
+        },
+        {
+          "text": "Nothing",
+          "start": 5.68,
+          "end": 6
+        },
+        {
+          "text": "changes.",
+          "start": 6.44,
+          "end": 6.96
+        }
+      ],
+      "end": 6.96
+    },
+    {
+      "id": "writing",
+      "file": "episodes/his-001/vo/writing.mp3",
+      "text": "Step three, you hit Book. That's writing. It takes a seat away, and no two people can get the same one.",
+      "words": [
+        {
+          "text": "Step",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "three,",
+          "start": 0.4,
+          "end": 1.12
+        },
+        {
+          "text": "you",
+          "start": 1.2,
+          "end": 1.28
+        },
+        {
+          "text": "hit",
+          "start": 1.36,
+          "end": 1.6
+        },
+        {
+          "text": "Book.",
+          "start": 1.76,
+          "end": 2.56
+        },
+        {
+          "text": "That's",
+          "start": 2.68,
+          "end": 2.88
+        },
+        {
+          "text": "writing.",
+          "start": 2.96,
+          "end": 3.84
+        },
+        {
+          "text": "It",
+          "start": 3.92,
+          "end": 4
+        },
+        {
+          "text": "takes",
+          "start": 4.12,
+          "end": 4.24
+        },
+        {
+          "text": "a",
+          "start": 4.28,
+          "end": 4.32
+        },
+        {
+          "text": "seat",
+          "start": 4.4,
+          "end": 4.56
+        },
+        {
+          "text": "away,",
+          "start": 4.64,
+          "end": 5.04
+        },
+        {
+          "text": "and",
+          "start": 5.16,
+          "end": 5.28
+        },
+        {
+          "text": "no",
+          "start": 5.36,
+          "end": 5.52
+        },
+        {
+          "text": "two",
+          "start": 5.6,
+          "end": 5.68
+        },
+        {
+          "text": "people",
+          "start": 5.76,
+          "end": 6
+        },
+        {
+          "text": "can",
+          "start": 6.08,
+          "end": 6.24
+        },
+        {
+          "text": "get",
+          "start": 6.32,
+          "end": 6.4
+        },
+        {
+          "text": "the",
+          "start": 6.44,
+          "end": 6.48
+        },
+        {
+          "text": "same",
+          "start": 6.56,
+          "end": 6.72
+        },
+        {
+          "text": "one.",
+          "start": 6.8,
+          "end": 7.44
+        }
+      ],
+      "end": 7.44
+    },
+    {
+      "id": "copies",
+      "file": "episodes/his-001/vo/copies.mp3",
+      "text": "Reading can be copied. Writing can't.",
+      "words": [
+        {
+          "text": "Reading",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "can",
+          "start": 0.4,
+          "end": 0.56
+        },
+        {
+          "text": "be",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "copied.",
+          "start": 0.84,
+          "end": 1.6
+        },
+        {
+          "text": "Writing",
+          "start": 1.68,
+          "end": 2.16
+        },
+        {
+          "text": "can't.",
+          "start": 2.32,
+          "end": 3.2
+        }
+      ],
+      "end": 3.2
+    },
+    {
+      "id": "cdn",
+      "file": "episodes/his-001/vo/cdn.mp3",
+      "text": "So the page's unchanging parts, like the logo and buttons, are copied onto servers near you. That's a content delivery network.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "the",
+          "start": 0.16,
+          "end": 0.32
+        },
+        {
+          "text": "page's",
+          "start": 0.44,
+          "end": 0.8
+        },
+        {
+          "text": "unchanging",
+          "start": 0.88,
+          "end": 1.52
+        },
+        {
+          "text": "parts,",
+          "start": 1.72,
+          "end": 2.08
+        },
+        {
+          "text": "like",
+          "start": 2.2,
+          "end": 2.32
+        },
+        {
+          "text": "the",
+          "start": 2.4,
+          "end": 2.48
+        },
+        {
+          "text": "logo",
+          "start": 2.72,
+          "end": 2.96
+        },
+        {
+          "text": "and",
+          "start": 3.08,
+          "end": 3.2
+        },
+        {
+          "text": "buttons,",
+          "start": 3.56,
+          "end": 3.973
+        },
+        {
+          "text": "are",
+          "start": 4.027,
+          "end": 4.08
+        },
+        {
+          "text": "copied",
+          "start": 4.16,
+          "end": 4.48
+        },
+        {
+          "text": "onto",
+          "start": 4.6,
+          "end": 4.72
+        },
+        {
+          "text": "servers",
+          "start": 4.8,
+          "end": 5.2
+        },
+        {
+          "text": "near",
+          "start": 5.28,
+          "end": 5.52
+        },
+        {
+          "text": "you.",
+          "start": 5.8,
+          "end": 6.16
+        },
+        {
+          "text": "That's",
+          "start": 6.24,
+          "end": 6.4
+        },
+        {
+          "text": "a",
+          "start": 6.48,
+          "end": 6.64
+        },
+        {
+          "text": "content",
+          "start": 6.8,
+          "end": 6.96
+        },
+        {
+          "text": "delivery",
+          "start": 7.16,
+          "end": 7.36
+        },
+        {
+          "text": "network.",
+          "start": 7.44,
+          "end": 8.32
+        }
+      ],
+      "end": 8.32
+    },
+    {
+      "id": "offload",
+      "file": "episodes/his-001/vo/offload.mp3",
+      "text": "Most of IRCTC's unchanging content now comes from those copies, the Railways says.",
+      "words": [
+        {
+          "text": "Most",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "of",
+          "start": 0.4,
+          "end": 0.48
+        },
+        {
+          "text": "IRCTC's",
+          "start": 0.56,
+          "end": 1.52
+        },
+        {
+          "text": "unchanging",
+          "start": 1.6,
+          "end": 2.16
+        },
+        {
+          "text": "content",
+          "start": 2.52,
+          "end": 2.88
+        },
+        {
+          "text": "now",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "text": "comes",
+          "start": 3.28,
+          "end": 3.44
+        },
+        {
+          "text": "from",
+          "start": 3.52,
+          "end": 3.68
+        },
+        {
+          "text": "those",
+          "start": 3.76,
+          "end": 4
+        },
+        {
+          "text": "copies,",
+          "start": 4.08,
+          "end": 4.64
+        },
+        {
+          "text": "the",
+          "start": 4.72,
+          "end": 4.76
+        },
+        {
+          "text": "Railways",
+          "start": 4.8,
+          "end": 5.2
+        },
+        {
+          "text": "says.",
+          "start": 5.36,
+          "end": 6
+        }
+      ],
+      "end": 6
+    },
+    {
+      "id": "onesystem",
+      "file": "episodes/his-001/vo/onesystem.mp3",
+      "text": "Your booking goes to the Railways' one connected reservation system, which station counters and agents use too.",
+      "words": [
+        {
+          "text": "Your",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "booking",
+          "start": 0.24,
+          "end": 0.64
+        },
+        {
+          "text": "goes",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "text": "to",
+          "start": 1,
+          "end": 1.04
+        },
+        {
+          "text": "the",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "Railways'",
+          "start": 1.32,
+          "end": 1.84
+        },
+        {
+          "text": "one",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "connected",
+          "start": 2.16,
+          "end": 2.56
+        },
+        {
+          "text": "reservation",
+          "start": 2.64,
+          "end": 3.12
+        },
+        {
+          "text": "system,",
+          "start": 3.2,
+          "end": 3.88
+        },
+        {
+          "text": "which",
+          "start": 3.92,
+          "end": 4.08
+        },
+        {
+          "text": "station",
+          "start": 4.16,
+          "end": 4.56
+        },
+        {
+          "text": "counters",
+          "start": 4.64,
+          "end": 5.04
+        },
+        {
+          "text": "and",
+          "start": 5.12,
+          "end": 5.2
+        },
+        {
+          "text": "agents",
+          "start": 5.28,
+          "end": 5.68
+        },
+        {
+          "text": "use",
+          "start": 5.76,
+          "end": 5.92
+        },
+        {
+          "text": "too.",
+          "start": 6,
+          "end": 6.72
+        }
+      ],
+      "end": 6.72
+    },
+    {
+      "id": "limit",
+      "file": "episodes/his-001/vo/limit.mp3",
+      "text": "Today's system handles about thirty-two thousand bookings a minute, the Railways says. That record came very close.",
+      "words": [
+        {
+          "text": "Today's",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "system",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "text": "handles",
+          "start": 0.88,
+          "end": 1.2
+        },
+        {
+          "text": "about",
+          "start": 1.28,
+          "end": 1.6
+        },
+        {
+          "text": "thirty-two",
+          "start": 1.68,
+          "end": 2.24
+        },
+        {
+          "text": "thousand",
+          "start": 2.32,
+          "end": 2.72
+        },
+        {
+          "text": "bookings",
+          "start": 2.8,
+          "end": 3.12
+        },
+        {
+          "text": "a",
+          "start": 3.28,
+          "end": 3.36
+        },
+        {
+          "text": "minute,",
+          "start": 3.44,
+          "end": 4
+        },
+        {
+          "text": "the",
+          "start": 4.08,
+          "end": 4.16
+        },
+        {
+          "text": "Railways",
+          "start": 4.24,
+          "end": 4.56
+        },
+        {
+          "text": "says.",
+          "start": 4.72,
+          "end": 5.44
+        },
+        {
+          "text": "That",
+          "start": 5.52,
+          "end": 5.68
+        },
+        {
+          "text": "record",
+          "start": 5.76,
+          "end": 6.16
+        },
+        {
+          "text": "came",
+          "start": 6.24,
+          "end": 6.72
+        },
+        {
+          "text": "very",
+          "start": 6.8,
+          "end": 7.04
+        },
+        {
+          "text": "close.",
+          "start": 7.12,
+          "end": 7.92
+        }
+      ],
+      "end": 7.92
+    },
+    {
+      "id": "upgrade",
+      "file": "episodes/his-001/vo/upgrade.mp3",
+      "text": "So trains are moving to a new system, designed for over forty lakh enquiries a minute and over one and a half lakh bookings. Far more room for reading than writing.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "trains",
+          "start": 0.24,
+          "end": 0.56
+        },
+        {
+          "text": "are",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "moving",
+          "start": 0.88,
+          "end": 1.04
+        },
+        {
+          "text": "to",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "a",
+          "start": 1.24,
+          "end": 1.28
+        },
+        {
+          "text": "new",
+          "start": 1.44,
+          "end": 1.6
+        },
+        {
+          "text": "system,",
+          "start": 1.68,
+          "end": 2.36
+        },
+        {
+          "text": "designed",
+          "start": 2.4,
+          "end": 2.8
+        },
+        {
+          "text": "for",
+          "start": 2.88,
+          "end": 2.96
+        },
+        {
+          "text": "over",
+          "start": 3.04,
+          "end": 3.36
+        },
+        {
+          "text": "forty",
+          "start": 3.52,
+          "end": 3.84
+        },
+        {
+          "text": "lakh",
+          "start": 3.92,
+          "end": 4.16
+        },
+        {
+          "text": "enquiries",
+          "start": 4.24,
+          "end": 4.72
+        },
+        {
+          "text": "a",
+          "start": 4.8,
+          "end": 4.84
+        },
+        {
+          "text": "minute",
+          "start": 4.88,
+          "end": 5.44
+        },
+        {
+          "text": "and",
+          "start": 5.52,
+          "end": 5.6
+        },
+        {
+          "text": "over",
+          "start": 5.68,
+          "end": 6
+        },
+        {
+          "text": "one",
+          "start": 6.08,
+          "end": 6.16
+        },
+        {
+          "text": "and",
+          "start": 6.2,
+          "end": 6.24
+        },
+        {
+          "text": "a",
+          "start": 6.32,
+          "end": 6.4
+        },
+        {
+          "text": "half",
+          "start": 6.56,
+          "end": 6.72
+        },
+        {
+          "text": "lakh",
+          "start": 6.8,
+          "end": 7.04
+        },
+        {
+          "text": "bookings.",
+          "start": 7.16,
+          "end": 8.12
+        },
+        {
+          "text": "Far",
+          "start": 8.16,
+          "end": 8.4
+        },
+        {
+          "text": "more",
+          "start": 8.52,
+          "end": 8.64
+        },
+        {
+          "text": "room",
+          "start": 8.76,
+          "end": 8.88
+        },
+        {
+          "text": "for",
+          "start": 8.96,
+          "end": 9.04
+        },
+        {
+          "text": "reading",
+          "start": 9.12,
+          "end": 9.6
+        },
+        {
+          "text": "than",
+          "start": 9.72,
+          "end": 9.84
+        },
+        {
+          "text": "writing.",
+          "start": 10.28,
+          "end": 10.8
+        }
+      ],
+      "end": 10.8
+    },
+    {
+      "id": "outro",
+      "file": "episodes/his-001/vo/outro.mp3",
+      "text": "So at ten, most bots are kept out, copies carry what never changes, and IRCTC's servers keep their strength for the one thing that can't be copied: your booking.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "at",
+          "start": 0.28,
+          "end": 0.4
+        },
+        {
+          "text": "ten,",
+          "start": 0.56,
+          "end": 1.04
+        },
+        {
+          "text": "most",
+          "start": 1.12,
+          "end": 1.44
+        },
+        {
+          "text": "bots",
+          "start": 1.6,
+          "end": 1.76
+        },
+        {
+          "text": "are",
+          "start": 1.84,
+          "end": 1.92
+        },
+        {
+          "text": "kept",
+          "start": 2,
+          "end": 2.24
+        },
+        {
+          "text": "out,",
+          "start": 2.32,
+          "end": 2.88
+        },
+        {
+          "text": "copies",
+          "start": 2.96,
+          "end": 3.36
+        },
+        {
+          "text": "carry",
+          "start": 3.44,
+          "end": 3.68
+        },
+        {
+          "text": "what",
+          "start": 3.76,
+          "end": 4
+        },
+        {
+          "text": "never",
+          "start": 4.08,
+          "end": 4.32
+        },
+        {
+          "text": "changes,",
+          "start": 4.76,
+          "end": 5.24
+        },
+        {
+          "text": "and",
+          "start": 5.28,
+          "end": 5.44
+        },
+        {
+          "text": "IRCTC's",
+          "start": 5.6,
+          "end": 6.32
+        },
+        {
+          "text": "servers",
+          "start": 6.4,
+          "end": 6.88
+        },
+        {
+          "text": "keep",
+          "start": 6.96,
+          "end": 7.12
+        },
+        {
+          "text": "their",
+          "start": 7.2,
+          "end": 7.36
+        },
+        {
+          "text": "strength",
+          "start": 7.44,
+          "end": 7.84
+        },
+        {
+          "text": "for",
+          "start": 7.92,
+          "end": 8
+        },
+        {
+          "text": "the",
+          "start": 8.12,
+          "end": 8.24
+        },
+        {
+          "text": "one",
+          "start": 8.32,
+          "end": 8.56
+        },
+        {
+          "text": "thing",
+          "start": 8.72,
+          "end": 8.88
+        },
+        {
+          "text": "that",
+          "start": 9,
+          "end": 9.12
+        },
+        {
+          "text": "can't",
+          "start": 9.2,
+          "end": 9.44
+        },
+        {
+          "text": "be",
+          "start": 9.52,
+          "end": 9.6
+        },
+        {
+          "text": "copied:",
+          "start": 9.72,
+          "end": 10.52
+        },
+        {
+          "text": "your",
+          "start": 10.56,
+          "end": 10.8
+        },
+        {
+          "text": "booking.",
+          "start": 11.24,
+          "end": 11.76
+        }
+      ],
+      "end": 11.76
+    },
+    {
+      "id": "cta",
+      "file": "episodes/his-001/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "you",
+          "start": 0.16,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.32,
+          "end": 0.56
+        },
+        {
+          "text": "this",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "kind",
+          "start": 0.84,
+          "end": 0.96
+        },
+        {
+          "text": "of",
+          "start": 1,
+          "end": 1.04
+        },
+        {
+          "text": "content,",
+          "start": 1.12,
+          "end": 1.92
+        },
+        {
+          "text": "like,",
+          "start": 2,
+          "end": 2.48
+        },
+        {
+          "text": "share",
+          "start": 2.56,
+          "end": 2.96
+        },
+        {
+          "text": "and",
+          "start": 3.08,
+          "end": 3.2
+        },
+        {
+          "text": "follow",
+          "start": 3.44,
+          "end": 3.68
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.76,
+          "end": 4.64
+        }
+      ],
+      "end": 4.64
+    }
+  ],
+  "music": "episodes/his-001/music.mp3",
+  "sfx": {
+    "train": "audio/sfx/train.mp3"
+  }
+}

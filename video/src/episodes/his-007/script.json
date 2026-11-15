@@ -1,0 +1,26 @@
+{
+  "title": "How Google Maps knows there’s traffic",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Calm, curious lo-fi electronic bed for an 86-second explainer, about 90 BPM, soft plucked synth arpeggio, warm sub bass, light clock-like hi-hats, a lift when the road turns into dots and lines around 45 seconds and a gentle resolve in the last 10 seconds, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "How does Google Maps know about a traffic jam before you even reach it?" },
+    { "id": "intro", "text": "Welcome to How It Scales, by Curiously." },
+    { "id": "cart", "text": "In 2020, an artist in Berlin pulled ninety-nine second-hand phones through the streets in a handcart. On Google Maps, those streets turned red." },
+    { "id": "phones", "text": "Google pools location data from lots of people's phones. When lots of them crawl along one road, Google can tell it's slow." },
+    { "id": "future", "text": "But you need to know the traffic ten, twenty, even fifty minutes into your drive." },
+    { "id": "memory", "text": "So Google also remembers how each road usually flows, and mixes that with live traffic." },
+    { "id": "graph", "text": "To forecast, Google teamed up with DeepMind, an Alphabet AI lab, on a graph neural network. Picture every stretch of road as a dot, with lines joining stretches that connect." },
+    { "id": "spill", "text": "Neighbouring dots pass messages to each other, so the model learns how a jam on a side street spills onto a bigger road." },
+    { "id": "number", "text": "In 2020, Google said its arrival time predictions were accurate for over ninety-seven percent of trips." },
+    { "id": "outro", "text": "So before you get there, phones already stuck in the jam have helped tell Google. Even phones in a handcart." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Google Maps", "Google", "DeepMind", "Alphabet", "graph neural network", "Berlin", "handcart", "second-hand", "Curiously", "How It Scales", "neighbouring"],
+  "sources": [
+    "Google blog (Johann Lau), 3 Sep 2020: Google Maps 101: How AI helps predict traffic and determine routes",
+    "DeepMind (Oliver Lange, Luis Perez), 3 Sep 2020: Traffic prediction with advanced Graph Neural Networks",
+    "Simon Weckert, 2020: Google Maps Hacks",
+    "The Register (Gareth Corfield), 3 Feb 2020: Artful prankster creates Google Maps traffic jams by walking a cartful of old phones around Berlin"
+  ]
+}

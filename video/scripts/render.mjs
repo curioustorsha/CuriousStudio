@@ -81,8 +81,9 @@ function planSegments() {
   const manifest = readJson(p.manifest);
   const index = readFileSync(`${p.src}/index.tsx`, "utf8");
   if (/^\s*tail\s*:/m.test(index)) return null; // Custom scene lengths aren't in the manifest, so the frame ranges would be wrong.
-  const logoFrames = Number(readFileSync("src/scenes/LogoSting.tsx", "utf8").match(/LOGO_FRAMES\s*=\s*(\d+)/)?.[1]);
-  if (!logoFrames) return null;
+  const noSting = /^\s*endSting\s*:\s*false/m.test(index); // the episode ends on its own end card
+  const logoFrames = noSting ? 0 : Number(readFileSync("src/scenes/LogoSting.tsx", "utf8").match(/LOGO_FRAMES\s*=\s*(\d+)/)?.[1]);
+  if (!noSting && !logoFrames) return null;
   const scenes = sceneStarts(manifest);
   const total = scenes.reduce((a, s) => a + s.frames, 0) + logoFrames;
   const shared = sharedHash();
@@ -94,7 +95,7 @@ function planSegments() {
     return { id: s.id, from: s.from, frames: s.frames, hash: sha(shared, place, hashFiles(own)).slice(0, 16) };
   });
   const logoFrom = total - logoFrames;
-  segments.push({ id: "logo", from: logoFrom, frames: logoFrames, hash: sha(shared, JSON.stringify({ from: logoFrom, total })).slice(0, 16) });
+  if (logoFrames) segments.push({ id: "logo", from: logoFrom, frames: logoFrames, hash: sha(shared, JSON.stringify({ from: logoFrom, total })).slice(0, 16) });
   return { segments, total };
 }
 

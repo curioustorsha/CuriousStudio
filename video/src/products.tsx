@@ -74,6 +74,9 @@ import {
   TerminalWindow,
   Toolbox,
   UsersThree,
+  Heart,
+  ShareNetwork,
+  UserPlus,
   type Icon,
 } from "@phosphor-icons/react";
 
@@ -155,6 +158,10 @@ export const PRODUCTS: Record<string, [Icon, string]> = {
   branch: [GitBranch, "#FF9F68"],
   files: [Files, "#C9D3E3"],
   cloud: [CloudArrowUp, "#8EC5FF"],
+  // Sign-off end card (every series)
+  like: [Heart, "#FF6B8B"],
+  share: [ShareNetwork, "#4FD1FF"],
+  follow: [UserPlus, "#FFB547"],
 };
 
 export const Product: React.FC<{ p: string; size: number; color?: string; style?: React.CSSProperties }> = ({

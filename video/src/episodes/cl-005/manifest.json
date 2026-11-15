@@ -1,0 +1,840 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/cl-005/vo/hook.mp3",
+      "text": "Claude isn't a search engine. It's guessing the next word, over and over.",
+      "words": [
+        {
+          "text": "Claude",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "isn't",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "text": "a",
+          "start": 0.88,
+          "end": 0.96
+        },
+        {
+          "text": "search",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "text": "engine.",
+          "start": 1.48,
+          "end": 2.08
+        },
+        {
+          "text": "It's",
+          "start": 2.16,
+          "end": 2.4
+        },
+        {
+          "text": "guessing",
+          "start": 2.52,
+          "end": 2.72
+        },
+        {
+          "text": "the",
+          "start": 2.8,
+          "end": 2.88
+        },
+        {
+          "text": "next",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "text": "word,",
+          "start": 3.28,
+          "end": 3.92
+        },
+        {
+          "text": "over",
+          "start": 4,
+          "end": 4.48
+        },
+        {
+          "text": "and",
+          "start": 4.56,
+          "end": 4.8
+        },
+        {
+          "text": "over.",
+          "start": 4.88,
+          "end": 5.68
+        }
+      ],
+      "end": 5.68
+    },
+    {
+      "id": "intro",
+      "file": "episodes/cl-005/vo/intro.mp3",
+      "text": "Welcome to Claude Lab, by Curiously.",
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "to",
+          "start": 0.48,
+          "end": 0.64
+        },
+        {
+          "text": "Claude",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "text": "Lab,",
+          "start": 1.12,
+          "end": 1.52
+        },
+        {
+          "text": "by",
+          "start": 1.6,
+          "end": 1.76
+        },
+        {
+          "text": "Curiously.",
+          "start": 1.88,
+          "end": 2.96
+        }
+      ],
+      "end": 2.96
+    },
+    {
+      "id": "maker",
+      "file": "episodes/cl-005/vo/maker.mp3",
+      "text": "Claude is built on a large language model, made by Anthropic.",
+      "words": [
+        {
+          "text": "Claude",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "is",
+          "start": 0.4,
+          "end": 0.48
+        },
+        {
+          "text": "built",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "text": "on",
+          "start": 0.88,
+          "end": 0.96
+        },
+        {
+          "text": "a",
+          "start": 1.04,
+          "end": 1.12
+        },
+        {
+          "text": "large",
+          "start": 1.32,
+          "end": 1.52
+        },
+        {
+          "text": "language",
+          "start": 1.6,
+          "end": 1.92
+        },
+        {
+          "text": "model,",
+          "start": 2,
+          "end": 2.48
+        },
+        {
+          "text": "made",
+          "start": 2.6,
+          "end": 2.72
+        },
+        {
+          "text": "by",
+          "start": 2.8,
+          "end": 2.88
+        },
+        {
+          "text": "Anthropic.",
+          "start": 3,
+          "end": 3.92
+        }
+      ],
+      "end": 3.92
+    },
+    {
+      "id": "keyboard",
+      "file": "episodes/cl-005/vo/keyboard.mp3",
+      "text": "Like your phone's keyboard guessing your next word, but trained on a mountain of text.",
+      "words": [
+        {
+          "text": "Like",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "your",
+          "start": 0.32,
+          "end": 0.4
+        },
+        {
+          "text": "phone's",
+          "start": 0.52,
+          "end": 0.8
+        },
+        {
+          "text": "keyboard",
+          "start": 1.04,
+          "end": 1.28
+        },
+        {
+          "text": "guessing",
+          "start": 1.36,
+          "end": 1.6
+        },
+        {
+          "text": "your",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "text": "next",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "word,",
+          "start": 2.4,
+          "end": 2.76
+        },
+        {
+          "text": "but",
+          "start": 2.8,
+          "end": 2.96
+        },
+        {
+          "text": "trained",
+          "start": 3.04,
+          "end": 3.36
+        },
+        {
+          "text": "on",
+          "start": 3.44,
+          "end": 3.52
+        },
+        {
+          "text": "a",
+          "start": 3.76,
+          "end": 3.867
+        },
+        {
+          "text": "mountain",
+          "start": 3.973,
+          "end": 4.16
+        },
+        {
+          "text": "of",
+          "start": 4.24,
+          "end": 4.4
+        },
+        {
+          "text": "text.",
+          "start": 4.84,
+          "end": 5.36
+        }
+      ],
+      "end": 5.36
+    },
+    {
+      "id": "bench",
+      "file": "episodes/cl-005/vo/bench.mp3",
+      "text": "You ask. It reads everything so far, picks a likely next word, adds it, and goes again.",
+      "words": [
+        {
+          "text": "You",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "ask.",
+          "start": 0.32,
+          "end": 1.12
+        },
+        {
+          "text": "It",
+          "start": 1.2,
+          "end": 1.28
+        },
+        {
+          "text": "reads",
+          "start": 1.48,
+          "end": 1.68
+        },
+        {
+          "text": "everything",
+          "start": 1.76,
+          "end": 2.24
+        },
+        {
+          "text": "so",
+          "start": 2.36,
+          "end": 2.48
+        },
+        {
+          "text": "far,",
+          "start": 2.6,
+          "end": 3.04
+        },
+        {
+          "text": "picks",
+          "start": 3.12,
+          "end": 3.28
+        },
+        {
+          "text": "a",
+          "start": 3.36,
+          "end": 3.4
+        },
+        {
+          "text": "likely",
+          "start": 3.44,
+          "end": 3.76
+        },
+        {
+          "text": "next",
+          "start": 3.84,
+          "end": 4.08
+        },
+        {
+          "text": "word,",
+          "start": 4.36,
+          "end": 4.68
+        },
+        {
+          "text": "adds",
+          "start": 4.72,
+          "end": 4.96
+        },
+        {
+          "text": "it,",
+          "start": 5.04,
+          "end": 5.4
+        },
+        {
+          "text": "and",
+          "start": 5.44,
+          "end": 5.52
+        },
+        {
+          "text": "goes",
+          "start": 5.6,
+          "end": 5.76
+        },
+        {
+          "text": "again.",
+          "start": 5.84,
+          "end": 6.64
+        }
+      ],
+      "end": 6.64
+    },
+    {
+      "id": "search",
+      "file": "episodes/cl-005/vo/search.mp3",
+      "text": "It doesn't read out a stored answer. Even with web search, it writes the reply itself.",
+      "words": [
+        {
+          "text": "It",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "doesn't",
+          "start": 0.16,
+          "end": 0.48
+        },
+        {
+          "text": "read",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "text": "out",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "a",
+          "start": 0.96,
+          "end": 1.12
+        },
+        {
+          "text": "stored",
+          "start": 1.32,
+          "end": 1.52
+        },
+        {
+          "text": "answer.",
+          "start": 1.6,
+          "end": 2.52
+        },
+        {
+          "text": "Even",
+          "start": 2.56,
+          "end": 2.72
+        },
+        {
+          "text": "with",
+          "start": 2.8,
+          "end": 2.96
+        },
+        {
+          "text": "web",
+          "start": 3.08,
+          "end": 3.2
+        },
+        {
+          "text": "search,",
+          "start": 3.28,
+          "end": 3.72
+        },
+        {
+          "text": "it",
+          "start": 3.76,
+          "end": 3.92
+        },
+        {
+          "text": "writes",
+          "start": 4,
+          "end": 4.24
+        },
+        {
+          "text": "the",
+          "start": 4.32,
+          "end": 4.36
+        },
+        {
+          "text": "reply",
+          "start": 4.4,
+          "end": 4.8
+        },
+        {
+          "text": "itself.",
+          "start": 4.92,
+          "end": 5.84
+        }
+      ],
+      "end": 5.84
+    },
+    {
+      "id": "rabbit",
+      "file": "episodes/cl-005/vo/rabbit.mp3",
+      "text": "And it plans. In 2025, Anthropic looked inside a Claude model writing a rhyme. It picked the ending, rabbit, before starting the line.",
+      "words": [
+        {
+          "text": "And",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "it",
+          "start": 0.4,
+          "end": 0.64
+        },
+        {
+          "text": "plans.",
+          "start": 0.96,
+          "end": 1.76
+        },
+        {
+          "text": "In",
+          "start": 1.84,
+          "end": 1.92
+        },
+        {
+          "text": "2025,",
+          "start": 2.04,
+          "end": 3.2
+        },
+        {
+          "text": "Anthropic",
+          "start": 3.32,
+          "end": 3.76
+        },
+        {
+          "text": "looked",
+          "start": 3.84,
+          "end": 4.08
+        },
+        {
+          "text": "inside",
+          "start": 4.28,
+          "end": 4.48
+        },
+        {
+          "text": "a",
+          "start": 4.52,
+          "end": 4.56
+        },
+        {
+          "text": "Claude",
+          "start": 4.64,
+          "end": 4.96
+        },
+        {
+          "text": "model",
+          "start": 5.12,
+          "end": 5.28
+        },
+        {
+          "text": "writing",
+          "start": 5.36,
+          "end": 5.68
+        },
+        {
+          "text": "a",
+          "start": 5.76,
+          "end": 5.84
+        },
+        {
+          "text": "rhyme.",
+          "start": 5.92,
+          "end": 6.72
+        },
+        {
+          "text": "It",
+          "start": 6.8,
+          "end": 6.88
+        },
+        {
+          "text": "picked",
+          "start": 7,
+          "end": 7.12
+        },
+        {
+          "text": "the",
+          "start": 7.2,
+          "end": 7.28
+        },
+        {
+          "text": "ending,",
+          "start": 7.36,
+          "end": 8.08
+        },
+        {
+          "text": "rabbit,",
+          "start": 8.16,
+          "end": 8.933
+        },
+        {
+          "text": "before",
+          "start": 9.067,
+          "end": 9.2
+        },
+        {
+          "text": "starting",
+          "start": 9.28,
+          "end": 9.6
+        },
+        {
+          "text": "the",
+          "start": 9.64,
+          "end": 9.68
+        },
+        {
+          "text": "line.",
+          "start": 9.76,
+          "end": 10.56
+        }
+      ],
+      "end": 10.56
+    },
+    {
+      "id": "habit",
+      "file": "episodes/cl-005/vo/habit.mp3",
+      "text": "When researchers switched off rabbit, it wrote habit instead.",
+      "words": [
+        {
+          "text": "When",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "researchers",
+          "start": 0.24,
+          "end": 0.8
+        },
+        {
+          "text": "switched",
+          "start": 0.88,
+          "end": 1.2
+        },
+        {
+          "text": "off",
+          "start": 1.32,
+          "end": 1.44
+        },
+        {
+          "text": "rabbit,",
+          "start": 1.68,
+          "end": 2.24
+        },
+        {
+          "text": "it",
+          "start": 2.32,
+          "end": 2.4
+        },
+        {
+          "text": "wrote",
+          "start": 2.44,
+          "end": 2.72
+        },
+        {
+          "text": "habit",
+          "start": 2.8,
+          "end": 3.2
+        },
+        {
+          "text": "instead.",
+          "start": 3.28,
+          "end": 4.32
+        }
+      ],
+      "end": 4.32
+    },
+    {
+      "id": "outro",
+      "file": "episodes/cl-005/vo/outro.mp3",
+      "text": "So every answer is written fresh, one guess at a time.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "every",
+          "start": 0.32,
+          "end": 0.64
+        },
+        {
+          "text": "answer",
+          "start": 0.72,
+          "end": 1.12
+        },
+        {
+          "text": "is",
+          "start": 1.28,
+          "end": 1.36
+        },
+        {
+          "text": "written",
+          "start": 1.44,
+          "end": 1.68
+        },
+        {
+          "text": "fresh,",
+          "start": 1.84,
+          "end": 2.56
+        },
+        {
+          "text": "one",
+          "start": 2.72,
+          "end": 2.88
+        },
+        {
+          "text": "guess",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "text": "at",
+          "start": 3.28,
+          "end": 3.36
+        },
+        {
+          "text": "a",
+          "start": 3.4,
+          "end": 3.44
+        },
+        {
+          "text": "time.",
+          "start": 3.52,
+          "end": 4.16
+        }
+      ],
+      "end": 4.16
+    },
+    {
+      "id": "tease",
+      "file": "episodes/cl-005/vo/tease.mp3",
+      "text": "But Claude doesn't even read words.",
+      "words": [
+        {
+          "text": "But",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "Claude",
+          "start": 0.24,
+          "end": 0.64
+        },
+        {
+          "text": "doesn't",
+          "start": 0.76,
+          "end": 0.92
+        },
+        {
+          "text": "even",
+          "start": 0.96,
+          "end": 1.2
+        },
+        {
+          "text": "read",
+          "start": 1.28,
+          "end": 1.6
+        },
+        {
+          "text": "words.",
+          "start": 1.68,
+          "end": 2.56
+        }
+      ],
+      "end": 2.56
+    },
+    {
+      "id": "next",
+      "file": "episodes/cl-005/vo/next.mp3",
+      "text": "In the next episode, we'll talk about tokens.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "the",
+          "start": 0.12,
+          "end": 0.16
+        },
+        {
+          "text": "next",
+          "start": 0.24,
+          "end": 0.48
+        },
+        {
+          "text": "episode,",
+          "start": 0.76,
+          "end": 1.28
+        },
+        {
+          "text": "we'll",
+          "start": 1.32,
+          "end": 1.52
+        },
+        {
+          "text": "talk",
+          "start": 1.64,
+          "end": 1.76
+        },
+        {
+          "text": "about",
+          "start": 1.84,
+          "end": 2.16
+        },
+        {
+          "text": "tokens.",
+          "start": 2.24,
+          "end": 3.28
+        }
+      ],
+      "end": 3.28
+    },
+    {
+      "id": "cta",
+      "file": "episodes/cl-005/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "you",
+          "start": 0.2,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.36,
+          "end": 0.48
+        },
+        {
+          "text": "this",
+          "start": 0.56,
+          "end": 0.64
+        },
+        {
+          "text": "kind",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "text": "of",
+          "start": 0.92,
+          "end": 0.96
+        },
+        {
+          "text": "content,",
+          "start": 1.04,
+          "end": 1.92
+        },
+        {
+          "text": "like,",
+          "start": 2,
+          "end": 2.52
+        },
+        {
+          "text": "share",
+          "start": 2.56,
+          "end": 2.88
+        },
+        {
+          "text": "and",
+          "start": 2.96,
+          "end": 3.2
+        },
+        {
+          "text": "follow",
+          "start": 3.4,
+          "end": 3.6
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.68,
+          "end": 4.64
+        }
+      ],
+      "end": 4.64
+    }
+  ],
+  "sfx": {
+    "click": "audio/sfx/click.mp3",
+    "crack": "audio/sfx/crack.mp3"
+  },
+  "music": "episodes/cl-005/music.mp3"
+}

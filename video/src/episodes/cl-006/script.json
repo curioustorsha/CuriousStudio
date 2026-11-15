@@ -1,0 +1,28 @@
+{
+  "title": "Lesson 2 · Tokens: how Claude reads",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Warm, curious workshop bed for a 64-second lesson, about 95 BPM, soft marimba and pizzicato plucks, light woodblock ticks, a gentle bass, a small lift at the strawberry count around 25 seconds and a quiet resolve into the end card, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "Claude doesn't read strawberry letter by letter. Here's how it reads." },
+    { "id": "intro", "text": "Welcome to Claude Lab, by Curiously." },
+    { "id": "callback", "text": "Last time, Claude wrote word by word. But it doesn't read words." },
+    { "id": "tiles", "text": "Text is cut into pieces called tokens. A token can be a word, part of a word, or one character." },
+    { "id": "strawberry", "text": "Strawberry might arrive as one token, or a few. Either way, the r's hide inside." },
+    { "id": "twice", "text": "In 2024, Claude and other chatbots said strawberry has two r's. It has three." },
+    { "id": "price", "text": "Tokens measure length and price. Developers pay per million tokens, for what they send and what Claude writes." },
+    { "id": "five", "text": "On Claude Sonnet five point five, tokens Claude writes cost five times as much as tokens it reads." },
+    { "id": "outro", "text": "So Claude reads tiles, not letters. And all those tokens have to fit somewhere." },
+    { "id": "next", "text": "In the next episode, we'll talk about the context window." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Claude", "Curiously", "Claude Lab", "tokens", "token", "strawberry", "r's", "Sonnet", "chatbots", "context window"],
+  "sources": [
+    "Claude Docs (Anthropic): Glossary, accessed 11 Nov 2026",
+    "Claude Docs (Anthropic): Pricing, accessed 11 Nov 2026",
+    "Claude Docs (Anthropic): Models overview, accessed 11 Nov 2026",
+    "Claude Docs (Anthropic): Token counting, accessed 11 Nov 2026",
+    "TechCrunch, Amanda Silberling, 27 Aug 2024: Why AI can't spell 'strawberry'",
+    "TechCrunch, Kyle Wiggers, 6 Jul 2024: Tokens are a big reason today's generative AI falls short"
+  ]
+}

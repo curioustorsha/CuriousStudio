@@ -127,8 +127,15 @@ One world, **Claude's workshop**, used in every episode. Each idea gets its obje
 
 | Idea | Object in the workshop | First appears |
 |---|---|---|
-| Claude | A simple character at a workbench (shapes, no face icon) | 1 |
-| Tokens | Small tiles that text breaks into | 2 |
+| Claude | **Aster**, the Curiously asterisk (amber), hovering behind the workbench and acting out what Claude does. No face or limbs: it acts only through motion (idle, think, no, got it, unsure, pointing with one ray) | 1 |
+| A word Claude writes | A cream word card placed in a row on the bench; the card being added now is amber | 1 |
+| Picking the next word | 3 candidate cards fanned above Claude's hands, each with a likelihood bar (no numbers) | 1 |
+| Training text | A mountain of paper (stacked grey pages) on the back wall | 1 |
+| A stored answer (what Claude isn't) | A grey filing cabinet whose drawer stays shut | 1 |
+| Planning ahead | An amber-outlined card pinned at the end of an empty row | 1 |
+| Tokens | Small chunky cream tiles with a slate bottom lip and mono lettering, that text (word cards, your question) is cut into. Any split shown is labelled as an example: Claude's tokenizer isn't published | 2 |
+| Input and output tokens | Two trays on the bench: `IN` (what you send, slid in from the left) and `OUT` (what Claude writes, placed by Aster) | 2 |
+| Price | Flat cream coins stacked beside a tray | 2 |
 | Context window | The desk: fixed size, everything Claude can see | 3 |
 | Compaction | Sweeping the desk into one summary card | 4 |
 | Opus / Sonnet / Haiku | Three workers: careful senior, fast all-rounder, quick runner | 5 |
@@ -139,12 +146,12 @@ One world, **Claude's workshop**, used in every episode. Each idea gets its obje
 | Project | A desk that stays set up, with its own drawer | 15 |
 | Memory | A small notebook about you | 16 |
 | Artifact | A finished object placed on the counter | 17 |
-| Web search | A window to the outside | 19 |
+| Web search | A window to the outside (seen briefly in 1) | 19 |
 | Connector / MCP | Sockets on the wall, all the same shape | 21–22 |
 | Agent loop | A loop track: think → act → check | 24 |
 | Permissions | A key ring: which doors Claude may open | 26 |
 | CLAUDE.md | A house-rules note taped to the desk | 36 |
-| Subagent | A teammate at their own small desk, passing back one card | 40 |
+| Subagent | A teammate (a smaller Aster) at their own small desk, passing back one card | 40 |
 | Hook | A tripwire across a doorway | 42 |
 | Plugin | A packed toolbox you can hand to someone else | 44 |
 | API | The engine room under the workshop | 48 |

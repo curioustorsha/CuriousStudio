@@ -1,0 +1,26 @@
+{
+  "title": "Lesson 1 · What Claude actually is",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Warm, curious workshop bed for a 64-second lesson, about 95 BPM, soft marimba and pizzicato plucks, light woodblock ticks, a gentle bass, a small lift at the rabbit rhyme around 31 seconds and a quiet resolve into the end card, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "Claude isn't a search engine. It's guessing the next word, over and over." },
+    { "id": "intro", "text": "Welcome to Claude Lab, by Curiously." },
+    { "id": "maker", "text": "Claude is built on a large language model, made by Anthropic." },
+    { "id": "keyboard", "text": "Like your phone's keyboard guessing your next word, but trained on a mountain of text." },
+    { "id": "bench", "text": "You ask. It reads everything so far, picks a likely next word, adds it, and goes again." },
+    { "id": "search", "text": "It doesn't read out a stored answer. Even with web search, it writes the reply itself." },
+    { "id": "rabbit", "text": "And it plans. In 2025, Anthropic looked inside a Claude model writing a rhyme. It picked the ending, rabbit, before starting the line." },
+    { "id": "habit", "text": "When researchers switched off rabbit, it wrote habit instead." },
+    { "id": "outro", "text": "So every answer is written fresh, one guess at a time." },
+    { "id": "tease", "text": "But Claude doesn't even read words." },
+    { "id": "next", "text": "In the next episode, we'll talk about tokens." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Claude", "Anthropic", "Curiously", "Claude Lab", "rabbit", "habit", "tokens", "large language model", "web search"],
+  "sources": [
+    "Anthropic, 27 Mar 2025: Tracing the thoughts of a large language model",
+    "Claude Docs (Anthropic): Glossary, accessed 11 Nov 2026",
+    "Claude blog (Anthropic), 20 Mar 2025, updated 27 May 2025: Claude can now search the web"
+  ]
+}

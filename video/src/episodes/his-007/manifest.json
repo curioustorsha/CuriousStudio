@@ -1,0 +1,1081 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/his-007/vo/hook.mp3",
+      "text": "How does Google Maps know about a traffic jam before you even reach it?",
+      "words": [
+        {
+          "text": "How",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "does",
+          "start": 0.32,
+          "end": 0.4
+        },
+        {
+          "text": "Google",
+          "start": 0.48,
+          "end": 0.8
+        },
+        {
+          "text": "Maps",
+          "start": 0.88,
+          "end": 1.12
+        },
+        {
+          "text": "know",
+          "start": 1.28,
+          "end": 1.36
+        },
+        {
+          "text": "about",
+          "start": 1.44,
+          "end": 1.68
+        },
+        {
+          "text": "a",
+          "start": 1.72,
+          "end": 1.76
+        },
+        {
+          "text": "traffic",
+          "start": 1.84,
+          "end": 2.16
+        },
+        {
+          "text": "jam",
+          "start": 2.24,
+          "end": 2.56
+        },
+        {
+          "text": "before",
+          "start": 2.64,
+          "end": 2.96
+        },
+        {
+          "text": "you",
+          "start": 3.04,
+          "end": 3.12
+        },
+        {
+          "text": "even",
+          "start": 3.24,
+          "end": 3.36
+        },
+        {
+          "text": "reach",
+          "start": 3.44,
+          "end": 3.68
+        },
+        {
+          "text": "it?",
+          "start": 3.76,
+          "end": 4.08
+        }
+      ],
+      "end": 4.08
+    },
+    {
+      "id": "intro",
+      "file": "episodes/his-007/vo/intro.mp3",
+      "text": "Welcome to How It Scales, by Curiously.",
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "to",
+          "start": 0.48,
+          "end": 0.64
+        },
+        {
+          "text": "How",
+          "start": 0.72,
+          "end": 0.8
+        },
+        {
+          "text": "It",
+          "start": 0.88,
+          "end": 0.96
+        },
+        {
+          "text": "Scales,",
+          "start": 1.04,
+          "end": 1.68
+        },
+        {
+          "text": "by",
+          "start": 1.8,
+          "end": 1.92
+        },
+        {
+          "text": "Curiously.",
+          "start": 2.04,
+          "end": 3.12
+        }
+      ],
+      "end": 3.12
+    },
+    {
+      "id": "cart",
+      "file": "episodes/his-007/vo/cart.mp3",
+      "text": "In 2020, an artist in Berlin pulled ninety-nine second-hand phones through the streets in a handcart. On Google Maps, those streets turned red.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "2020,",
+          "start": 0.32,
+          "end": 1.24
+        },
+        {
+          "text": "an",
+          "start": 1.28,
+          "end": 1.44
+        },
+        {
+          "text": "artist",
+          "start": 1.52,
+          "end": 1.84
+        },
+        {
+          "text": "in",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "text": "Berlin",
+          "start": 2.08,
+          "end": 2.56
+        },
+        {
+          "text": "pulled",
+          "start": 2.6,
+          "end": 2.88
+        },
+        {
+          "text": "ninety-nine",
+          "start": 2.96,
+          "end": 3.68
+        },
+        {
+          "text": "second-hand",
+          "start": 3.84,
+          "end": 4.24
+        },
+        {
+          "text": "phones",
+          "start": 4.32,
+          "end": 4.64
+        },
+        {
+          "text": "through",
+          "start": 4.72,
+          "end": 4.88
+        },
+        {
+          "text": "the",
+          "start": 4.96,
+          "end": 5.04
+        },
+        {
+          "text": "streets",
+          "start": 5.12,
+          "end": 5.52
+        },
+        {
+          "text": "in",
+          "start": 5.6,
+          "end": 5.68
+        },
+        {
+          "text": "a",
+          "start": 5.72,
+          "end": 5.76
+        },
+        {
+          "text": "handcart.",
+          "start": 5.84,
+          "end": 6.92
+        },
+        {
+          "text": "On",
+          "start": 6.96,
+          "end": 7.12
+        },
+        {
+          "text": "Google",
+          "start": 7.24,
+          "end": 7.36
+        },
+        {
+          "text": "Maps,",
+          "start": 7.44,
+          "end": 8.04
+        },
+        {
+          "text": "those",
+          "start": 8.08,
+          "end": 8.32
+        },
+        {
+          "text": "streets",
+          "start": 8.4,
+          "end": 8.8
+        },
+        {
+          "text": "turned",
+          "start": 8.88,
+          "end": 9.2
+        },
+        {
+          "text": "red.",
+          "start": 9.6,
+          "end": 10.08
+        }
+      ],
+      "end": 10.08
+    },
+    {
+      "id": "phones",
+      "file": "episodes/his-007/vo/phones.mp3",
+      "text": "Google pools location data from lots of people's phones. When lots of them crawl along one road, Google can tell it's slow.",
+      "words": [
+        {
+          "text": "Google",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "pools",
+          "start": 0.48,
+          "end": 0.72
+        },
+        {
+          "text": "location",
+          "start": 0.8,
+          "end": 1.28
+        },
+        {
+          "text": "data",
+          "start": 1.36,
+          "end": 1.68
+        },
+        {
+          "text": "from",
+          "start": 1.76,
+          "end": 2
+        },
+        {
+          "text": "lots",
+          "start": 2.08,
+          "end": 2.32
+        },
+        {
+          "text": "of",
+          "start": 2.4,
+          "end": 2.48
+        },
+        {
+          "text": "people's",
+          "start": 2.64,
+          "end": 2.88
+        },
+        {
+          "text": "phones.",
+          "start": 2.96,
+          "end": 3.88
+        },
+        {
+          "text": "When",
+          "start": 3.92,
+          "end": 4.08
+        },
+        {
+          "text": "lots",
+          "start": 4.16,
+          "end": 4.4
+        },
+        {
+          "text": "of",
+          "start": 4.44,
+          "end": 4.48
+        },
+        {
+          "text": "them",
+          "start": 4.56,
+          "end": 4.72
+        },
+        {
+          "text": "crawl",
+          "start": 4.8,
+          "end": 4.96
+        },
+        {
+          "text": "along",
+          "start": 5.04,
+          "end": 5.36
+        },
+        {
+          "text": "one",
+          "start": 5.44,
+          "end": 5.6
+        },
+        {
+          "text": "road,",
+          "start": 5.68,
+          "end": 6.32
+        },
+        {
+          "text": "Google",
+          "start": 6.4,
+          "end": 6.64
+        },
+        {
+          "text": "can",
+          "start": 6.72,
+          "end": 6.88
+        },
+        {
+          "text": "tell",
+          "start": 7.04,
+          "end": 7.2
+        },
+        {
+          "text": "it's",
+          "start": 7.28,
+          "end": 7.44
+        },
+        {
+          "text": "slow.",
+          "start": 7.52,
+          "end": 8.48
+        }
+      ],
+      "end": 8.48
+    },
+    {
+      "id": "future",
+      "file": "episodes/his-007/vo/future.mp3",
+      "text": "But you need to know the traffic ten, twenty, even fifty minutes into your drive.",
+      "words": [
+        {
+          "text": "But",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "you",
+          "start": 0.16,
+          "end": 0.32
+        },
+        {
+          "text": "need",
+          "start": 0.44,
+          "end": 0.56
+        },
+        {
+          "text": "to",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "know",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "the",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "traffic",
+          "start": 1.28,
+          "end": 1.52
+        },
+        {
+          "text": "ten,",
+          "start": 1.68,
+          "end": 2.24
+        },
+        {
+          "text": "twenty,",
+          "start": 2.32,
+          "end": 3.04
+        },
+        {
+          "text": "even",
+          "start": 3.12,
+          "end": 3.44
+        },
+        {
+          "text": "fifty",
+          "start": 3.52,
+          "end": 3.84
+        },
+        {
+          "text": "minutes",
+          "start": 3.92,
+          "end": 4.24
+        },
+        {
+          "text": "into",
+          "start": 4.36,
+          "end": 4.48
+        },
+        {
+          "text": "your",
+          "start": 4.56,
+          "end": 4.64
+        },
+        {
+          "text": "drive.",
+          "start": 5.04,
+          "end": 5.52
+        }
+      ],
+      "end": 5.52
+    },
+    {
+      "id": "memory",
+      "file": "episodes/his-007/vo/memory.mp3",
+      "text": "So Google also remembers how each road usually flows, and mixes that with live traffic.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "Google",
+          "start": 0.24,
+          "end": 0.56
+        },
+        {
+          "text": "also",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "text": "remembers",
+          "start": 1.04,
+          "end": 1.6
+        },
+        {
+          "text": "how",
+          "start": 1.72,
+          "end": 1.84
+        },
+        {
+          "text": "each",
+          "start": 1.92,
+          "end": 2.16
+        },
+        {
+          "text": "road",
+          "start": 2.24,
+          "end": 2.56
+        },
+        {
+          "text": "usually",
+          "start": 2.64,
+          "end": 3.04
+        },
+        {
+          "text": "flows,",
+          "start": 3.12,
+          "end": 3.733
+        },
+        {
+          "text": "and",
+          "start": 3.787,
+          "end": 3.84
+        },
+        {
+          "text": "mixes",
+          "start": 3.92,
+          "end": 4.32
+        },
+        {
+          "text": "that",
+          "start": 4.4,
+          "end": 4.56
+        },
+        {
+          "text": "with",
+          "start": 4.64,
+          "end": 4.8
+        },
+        {
+          "text": "live",
+          "start": 4.88,
+          "end": 5.12
+        },
+        {
+          "text": "traffic.",
+          "start": 5.56,
+          "end": 6.08
+        }
+      ],
+      "end": 6.08
+    },
+    {
+      "id": "graph",
+      "file": "episodes/his-007/vo/graph.mp3",
+      "text": "To forecast, Google teamed up with DeepMind, an Alphabet AI lab, on a graph neural network. Picture every stretch of road as a dot, with lines joining stretches that connect.",
+      "words": [
+        {
+          "text": "To",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "forecast,",
+          "start": 0.16,
+          "end": 1.04
+        },
+        {
+          "text": "Google",
+          "start": 1.12,
+          "end": 1.44
+        },
+        {
+          "text": "teamed",
+          "start": 1.52,
+          "end": 1.76
+        },
+        {
+          "text": "up",
+          "start": 1.84,
+          "end": 1.92
+        },
+        {
+          "text": "with",
+          "start": 2.04,
+          "end": 2.16
+        },
+        {
+          "text": "DeepMind,",
+          "start": 2.28,
+          "end": 2.96
+        },
+        {
+          "text": "an",
+          "start": 3.04,
+          "end": 3.12
+        },
+        {
+          "text": "Alphabet",
+          "start": 3.2,
+          "end": 3.6
+        },
+        {
+          "text": "AI",
+          "start": 3.76,
+          "end": 4.04
+        },
+        {
+          "text": "lab,",
+          "start": 4.08,
+          "end": 4.52
+        },
+        {
+          "text": "on",
+          "start": 4.56,
+          "end": 4.64
+        },
+        {
+          "text": "a",
+          "start": 4.8,
+          "end": 4.933
+        },
+        {
+          "text": "graph",
+          "start": 5.067,
+          "end": 5.2
+        },
+        {
+          "text": "neural",
+          "start": 5.28,
+          "end": 5.6
+        },
+        {
+          "text": "network.",
+          "start": 6.08,
+          "end": 6.6
+        },
+        {
+          "text": "Picture",
+          "start": 6.64,
+          "end": 7.04
+        },
+        {
+          "text": "every",
+          "start": 7.2,
+          "end": 7.44
+        },
+        {
+          "text": "stretch",
+          "start": 7.52,
+          "end": 7.76
+        },
+        {
+          "text": "of",
+          "start": 7.84,
+          "end": 7.92
+        },
+        {
+          "text": "road",
+          "start": 8.08,
+          "end": 8.24
+        },
+        {
+          "text": "as",
+          "start": 8.32,
+          "end": 8.4
+        },
+        {
+          "text": "a",
+          "start": 8.56,
+          "end": 8.747
+        },
+        {
+          "text": "dot,",
+          "start": 8.933,
+          "end": 9.16
+        },
+        {
+          "text": "with",
+          "start": 9.2,
+          "end": 9.36
+        },
+        {
+          "text": "lines",
+          "start": 9.44,
+          "end": 9.84
+        },
+        {
+          "text": "joining",
+          "start": 10,
+          "end": 10.16
+        },
+        {
+          "text": "stretches",
+          "start": 10.24,
+          "end": 10.64
+        },
+        {
+          "text": "that",
+          "start": 10.72,
+          "end": 10.8
+        },
+        {
+          "text": "connect.",
+          "start": 11.28,
+          "end": 11.84
+        }
+      ],
+      "end": 11.84
+    },
+    {
+      "id": "spill",
+      "file": "episodes/his-007/vo/spill.mp3",
+      "text": "Neighbouring dots pass messages to each other, so the model learns how a jam on a side street spills onto a bigger road.",
+      "words": [
+        {
+          "text": "Neighbouring",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "text": "dots",
+          "start": 0.68,
+          "end": 0.88
+        },
+        {
+          "text": "pass",
+          "start": 0.96,
+          "end": 1.2
+        },
+        {
+          "text": "messages",
+          "start": 1.28,
+          "end": 1.76
+        },
+        {
+          "text": "to",
+          "start": 1.8,
+          "end": 1.84
+        },
+        {
+          "text": "each",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "other,",
+          "start": 2.36,
+          "end": 2.68
+        },
+        {
+          "text": "so",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "the",
+          "start": 2.88,
+          "end": 2.96
+        },
+        {
+          "text": "model",
+          "start": 3.12,
+          "end": 3.28
+        },
+        {
+          "text": "learns",
+          "start": 3.4,
+          "end": 3.6
+        },
+        {
+          "text": "how",
+          "start": 3.68,
+          "end": 3.76
+        },
+        {
+          "text": "a",
+          "start": 3.92,
+          "end": 3.96
+        },
+        {
+          "text": "jam",
+          "start": 4,
+          "end": 4.16
+        },
+        {
+          "text": "on",
+          "start": 4.24,
+          "end": 4.32
+        },
+        {
+          "text": "a",
+          "start": 4.48,
+          "end": 4.587
+        },
+        {
+          "text": "side",
+          "start": 4.693,
+          "end": 4.8
+        },
+        {
+          "text": "street",
+          "start": 4.88,
+          "end": 5.28
+        },
+        {
+          "text": "spills",
+          "start": 5.44,
+          "end": 5.68
+        },
+        {
+          "text": "onto",
+          "start": 5.76,
+          "end": 6
+        },
+        {
+          "text": "a",
+          "start": 6.16,
+          "end": 6.187
+        },
+        {
+          "text": "bigger",
+          "start": 6.213,
+          "end": 6.48
+        },
+        {
+          "text": "road.",
+          "start": 6.84,
+          "end": 7.28
+        }
+      ],
+      "end": 7.28
+    },
+    {
+      "id": "number",
+      "file": "episodes/his-007/vo/number.mp3",
+      "text": "In 2020, Google said its arrival time predictions were accurate for over ninety-seven percent of trips.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "2020,",
+          "start": 0.32,
+          "end": 1.24
+        },
+        {
+          "text": "Google",
+          "start": 1.28,
+          "end": 1.6
+        },
+        {
+          "text": "said",
+          "start": 1.68,
+          "end": 1.84
+        },
+        {
+          "text": "its",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "arrival",
+          "start": 2.16,
+          "end": 2.56
+        },
+        {
+          "text": "time",
+          "start": 2.68,
+          "end": 2.8
+        },
+        {
+          "text": "predictions",
+          "start": 3.08,
+          "end": 3.36
+        },
+        {
+          "text": "were",
+          "start": 3.44,
+          "end": 3.52
+        },
+        {
+          "text": "accurate",
+          "start": 3.6,
+          "end": 4
+        },
+        {
+          "text": "for",
+          "start": 4.08,
+          "end": 4.16
+        },
+        {
+          "text": "over",
+          "start": 4.24,
+          "end": 4.56
+        },
+        {
+          "text": "ninety-seven",
+          "start": 4.64,
+          "end": 5.44
+        },
+        {
+          "text": "percent",
+          "start": 5.6,
+          "end": 5.76
+        },
+        {
+          "text": "of",
+          "start": 5.84,
+          "end": 5.92
+        },
+        {
+          "text": "trips.",
+          "start": 5.96,
+          "end": 6.8
+        }
+      ],
+      "end": 6.8
+    },
+    {
+      "id": "outro",
+      "file": "episodes/his-007/vo/outro.mp3",
+      "text": "So before you get there, phones already stuck in the jam have helped tell Google. Even phones in a handcart.",
+      "words": [
+        {
+          "text": "So",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "before",
+          "start": 0.32,
+          "end": 0.48
+        },
+        {
+          "text": "you",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "text": "get",
+          "start": 0.84,
+          "end": 0.96
+        },
+        {
+          "text": "there,",
+          "start": 1.08,
+          "end": 1.52
+        },
+        {
+          "text": "phones",
+          "start": 1.72,
+          "end": 1.92
+        },
+        {
+          "text": "already",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "text": "stuck",
+          "start": 2.48,
+          "end": 2.72
+        },
+        {
+          "text": "in",
+          "start": 2.76,
+          "end": 2.8
+        },
+        {
+          "text": "the",
+          "start": 2.88,
+          "end": 2.96
+        },
+        {
+          "text": "jam",
+          "start": 3.04,
+          "end": 3.28
+        },
+        {
+          "text": "have",
+          "start": 3.36,
+          "end": 3.52
+        },
+        {
+          "text": "helped",
+          "start": 3.6,
+          "end": 3.92
+        },
+        {
+          "text": "tell",
+          "start": 4,
+          "end": 4.24
+        },
+        {
+          "text": "Google.",
+          "start": 4.6,
+          "end": 5.04
+        },
+        {
+          "text": "Even",
+          "start": 5.12,
+          "end": 5.36
+        },
+        {
+          "text": "phones",
+          "start": 5.44,
+          "end": 5.68
+        },
+        {
+          "text": "in",
+          "start": 5.76,
+          "end": 5.8
+        },
+        {
+          "text": "a",
+          "start": 5.84,
+          "end": 5.92
+        },
+        {
+          "text": "handcart.",
+          "start": 6.08,
+          "end": 7.04
+        }
+      ],
+      "end": 7.04
+    },
+    {
+      "id": "cta",
+      "file": "episodes/his-007/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "you",
+          "start": 0.16,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.32,
+          "end": 0.48
+        },
+        {
+          "text": "this",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "text": "kind",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "of",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "content,",
+          "start": 1.28,
+          "end": 1.84
+        },
+        {
+          "text": "like,",
+          "start": 1.92,
+          "end": 2.48
+        },
+        {
+          "text": "share",
+          "start": 2.56,
+          "end": 2.96
+        },
+        {
+          "text": "and",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "text": "follow",
+          "start": 3.28,
+          "end": 3.6
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.68,
+          "end": 4.56
+        }
+      ],
+      "end": 4.56
+    }
+  ],
+  "music": "episodes/his-007/music.mp3",
+  "sfx": {
+    "cart": "audio/sfx/cart.mp3"
+  }
+}

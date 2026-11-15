@@ -19,6 +19,11 @@ export type EpisodeDef = {
   Cover: React.FC;
   /** Extra silence (seconds) after a scene's last word. */
   tail?: Record<string, number>;
+  /**
+   * Append the generic logo sting after the last scene (default true). Set false when the last scene is its
+   * own sign-off end card (e.g. the "like, share and follow" card), so the video ends on it and loops cleanly.
+   */
+  endSting?: boolean;
 };
 
 const Progress: React.FC = () => {
@@ -91,6 +96,7 @@ const Music: React.FC<{ file: string }> = ({ file }) => {
 export const makeEpisode = (def: EpisodeDef) => {
   const t = makeTiming(def.manifest, def.tail);
   const missing = t.ORDER.filter((id) => !def.scenes[id]);
+  const sting = def.endSting !== false;
 
   const Video: React.FC = () => (
     <TimingContext.Provider value={t}>
@@ -102,7 +108,7 @@ export const makeEpisode = (def: EpisodeDef) => {
             const Scene = def.scenes[id] ?? (() => <MissingScene id={id} />);
             return (
               <Series.Sequence key={id} durationInFrames={t.sceneFrames(id)} name={id}>
-                <SceneShell enter={i !== 0}>
+                <SceneShell enter={i !== 0} exit={sting || i !== t.ORDER.length - 1}>
                   <Scene />
                 </SceneShell>
                 <Audio src={staticFile(t.scene(id).file)} />
@@ -110,9 +116,11 @@ export const makeEpisode = (def: EpisodeDef) => {
               </Series.Sequence>
             );
           })}
-          <Series.Sequence durationInFrames={LOGO_FRAMES} name="logo">
-            <LogoSting />
-          </Series.Sequence>
+          {sting && (
+            <Series.Sequence durationInFrames={LOGO_FRAMES} name="logo">
+              <LogoSting />
+            </Series.Sequence>
+          )}
         </Series>
         <Sequence durationInFrames={t.totalFrames()} layout="none">
           <Watermark tag={def.seriesTag} />
@@ -128,7 +136,7 @@ export const makeEpisode = (def: EpisodeDef) => {
     </TimingContext.Provider>
   );
 
-  return { code: def.code, title: def.title, Video, Cover, durationInFrames: t.totalFrames() + LOGO_FRAMES, missing };
+  return { code: def.code, title: def.title, Video, Cover, durationInFrames: t.totalFrames() + (sting ? LOGO_FRAMES : 0), missing };
 };
 
 export type Episode = ReturnType<typeof makeEpisode>;

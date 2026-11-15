@@ -1,4 +1,5 @@
 import React from "react";
+import { Img } from "remotion";
 import { C, F } from "./theme";
 
 /**
@@ -67,8 +68,171 @@ export const BlinkitWordmark: React.FC<{ height: number; style?: React.CSSProper
   </svg>
 );
 
+/**
+ * Google Maps: Wikimedia Commons "Google_Maps_icon_(2020).svg" (PD-textlogo; trademark of Google). viewBox 92.3 × 132.3.
+ * DeepMind: Wikimedia Commons "DeepMind_new_logo.svg" (PD-textlogo; trademark of Google DeepMind). viewBox 512.052 × 118.668, all #0053d6.
+ * shortcut: both load from upload.wikimedia.org at render time (Remotion's <Img> waits for them) because the
+ * unattended run couldn't download them. Copy them into public/logos/ and switch to staticFile() when convenient.
+ */
+export const GOOGLE_MAPS_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/a/aa/Google_Maps_icon_%282020%29.svg";
+export const DEEPMIND_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/6/6a/DeepMind_new_logo.svg";
+const GMAPS_RATIO = 92.3 / 132.3;
+const DEEPMIND_RATIO = 512.052 / 118.668;
+
+/** The Google Maps pin, `height` px tall, as SVG children (top-left at 0,0). Use inside an <svg>. */
+export const GoogleMapsPin: React.FC<{ height: number }> = ({ height }) => (
+  <foreignObject width={height * GMAPS_RATIO} height={height} style={{ overflow: "visible" }}>
+    <Img src={GOOGLE_MAPS_LOGO_URL} style={{ width: height * GMAPS_RATIO, height, display: "block" }} />
+  </foreignObject>
+);
+
+/** The Google Maps pin as an HTML element. */
+export const GoogleMapsLogo: React.FC<{ height: number; style?: React.CSSProperties }> = ({ height, style }) => (
+  <Img src={GOOGLE_MAPS_LOGO_URL} style={{ width: height * GMAPS_RATIO, height, display: "block", flexShrink: 0, ...style }} />
+);
+
+/** The DeepMind wordmark on a white pill (its blue doesn't read on our dark background), `height` px tall. */
+export const DeepMindWordmark: React.FC<{ height: number; style?: React.CSSProperties }> = ({ height, style }) => {
+  const inner = height * 0.56;
+  return (
+    <div style={{ height, padding: `0 ${height * 0.42}px`, borderRadius: 999, background: "#FFFFFF", display: "flex", alignItems: "center", flexShrink: 0, ...style }}>
+      <Img src={DEEPMIND_LOGO_URL} style={{ width: inner * DEEPMIND_RATIO, height: inner, display: "block" }} />
+    </div>
+  );
+};
+
+/**
+ * Alphabet: Wikimedia Commons "Alphabet_Inc_Logo_2015.svg" (public domain, text logo below the threshold of
+ * originality; trademark of Alphabet Inc.). 512 × 124, red wordmark, shown on a white pill like DeepMind.
+ * shortcut: loaded from upload.wikimedia.org at render time like the others; copy into public/logos/ when convenient.
+ */
+export const ALPHABET_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/7/7a/Alphabet_Inc_Logo_2015.svg";
+const ALPHABET_RATIO = 512 / 124;
+
+/** The Alphabet wordmark on a white pill, `height` px tall. */
+export const AlphabetWordmark: React.FC<{ height: number; style?: React.CSSProperties }> = ({ height, style }) => {
+  const inner = height * 0.5;
+  return (
+    <div style={{ height, padding: `0 ${height * 0.42}px`, borderRadius: 999, background: "#FFFFFF", display: "flex", alignItems: "center", flexShrink: 0, ...style }}>
+      <Img src={ALPHABET_LOGO_URL} style={{ width: inner * ALPHABET_RATIO, height: inner, display: "block" }} />
+    </div>
+  );
+};
+
+/**
+ * Claude: Wikimedia Commons "Claude_AI_symbol.svg" (CC0 1.0; source anthropic.com; trademark of Anthropic). 512 × 512, orange.
+ * Anthropic: Wikimedia Commons "Anthropic_logo.svg" (PD-textlogo; trademark of Anthropic). 1024 × 115, near-black #1F1F1E,
+ * shown inverted to near-white on our dark background.
+ * shortcut: loaded from upload.wikimedia.org at render time like Google Maps / DeepMind above; copy into public/logos/ when convenient.
+ */
+export const CLAUDE_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/b/b0/Claude_AI_symbol.svg";
+export const ANTHROPIC_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/7/78/Anthropic_logo.svg";
+const ANTHROPIC_RATIO = 1024 / 115;
+
+/** The Claude starburst mark, `size` px square. */
+export const ClaudeLogo: React.FC<{ size: number; style?: React.CSSProperties }> = ({ size, style }) => (
+  <Img src={CLAUDE_LOGO_URL} style={{ width: size, height: size, display: "block", flexShrink: 0, ...style }} />
+);
+
+/** The Anthropic wordmark in near-white, `height` px tall. */
+export const AnthropicWordmark: React.FC<{ height: number; style?: React.CSSProperties }> = ({ height, style }) => (
+  <Img src={ANTHROPIC_LOGO_URL} style={{ width: height * ANTHROPIC_RATIO, height, display: "block", flexShrink: 0, filter: "invert(1)", ...style }} />
+);
+
+/**
+ * Claude Lab's lesson kicker: Claude mark + "LESSON 1 · WHAT CLAUDE IS". `anthropic` (0→1) slides the Anthropic
+ * wordmark in at the end, on the word "Anthropic".
+ */
+/** `mark={false}` drops the Claude starburst (the Claude Lab playbook: never the Claude logo). Lesson 1 keeps the default. */
+export const LessonKicker: React.FC<{ text: string; anthropic?: number; mark?: boolean }> = ({ text, anthropic = 0, mark = true }) => {
+  const aw = 22 * ANTHROPIC_RATIO + 34;
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        padding: mark ? "10px 24px 10px 14px" : "14px 24px",
+        borderRadius: 999,
+        background: "rgba(255,255,255,0.05)",
+        border: `1px solid ${C.stroke}`,
+        fontFamily: F.mono,
+        fontWeight: 700,
+        fontSize: 26,
+        letterSpacing: 3,
+        color: C.text,
+      }}
+    >
+      {mark && <ClaudeLogo size={38} style={{ marginRight: 16 }} />}
+      {text}
+      <div style={{ width: aw * Math.min(1, Math.max(0, anthropic)), overflow: "hidden", display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", opacity: Math.min(1, anthropic * 1.5), transform: `translateX(${(1 - Math.min(1, anthropic)) * 30}px)` }}>
+          <div style={{ width: 2, height: 30, background: C.stroke, margin: "0 16px" }} />
+          <AnthropicWordmark height={22} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Indian Railways: Wikimedia Commons "Indian railways 18 star logo.jpg" (CC0; the logo used in the en.wikipedia
+ * "Indian Railways" infobox; a user upload, trademark of Indian Railways). 1200 × 1201, shown on a white disc.
+ * shortcut: loaded from upload.wikimedia.org at render time like the others; copy into public/logos/ when convenient.
+ * IRCTC: no freely licensed logo exists (en.wikipedia's IRCTC_Logo.svg is non-free), so IRCTC is shown as its name
+ * in a plain wordmark pill, per the "name as text" fallback.
+ */
+export const INDIAN_RAILWAYS_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/d/de/Indian_railways_18_star_logo.jpg";
+export const IRCTC_BLUE = "#1F3F8F";
+
+/** The Indian Railways roundel on a white disc, `size` px. */
+export const IndianRailwaysLogo: React.FC<{ size: number; style?: React.CSSProperties }> = ({ size, style }) => (
+  <div style={{ width: size, height: size, borderRadius: 999, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0, ...style }}>
+    <Img src={INDIAN_RAILWAYS_LOGO_URL} style={{ width: size * 0.9, height: size * 0.9, display: "block", borderRadius: 999 }} />
+  </div>
+);
+
+/** IRCTC as a text wordmark on a white pill, `height` px tall (no free logo exists). */
+export const IrctcWordmark: React.FC<{ height: number; style?: React.CSSProperties }> = ({ height, style }) => (
+  <div
+    style={{
+      height,
+      padding: `0 ${height * 0.38}px`,
+      borderRadius: 999,
+      background: "#FFFFFF",
+      display: "flex",
+      alignItems: "center",
+      flexShrink: 0,
+      fontFamily: F.sans,
+      fontWeight: 900,
+      fontSize: height * 0.56,
+      letterSpacing: height * 0.02,
+      color: IRCTC_BLUE,
+      ...style,
+    }}
+  >
+    IRCTC
+  </div>
+);
+
+type KickerLogoKey = "blinkit" | "googlemaps" | "deepmind" | "irctc" | "indianrailways";
+
+const KickerLogo: React.FC<{ logo: KickerLogoKey }> = ({ logo }) =>
+  logo === "irctc" ? (
+    <IrctcWordmark height={40} />
+  ) : logo === "indianrailways" ? (
+    <IndianRailwaysLogo size={40} />
+  ) : logo === "googlemaps" ? (
+    <div style={{ width: 40, height: 40, borderRadius: 999, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <GoogleMapsLogo height={28} />
+    </div>
+  ) : logo === "deepmind" ? (
+    <DeepMindWordmark height={40} />
+  ) : (
+    <BlinkitWordmark height={40} style={{ borderRadius: 999 }} />
+  );
+
 /** A kicker pill (same look as the kit's Kicker) that leads with a company logo instead of its name. */
-export const LogoKicker: React.FC<{ text: string; logo?: "blinkit" }> = ({ text }) => (
+export const LogoKicker: React.FC<{ text: string; logo?: KickerLogoKey }> = ({ text, logo = "blinkit" }) => (
   <div
     style={{
       display: "inline-flex",
@@ -85,7 +249,7 @@ export const LogoKicker: React.FC<{ text: string; logo?: "blinkit" }> = ({ text 
       color: C.text,
     }}
   >
-    <BlinkitWordmark height={40} style={{ borderRadius: 999 }} />
+    <KickerLogo logo={logo} />
     {text}
   </div>
 );
@@ -93,6 +257,33 @@ export const LogoKicker: React.FC<{ text: string; logo?: "blinkit" }> = ({ text 
 /** Every logo by key, for templates that pick one from data (e.g. a carousel slide's `"logo": "blinkit"`). Add new companies here. */
 export const LOGOS: Record<string, React.FC<{ size: number }>> = {
   blinkit: ({ size }) => <BlinkitLogo size={size} style={{ borderRadius: size * 0.22 }} />,
+  googlemaps: ({ size }) => (
+    <div style={{ width: size, height: size, borderRadius: size * 0.22, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <GoogleMapsLogo height={size * 0.72} />
+    </div>
+  ),
+  deepmind: ({ size }) => (
+    <div style={{ width: size, height: size, borderRadius: size * 0.22, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+      <Img src={DEEPMIND_LOGO_URL} style={{ width: size * 0.9, height: (size * 0.9) / DEEPMIND_RATIO, display: "block" }} />
+    </div>
+  ),
+  alphabet: ({ size }) => (
+    <div style={{ width: size, height: size, borderRadius: size * 0.22, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+      <Img src={ALPHABET_LOGO_URL} style={{ width: size * 0.86, height: (size * 0.86) / ALPHABET_RATIO, display: "block" }} />
+    </div>
+  ),
+  claude: ({ size }) => <ClaudeLogo size={size} />,
+  indianrailways: ({ size }) => <IndianRailwaysLogo size={size} />,
+  irctc: ({ size }) => (
+    <div style={{ width: size, height: size, borderRadius: size * 0.22, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F.sans, fontWeight: 900, fontSize: size * 0.27, color: IRCTC_BLUE }}>
+      IRCTC
+    </div>
+  ),
+  anthropic: ({ size }) => (
+    <div style={{ width: size, height: size, borderRadius: size * 0.22, background: "#F0EEE6", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+      <Img src={ANTHROPIC_LOGO_URL} style={{ width: size * 0.86, height: (size * 0.86) / ANTHROPIC_RATIO, display: "block" }} />
+    </div>
+  ),
 };
 
 /** A company's square logo by key, or nothing if it isn't in `LOGOS` yet. */

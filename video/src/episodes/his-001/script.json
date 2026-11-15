@@ -1,0 +1,36 @@
+{
+  "title": "How IRCTC survives the Tatkal rush",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Calm, curious electronic bed for a two-minute explainer, about 100 BPM, soft plucked synths, a light ticking clock-like hi-hat and a faint tabla texture, a gentle lift around the big idea near 50 seconds and building gently towards a warm resolve in the last 15 seconds, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "Tatkal opens at ten, and it feels like all of India hits Book at once. How does IRCTC keep up?" },
+    { "id": "intro", "text": "Welcome to How It Scales, by Curiously." },
+    { "id": "record", "text": "In May 2025, IRCTC booked a record nearly thirty-two thousand tickets in one minute." },
+    { "id": "follow", "text": "Let's follow one booking, from tap to ticket." },
+    { "id": "bots", "text": "Step one, getting in. Up to half the login attempts at Tatkal's opening were bots. Most are now blocked, the Railways says." },
+    { "id": "gate", "text": "Online Tatkal now needs an Aadhaar-verified account, and authorised agents can't book in the first half hour." },
+    { "id": "reading", "text": "Step two, you search. The trains, the seats left. That's reading. Nothing changes." },
+    { "id": "writing", "text": "Step three, you hit Book. That's writing. It takes a seat away, and no two people can get the same one." },
+    { "id": "copies", "text": "Reading can be copied. Writing can't." },
+    { "id": "cdn", "text": "So the page's unchanging parts, like the logo and buttons, are copied onto servers near you. That's a content delivery network." },
+    { "id": "offload", "text": "Most of IRCTC's unchanging content now comes from those copies, the Railways says." },
+    { "id": "onesystem", "text": "Your booking goes to the Railways' one connected reservation system, which station counters and agents use too." },
+    { "id": "limit", "text": "Today's system handles about thirty-two thousand bookings a minute, the Railways says. That record came very close." },
+    { "id": "upgrade", "text": "So trains are moving to a new system, designed for over forty lakh enquiries a minute and over one and a half lakh bookings. Far more room for reading than writing." },
+    { "id": "outro", "text": "So at ten, most bots are kept out, copies carry what never changes, and IRCTC's servers keep their strength for the one thing that can't be copied: your booking." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["IRCTC", "Tatkal", "Aadhaar", "lakh", "Railways", "content delivery network", "reservation system", "authorised", "Curiously", "How It Scales"],
+  "sources": [
+    "Millennium Post, 4 Jun 2025: IRCTC's digital makeover (record 31,814 tickets/min, 22 May 2025)",
+    "IANS / News On AIR, 4 Jun 2025: Ministry of Railways statement on bots, anti-bot systems and CDN (87% static content)",
+    "News On AIR, 12 Jun 2025: Aadhaar authentication and agent restriction for Tatkal",
+    "CRIS: PRS project page (one connected reservation system)",
+    "PIB Backgrounder, 6 Aug 2026: From Queues to Clicks (32,000 vs 1.5 lakh bookings/min, 40 lakh enquiries/min, phased migration)",
+    "ThePrint: Railway minister reviews reservation system (32,000 tickets/min)",
+    "Akamai glossary: What is a CDN?",
+    "AWS: Amazon RDS Read Replicas (general reading vs writing)",
+    "Business Today, 15 Jun 2015: Tatkal timings"
+  ]
+}
