@@ -198,7 +198,7 @@ export function defaultModel(stage: Stage): { model: string; effort: Effort } | 
 }
 
 /** First publishing day. Nothing is expected to go out before this. */
-export const LAUNCH = "2027-01-01";
+export const LAUNCH = "2026-12-01";
 
 /** Stages from which an episode counts as "ready" content in the backlog runway. */
 export const READY_FROM = stageIndex("review");

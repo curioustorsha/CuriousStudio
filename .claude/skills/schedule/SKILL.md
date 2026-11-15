@@ -22,7 +22,7 @@ Run from the Curiously project root. From the episode, read `series` (`name`, `c
 
 ## 2. Pick the date
 
-Run `node tracker/scripts/episode.mjs slot <CODE>`. It returns the next free publishing day for the series: one of its weekdays, not before launch (2027-01-01) or tomorrow, and not a day another episode of the same series already has. Use it, unless:
+Run `node tracker/scripts/episode.mjs slot <CODE>`. It returns the next free publishing day for the series: one of its weekdays, not before launch (2026-12-01) or tomorrow, and not a day another episode of the same series already has. Use it, unless:
 - `publishDate` is already set and still valid (keep it), or a note asks for another date.
 - Freshness says otherwise: *AI This Week* goes out within days of being made; *Claude Lab* and *Claude Skills* at most 2–4 weeks ahead; *How It Scales* is evergreen. If the slot is too far out for a fresh series, say so in the plan.
 

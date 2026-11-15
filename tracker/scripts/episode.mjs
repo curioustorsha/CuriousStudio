@@ -61,7 +61,7 @@ if (command === "list") {
 } else if (command === "get") {
   console.log(JSON.stringify(await call("GET"), null, 2));
 } else if (command === "slot") {
-  const LAUNCH = "2027-01-01"; // keep in step with LAUNCH in src/lib/stages.ts
+  const LAUNCH = "2026-12-01"; // keep in step with LAUNCH in src/lib/stages.ts
   const ep = await call("GET");
   const days = String(ep.series?.cadenceDays ?? "").split(",").filter(Boolean).map(Number);
   if (!days.length) fail(`${ep.code}'s series has no publishing days set. Set them on the Series page.`);
