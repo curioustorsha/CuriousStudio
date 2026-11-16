@@ -2,44 +2,44 @@ import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
 import { C } from "../../../theme";
 import { Sfx, useWord } from "../../../engine/kit";
-import { CodePane, Label, pop, Space, Window } from "../../../productui";
-import { clampI, Header, SourceLine, useProof } from "./common";
+import { CountPill, Label, Ring, Space } from "../../../productui";
+import { clampI, Credit, Header, SourceLine, SPOT } from "./common";
+import { CAM_BOTTOM, CAM_CALENDAR, DemoWindow, mixCam, move } from "./Before";
 
-/** With Ponytail: the long answer shrinks to the top, the ten lines type in below; "timer" lights the setTimeout lines. */
+/** "With Ponytail, ten lines. It reused the project's input box, and the browser brings the calendar." */
 export const After: React.FC = () => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const wf = useWord();
-  const { before, after } = useProof();
-  if (!before || !after) return null;
   const tWith = wf("after", "ponytail");
   const tTen = wf("after", "ten");
-  const tTimer = wf("after", "timer");
-  const shrink = pop(f, 0, fps, 22);
-  const inP = pop(f, tWith - 6, fps);
-  const lines = after.split("\n").length;
-  const glow = clampI(f, tTimer, tTimer + 8);
+  const tInput = wf("after", "input");
+  const tBrowser = wf("after", "browser");
+  const pan = move(f, tWith - 6, fps);
+  const cam = mixCam(CAM_CALENDAR, CAM_BOTTOM, pan);
+  const lit = clampI(f, tWith, tWith + 10);
+  const fall = clampI(f, tWith, tTen + 4);
+  const count = 335 - (335 - 10) * (1 - Math.pow(1 - fall, 3));
+  const amber = f >= tTen;
   return (
     <>
-      <Sfx name="whoosh" at={tWith - 6} volume={0.3} />
-      <Sfx name="ticker" at={tWith} volume={0.15} dur={tTen - tWith} />
-      <Sfx name="ding" at={tTen} volume={0.4} />
+      <Sfx name="swoosh" at={tWith - 6} volume={0.3} />
+      <Sfx name="ticker" at={tWith} volume={0.15} dur={tTen - tWith + 4} />
+      <Sfx name="ding" at={tTen + 2} volume={0.4} />
+      <Sfx name="click" at={tInput} volume={0.35} />
+      <Sfx name="click" at={tBrowser} volume={0.35} />
       <Space />
-      <Header title="With Ponytail: 10 lines" opacity={clampI(f, tTen - 2, tTen + 6)} accent={C.accent} />
-      <Header title="Same prompt, same model" opacity={1 - clampI(f, tTen - 8, tTen - 2)} />
-      <Label text="WITHOUT · 116 LINES" color={C.muted} style={{ top: 420, left: 70 }} />
-      <Window title="search.js" x={60} y={460} w={960} h={780 - 470 * shrink} tilt={-3} dim>
-        <CodePane code={before} scroll={2600} size={17} />
-      </Window>
-      <Label text="WITH PONYTAIL · 10 LINES" style={{ top: 802, left: 70, opacity: inP }} />
-      <div style={{ opacity: inP, transform: `translateY(${(1 - inP) * 60}px)` }}>
-        <Window title="search.js" x={60} y={842} w={960} h={410} tilt={3}>
-          <CodePane code={after} shown={clampI(f, tWith, tTen, 0, lines)} size={17} />
-          {/* the timer lines (clearTimeout + setTimeout) */}
-          <div style={{ position: "absolute", left: 20, right: 20, top: 18 + 4 * 17 * 1.55 - 4, height: 2 * 17 * 1.55 + 8, borderRadius: 10, border: `2px solid ${C.accent}`, boxShadow: `0 0 30px ${C.accent}55`, opacity: glow }} />
-        </Window>
-      </div>
-      <SourceLine text="SOURCE · ponytail repo, examples/debounce.md (maker's test)" />
+      <Header title="With Ponytail" accent={C.accent} />
+      <Label text="WITHOUT" color={C.muted} style={{ top: 424, left: 70, opacity: 1 - lit }} />
+      <Label text="WITH PONYTAIL" style={{ top: 424, left: 70, opacity: lit }} />
+      <Credit top={426} />
+      <DemoWindow f={f} cam={cam} grey={0.85 * (1 - lit)} glow={lit}>
+        <Ring {...SPOT.input} p={clampI(f, tInput, tInput + 14)} opacity={1 - clampI(f, tBrowser + 6, tBrowser + 16)} />
+        <Ring {...SPOT.date} p={clampI(f, tBrowser, tBrowser + 12)} />
+        <Ring {...SPOT.arrow} p={clampI(f, tBrowser + 6, tBrowser + 20)} />
+      </DemoWindow>
+      <CountPill value={count} y={1140} right={80} color={amber ? C.accent : C.red} opacity={clampI(f, tWith - 6, tWith)} />
+      <SourceLine text="SOURCE · Ponytail benchmark, median of 5 runs (maker's test)" />
     </>
   );
 };

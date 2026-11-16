@@ -1,0 +1,20 @@
+{
+  "title": "Curiously: the channel intro",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Bright, curious trailer bed for a 40-second channel intro, about 104 BPM, plucked synth arpeggio over warm sub bass and light clock-like hi-hats, a short lift into the range section and a clean resolve on the last two seconds, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "You tap a button, and your food can show up in ten minutes. Your map knows about a traffic jam before you see it. How?" },
+    { "id": "what", "text": "This is Curiously. We show what's going on behind the apps you use every day, in about a minute." },
+    { "id": "range", "text": "How huge apps cope with millions of people at once. Why things break when they do. And how to get real work done with Claude, from your first prompt to skills that handle the repetitive parts." },
+    { "id": "promise", "text": "No jargon walls. One big idea per video." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Curiously", "Claude", "jargon"],
+  "sources": [
+    "Google, Google Maps 101: How AI helps predict traffic and determine routes, 3 Sep 2020",
+    "Swiggy, Swiggy launches Bolt: Delivering Your Favorite Food in Just 10 Minutes, 5 Oct 2024",
+    "Entrackr, Blinkit to deliver food in 10 min via Bistro, 12 Dec 2024",
+    "Anthropic, Introducing Agent Skills, 16 Oct 2025"
+  ]
+}

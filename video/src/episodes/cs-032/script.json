@@ -1,0 +1,25 @@
+{
+  "title": "Remotion skills (remotion-dev/skills)",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Sleek, minimal launch-film electronic bed for a 60-second tech short, about 110 BPM, soft synth pulses, airy pads, light clicky percussion, calm and confident, a small lift around the trick at 30 seconds and a calm resolve into the end card, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "Claude can code you a whole video. Changing it means digging through the code." },
+    { "id": "intro", "text": "Welcome to Claude Skills, by Curiously." },
+    { "id": "task", "text": "We asked Claude for a title card in Remotion, with and without Remotion's own skills." },
+    { "id": "before", "text": "Plain Claude already knows Remotion. But its timing hid in raw frame numbers: frame eight, five frames apart." },
+    { "id": "after", "text": "With the skills, each line got a name, with its timing in seconds written right on it." },
+    { "id": "trick", "text": "That's the trick. Remotion Studio can edit code written this way by hand: drag a line, move a keyframe, and it saves the change back into your code." },
+    { "id": "catch", "text": "The catch: you need Node and a Remotion project, and companies over three people need a paid Remotion licence." },
+    { "id": "install", "text": "Building videos with Claude? It's one command. Link in the description." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Claude", "Curiously", "Claude Skills", "Remotion", "Remotion Studio", "keyframe", "Node", "licence", "title card"],
+  "sources": [
+    "github.com/remotion-dev/skills README and GitHub API: 7,269 stars on 15 Nov 2026, no licence file, install npx skills add remotion-dev/skills",
+    "remotion-dev/skills remotion-best-practices SKILL.md (router, v4.0.543) and remotion-markup / remotion-interactivity REFERENCE.md",
+    "remotion.dev/docs/studio/interactivity: Studio visual edits written back to code",
+    "remotion.dev/docs/license/pricing: free for individuals and companies of up to 3 people",
+    "Curiously proof run, 15 Nov 2026: proof/before and proof/after TitleCard.tsx"
+  ]
+}

@@ -603,7 +603,8 @@ export type WorldProps = {
   gap?: number;
   you?: { ring?: number; label?: number; opacity?: number; ghostT?: number | null };
   office?: { label?: number; glow?: number };
-  goog?: { tag?: number; rack?: number; glow?: number; bounce?: number };
+  /** `pin` 0 hides the Maps pin (PB-001 uses the block as a generic app server). */
+  goog?: { tag?: number; rack?: number; glow?: number; bounce?: number; pin?: number };
   phones?: Phone[];
   pings?: Ping[];
   cart?: CartState;
@@ -618,6 +619,8 @@ export type WorldProps = {
   /** Fade buildings (graph view). */
   bldg?: number;
   overlay?: React.ReactNode;
+  /** Extra blocks on the floor, depth-sorted with the buildings by (x + y) (PB-001's new servers). */
+  actors?: { x: number; y: number; node: React.ReactNode }[];
 };
 
 const MASK = "linear-gradient(180deg, transparent 0px, transparent 400px, black 500px, black 1190px, transparent 1290px)";
@@ -739,6 +742,7 @@ export const World: React.FC<WorldProps> = ({
   hops = [],
   bldg = 1,
   overlay,
+  actors = [],
 }) => {
   const frame = useCurrentFrame();
   const st = stageOf(cam);
@@ -765,6 +769,7 @@ export const World: React.FC<WorldProps> = ({
     const p = at(cart.path, cart.d);
     items.push({ key: p[0] + p[1] + 0.1, node: <Walker key="walker" c={cart} /> });
   }
+  actors.forEach((a, k) => items.push({ key: a.x + a.y + 0.001 * k, node: <React.Fragment key={`a${k}`}>{a.node}</React.Fragment> }));
   items.sort((a, b) => a.key - b.key);
 
   // Paint for one road piece (route piece or any other piece)
@@ -906,7 +911,11 @@ export const World: React.FC<WorldProps> = ({
         {(office.label ?? 0) > 0.01 && (
           <IsoLabel x={OFFICE.x + OFFICE.w / 2} y={OFFICE.y + OFFICE.d / 2} z={OFFICE.h + 0.2} text="OFFICE" color={C.text} opacity={office.label} lift={Math.max(26, cam.u * 0.6)} size={22} />
         )}
-        <GoogleSign tag={goog.tag ?? 0} bounce={goog.bounce ?? 0} />
+        {(goog.pin ?? 1) > 0.01 && (
+          <g opacity={goog.pin ?? 1}>
+            <GoogleSign tag={goog.tag ?? 0} bounce={goog.bounce ?? 0} />
+          </g>
+        )}
         {overlay}
       </g>
     </IsoStage>

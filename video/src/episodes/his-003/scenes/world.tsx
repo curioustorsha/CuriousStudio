@@ -500,7 +500,7 @@ export type Rider = { points: P2[]; t: number; tag?: Tag; sub?: Tag; load?: numb
 
 // ---------------------------------------------------------------- one building
 
-type BState = { rise?: number; drop?: number; lit?: number; glow?: number; opacity?: number; dark?: number; xray?: number };
+type BState = { rise?: number; drop?: number; lit?: number; glow?: number; opacity?: number; dark?: number; xray?: number; plain?: boolean };
 
 const Face: React.FC<{ b: Bldg; face: "left" | "right"; top: number; children: React.ReactNode }> = ({ b, face, top, children }) => {
   const s = useIsoStage();
@@ -509,7 +509,7 @@ const Face: React.FC<{ b: Bldg; face: "left" | "right"; top: number; children: R
 
 const Building: React.FC<{ b: Bldg; st: BState; detail: number }> = ({ b, st, detail }) => {
   const s = useIsoStage();
-  const { rise = 1, drop = 0, lit = 1, glow = 0, opacity = 1, dark = 0, xray = 0 } = st;
+  const { rise = 1, drop = 0, lit = 1, glow = 0, opacity = 1, dark = 0, xray = 0, plain = false } = st;
   if (rise <= 0.001 || opacity <= 0.001) return null;
   const h = b.h * Math.min(1.05, rise);
   const lift = drop * 4 * s.unit;
@@ -611,12 +611,17 @@ const Building: React.FC<{ b: Bldg; st: BState; detail: number }> = ({ b, st, de
                 {[1, 2, 3, 4, 5].map((l) => (
                   <line key={l} x1={b.w * 0.25} x2={b.w * 0.75} y1={h * 0.35 + (l * h * 0.65) / 6} y2={h * 0.35 + (l * h * 0.65) / 6} stroke={isoShade(wall, -0.45)} strokeWidth={0.02} />
                 ))}
-                <rect x={b.w * 0.25} y={h * 0.12} width={b.w * 0.5} height={h * 0.12} fill={BLINKIT_YELLOW} opacity={0.85} />
+                <rect x={b.w * 0.25} y={h * 0.12} width={b.w * 0.5} height={h * 0.12} fill={plain ? C.accent : BLINKIT_YELLOW} opacity={0.85} />
               </Face>
               <Face b={b} face="right" top={h}>
-                <g transform={`translate(${(b.d - signW) / 2},${h * 0.12}) scale(${signW / 3500})`}>
-                  <BlinkitBand rx={140} />
-                </g>
+                {plain ? (
+                  // Unbranded store (PB-001): a blank amber sign band
+                  <rect x={(b.d - signW) / 2} y={h * 0.12} width={signW} height={signW * 0.2} rx={0.03} fill={C.accent} opacity={0.9} />
+                ) : (
+                  <g transform={`translate(${(b.d - signW) / 2},${h * 0.12}) scale(${signW / 3500})`}>
+                    <BlinkitBand rx={140} />
+                  </g>
+                )}
               </Face>
             </>
           )}
@@ -668,6 +673,8 @@ export type WorldProps = {
   actors?: Actor[];
   rider?: Rider;
   overlay?: React.ReactNode;
+  /** Unbranded stores: a blank amber sign instead of the Blinkit band (PB-001). */
+  plainSign?: boolean;
 };
 
 const MASK = "linear-gradient(180deg, transparent 0px, transparent 400px, black 500px, black 1190px, transparent 1290px)";
@@ -705,6 +712,7 @@ export const World: React.FC<WorldProps> = ({
   actors = [],
   rider,
   overlay,
+  plainSign = false,
 }) => {
   const st = stageOf(cam);
   const detail = Math.max(0, Math.min(1, (cam.u - 40) / 25));
@@ -746,7 +754,7 @@ export const World: React.FC<WorldProps> = ({
       node: (
         <g key={`s${k}`}>
           {racks}
-          <Building b={b} st={{ rise, drop, glow, dark, xray, opacity }} detail={detail} />
+          <Building b={b} st={{ rise, drop, glow, dark, xray, opacity, plain: plainSign }} detail={detail} />
         </g>
       ),
     });

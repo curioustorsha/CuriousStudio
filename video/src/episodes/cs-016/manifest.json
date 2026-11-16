@@ -3,7 +3,7 @@
     {
       "id": "hook",
       "file": "episodes/cs-016/vo/hook.mp3",
-      "text": "You ask your AI to debounce a search box. It writes a hundred and sixteen lines.",
+      "text": "You ask your AI for a date picker. In one test, it wrote three hundred and thirty-five lines.",
       "words": [
         {
           "text": "You",
@@ -26,67 +26,77 @@
           "end": 1.04
         },
         {
-          "text": "to",
+          "text": "for",
           "start": 1.12,
           "end": 1.2
         },
         {
-          "text": "debounce",
-          "start": 1.28,
-          "end": 1.68
-        },
-        {
           "text": "a",
-          "start": 1.72,
-          "end": 1.76
+          "start": 1.24,
+          "end": 1.28
         },
         {
-          "text": "search",
-          "start": 1.84,
-          "end": 2.08
+          "text": "date",
+          "start": 1.36,
+          "end": 1.6
         },
         {
-          "text": "box.",
-          "start": 2.16,
-          "end": 2.88
+          "text": "picker.",
+          "start": 1.68,
+          "end": 2.24
         },
         {
-          "text": "It",
-          "start": 2.96,
-          "end": 3.04
+          "text": "In",
+          "start": 2.48,
+          "end": 2.64
         },
         {
-          "text": "writes",
-          "start": 3.2,
-          "end": 3.36
+          "text": "one",
+          "start": 2.72,
+          "end": 2.8
         },
         {
-          "text": "a",
-          "start": 3.44,
-          "end": 3.52
+          "text": "test,",
+          "start": 2.88,
+          "end": 3.44
         },
         {
-          "text": "hundred",
-          "start": 3.6,
+          "text": "it",
+          "start": 3.52,
+          "end": 3.6
+        },
+        {
+          "text": "wrote",
+          "start": 3.64,
           "end": 3.92
         },
         {
-          "text": "and",
-          "start": 4.04,
+          "text": "three",
+          "start": 4,
           "end": 4.16
         },
         {
-          "text": "sixteen",
-          "start": 4.32,
-          "end": 4.72
+          "text": "hundred",
+          "start": 4.24,
+          "end": 4.56
+        },
+        {
+          "text": "and",
+          "start": 4.68,
+          "end": 4.8
+        },
+        {
+          "text": "thirty-five",
+          "start": 4.84,
+          "end": 5.52
         },
         {
           "text": "lines.",
-          "start": 4.8,
-          "end": 5.52
+          "start": 5.68,
+          "end": 6.32
         }
       ],
-      "end": 5.52
+      "end": 6.32
     },
     {
       "id": "intro",
@@ -129,7 +139,7 @@
     {
       "id": "repo",
       "file": "episodes/cs-016/vo/repo.mp3",
-      "text": "This is Ponytail, a free skill with over a hundred and ninety thousand stars on GitHub.",
+      "text": "This is Ponytail, a free skill with over a hundred and ninety thousand GitHub stars.",
       "words": [
         {
           "text": "This",
@@ -159,11 +169,11 @@
         {
           "text": "skill",
           "start": 1.84,
-          "end": 2.16
+          "end": 2.08
         },
         {
           "text": "with",
-          "start": 2.24,
+          "start": 2.16,
           "end": 2.32
         },
         {
@@ -184,573 +194,560 @@
         {
           "text": "and",
           "start": 3.12,
-          "end": 3.28
+          "end": 3.2
         },
         {
           "text": "ninety",
-          "start": 3.36,
+          "start": 3.28,
           "end": 3.68
         },
         {
           "text": "thousand",
-          "start": 3.84,
-          "end": 4.24
+          "start": 3.76,
+          "end": 4.16
         },
         {
-          "text": "stars",
-          "start": 4.32,
-          "end": 4.72
+          "text": "GitHub",
+          "start": 4.24,
+          "end": 4.56
         },
         {
-          "text": "on",
-          "start": 4.8,
-          "end": 4.88
-        },
-        {
-          "text": "GitHub.",
-          "start": 5.32,
-          "end": 5.84
+          "text": "stars.",
+          "start": 4.64,
+          "end": 5.44
         }
       ],
-      "end": 5.84
+      "end": 5.44
     },
     {
       "id": "before",
       "file": "episodes/cs-016/vo/before.mp3",
-      "text": "In the maker's own test, Claude without it built a helper, a wrapper and a config object.",
+      "text": "That's the maker's test. Without the skill, Claude reached for a calendar library.",
       "words": [
         {
-          "text": "In",
+          "text": "That's",
           "start": 0,
-          "end": 0.08
+          "end": 0.32
         },
         {
           "text": "the",
-          "start": 0.16,
-          "end": 0.24
+          "start": 0.4,
+          "end": 0.48
         },
         {
           "text": "maker's",
-          "start": 0.4,
-          "end": 0.72
-        },
-        {
-          "text": "own",
-          "start": 0.8,
-          "end": 0.96
-        },
-        {
-          "text": "test,",
-          "start": 1.04,
-          "end": 1.64
-        },
-        {
-          "text": "Claude",
-          "start": 1.68,
-          "end": 2
-        },
-        {
-          "text": "without",
-          "start": 2.2,
-          "end": 2.4
-        },
-        {
-          "text": "it",
-          "start": 2.48,
-          "end": 2.72
-        },
-        {
-          "text": "built",
-          "start": 2.8,
-          "end": 2.88
-        },
-        {
-          "text": "a",
-          "start": 2.96,
-          "end": 3.04
-        },
-        {
-          "text": "helper,",
-          "start": 3.36,
-          "end": 3.72
-        },
-        {
-          "text": "a",
-          "start": 3.76,
-          "end": 3.84
-        },
-        {
-          "text": "wrapper",
-          "start": 4.12,
-          "end": 4.4
-        },
-        {
-          "text": "and",
-          "start": 4.48,
-          "end": 4.64
-        },
-        {
-          "text": "a",
-          "start": 4.68,
-          "end": 4.72
-        },
-        {
-          "text": "config",
-          "start": 4.8,
-          "end": 5.12
-        },
-        {
-          "text": "object.",
-          "start": 5.2,
-          "end": 6.16
-        }
-      ],
-      "end": 6.16
-    },
-    {
-      "id": "after",
-      "file": "episodes/cs-016/vo/after.mp3",
-      "text": "Same prompt, same model, with Ponytail: ten lines. A timer is the debounce.",
-      "words": [
-        {
-          "text": "Same",
-          "start": 0,
-          "end": 0.24
-        },
-        {
-          "text": "prompt,",
-          "start": 0.4,
-          "end": 1.04
-        },
-        {
-          "text": "same",
-          "start": 1.12,
-          "end": 1.36
-        },
-        {
-          "text": "model,",
-          "start": 1.44,
-          "end": 2.16
-        },
-        {
-          "text": "with",
-          "start": 2.24,
-          "end": 2.32
-        },
-        {
-          "text": "Ponytail:",
-          "start": 2.4,
-          "end": 3.36
-        },
-        {
-          "text": "ten",
-          "start": 3.44,
-          "end": 3.6
-        },
-        {
-          "text": "lines.",
-          "start": 3.76,
-          "end": 4.56
-        },
-        {
-          "text": "A",
-          "start": 4.64,
-          "end": 4.72
-        },
-        {
-          "text": "timer",
-          "start": 4.8,
-          "end": 5.28
-        },
-        {
-          "text": "is",
-          "start": 5.36,
-          "end": 5.44
-        },
-        {
-          "text": "the",
-          "start": 5.48,
-          "end": 5.52
-        },
-        {
-          "text": "debounce.",
-          "start": 5.6,
-          "end": 6.56
-        }
-      ],
-      "end": 6.56
-    },
-    {
-      "id": "trick",
-      "file": "episodes/cs-016/vo/trick.mp3",
-      "text": "The trick is one short list. Before writing anything, Claude asks: does this need to exist? Is it already in your code, or built into the language? Only then does it write the minimum.",
-      "words": [
-        {
-          "text": "The",
-          "start": 0,
-          "end": 0.08
-        },
-        {
-          "text": "trick",
-          "start": 0.16,
-          "end": 0.56
-        },
-        {
-          "text": "is",
           "start": 0.64,
           "end": 0.88
         },
         {
-          "text": "one",
+          "text": "test.",
           "start": 0.96,
+          "end": 1.84
+        },
+        {
+          "text": "Without",
+          "start": 2.04,
+          "end": 2.24
+        },
+        {
+          "text": "the",
+          "start": 2.28,
+          "end": 2.32
+        },
+        {
+          "text": "skill,",
+          "start": 2.4,
+          "end": 2.92
+        },
+        {
+          "text": "Claude",
+          "start": 2.96,
+          "end": 3.28
+        },
+        {
+          "text": "reached",
+          "start": 3.36,
+          "end": 3.6
+        },
+        {
+          "text": "for",
+          "start": 3.68,
+          "end": 3.76
+        },
+        {
+          "text": "a",
+          "start": 3.8,
+          "end": 3.84
+        },
+        {
+          "text": "calendar",
+          "start": 3.92,
+          "end": 4.32
+        },
+        {
+          "text": "library.",
+          "start": 4.76,
+          "end": 5.28
+        }
+      ],
+      "end": 5.28
+    },
+    {
+      "id": "after",
+      "file": "episodes/cs-016/vo/after.mp3",
+      "text": "With Ponytail, ten lines. It reused the project's input box, and the browser brings the calendar.",
+      "words": [
+        {
+          "text": "With",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "Ponytail,",
+          "start": 0.24,
           "end": 1.2
         },
         {
-          "text": "short",
+          "text": "ten",
           "start": 1.28,
           "end": 1.52
         },
         {
-          "text": "list.",
+          "text": "lines.",
           "start": 1.6,
-          "end": 2.4
-        },
-        {
-          "text": "Before",
-          "start": 2.56,
-          "end": 2.72
-        },
-        {
-          "text": "writing",
-          "start": 2.92,
-          "end": 3.12
-        },
-        {
-          "text": "anything,",
-          "start": 3.2,
-          "end": 4
-        },
-        {
-          "text": "Claude",
-          "start": 4.08,
-          "end": 4.32
-        },
-        {
-          "text": "asks:",
-          "start": 4.4,
-          "end": 5.12
-        },
-        {
-          "text": "does",
-          "start": 5.2,
-          "end": 5.36
-        },
-        {
-          "text": "this",
-          "start": 5.48,
-          "end": 5.6
-        },
-        {
-          "text": "need",
-          "start": 5.68,
-          "end": 5.92
-        },
-        {
-          "text": "to",
-          "start": 5.96,
-          "end": 6
-        },
-        {
-          "text": "exist?",
-          "start": 6.08,
-          "end": 6.987
-        },
-        {
-          "text": "Is",
-          "start": 7.013,
-          "end": 7.04
-        },
-        {
-          "text": "it",
-          "start": 7.12,
-          "end": 7.28
-        },
-        {
-          "text": "already",
-          "start": 7.36,
-          "end": 7.68
-        },
-        {
-          "text": "in",
-          "start": 7.72,
-          "end": 7.76
-        },
-        {
-          "text": "your",
-          "start": 7.84,
-          "end": 8
-        },
-        {
-          "text": "code,",
-          "start": 8.28,
-          "end": 8.6
-        },
-        {
-          "text": "or",
-          "start": 8.64,
-          "end": 8.88
-        },
-        {
-          "text": "built",
-          "start": 9,
-          "end": 9.12
-        },
-        {
-          "text": "into",
-          "start": 9.2,
-          "end": 9.28
-        },
-        {
-          "text": "the",
-          "start": 9.36,
-          "end": 9.44
-        },
-        {
-          "text": "language?",
-          "start": 9.92,
-          "end": 10.44
-        },
-        {
-          "text": "Only",
-          "start": 10.48,
-          "end": 10.88
-        },
-        {
-          "text": "then",
-          "start": 10.96,
-          "end": 11.28
-        },
-        {
-          "text": "does",
-          "start": 11.36,
-          "end": 11.44
-        },
-        {
-          "text": "it",
-          "start": 11.48,
-          "end": 11.52
-        },
-        {
-          "text": "write",
-          "start": 11.6,
-          "end": 11.76
-        },
-        {
-          "text": "the",
-          "start": 11.84,
-          "end": 11.92
-        },
-        {
-          "text": "minimum.",
-          "start": 12.32,
-          "end": 12.8
-        }
-      ],
-      "end": 12.8
-    },
-    {
-      "id": "safe",
-      "file": "episodes/cs-016/vo/safe.mp3",
-      "text": "And it never cuts validation, error handling or security.",
-      "words": [
-        {
-          "text": "And",
-          "start": 0,
-          "end": 0.08
-        },
-        {
-          "text": "it",
-          "start": 0.2,
-          "end": 0.32
-        },
-        {
-          "text": "never",
-          "start": 0.4,
-          "end": 0.72
-        },
-        {
-          "text": "cuts",
-          "start": 0.84,
-          "end": 0.96
-        },
-        {
-          "text": "validation,",
-          "start": 1.04,
-          "end": 1.92
-        },
-        {
-          "text": "error",
-          "start": 2,
-          "end": 2.16
-        },
-        {
-          "text": "handling",
-          "start": 2.24,
-          "end": 2.72
-        },
-        {
-          "text": "or",
-          "start": 2.88,
-          "end": 3.04
-        },
-        {
-          "text": "security.",
-          "start": 3.6,
-          "end": 4.24
-        }
-      ],
-      "end": 4.24
-    },
-    {
-      "id": "catch",
-      "file": "episodes/cs-016/vo/catch.mp3",
-      "text": "The catch: it's for coding only, and those numbers are the maker's own benchmark.",
-      "words": [
-        {
-          "text": "The",
-          "start": 0,
-          "end": 0.08
-        },
-        {
-          "text": "catch:",
-          "start": 0.16,
-          "end": 0.96
-        },
-        {
-          "text": "it's",
-          "start": 1,
-          "end": 1.12
-        },
-        {
-          "text": "for",
-          "start": 1.24,
-          "end": 1.36
-        },
-        {
-          "text": "coding",
-          "start": 1.56,
-          "end": 1.76
-        },
-        {
-          "text": "only,",
-          "start": 1.92,
           "end": 2.56
         },
         {
-          "text": "and",
+          "text": "It",
           "start": 2.64,
           "end": 2.72
         },
         {
-          "text": "those",
-          "start": 2.84,
-          "end": 2.96
+          "text": "reused",
+          "start": 2.8,
+          "end": 3.2
         },
         {
-          "text": "numbers",
+          "text": "the",
+          "start": 3.28,
+          "end": 3.36
+        },
+        {
+          "text": "project's",
+          "start": 3.52,
+          "end": 3.84
+        },
+        {
+          "text": "input",
+          "start": 4,
+          "end": 4.16
+        },
+        {
+          "text": "box,",
+          "start": 4.24,
+          "end": 4.72
+        },
+        {
+          "text": "and",
+          "start": 4.76,
+          "end": 4.8
+        },
+        {
+          "text": "the",
+          "start": 4.88,
+          "end": 4.96
+        },
+        {
+          "text": "browser",
+          "start": 5.2,
+          "end": 5.44
+        },
+        {
+          "text": "brings",
+          "start": 5.52,
+          "end": 5.76
+        },
+        {
+          "text": "the",
+          "start": 5.8,
+          "end": 5.84
+        },
+        {
+          "text": "calendar.",
+          "start": 5.92,
+          "end": 6.88
+        }
+      ],
+      "end": 6.88
+    },
+    {
+      "id": "trick",
+      "file": "episodes/cs-016/vo/trick.mp3",
+      "text": "The trick: a ladder of questions. Does this need to exist? Is it already in your code, or the browser? Only then does it write the minimum. Security is never cut.",
+      "words": [
+        {
+          "text": "The",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "trick:",
+          "start": 0.24,
+          "end": 0.96
+        },
+        {
+          "text": "a",
+          "start": 1.04,
+          "end": 1.12
+        },
+        {
+          "text": "ladder",
+          "start": 1.2,
+          "end": 1.6
+        },
+        {
+          "text": "of",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "text": "questions.",
+          "start": 1.84,
+          "end": 3
+        },
+        {
+          "text": "Does",
           "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "text": "this",
+          "start": 3.32,
           "end": 3.44
         },
         {
+          "text": "need",
+          "start": 3.52,
+          "end": 3.68
+        },
+        {
+          "text": "to",
+          "start": 3.76,
+          "end": 3.84
+        },
+        {
+          "text": "exist?",
+          "start": 3.92,
+          "end": 4.827
+        },
+        {
+          "text": "Is",
+          "start": 4.853,
+          "end": 4.88
+        },
+        {
+          "text": "it",
+          "start": 4.96,
+          "end": 5.12
+        },
+        {
+          "text": "already",
+          "start": 5.2,
+          "end": 5.52
+        },
+        {
+          "text": "in",
+          "start": 5.56,
+          "end": 5.6
+        },
+        {
+          "text": "your",
+          "start": 5.68,
+          "end": 5.84
+        },
+        {
+          "text": "code,",
+          "start": 6.12,
+          "end": 6.44
+        },
+        {
+          "text": "or",
+          "start": 6.48,
+          "end": 6.72
+        },
+        {
+          "text": "the",
+          "start": 6.76,
+          "end": 6.8
+        },
+        {
+          "text": "browser?",
+          "start": 7.28,
+          "end": 7.8
+        },
+        {
+          "text": "Only",
+          "start": 7.84,
+          "end": 8.16
+        },
+        {
+          "text": "then",
+          "start": 8.24,
+          "end": 8.64
+        },
+        {
+          "text": "does",
+          "start": 8.68,
+          "end": 8.72
+        },
+        {
+          "text": "it",
+          "start": 8.8,
+          "end": 8.88
+        },
+        {
+          "text": "write",
+          "start": 8.96,
+          "end": 9.12
+        },
+        {
+          "text": "the",
+          "start": 9.2,
+          "end": 9.36
+        },
+        {
+          "text": "minimum.",
+          "start": 9.84,
+          "end": 10.36
+        },
+        {
+          "text": "Security",
+          "start": 10.4,
+          "end": 11.04
+        },
+        {
+          "text": "is",
+          "start": 11.12,
+          "end": 11.36
+        },
+        {
+          "text": "never",
+          "start": 11.52,
+          "end": 11.68
+        },
+        {
+          "text": "cut.",
+          "start": 11.96,
+          "end": 12.32
+        }
+      ],
+      "end": 12.32
+    },
+    {
+      "id": "catch",
+      "file": "episodes/cs-016/vo/catch.mp3",
+      "text": "It's for anyone reviewing AI code. The catch: coding only, and those numbers are the maker's. In our small test, plain Claude was already lean.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "for",
+          "start": 0.28,
+          "end": 0.4
+        },
+        {
+          "text": "anyone",
+          "start": 0.48,
+          "end": 0.96
+        },
+        {
+          "text": "reviewing",
+          "start": 1.04,
+          "end": 1.44
+        },
+        {
+          "text": "AI",
+          "start": 1.6,
+          "end": 1.84
+        },
+        {
+          "text": "code.",
+          "start": 1.92,
+          "end": 2.68
+        },
+        {
+          "text": "The",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "catch:",
+          "start": 2.88,
+          "end": 3.64
+        },
+        {
+          "text": "coding",
+          "start": 3.68,
+          "end": 4.16
+        },
+        {
+          "text": "only,",
+          "start": 4.24,
+          "end": 5.013
+        },
+        {
+          "text": "and",
+          "start": 5.067,
+          "end": 5.12
+        },
+        {
+          "text": "those",
+          "start": 5.2,
+          "end": 5.28
+        },
+        {
+          "text": "numbers",
+          "start": 5.36,
+          "end": 5.76
+        },
+        {
           "text": "are",
+          "start": 5.84,
+          "end": 5.88
+        },
+        {
+          "text": "the",
+          "start": 5.92,
+          "end": 6
+        },
+        {
+          "text": "maker's.",
+          "start": 6.08,
+          "end": 7
+        },
+        {
+          "text": "In",
+          "start": 7.04,
+          "end": 7.12
+        },
+        {
+          "text": "our",
+          "start": 7.2,
+          "end": 7.28
+        },
+        {
+          "text": "small",
+          "start": 7.36,
+          "end": 7.6
+        },
+        {
+          "text": "test,",
+          "start": 7.68,
+          "end": 8.2
+        },
+        {
+          "text": "plain",
+          "start": 8.24,
+          "end": 8.56
+        },
+        {
+          "text": "Claude",
+          "start": 8.64,
+          "end": 8.96
+        },
+        {
+          "text": "was",
+          "start": 9.08,
+          "end": 9.2
+        },
+        {
+          "text": "already",
+          "start": 9.28,
+          "end": 9.68
+        },
+        {
+          "text": "lean.",
+          "start": 9.76,
+          "end": 10.48
+        }
+      ],
+      "end": 10.48
+    },
+    {
+      "id": "install",
+      "file": "episodes/cs-016/vo/install.mp3",
+      "text": "We use it ourselves. Install it with two commands, link in the description.",
+      "words": [
+        {
+          "text": "We",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "use",
+          "start": 0.16,
+          "end": 0.32
+        },
+        {
+          "text": "it",
+          "start": 0.36,
+          "end": 0.4
+        },
+        {
+          "text": "ourselves.",
+          "start": 0.48,
+          "end": 1.4
+        },
+        {
+          "text": "Install",
+          "start": 1.44,
+          "end": 1.84
+        },
+        {
+          "text": "it",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "text": "with",
+          "start": 2.12,
+          "end": 2.24
+        },
+        {
+          "text": "two",
+          "start": 2.32,
+          "end": 2.4
+        },
+        {
+          "text": "commands,",
+          "start": 2.48,
+          "end": 3.24
+        },
+        {
+          "text": "link",
+          "start": 3.28,
+          "end": 3.44
+        },
+        {
+          "text": "in",
           "start": 3.48,
           "end": 3.52
         },
         {
           "text": "the",
           "start": 3.6,
-          "end": 3.68
-        },
-        {
-          "text": "maker's",
-          "start": 3.84,
-          "end": 4.16
-        },
-        {
-          "text": "own",
-          "start": 4.24,
-          "end": 4.4
-        },
-        {
-          "text": "benchmark.",
-          "start": 4.48,
-          "end": 5.52
-        }
-      ],
-      "end": 5.52
-    },
-    {
-      "id": "install",
-      "file": "episodes/cs-016/vo/install.mp3",
-      "text": "Install it with two commands. The link is in the description.",
-      "words": [
-        {
-          "text": "Install",
-          "start": 0,
-          "end": 0.4
-        },
-        {
-          "text": "it",
-          "start": 0.48,
-          "end": 0.56
-        },
-        {
-          "text": "with",
-          "start": 0.68,
-          "end": 0.8
-        },
-        {
-          "text": "two",
-          "start": 0.88,
-          "end": 1.04
-        },
-        {
-          "text": "commands.",
-          "start": 1.48,
-          "end": 1.947
-        },
-        {
-          "text": "The",
-          "start": 1.973,
-          "end": 2
-        },
-        {
-          "text": "link",
-          "start": 2.08,
-          "end": 2.4
-        },
-        {
-          "text": "is",
-          "start": 2.48,
-          "end": 2.56
-        },
-        {
-          "text": "in",
-          "start": 2.6,
-          "end": 2.64
-        },
-        {
-          "text": "the",
-          "start": 2.72,
-          "end": 2.76
+          "end": 3.64
         },
         {
           "text": "description.",
-          "start": 2.8,
-          "end": 3.84
+          "start": 3.68,
+          "end": 4.72
         }
       ],
-      "end": 3.84
+      "end": 4.72
     },
     {
       "id": "cta",

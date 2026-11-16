@@ -69,6 +69,8 @@ Claude Skills. A product launch look: glossy app windows in a dark, deep space, 
 - **Proof media:** show files from `video/public/episodes/<slug>/proof/` with `<Img src={staticFile(...)} />` for PNGs and `<OffthreadVideo src={staticFile(...)} muted />` for MP4s. A tall screenshot scrolls inside its window by animating `translateY` with `interpolate`. Keep the credit tag on screen whenever the maker's demo shows. Never redraw or fake a tool's output: if a proof file is missing, flag it and ask for it.
 - **Depth and motion:** windows sit in 3D space with `perspective` and a small `rotateX`/`rotateY` (≤ 12°), drifting slowly; push in with a critically damped spring on the word that names the detail. Glass sheen and soft shadows are allowed here (unlike flat-metaphor). One accent colour (amber by default) plus white and greys; WITHOUT is desaturated.
 - **Fixed moments:** the intro builds the repo card and ticks the stars up to the research count; the close types the install command into the terminal, then the logo end card. Layout rules are the same as every series (header 170–400, visual 400–1250, captions 1300–1500 kept clear).
+- **Readable on a phone:** the main window is about 900 px wide; code and text inside it are at least 28 px on screen at their largest moment. Zoom (scale plus translate on a spring) to the one line that matters rather than shrinking the whole file to fit.
+- **Cuts:** cut straight between scenes or cross-dissolve in about 6 frames. Never fade the whole frame to black between scenes.
 - Make each new component work for the next episode too, and list new or changed components in the render notes.
 
 ## 3. Sound

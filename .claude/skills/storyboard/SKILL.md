@@ -89,6 +89,8 @@ Claude Skills. It looks like a product launch film (Apple, Linear, Vercel): dark
 - Real screenshots and recordings are welcome here (unlike flat-metaphor), but only of real proof files: never a mockup of a tool's output. Simple drawn windows are fine for the frame around them.
 - Logos: the maker's logo when it's a company (HeyGen, Cloudflare, Obsidian…), from `video/src/logos.tsx`. Never the Claude logo.
 - Camera: windows move in slow 3D space (a gentle tilt, a push-in on the detail that matters), never fast spins. One or two windows per scene.
+- **What it can do:** plan 2–3 quick demo scenes (about 8–10s each), one per capability in the research's Proof section, each ending on a visible result. Vary them (a split, a single big window, a montage of real clips) so the episode doesn't look like the same dark window over and over.
+- **Readable on a phone:** the main window fills about 900 of the 1080 px width; for code or long text, zoom in on the one line that matters instead of showing the whole file. If a viewer couldn't read it on a phone, plan a closer shot. Plan hard cuts between scenes, never a fade to black.
 
 ### carousel-editorial
 AI This Week carousels. See section 3b.

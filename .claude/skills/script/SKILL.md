@@ -77,16 +77,18 @@ The episode features one repo (in the idea's title and summary). The playbook de
 
 **2. Vet it.** Note what it installs, runs and sends over the network, whether it runs in the background, needs accounts, keys or personal data, and any paid upsell. A repo that runs unknown code or collects data without saying so isn't featured: stop and say so in a `done: false` checklist note. Every claim from the README (benchmarks, "X% fewer tokens", user counts) is the maker's: attribute it in the script ("the maker says") or verify it from an independent source.
 
-**3. Pick the format** and say which in the research notes, with one line why:
+**3. Find what it can actually do.** From the README and SKILL.md, list the repo's 2–3 biggest real capabilities: things a viewer would see and think "wait, it can do *that*?" The episode is built on these, not on one subtle detail. If our own channel uses the repo (check `.claude/skills/` and the animate/script skills), say so: our own work is the strongest proof.
+
+**Pick the format** and say which in the research notes, with one line why:
 - **Before/after** only when the skill is plain instructions (SKILL.md plus reference files) that can be followed without installing anything, and the task's output is a file you can show: a web page, a diagram, code, text.
 - **Showcase** otherwise (plugins with hooks or background services, accounts, personal data, long runs), or when step 4 doesn't give a clear difference.
 
-**4. Before/after run.** Choose one small, realistic task that shows the repo's main point (the idea's key points suggest one). Then start two fresh `general-purpose` subagents in parallel, each told to write its output only into the proof folder:
-- **before:** the task alone. Output to `proof/before/`.
-- **after:** the same task, plus the repo's SKILL.md and the reference files it points to, pasted in full as instructions to follow. Output to `proof/after/`.
-Never install the repo or run its scripts. For web pages and diagrams, screenshot both: `npm --prefix video run ep:shot -- video/public/episodes/<slug>/proof/before/index.html video/public/episodes/<slug>/proof/before.png` (add `--size 1080x1920` for a phone view). For code or text, count what matters (lines, words, files) and keep both versions. Look at the results with Read. If the difference isn't clear, switch to a showcase: never stage or exaggerate a difference.
+**4. Before/after runs.** Choose 2–3 small, realistic tasks, one per capability from step 3. For each task, start two fresh `general-purpose` subagents in parallel, each told to write its output only into the proof folder (one task alone is fine only when its difference is dramatic on its own, like Ponytail's 335 → 10 lines):
+- **before:** the task alone. Output to `proof/<task>/before/` (`proof/before/` when there is one task).
+- **after:** the same task, plus the repo's SKILL.md and the reference files it points to, pasted in full as instructions to follow. Output to `proof/<task>/after/`.
+Never install the repo or run its scripts. For web pages and diagrams, screenshot both: `npm --prefix video run ep:shot -- video/public/episodes/<slug>/proof/before/index.html video/public/episodes/<slug>/proof/before.png` (add `--size 1080x1920` for a phone view). For code or text, count what matters (lines, words, files) and keep both versions. Look at the results with Read. A task whose difference isn't clear is dropped (say so in the research notes); if none is clear, switch to a showcase. Never stage or exaggerate a difference.
 
-**5. Showcase media.** Download the repo's own demo images, GIFs or videos (from the README) with `curl -sSfL -o video/public/episodes/<slug>/proof/demo-<n>.<ext> <url>`, one at a time. Convert GIFs to MP4 with `tools/earshot/.venv/bin/ffmpeg -i demo-1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" demo-1.mp4` (Remotion can't play GIFs). Note each file's source URL and the repo's licence: the maker is credited on screen whenever their demo shows.
+**5. Showcase media.** Download the repo's own demo images, GIFs or videos (from the README) with `curl -sSfL -o video/public/episodes/<slug>/proof/demo-<n>.<ext> <url>`, one at a time. Convert GIFs to MP4 with `tools/earshot/.venv/bin/ffmpeg -i demo-1.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" demo-1.mp4` (Remotion can't play GIFs). Note each file's source URL and the repo's licence: the maker is credited on screen whenever their demo shows. If our channel uses the repo, list our own renders that show each capability (`video/out/<slug>/final.mp4` with a time range) as proof too.
 
 **6. Write `research`** in the same shape as section 2, read this way: "The question" is the problem the repo fixes; "The big idea" is the one trick inside it (how it works, in plain words); "Key facts" are the repo facts (stars with date, licence, last update, what it installs, maker's claims marked as theirs) and the proof-run results. Add a section:
 
@@ -101,7 +103,7 @@ Task: "…"
 
 `sources` lists the repo pages you opened (README, SKILL.md, API data) and any independent source.
 
-**Writing it:** advanced viewers, so naming tools and terms is fine, but keep the sentences plain and spoken. No "one big idea" or "one number" rule: the six beats in the playbook replace them. Name the repo and maker the way the repo does. The catch is always said out loud. The install line is said briefly ("Install it with one command, link in the description") and shown on screen.
+**Writing it:** advanced viewers, so naming tools and terms is fine, but keep the sentences plain and spoken. No "one big idea" or "one number" rule: the six beats in the playbook replace them. The hook states the biggest result plainly, never the setup or a name-drop. The "what it can do" beat shows 2–3 capabilities, one short line each. Length: target `series.targetSeconds`; go up to 90s (about 207 words) only when there are three strong, real demos, and say so in the checklist. Name the repo and maker the way the repo does. The catch is always said out loud. The install line is said briefly ("Install it with one command, link in the description") and shown on screen.
 
 ## 3. Write it for the ear
 

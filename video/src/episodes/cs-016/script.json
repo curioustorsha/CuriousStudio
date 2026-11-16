@@ -1,24 +1,25 @@
 {
-  "title": "Ponytail: 116 lines → 10",
+  "title": "Ponytail: 335 lines → 10",
   "voiceId": "EaBs7G1VibMrNAuz2Na7",
   "voiceName": "Monika Sogam - Natural Conversations",
-  "musicPrompt": "Sleek, minimal product-launch bed for a 62-second tech short, about 100 BPM, soft analog synth pulses, a warm sub bass, crisp light hi-hats, glassy plucks, a small lift when the ten-line answer appears around 22 seconds and a calm resolve into the end card, instrumental, no vocals.",
+  "musicPrompt": "Sleek minimal product-launch bed for a 60-second tech short, about 100 BPM, soft analog synth pulses, warm sub bass, crisp light hi-hats and glassy plucks, a small lift when the counter falls to ten around 16 seconds and a calm resolve into the end card, instrumental, no vocals.",
   "scenes": [
-    { "id": "hook", "text": "You ask your AI to debounce a search box. It writes a hundred and sixteen lines." },
+    { "id": "hook", "text": "You ask your AI for a date picker. In one test, it wrote three hundred and thirty-five lines." },
     { "id": "intro", "text": "Welcome to Claude Skills, by Curiously." },
-    { "id": "repo", "text": "This is Ponytail, a free skill with over a hundred and ninety thousand stars on GitHub." },
-    { "id": "before", "text": "In the maker's own test, Claude without it built a helper, a wrapper and a config object." },
-    { "id": "after", "text": "Same prompt, same model, with Ponytail: ten lines. A timer is the debounce." },
-    { "id": "trick", "text": "The trick is one short list. Before writing anything, Claude asks: does this need to exist? Is it already in your code, or built into the language? Only then does it write the minimum." },
-    { "id": "safe", "text": "And it never cuts validation, error handling or security." },
-    { "id": "catch", "text": "The catch: it's for coding only, and those numbers are the maker's own benchmark." },
-    { "id": "install", "text": "Install it with two commands. The link is in the description." },
+    { "id": "repo", "text": "This is Ponytail, a free skill with over a hundred and ninety thousand GitHub stars." },
+    { "id": "before", "text": "That's the maker's test. Without the skill, Claude reached for a calendar library." },
+    { "id": "after", "text": "With Ponytail, ten lines. It reused the project's input box, and the browser brings the calendar." },
+    { "id": "trick", "text": "The trick: a ladder of questions. Does this need to exist? Is it already in your code, or the browser? Only then does it write the minimum. Security is never cut." },
+    { "id": "catch", "text": "It's for anyone reviewing AI code. The catch: coding only, and those numbers are the maker's. In our small test, plain Claude was already lean." },
+    { "id": "install", "text": "We use it ourselves. Install it with two commands, link in the description." },
     { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
   ],
-  "keyterms": ["Claude", "Curiously", "Claude Skills", "Ponytail", "debounce", "GitHub", "config", "validation"],
+  "keyterms": ["Claude", "Curiously", "Claude Skills", "Ponytail", "GitHub", "date picker", "calendar library"],
   "sources": [
-    "github.com/DietrichGebert/ponytail README (stars 190,910 via GitHub API, 14 Nov 2026), MIT licence",
-    "github.com/DietrichGebert/ponytail examples/debounce.md: maker's benchmark, Claude Haiku 4.5, 116 → 10 lines of code",
-    "github.com/DietrichGebert/ponytail skills/ponytail/SKILL.md, lines 25-32 and 44"
+    "github.com/DietrichGebert/ponytail README (190,983 stars via GitHub API, 14 Nov 2026), MIT licence, v5.3.3",
+    "github.com/DietrichGebert/ponytail benchmarks/results/2026-10-07-agentic.md: maker's test, tmpl-fe-datepicker 335 / 11 / 10 lines, Opus 5.5, median of 5 runs",
+    "github.com/DietrichGebert/ponytail assets/v5/beforeafter.png: maker's before/after card (Dietrich Gebert, MIT)",
+    "github.com/DietrichGebert/ponytail skills/ponytail/SKILL.md, the ladder and the never-cut line",
+    "Curiously proof run, 14 Nov 2026: booking form date picker, app.js 10 lines without vs 9 with"
   ]
 }

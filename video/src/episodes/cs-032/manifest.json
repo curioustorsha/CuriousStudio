@@ -1,0 +1,777 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/cs-032/vo/hook.mp3",
+      "text": "Claude can code you a whole video. Changing it means digging through the code.",
+      "words": [
+        {
+          "text": "Claude",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "can",
+          "start": 0.52,
+          "end": 0.64
+        },
+        {
+          "text": "code",
+          "start": 0.76,
+          "end": 0.88
+        },
+        {
+          "text": "you",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "a",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "whole",
+          "start": 1.28,
+          "end": 1.52
+        },
+        {
+          "text": "video.",
+          "start": 1.6,
+          "end": 2.24
+        },
+        {
+          "text": "Changing",
+          "start": 2.48,
+          "end": 2.88
+        },
+        {
+          "text": "it",
+          "start": 2.96,
+          "end": 3.12
+        },
+        {
+          "text": "means",
+          "start": 3.2,
+          "end": 3.44
+        },
+        {
+          "text": "digging",
+          "start": 3.6,
+          "end": 3.92
+        },
+        {
+          "text": "through",
+          "start": 4,
+          "end": 4.08
+        },
+        {
+          "text": "the",
+          "start": 4.16,
+          "end": 4.2
+        },
+        {
+          "text": "code.",
+          "start": 4.24,
+          "end": 4.72
+        }
+      ],
+      "end": 4.72
+    },
+    {
+      "id": "intro",
+      "file": "episodes/cs-032/vo/intro.mp3",
+      "text": "Welcome to Claude Skills, by Curiously.",
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "to",
+          "start": 0.4,
+          "end": 0.56
+        },
+        {
+          "text": "Claude",
+          "start": 0.64,
+          "end": 0.88
+        },
+        {
+          "text": "Skills,",
+          "start": 0.96,
+          "end": 1.6
+        },
+        {
+          "text": "by",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "text": "Curiously.",
+          "start": 1.84,
+          "end": 2.96
+        }
+      ],
+      "end": 2.96
+    },
+    {
+      "id": "task",
+      "file": "episodes/cs-032/vo/task.mp3",
+      "text": "We asked Claude for a title card in Remotion, with and without Remotion's own skills.",
+      "words": [
+        {
+          "text": "We",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "asked",
+          "start": 0.24,
+          "end": 0.48
+        },
+        {
+          "text": "Claude",
+          "start": 0.56,
+          "end": 0.88
+        },
+        {
+          "text": "for",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "a",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "title",
+          "start": 1.36,
+          "end": 1.52
+        },
+        {
+          "text": "card",
+          "start": 1.6,
+          "end": 1.84
+        },
+        {
+          "text": "in",
+          "start": 1.88,
+          "end": 1.92
+        },
+        {
+          "text": "Remotion,",
+          "start": 2,
+          "end": 2.84
+        },
+        {
+          "text": "with",
+          "start": 2.88,
+          "end": 3.2
+        },
+        {
+          "text": "and",
+          "start": 3.28,
+          "end": 3.44
+        },
+        {
+          "text": "without",
+          "start": 3.68,
+          "end": 3.92
+        },
+        {
+          "text": "Remotion's",
+          "start": 4.04,
+          "end": 4.56
+        },
+        {
+          "text": "own",
+          "start": 4.64,
+          "end": 4.8
+        },
+        {
+          "text": "skills.",
+          "start": 4.88,
+          "end": 5.84
+        }
+      ],
+      "end": 5.84
+    },
+    {
+      "id": "before",
+      "file": "episodes/cs-032/vo/before.mp3",
+      "text": "Plain Claude already knows Remotion. But its timing hid in raw frame numbers: frame eight, five frames apart.",
+      "words": [
+        {
+          "text": "Plain",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "Claude",
+          "start": 0.4,
+          "end": 0.8
+        },
+        {
+          "text": "already",
+          "start": 0.88,
+          "end": 1.28
+        },
+        {
+          "text": "knows",
+          "start": 1.36,
+          "end": 1.68
+        },
+        {
+          "text": "Remotion.",
+          "start": 1.8,
+          "end": 2.8
+        },
+        {
+          "text": "But",
+          "start": 2.88,
+          "end": 2.96
+        },
+        {
+          "text": "its",
+          "start": 3.08,
+          "end": 3.2
+        },
+        {
+          "text": "timing",
+          "start": 3.28,
+          "end": 3.76
+        },
+        {
+          "text": "hid",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "text": "in",
+          "start": 4.12,
+          "end": 4.24
+        },
+        {
+          "text": "raw",
+          "start": 4.32,
+          "end": 4.56
+        },
+        {
+          "text": "frame",
+          "start": 4.64,
+          "end": 4.88
+        },
+        {
+          "text": "numbers:",
+          "start": 5.32,
+          "end": 5.867
+        },
+        {
+          "text": "frame",
+          "start": 5.973,
+          "end": 6.08
+        },
+        {
+          "text": "eight,",
+          "start": 6.16,
+          "end": 6.76
+        },
+        {
+          "text": "five",
+          "start": 6.8,
+          "end": 7.04
+        },
+        {
+          "text": "frames",
+          "start": 7.2,
+          "end": 7.36
+        },
+        {
+          "text": "apart.",
+          "start": 7.48,
+          "end": 8.32
+        }
+      ],
+      "end": 8.32
+    },
+    {
+      "id": "after",
+      "file": "episodes/cs-032/vo/after.mp3",
+      "text": "With the skills, each line got a name, with its timing in seconds written right on it.",
+      "words": [
+        {
+          "text": "With",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "the",
+          "start": 0.24,
+          "end": 0.32
+        },
+        {
+          "text": "skills,",
+          "start": 0.56,
+          "end": 1.12
+        },
+        {
+          "text": "each",
+          "start": 1.24,
+          "end": 1.36
+        },
+        {
+          "text": "line",
+          "start": 1.44,
+          "end": 1.68
+        },
+        {
+          "text": "got",
+          "start": 1.76,
+          "end": 1.84
+        },
+        {
+          "text": "a",
+          "start": 1.92,
+          "end": 1.96
+        },
+        {
+          "text": "name,",
+          "start": 2,
+          "end": 2.64
+        },
+        {
+          "text": "with",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "its",
+          "start": 2.92,
+          "end": 3.04
+        },
+        {
+          "text": "timing",
+          "start": 3.24,
+          "end": 3.44
+        },
+        {
+          "text": "in",
+          "start": 3.52,
+          "end": 3.6
+        },
+        {
+          "text": "seconds",
+          "start": 3.84,
+          "end": 4.08
+        },
+        {
+          "text": "written",
+          "start": 4.28,
+          "end": 4.48
+        },
+        {
+          "text": "right",
+          "start": 4.56,
+          "end": 4.72
+        },
+        {
+          "text": "on",
+          "start": 4.8,
+          "end": 4.88
+        },
+        {
+          "text": "it.",
+          "start": 4.96,
+          "end": 5.52
+        }
+      ],
+      "end": 5.52
+    },
+    {
+      "id": "trick",
+      "file": "episodes/cs-032/vo/trick.mp3",
+      "text": "That's the trick. Remotion Studio can edit code written this way by hand: drag a line, move a keyframe, and it saves the change back into your code.",
+      "words": [
+        {
+          "text": "That's",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "the",
+          "start": 0.4,
+          "end": 0.48
+        },
+        {
+          "text": "trick.",
+          "start": 0.56,
+          "end": 1.36
+        },
+        {
+          "text": "Remotion",
+          "start": 1.48,
+          "end": 1.84
+        },
+        {
+          "text": "Studio",
+          "start": 2,
+          "end": 2.4
+        },
+        {
+          "text": "can",
+          "start": 2.52,
+          "end": 2.64
+        },
+        {
+          "text": "edit",
+          "start": 2.72,
+          "end": 2.96
+        },
+        {
+          "text": "code",
+          "start": 3.04,
+          "end": 3.28
+        },
+        {
+          "text": "written",
+          "start": 3.44,
+          "end": 3.6
+        },
+        {
+          "text": "this",
+          "start": 3.72,
+          "end": 3.84
+        },
+        {
+          "text": "way",
+          "start": 3.92,
+          "end": 4.08
+        },
+        {
+          "text": "by",
+          "start": 4.16,
+          "end": 4.32
+        },
+        {
+          "text": "hand:",
+          "start": 4.76,
+          "end": 5.24
+        },
+        {
+          "text": "drag",
+          "start": 5.28,
+          "end": 5.52
+        },
+        {
+          "text": "a",
+          "start": 5.6,
+          "end": 5.64
+        },
+        {
+          "text": "line,",
+          "start": 5.68,
+          "end": 6.24
+        },
+        {
+          "text": "move",
+          "start": 6.32,
+          "end": 6.4
+        },
+        {
+          "text": "a",
+          "start": 6.48,
+          "end": 6.56
+        },
+        {
+          "text": "keyframe,",
+          "start": 6.68,
+          "end": 7.387
+        },
+        {
+          "text": "and",
+          "start": 7.413,
+          "end": 7.44
+        },
+        {
+          "text": "it",
+          "start": 7.52,
+          "end": 7.6
+        },
+        {
+          "text": "saves",
+          "start": 7.68,
+          "end": 7.92
+        },
+        {
+          "text": "the",
+          "start": 8,
+          "end": 8.08
+        },
+        {
+          "text": "change",
+          "start": 8.16,
+          "end": 8.56
+        },
+        {
+          "text": "back",
+          "start": 8.64,
+          "end": 8.8
+        },
+        {
+          "text": "into",
+          "start": 8.92,
+          "end": 9.04
+        },
+        {
+          "text": "your",
+          "start": 9.12,
+          "end": 9.2
+        },
+        {
+          "text": "code.",
+          "start": 9.6,
+          "end": 10.08
+        }
+      ],
+      "end": 10.08
+    },
+    {
+      "id": "catch",
+      "file": "episodes/cs-032/vo/catch.mp3",
+      "text": "The catch: you need Node and a Remotion project, and companies over three people need a paid Remotion licence.",
+      "words": [
+        {
+          "text": "The",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "catch:",
+          "start": 0.4,
+          "end": 1.04
+        },
+        {
+          "text": "you",
+          "start": 1.08,
+          "end": 1.12
+        },
+        {
+          "text": "need",
+          "start": 1.2,
+          "end": 1.44
+        },
+        {
+          "text": "Node",
+          "start": 1.52,
+          "end": 1.92
+        },
+        {
+          "text": "and",
+          "start": 2,
+          "end": 2.08
+        },
+        {
+          "text": "a",
+          "start": 2.16,
+          "end": 2.2
+        },
+        {
+          "text": "Remotion",
+          "start": 2.24,
+          "end": 2.72
+        },
+        {
+          "text": "project,",
+          "start": 3.12,
+          "end": 3.56
+        },
+        {
+          "text": "and",
+          "start": 3.6,
+          "end": 3.76
+        },
+        {
+          "text": "companies",
+          "start": 4,
+          "end": 4.24
+        },
+        {
+          "text": "over",
+          "start": 4.32,
+          "end": 4.56
+        },
+        {
+          "text": "three",
+          "start": 4.68,
+          "end": 4.8
+        },
+        {
+          "text": "people",
+          "start": 5.04,
+          "end": 5.28
+        },
+        {
+          "text": "need",
+          "start": 5.36,
+          "end": 5.44
+        },
+        {
+          "text": "a",
+          "start": 5.6,
+          "end": 5.64
+        },
+        {
+          "text": "paid",
+          "start": 5.68,
+          "end": 5.92
+        },
+        {
+          "text": "Remotion",
+          "start": 6.04,
+          "end": 6.4
+        },
+        {
+          "text": "licence.",
+          "start": 6.92,
+          "end": 7.52
+        }
+      ],
+      "end": 7.52
+    },
+    {
+      "id": "install",
+      "file": "episodes/cs-032/vo/install.mp3",
+      "text": "Building videos with Claude? It's one command. Link in the description.",
+      "words": [
+        {
+          "text": "Building",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "videos",
+          "start": 0.32,
+          "end": 0.72
+        },
+        {
+          "text": "with",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "Claude?",
+          "start": 0.96,
+          "end": 1.76
+        },
+        {
+          "text": "It's",
+          "start": 1.84,
+          "end": 2
+        },
+        {
+          "text": "one",
+          "start": 2.08,
+          "end": 2.24
+        },
+        {
+          "text": "command.",
+          "start": 2.32,
+          "end": 3.12
+        },
+        {
+          "text": "Link",
+          "start": 3.2,
+          "end": 3.44
+        },
+        {
+          "text": "in",
+          "start": 3.52,
+          "end": 3.6
+        },
+        {
+          "text": "the",
+          "start": 3.64,
+          "end": 3.68
+        },
+        {
+          "text": "description.",
+          "start": 3.76,
+          "end": 4.72
+        }
+      ],
+      "end": 4.72
+    },
+    {
+      "id": "cta",
+      "file": "episodes/cs-032/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "you",
+          "start": 0.2,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.32,
+          "end": 0.56
+        },
+        {
+          "text": "this",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "kind",
+          "start": 0.8,
+          "end": 0.96
+        },
+        {
+          "text": "of",
+          "start": 1,
+          "end": 1.04
+        },
+        {
+          "text": "content,",
+          "start": 1.12,
+          "end": 1.84
+        },
+        {
+          "text": "like,",
+          "start": 1.92,
+          "end": 2.4
+        },
+        {
+          "text": "share",
+          "start": 2.48,
+          "end": 2.88
+        },
+        {
+          "text": "and",
+          "start": 3,
+          "end": 3.12
+        },
+        {
+          "text": "follow",
+          "start": 3.2,
+          "end": 3.52
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.6,
+          "end": 4.48
+        }
+      ],
+      "end": 4.48
+    }
+  ],
+  "music": "episodes/cs-032/music.mp3"
+}

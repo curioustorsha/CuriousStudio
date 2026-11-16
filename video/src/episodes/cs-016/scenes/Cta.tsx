@@ -1,16 +1,16 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig } from "remotion";
-import { ease, Sfx, useTiming, useWord } from "../../../engine/kit";
+import { ease, Sfx, useWord } from "../../../engine/kit";
 import { EndCard } from "../../../engine/cards";
 import { Space } from "../../../productui";
-import { HookView } from "./Hook";
+import { HookView, useHookCues } from "./Hook";
 
 /** The sign-off end card; the last frames fade into the hook's first frame (empty editor) so the video loops. */
 export const Cta: React.FC = () => {
   const f = useCurrentFrame();
   const { durationInFrames: D } = useVideoConfig();
-  const t = useTiming();
   const wf = useWord();
+  const cues = useHookCues();
   const tLike = wf("cta", "like", 1);
   const tShare = wf("cta", "share");
   const tFollow = wf("cta", "follow");
@@ -29,7 +29,7 @@ export const Cta: React.FC = () => {
       </div>
       {loop > 0 && (
         <div style={{ position: "absolute", inset: 0, opacity: loop }}>
-          <HookView f={0} tStart={t.wf("hook", "writes")} tEnd={t.wf("hook", "sixteen", 0, "end")} />
+          <HookView f={0} cues={cues} />
         </div>
       )}
     </>

@@ -53,7 +53,7 @@ Open `video/out/<slug>/frames/sheet.jpg` with Read, then the single frames (`t01
 - **Safe zones:** nothing important below ~1550 px or in the right ~120 px (platform buttons).
 - **Facts:** every number and name on screen matches the fact-check; fact scenes show a source line.
 - **Brand:** watermark and series tag present, logo end card at the end, no emoji.
-- **Style:** the look matches `series.visualStyle` (isometric: one consistent iso world, flat-shaded blocks, colour roles kept; flat-metaphor: flat shapes, each idea keeps its metaphor; product-ui: real proof files inside the windows, never a drawn copy of a tool's output, the maker's credit tag on screen whenever their demo shows, and the star count, repo name and install command matching the research). A scene in the wrong style is a Major issue for Animation.
+- **Style:** the look matches `series.visualStyle` (isometric: one consistent iso world, flat-shaded blocks, colour roles kept; flat-metaphor: flat shapes, each idea keeps its metaphor; product-ui: real proof files inside the windows, never a drawn copy of a tool's output, the maker's credit tag on screen whenever their demo shows, and the star count, repo name and install command matching the research; the key line or result readable at phone size, and no near-black gap between scenes). A scene in the wrong style is a Major issue for Animation.
 - **Flow:** no empty or frozen stretches; the last frame flows back into the first (loop).
 
 ## 5. Audio scorecard (if available)

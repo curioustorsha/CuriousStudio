@@ -8,14 +8,13 @@ import { Repo } from "./scenes/Repo";
 import { Before } from "./scenes/Before";
 import { After } from "./scenes/After";
 import { Trick } from "./scenes/Trick";
-import { Safe } from "./scenes/Safe";
 import { Catch } from "./scenes/Catch";
 import { Install } from "./scenes/Install";
 import { Cta } from "./scenes/Cta";
 
 export default makeEpisode({
   code: "CS-016",
-  title: "Ponytail: 116 lines → 10",
+  title: "Ponytail: 335 lines → 10",
   seriesTag: "CLAUDE SKILLS",
   manifest,
   // The cta scene is the sign-off end card, so no generic logo sting after it.
@@ -29,7 +28,6 @@ export default makeEpisode({
     before: Before,
     after: After,
     trick: Trick,
-    safe: Safe,
     catch: Catch,
     install: Install,
     cta: Cta,

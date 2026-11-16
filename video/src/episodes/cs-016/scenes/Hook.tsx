@@ -1,71 +1,74 @@
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { C, F } from "../../../theme";
-import { Sfx, useWord } from "../../../engine/kit";
-import { CodePane, Space, Window } from "../../../productui";
-import { clampI, Header, SourceLine, typedScroll, useProof } from "./common";
+import { Sfx, useTiming, useWord } from "../../../engine/kit";
+import { CountPill, ImagePane, Space, Window } from "../../../productui";
+import { clampI, Credit, DEMO, Header, SourceLine, SPOT } from "./common";
 
-const LH = 17 * 1.55;
-// The maker's exact benchmark prompt (examples/debounce.md).
-const PROMPT = "Add debounce to a search input in vanilla JavaScript. It currently fires an API call on every keystroke.";
+// The maker's exact benchmark prompt (tmpl-fe-datepicker).
+const PROMPT = "Add a date picker to the frontend";
+const PW = 960;
+const SCALE = 2.2;
+const PH = SPOT.wall.h * SCALE;
 
-/** The long answer typing itself, at any frame `f` (the intro and the loop reuse it). */
-export const HookView: React.FC<{ f: number; tStart: number; tEnd: number; dim?: number; header?: boolean }> = ({ f, tStart, tEnd, dim = 1, header = true }) => {
-  const { before } = useProof();
-  if (!before) return null;
-  const total = before.split("\n").length;
-  const shown = clampI(f, tStart, tEnd, 0, total);
-  const count = Math.round(clampI(f, tStart, tEnd, 0, 116));
+export type HookCues = { tType: number; tWrote: number; tThree: number; tLines: number };
+
+/** Hook cue frames from the timing (the intro and the loop reuse the hook's picture). */
+export const useHookCues = (): HookCues => {
+  const t = useTiming();
+  return { tType: t.wf("hook", "picker", 0, "end"), tWrote: t.wf("hook", "wrote"), tThree: t.wf("hook", "three"), tLines: t.wf("hook", "lines") };
+};
+
+/** The prompt typing itself, then the maker's NO SKILL code wall streaming past while the counter runs to 335. */
+export const HookView: React.FC<{ f: number; cues: HookCues; dim?: number; header?: boolean }> = ({ f, cues, dim = 1, header = true }) => {
+  const { tType, tWrote, tThree, tLines } = cues;
+  const wallIn = clampI(f, tWrote - 4, tWrote + 6);
+  // the camera streams across the wall from left to right
+  const half = PW / SCALE / 2;
+  const cx = interpolateWall(f, tWrote, tLines + 20, SPOT.wall.x + half, SPOT.wall.x + SPOT.wall.w - half);
+  const count = clampI(f, tThree, tLines, 0, 335);
+  const land = clampI(f, tLines, tLines + 6);
+  const shake = f >= tLines && f < tLines + 10 ? Math.sin((f - tLines) * 2.6) * (10 - (f - tLines)) * 0.8 : 0;
   return (
     <>
       <Space />
       <div style={{ opacity: dim }}>
-        {header && <Header title="Debounce one search box" />}
-        <Window title="search.js" x={60} y={440} w={960} h={800} tilt={Math.sin(f / 50) * 2}>
-          {f < tStart ? (
-            <div style={{ padding: "36px 40px", fontFamily: F.mono, fontSize: 32, lineHeight: 1.45, color: C.text }}>
-              <span style={{ color: C.accent }}>&gt; </span>
-              {PROMPT.slice(0, Math.floor(clampI(f, 2, tStart - 4, 0, PROMPT.length)))}
-              <span style={{ color: C.accent, opacity: Math.floor(f / 12) % 2 ? 0 : 1 }}>▍</span>
-            </div>
-          ) : (
-            <CodePane code={before} shown={shown} scroll={typedScroll(shown, 26, LH)} size={17} />
-          )}
+        {header && <Header title="One date picker" />}
+        <Window title="DatePicker.tsx" x={60} y={460} w={960} h={660} tilt={Math.sin(f / 50) * 2}>
+          <div style={{ padding: "40px 40px 0", fontFamily: F.mono, fontSize: 36, lineHeight: 1.4, color: C.text, height: 150 }}>
+            <span style={{ color: C.accent }}>&gt; </span>
+            {PROMPT.slice(0, Math.floor(clampI(f, 4, tType, 0, PROMPT.length)))}
+            <span style={{ color: C.accent, opacity: f < tWrote && Math.floor(f / 12) % 2 ? 0 : 1 }}>▍</span>
+          </div>
+          <div style={{ position: "absolute", left: 0, top: 170, width: PW, height: PH, opacity: wallIn }}>
+            <ImagePane {...DEMO} label={`${DEMO.label} (NO SKILL code)`} pw={PW} ph={PH} cx={cx} cy={SPOT.wall.y + SPOT.wall.h / 2} scale={SCALE} />
+          </div>
+          <div style={{ position: "absolute", left: 40, right: 40, top: 170 + PH + 24, fontFamily: F.mono, fontSize: 22, letterSpacing: 2, color: C.muted, opacity: wallIn }}>NO SKILL · CLAUDE CODE, OPUS 5.5</div>
         </Window>
-        <div
-          style={{
-            position: "absolute",
-            right: 90,
-            top: 1120,
-            padding: "14px 24px",
-            borderRadius: 16,
-            background: "rgba(255,92,92,0.12)",
-            border: `2px solid ${C.red}`,
-            fontFamily: F.mono,
-            fontWeight: 700,
-            fontSize: 40,
-            color: C.red,
-            opacity: clampI(f, tStart, tStart + 8),
-          }}
-        >
-          {count} lines
+        <div style={{ position: "absolute", inset: 0, transform: `translateX(${shake}px)` }}>
+          <CountPill value={count} y={1050} right={90} opacity={clampI(f, tThree - 4, tThree + 4)} scale={1 + 0.15 * (1 - land) * (f >= tLines ? 1 : 0)} />
         </div>
-        {header && <SourceLine text="SOURCE · ponytail repo, examples/debounce.md (maker's test)" opacity={clampI(f, tEnd - 10, tEnd)} />}
+        {header && <Credit top={1140} opacity={wallIn} />}
+        {header && <SourceLine text="SOURCE · Ponytail benchmark, 7 Oct 2026 (maker's test)" opacity={clampI(f, tLines - 10, tLines)} />}
       </div>
     </>
   );
 };
 
+const interpolateWall = (f: number, a: number, b: number, from: number, to: number) => {
+  const t = clampI(f, a, b);
+  return from + (to - from) * (1 - Math.pow(1 - t, 2));
+};
+
 export const Hook: React.FC = () => {
   const f = useCurrentFrame();
   const wf = useWord();
-  const tStart = wf("hook", "writes");
-  const tEnd = wf("hook", "sixteen", 0, "end");
+  const cues = useHookCues();
   return (
     <>
-      <Sfx name="ticker" at={tStart} volume={0.2} dur={tEnd - tStart} />
-      <Sfx name="impact" at={tEnd - 2} volume={0.35} />
-      <HookView f={f} tStart={tStart} tEnd={tEnd} />
+      <Sfx name="ticker" at={cues.tThree} volume={0.2} dur={wf("hook", "lines") - cues.tThree} />
+      <Sfx name="impact" at={cues.tLines - 1} volume={0.35} />
+      <HookView f={f} cues={cues} />
     </>
   );
 };

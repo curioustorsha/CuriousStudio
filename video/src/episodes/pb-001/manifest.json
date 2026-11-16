@@ -1,0 +1,545 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/pb-001/vo/hook.mp3",
+      "text": "You tap a button, and your food can show up in ten minutes. Your map knows about a traffic jam before you see it. How?",
+      "words": [
+        {
+          "text": "You",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "tap",
+          "start": 0.28,
+          "end": 0.4
+        },
+        {
+          "text": "a",
+          "start": 0.44,
+          "end": 0.48
+        },
+        {
+          "text": "button,",
+          "start": 0.56,
+          "end": 1.04
+        },
+        {
+          "text": "and",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "your",
+          "start": 1.28,
+          "end": 1.36
+        },
+        {
+          "text": "food",
+          "start": 1.44,
+          "end": 1.6
+        },
+        {
+          "text": "can",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "text": "show",
+          "start": 1.84,
+          "end": 2
+        },
+        {
+          "text": "up",
+          "start": 2.08,
+          "end": 2.16
+        },
+        {
+          "text": "in",
+          "start": 2.28,
+          "end": 2.4
+        },
+        {
+          "text": "ten",
+          "start": 2.48,
+          "end": 2.64
+        },
+        {
+          "text": "minutes.",
+          "start": 2.72,
+          "end": 3.52
+        },
+        {
+          "text": "Your",
+          "start": 3.6,
+          "end": 3.68
+        },
+        {
+          "text": "map",
+          "start": 3.76,
+          "end": 4.08
+        },
+        {
+          "text": "knows",
+          "start": 4.16,
+          "end": 4.28
+        },
+        {
+          "text": "about",
+          "start": 4.32,
+          "end": 4.48
+        },
+        {
+          "text": "a",
+          "start": 4.56,
+          "end": 4.64
+        },
+        {
+          "text": "traffic",
+          "start": 4.8,
+          "end": 4.96
+        },
+        {
+          "text": "jam",
+          "start": 5.04,
+          "end": 5.28
+        },
+        {
+          "text": "before",
+          "start": 5.44,
+          "end": 5.6
+        },
+        {
+          "text": "you",
+          "start": 5.76,
+          "end": 5.84
+        },
+        {
+          "text": "see",
+          "start": 6,
+          "end": 6.08
+        },
+        {
+          "text": "it.",
+          "start": 6.16,
+          "end": 6.72
+        },
+        {
+          "text": "How?",
+          "start": 6.92,
+          "end": 7.36
+        }
+      ],
+      "end": 7.36
+    },
+    {
+      "id": "what",
+      "file": "episodes/pb-001/vo/what.mp3",
+      "text": "This is Curiously. We show what's going on behind the apps you use every day, in about a minute.",
+      "words": [
+        {
+          "text": "This",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "is",
+          "start": 0.48,
+          "end": 0.64
+        },
+        {
+          "text": "Curiously.",
+          "start": 0.72,
+          "end": 1.84
+        },
+        {
+          "text": "We",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "show",
+          "start": 2.2,
+          "end": 2.32
+        },
+        {
+          "text": "what's",
+          "start": 2.4,
+          "end": 2.6
+        },
+        {
+          "text": "going",
+          "start": 2.64,
+          "end": 2.88
+        },
+        {
+          "text": "on",
+          "start": 2.96,
+          "end": 3.12
+        },
+        {
+          "text": "behind",
+          "start": 3.24,
+          "end": 3.52
+        },
+        {
+          "text": "the",
+          "start": 3.6,
+          "end": 3.68
+        },
+        {
+          "text": "apps",
+          "start": 3.76,
+          "end": 4
+        },
+        {
+          "text": "you",
+          "start": 4.08,
+          "end": 4.24
+        },
+        {
+          "text": "use",
+          "start": 4.32,
+          "end": 4.64
+        },
+        {
+          "text": "every",
+          "start": 4.72,
+          "end": 4.96
+        },
+        {
+          "text": "day,",
+          "start": 5.04,
+          "end": 5.56
+        },
+        {
+          "text": "in",
+          "start": 5.6,
+          "end": 5.68
+        },
+        {
+          "text": "about",
+          "start": 5.76,
+          "end": 5.92
+        },
+        {
+          "text": "a",
+          "start": 6,
+          "end": 6.267
+        },
+        {
+          "text": "minute.",
+          "start": 6.533,
+          "end": 6.88
+        }
+      ],
+      "end": 6.88
+    },
+    {
+      "id": "range",
+      "file": "episodes/pb-001/vo/range.mp3",
+      "text": "How huge apps cope with millions of people at once. Why things break when they do. And how to get real work done with Claude, from your first prompt to skills that handle the repetitive parts.",
+      "words": [
+        {
+          "text": "How",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "huge",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "text": "apps",
+          "start": 0.8,
+          "end": 1.12
+        },
+        {
+          "text": "cope",
+          "start": 1.2,
+          "end": 1.44
+        },
+        {
+          "text": "with",
+          "start": 1.6,
+          "end": 1.76
+        },
+        {
+          "text": "millions",
+          "start": 1.84,
+          "end": 2.24
+        },
+        {
+          "text": "of",
+          "start": 2.32,
+          "end": 2.4
+        },
+        {
+          "text": "people",
+          "start": 2.56,
+          "end": 2.72
+        },
+        {
+          "text": "at",
+          "start": 2.8,
+          "end": 2.88
+        },
+        {
+          "text": "once.",
+          "start": 2.96,
+          "end": 3.76
+        },
+        {
+          "text": "Why",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "text": "things",
+          "start": 4.08,
+          "end": 4.32
+        },
+        {
+          "text": "break",
+          "start": 4.4,
+          "end": 4.72
+        },
+        {
+          "text": "when",
+          "start": 4.8,
+          "end": 4.88
+        },
+        {
+          "text": "they",
+          "start": 4.96,
+          "end": 5.04
+        },
+        {
+          "text": "do.",
+          "start": 5.12,
+          "end": 5.72
+        },
+        {
+          "text": "And",
+          "start": 5.76,
+          "end": 5.84
+        },
+        {
+          "text": "how",
+          "start": 5.92,
+          "end": 6
+        },
+        {
+          "text": "to",
+          "start": 6.04,
+          "end": 6.08
+        },
+        {
+          "text": "get",
+          "start": 6.16,
+          "end": 6.4
+        },
+        {
+          "text": "real",
+          "start": 6.48,
+          "end": 6.72
+        },
+        {
+          "text": "work",
+          "start": 6.8,
+          "end": 6.96
+        },
+        {
+          "text": "done",
+          "start": 7.04,
+          "end": 7.2
+        },
+        {
+          "text": "with",
+          "start": 7.28,
+          "end": 7.44
+        },
+        {
+          "text": "Claude,",
+          "start": 7.52,
+          "end": 8.2
+        },
+        {
+          "text": "from",
+          "start": 8.24,
+          "end": 8.32
+        },
+        {
+          "text": "your",
+          "start": 8.4,
+          "end": 8.56
+        },
+        {
+          "text": "first",
+          "start": 8.72,
+          "end": 8.88
+        },
+        {
+          "text": "prompt",
+          "start": 9.12,
+          "end": 9.36
+        },
+        {
+          "text": "to",
+          "start": 9.44,
+          "end": 9.52
+        },
+        {
+          "text": "skills",
+          "start": 9.6,
+          "end": 9.92
+        },
+        {
+          "text": "that",
+          "start": 10,
+          "end": 10.08
+        },
+        {
+          "text": "handle",
+          "start": 10.16,
+          "end": 10.4
+        },
+        {
+          "text": "the",
+          "start": 10.48,
+          "end": 10.56
+        },
+        {
+          "text": "repetitive",
+          "start": 10.64,
+          "end": 11.12
+        },
+        {
+          "text": "parts.",
+          "start": 11.48,
+          "end": 11.92
+        }
+      ],
+      "end": 11.92
+    },
+    {
+      "id": "promise",
+      "file": "episodes/pb-001/vo/promise.mp3",
+      "text": "No jargon walls. One big idea per video.",
+      "words": [
+        {
+          "text": "No",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "jargon",
+          "start": 0.32,
+          "end": 0.64
+        },
+        {
+          "text": "walls.",
+          "start": 0.84,
+          "end": 1.36
+        },
+        {
+          "text": "One",
+          "start": 1.48,
+          "end": 1.6
+        },
+        {
+          "text": "big",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "text": "idea",
+          "start": 1.84,
+          "end": 2.32
+        },
+        {
+          "text": "per",
+          "start": 2.4,
+          "end": 2.48
+        },
+        {
+          "text": "video.",
+          "start": 2.56,
+          "end": 3.28
+        }
+      ],
+      "end": 3.28
+    },
+    {
+      "id": "cta",
+      "file": "episodes/pb-001/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "you",
+          "start": 0.16,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.32,
+          "end": 0.48
+        },
+        {
+          "text": "this",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "text": "kind",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "of",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "content,",
+          "start": 1.44,
+          "end": 1.88
+        },
+        {
+          "text": "like,",
+          "start": 1.92,
+          "end": 2.4
+        },
+        {
+          "text": "share",
+          "start": 2.48,
+          "end": 2.8
+        },
+        {
+          "text": "and",
+          "start": 2.88,
+          "end": 3.04
+        },
+        {
+          "text": "follow",
+          "start": 3.12,
+          "end": 3.44
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.52,
+          "end": 4.56
+        }
+      ],
+      "end": 4.56
+    }
+  ],
+  "music": "episodes/pb-001/music.mp3"
+}

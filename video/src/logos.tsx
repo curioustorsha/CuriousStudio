@@ -1,6 +1,7 @@
 import React from "react";
 import { Img } from "remotion";
 import { C, F } from "./theme";
+import REMOTION_MARK from "../node_modules/@remotion/studio-server/web/favicon.png";
 
 /**
  * Company logos, drawn as inline SVG so they render crisply anywhere (HTML or inside an iso scene).
@@ -254,6 +255,16 @@ export const LogoKicker: React.FC<{ text: string; logo?: KickerLogoKey }> = ({ t
   </div>
 );
 
+/**
+ * Remotion: the mark Remotion ships as Remotion Studio's favicon (`@remotion/studio-server/web/favicon.png`,
+ * 100 × 100, the blue rounded play shape), imported unchanged from the installed package. Trademark of Remotion AG.
+ * 100 px source: keep it at 100 px or smaller on screen.
+ */
+
+export const RemotionLogo: React.FC<{ size: number; style?: React.CSSProperties }> = ({ size, style }) => (
+  <Img src={REMOTION_MARK} style={{ width: size, height: size, display: "block", flexShrink: 0, ...style }} />
+);
+
 /** Every logo by key, for templates that pick one from data (e.g. a carousel slide's `"logo": "blinkit"`). Add new companies here. */
 export const LOGOS: Record<string, React.FC<{ size: number }>> = {
   blinkit: ({ size }) => <BlinkitLogo size={size} style={{ borderRadius: size * 0.22 }} />,
@@ -273,6 +284,7 @@ export const LOGOS: Record<string, React.FC<{ size: number }>> = {
     </div>
   ),
   claude: ({ size }) => <ClaudeLogo size={size} />,
+  remotion: ({ size }) => <RemotionLogo size={size} />,
   indianrailways: ({ size }) => <IndianRailwaysLogo size={size} />,
   irctc: ({ size }) => (
     <div style={{ width: size, height: size, borderRadius: size * 0.22, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F.sans, fontWeight: 900, fontSize: size * 0.27, color: IRCTC_BLUE }}>
