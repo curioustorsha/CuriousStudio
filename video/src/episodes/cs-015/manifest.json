@@ -3,80 +3,90 @@
     {
       "id": "hook",
       "file": "episodes/cs-015/vo/hook.mp3",
-      "text": "Andrej Karpathy listed what coding AIs get wrong. Someone turned it into one file.",
+      "text": "Give your AI a vague job and it guesses. This one file makes it ask first.",
       "words": [
         {
-          "text": "Andrej",
+          "text": "Give",
           "start": 0,
-          "end": 0.36
+          "end": 0.24
         },
         {
-          "text": "Karpathy",
-          "start": 0.4,
-          "end": 1.04
+          "text": "your",
+          "start": 0.36,
+          "end": 0.48
         },
         {
-          "text": "listed",
+          "text": "AI",
+          "start": 0.56,
+          "end": 0.88
+        },
+        {
+          "text": "a",
+          "start": 0.92,
+          "end": 0.96
+        },
+        {
+          "text": "vague",
           "start": 1.12,
-          "end": 1.52
+          "end": 1.36
         },
         {
-          "text": "what",
-          "start": 1.64,
+          "text": "job",
+          "start": 1.44,
           "end": 1.76
         },
         {
-          "text": "coding",
-          "start": 1.84,
-          "end": 2.24
-        },
-        {
-          "text": "AIs",
-          "start": 2.32,
-          "end": 2.8
-        },
-        {
-          "text": "get",
-          "start": 2.92,
-          "end": 3.04
-        },
-        {
-          "text": "wrong.",
-          "start": 3.12,
-          "end": 3.84
-        },
-        {
-          "text": "Someone",
-          "start": 3.92,
-          "end": 4.24
-        },
-        {
-          "text": "turned",
-          "start": 4.36,
-          "end": 4.48
+          "text": "and",
+          "start": 1.92,
+          "end": 2
         },
         {
           "text": "it",
-          "start": 4.56,
-          "end": 4.64
+          "start": 2.08,
+          "end": 2.16
         },
         {
-          "text": "into",
-          "start": 4.72,
-          "end": 4.96
+          "text": "guesses.",
+          "start": 2.28,
+          "end": 3.12
+        },
+        {
+          "text": "This",
+          "start": 3.24,
+          "end": 3.36
         },
         {
           "text": "one",
-          "start": 5.04,
-          "end": 5.28
+          "start": 3.44,
+          "end": 3.6
         },
         {
-          "text": "file.",
-          "start": 5.36,
-          "end": 5.84
+          "text": "file",
+          "start": 3.68,
+          "end": 4
+        },
+        {
+          "text": "makes",
+          "start": 4.08,
+          "end": 4.24
+        },
+        {
+          "text": "it",
+          "start": 4.32,
+          "end": 4.48
+        },
+        {
+          "text": "ask",
+          "start": 4.56,
+          "end": 4.88
+        },
+        {
+          "text": "first.",
+          "start": 4.96,
+          "end": 5.52
         }
       ],
-      "end": 5.84
+      "end": 5.52
     },
     {
       "id": "intro",
@@ -115,6 +125,114 @@
         }
       ],
       "end": 3.12
+    },
+    {
+      "id": "repo",
+      "file": "episodes/cs-015/vo/repo.mp3",
+      "text": "Andrej Karpathy listed what coding AIs get wrong. Someone turned it into one file, with over two hundred thousand stars.",
+      "words": [
+        {
+          "text": "Andrej",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "Karpathy",
+          "start": 0.52,
+          "end": 0.96
+        },
+        {
+          "text": "listed",
+          "start": 1.04,
+          "end": 1.44
+        },
+        {
+          "text": "what",
+          "start": 1.56,
+          "end": 1.68
+        },
+        {
+          "text": "coding",
+          "start": 1.76,
+          "end": 2.08
+        },
+        {
+          "text": "AIs",
+          "start": 2.24,
+          "end": 2.64
+        },
+        {
+          "text": "get",
+          "start": 2.76,
+          "end": 2.88
+        },
+        {
+          "text": "wrong.",
+          "start": 3.36,
+          "end": 3.88
+        },
+        {
+          "text": "Someone",
+          "start": 3.92,
+          "end": 4.24
+        },
+        {
+          "text": "turned",
+          "start": 4.36,
+          "end": 4.48
+        },
+        {
+          "text": "it",
+          "start": 4.52,
+          "end": 4.56
+        },
+        {
+          "text": "into",
+          "start": 4.64,
+          "end": 4.96
+        },
+        {
+          "text": "one",
+          "start": 5.04,
+          "end": 5.28
+        },
+        {
+          "text": "file,",
+          "start": 5.36,
+          "end": 5.88
+        },
+        {
+          "text": "with",
+          "start": 5.92,
+          "end": 6
+        },
+        {
+          "text": "over",
+          "start": 6.08,
+          "end": 6.4
+        },
+        {
+          "text": "two",
+          "start": 6.48,
+          "end": 6.72
+        },
+        {
+          "text": "hundred",
+          "start": 6.8,
+          "end": 7.12
+        },
+        {
+          "text": "thousand",
+          "start": 7.28,
+          "end": 7.76
+        },
+        {
+          "text": "stars.",
+          "start": 7.84,
+          "end": 8.88
+        }
+      ],
+      "end": 8.88
     },
     {
       "id": "task",
@@ -386,172 +504,117 @@
       "end": 8.08
     },
     {
-      "id": "trick",
-      "file": "episodes/cs-015/vo/trick.mp3",
-      "text": "That's rule one: think before coding. The other three: keep it simple, change only what you must, and work toward a goal you can check. Each one comes from his post.",
+      "id": "honest",
+      "file": "episodes/cs-015/vo/honest.mp3",
+      "text": "On clear bug fixes, plain Claude was already careful in our tests. The file matters when the job is vague.",
       "words": [
         {
-          "text": "That's",
+          "text": "On",
           "start": 0,
           "end": 0.24
         },
         {
-          "text": "rule",
+          "text": "clear",
           "start": 0.32,
-          "end": 0.48
+          "end": 0.56
         },
         {
-          "text": "one:",
-          "start": 0.56,
-          "end": 1.28
+          "text": "bug",
+          "start": 0.64,
+          "end": 0.8
         },
         {
-          "text": "think",
-          "start": 1.36,
-          "end": 1.6
+          "text": "fixes,",
+          "start": 0.88,
+          "end": 1.64
         },
         {
-          "text": "before",
-          "start": 1.76,
-          "end": 2.08
+          "text": "plain",
+          "start": 1.68,
+          "end": 1.92
         },
         {
-          "text": "coding.",
-          "start": 2.16,
-          "end": 3.12
+          "text": "Claude",
+          "start": 2,
+          "end": 2.24
         },
         {
-          "text": "The",
-          "start": 3.2,
-          "end": 3.28
+          "text": "was",
+          "start": 2.32,
+          "end": 2.48
         },
         {
-          "text": "other",
-          "start": 3.36,
+          "text": "already",
+          "start": 2.56,
+          "end": 2.96
+        },
+        {
+          "text": "careful",
+          "start": 3.04,
+          "end": 3.36
+        },
+        {
+          "text": "in",
+          "start": 3.44,
           "end": 3.52
         },
         {
-          "text": "three:",
+          "text": "our",
           "start": 3.6,
-          "end": 4.24
+          "end": 3.68
         },
         {
-          "text": "keep",
-          "start": 4.32,
-          "end": 4.48
+          "text": "tests.",
+          "start": 4.16,
+          "end": 4.68
         },
         {
-          "text": "it",
-          "start": 4.56,
-          "end": 4.64
+          "text": "The",
+          "start": 4.72,
+          "end": 4.88
         },
         {
-          "text": "simple,",
-          "start": 5,
-          "end": 5.4
+          "text": "file",
+          "start": 5.04,
+          "end": 5.2
         },
         {
-          "text": "change",
-          "start": 5.44,
+          "text": "matters",
+          "start": 5.28,
           "end": 5.76
         },
         {
-          "text": "only",
-          "start": 5.92,
-          "end": 6.16
+          "text": "when",
+          "start": 5.84,
+          "end": 5.92
         },
         {
-          "text": "what",
-          "start": 6.24,
+          "text": "the",
+          "start": 6,
+          "end": 6.08
+        },
+        {
+          "text": "job",
+          "start": 6.2,
           "end": 6.32
         },
         {
-          "text": "you",
+          "text": "is",
           "start": 6.4,
           "end": 6.48
         },
         {
-          "text": "must,",
+          "text": "vague.",
           "start": 6.56,
-          "end": 7.24
-        },
-        {
-          "text": "and",
-          "start": 7.28,
           "end": 7.44
-        },
-        {
-          "text": "work",
-          "start": 7.56,
-          "end": 7.68
-        },
-        {
-          "text": "toward",
-          "start": 7.76,
-          "end": 8
-        },
-        {
-          "text": "a",
-          "start": 8.08,
-          "end": 8.16
-        },
-        {
-          "text": "goal",
-          "start": 8.28,
-          "end": 8.4
-        },
-        {
-          "text": "you",
-          "start": 8.48,
-          "end": 8.56
-        },
-        {
-          "text": "can",
-          "start": 8.68,
-          "end": 8.8
-        },
-        {
-          "text": "check.",
-          "start": 9.2,
-          "end": 9.64
-        },
-        {
-          "text": "Each",
-          "start": 9.68,
-          "end": 9.84
-        },
-        {
-          "text": "one",
-          "start": 9.92,
-          "end": 10.16
-        },
-        {
-          "text": "comes",
-          "start": 10.28,
-          "end": 10.4
-        },
-        {
-          "text": "from",
-          "start": 10.48,
-          "end": 10.56
-        },
-        {
-          "text": "his",
-          "start": 10.64,
-          "end": 10.72
-        },
-        {
-          "text": "post.",
-          "start": 10.8,
-          "end": 11.6
         }
       ],
-      "end": 11.6
+      "end": 7.44
     },
     {
       "id": "catch",
       "file": "episodes/cs-015/vo/catch.mp3",
-      "text": "The catch: Karpathy didn't write it. A developer built it from his post. No updates since April, and no licence file, though it says MIT.",
+      "text": "The catch: Karpathy didn't write it. A developer built it from his post, and there's no licence file.",
       "words": [
         {
           "text": "The",
@@ -575,22 +638,22 @@
         },
         {
           "text": "write",
-          "start": 2.04,
-          "end": 2.16
+          "start": 2,
+          "end": 2.24
         },
         {
           "text": "it.",
-          "start": 2.24,
+          "start": 2.32,
           "end": 2.8
         },
         {
           "text": "A",
-          "start": 2.88,
-          "end": 2.96
+          "start": 2.84,
+          "end": 2.88
         },
         {
           "text": "developer",
-          "start": 3.24,
+          "start": 3.2,
           "end": 3.52
         },
         {
@@ -606,80 +669,45 @@
         {
           "text": "from",
           "start": 4,
-          "end": 4.16
+          "end": 4.08
         },
         {
           "text": "his",
-          "start": 4.28,
-          "end": 4.4
+          "start": 4.16,
+          "end": 4.32
         },
         {
-          "text": "post.",
-          "start": 4.48,
-          "end": 5.28
-        },
-        {
-          "text": "No",
-          "start": 5.36,
-          "end": 5.52
-        },
-        {
-          "text": "updates",
-          "start": 5.72,
-          "end": 5.92
-        },
-        {
-          "text": "since",
-          "start": 6,
-          "end": 6.24
-        },
-        {
-          "text": "April,",
-          "start": 6.32,
-          "end": 7
+          "text": "post,",
+          "start": 4.52,
+          "end": 5.04
         },
         {
           "text": "and",
-          "start": 7.04,
-          "end": 7.12
+          "start": 5.2,
+          "end": 5.36
+        },
+        {
+          "text": "there's",
+          "start": 5.44,
+          "end": 5.6
         },
         {
           "text": "no",
-          "start": 7.2,
-          "end": 7.28
+          "start": 5.68,
+          "end": 5.84
         },
         {
           "text": "licence",
-          "start": 7.36,
-          "end": 7.76
+          "start": 5.92,
+          "end": 6.32
         },
         {
-          "text": "file,",
-          "start": 7.84,
-          "end": 8.36
-        },
-        {
-          "text": "though",
-          "start": 8.4,
-          "end": 8.48
-        },
-        {
-          "text": "it",
-          "start": 8.56,
-          "end": 8.64
-        },
-        {
-          "text": "says",
-          "start": 8.72,
-          "end": 9.04
-        },
-        {
-          "text": "MIT.",
-          "start": 9.2,
-          "end": 10.16
+          "text": "file.",
+          "start": 6.4,
+          "end": 7.12
         }
       ],
-      "end": 10.16
+      "end": 7.12
     },
     {
       "id": "install",

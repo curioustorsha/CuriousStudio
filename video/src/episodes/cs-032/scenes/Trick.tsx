@@ -6,8 +6,8 @@ import { CodePane, Cursor, pop, PreviewWindow, Space, Window } from "../../../pr
 import { RemotionLogo } from "../../../logos";
 import { Card, clampI, fold, Header, SourceLine, useCode } from "./common";
 
-const SIZE = 19;
-const ED = { x: 60, y: 420, w: 900, h: 240 };
+const SIZE = 20;
+const ED = { x: 60, y: 420, w: 960, h: 226 };
 const PV = { x: 250, y: 680, w: 290 };
 const S = PV.w / 1080;
 /** Title's translate + scale (lines 39–46), dedented by 8; line 39 is the one Studio rewrites (see proof/edited/README.md). */

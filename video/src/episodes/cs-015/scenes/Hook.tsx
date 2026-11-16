@@ -2,101 +2,70 @@ import React from "react";
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, F } from "../../../theme";
 import { Sfx, useTiming } from "../../../engine/kit";
-import { pop, RepoCard, Space, Window } from "../../../productui";
-import { clampI, FRAGMENTS, Header, QUOTE, SourceLine } from "./common";
+import { ChatPane, CodePane, pop, Space, Window } from "../../../productui";
+import { sixQuestions } from "./After";
+import { BarCount, changedLines, clampI, Header, lineCount, SourceLine, useProof } from "./common";
+import { PROMPT } from "./Task";
 
-export type HookCues = { tListed: number; tWrong: number; tSomeone: number; tOne: number; tFile: number };
+export type HookCues = { tVague: number; tGuesses: number; tFile: number; tAsk: number; end: number };
 
-/** Hook cue frames from the timing (the intro and the loop reuse the hook's picture). */
 export const useHookCues = (): HookCues => {
   const t = useTiming();
   return {
-    tListed: t.wf("hook", "listed"),
-    tWrong: t.wf("hook", "wrong"),
-    tSomeone: t.wf("hook", "someone"),
-    tOne: t.wf("hook", "one"),
+    tVague: t.wf("hook", "vague"),
+    tGuesses: t.wf("hook", "guesses"),
     tFile: t.wf("hook", "file"),
+    tAsk: t.wf("hook", "ask"),
+    end: t.sceneFrames("hook"),
   };
 };
 
-const STARS = 233419;
+const SIZE = 22;
+const LH = SIZE * 1.55;
+const ED = { x: 60, y: 600, w: 960, h: 380 };
 
 /**
- * Karpathy's quote card types itself; three fragments of his list drop in under it; then it shrinks up and the
- * repo card flies in from depth, the CLAUDE.md chip snaps on and the stars land on "file".
+ * The vague prompt types in; plain Claude's real edit floods the editor (+15 on "guesses"); on "file" the real
+ * reply with the file slides up over it, its first questions landing on "ask first". All text from the proof files.
  */
-export const HookView: React.FC<{ f: number; cues: HookCues; dim?: number; header?: boolean }> = ({ f, cues, dim = 1, header = true }) => {
+export const HookView: React.FC<{ f: number; cues: HookCues; dim?: number }> = ({ f, cues, dim = 1 }) => {
   const { fps } = useVideoConfig();
-  const { tListed, tWrong, tSomeone, tOne, tFile } = cues;
-  const typed = Math.floor(clampI(f, 3, tListed + 4, 0, QUOTE.length));
-  const shrink = spring({ frame: f - tSomeone, fps, config: { damping: 200, stiffness: 90 } });
-  const chip = pop(f, tOne, fps, 12);
-  const cursorOn = typed < QUOTE.length || Math.floor(f / 12) % 2 === 0;
+  const { fixture, before, afterReply } = useProof();
+  if (!fixture || !before || !afterReply) return null;
+  const { tVague, tGuesses, tFile, tAsk } = cues;
+  const typed = Math.floor(clampI(f, 2, tVague + 4, 0, PROMPT.length));
+  const total = lineCount(before);
+  const base = lineCount(fixture);
+  const shown = clampI(f, tVague + 2, tGuesses + 4, 24, total);
+  const scroll = spring({ frame: f - tVague, fps, config: { damping: 200, stiffness: 60 } }) * 23 * LH;
+  const plus = pop(f, tGuesses, fps, 12);
+  const chat = spring({ frame: f - tFile + 2, fps, config: { damping: 200, stiffness: 120 } });
+  const { qs } = sixQuestions(afterReply);
+  const qShown = clampI(f, tAsk - 4, tAsk + 14, 0, 3);
   return (
     <>
       <Space />
       <div style={{ opacity: dim }}>
-        {header && <Header title="Karpathy's list, one file" />}
-        <div style={{ position: "absolute", left: 60, top: 430, width: 960, height: 540, transform: `translateY(${-20 * shrink}px) scale(${1 - 0.3 * shrink})`, transformOrigin: "50% 0%", opacity: 1 - 0.35 * shrink }}>
-          <Window title="Andrej Karpathy · on X, 26 Jan 2026" x={0} y={0} w={960} h={540} tilt={Math.sin(f / 50) * 2}>
-            <div style={{ padding: "34px 44px 0", fontFamily: F.sans, fontSize: 40, fontWeight: 700, lineHeight: 1.3, color: C.text, height: 210 }}>
-              <span style={{ color: C.accent }}>“</span>
-              {QUOTE.slice(0, typed)}
-              {typed === QUOTE.length && <span style={{ color: C.accent }}>”</span>}
-              <span style={{ color: C.accent, opacity: cursorOn ? 1 : 0 }}>▍</span>
-            </div>
-            <div style={{ padding: "6px 44px", fontFamily: F.mono, fontSize: 21, color: C.muted, opacity: clampI(f, tListed - 8, tListed) }}>— Andrej Karpathy, on X</div>
-            <div style={{ padding: "14px 44px 0" }}>
-              {FRAGMENTS.slice(0, 3).map((fr, i) => {
-                const p = pop(f, tListed + i * 5, fps, 16);
-                const under = i === 0 ? clampI(f, tWrong, tWrong + 10) : 0;
-                return (
-                  <div key={fr} style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: F.mono, fontSize: 28, lineHeight: "50px", color: i === 0 && under > 0 ? C.text : "rgba(245,245,247,0.75)", opacity: p, transform: `translateY(${(1 - p) * -30}px)` }}>
-                    <span style={{ color: C.accent, fontWeight: 700 }}>✓</span>
-                    <span style={{ backgroundImage: `linear-gradient(${C.accent}, ${C.accent})`, backgroundRepeat: "no-repeat", backgroundPosition: "0 100%", backgroundSize: `${under * 100}% 3px`, paddingBottom: 2 }}>{fr}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </Window>
-        </div>
-        {f >= tSomeone - 2 && (
-          <RepoCard
-            repo="andrej-karpathy-skills"
-            maker="multica-ai"
-            byline="by Jiayuan Zhang (forrestchang)"
-            repoSize={56}
-            stars={STARS}
-            full
-            at={tSomeone + 2}
-            countFrom={tSomeone + 8}
-            countTo={tFile + 2}
-            x={110}
-            y={860}
-          >
-            <div
-              style={{
-                position: "absolute",
-                right: -20,
-                top: 250,
-                padding: "10px 22px",
-                borderRadius: 14,
-                background: "rgba(255,181,71,0.14)",
-                border: `2px solid ${C.accent}`,
-                boxShadow: `0 0 40px ${C.accent}44`,
-                fontFamily: F.mono,
-                fontWeight: 700,
-                fontSize: 30,
-                color: C.accent,
-                opacity: chip,
-                transform: `translateY(${(1 - chip) * -60}px) scale(${0.6 + 0.4 * chip})`,
-              }}
-            >
-              CLAUDE.md
-            </div>
-          </RepoCard>
+        <Header title="Vague job? It guesses." />
+        <Window kind="terminal" title="claude" x={60} y={430} w={960} h={140}>
+          <div style={{ padding: "26px 36px", fontFamily: F.mono, fontSize: 36, color: C.text, whiteSpace: "pre" }}>
+            <span style={{ color: C.accent }}>&gt; </span>
+            {PROMPT.slice(0, typed)}
+            <span style={{ color: C.accent, opacity: Math.floor(f / 12) % 2 === 0 ? 1 : 0 }}>▍</span>
+          </div>
+        </Window>
+        <Window title="cart.js" {...ED} dim>
+          <CodePane code={before} shown={f < tVague + 2 ? 24 : shown} scroll={scroll} size={SIZE} marks={changedLines(fixture, before)} markP={clampI(f, tVague + 2, tVague + 10)} />
+        </Window>
+        <BarCount lines={Math.round(clampI(f, tVague + 2, tGuesses + 4, base, total))} delta={total - base} deltaP={plus} cy={ED.y + 26} color={C.muted} deltaColor={C.red} />
+        {f >= tFile - 4 && (
+          <div style={{ opacity: chat, transform: `translateY(${(1 - chat) * 500}px)` }}>
+            <Window title="Claude · with the file" x={60} y={760} w={960} h={480} accent={C.accent}>
+              <ChatPane blocks={qs.slice(0, 3)} shown={qShown} size={34} gap={10} ring={{ 0: clampI(f, tAsk + 2, tAsk + 12) }} />
+            </Window>
+          </div>
         )}
-        {header && <SourceLine text="SOURCE · Karpathy on X, 26 Jan 2026 (via README) · GitHub API, 15 Nov 2026" opacity={clampI(f, tSomeone, tSomeone + 10)} />}
+        <SourceLine text="SOURCE · Curiously test, 15 Nov 2026 (one run each)" opacity={clampI(f, tVague, tVague + 8)} />
       </div>
     </>
   );
@@ -107,12 +76,11 @@ export const Hook: React.FC = () => {
   const cues = useHookCues();
   return (
     <>
-      {[0, 1, 2].map((i) => (
-        <Sfx key={i} name="click" at={cues.tListed + i * 5} volume={0.25} />
-      ))}
-      <Sfx name="whoosh" at={cues.tSomeone} volume={0.3} />
-      <Sfx name="ticker" at={cues.tSomeone + 8} volume={0.16} dur={cues.tFile - cues.tSomeone - 4} />
-      <Sfx name="pop" at={cues.tOne} volume={0.35} />
+      <Sfx name="ticker" at={2} volume={0.14} dur={cues.tVague} />
+      <Sfx name="data" at={cues.tVague + 2} volume={0.2} dur={cues.tGuesses - cues.tVague} />
+      <Sfx name="thud" at={cues.tGuesses} volume={0.4} />
+      <Sfx name="whoosh" at={cues.tFile - 4} volume={0.3} />
+      <Sfx name="ding" at={cues.tAsk + 2} volume={0.35} />
       <HookView f={f} cues={cues} />
     </>
   );

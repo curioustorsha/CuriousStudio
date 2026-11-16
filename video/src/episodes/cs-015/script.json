@@ -1,25 +1,69 @@
 {
-  "title": "Karpathy's CLAUDE.md",
+  "title": "Karpathy's CLAUDE.md: it asks first",
   "voiceId": "EaBs7G1VibMrNAuz2Na7",
   "voiceName": "Monika Sogam - Natural Conversations",
   "musicPrompt": "Sleek, thoughtful product-launch bed for a 60-second tech short, about 96 BPM, soft analog synth pulses, warm sub bass, light brushed hi-hats and glassy plucks, a small lift around 20 seconds when a list of questions stacks in, and a calm resolve into the end card, instrumental, no vocals.",
   "scenes": [
-    { "id": "hook", "text": "Andrej Karpathy listed what coding AIs get wrong. Someone turned it into one file.", "say": "Andrej Karpathy listed what coding A.I.s get wrong. Someone turned it into one file." },
-    { "id": "intro", "text": "Welcome to Claude Skills, by Curiously." },
-    { "id": "task", "text": "We gave Claude a vague job: add discount codes to a cart." },
-    { "id": "before", "text": "Plain Claude just started. Fifteen new lines, built on rules it guessed, and it only told us after." },
-    { "id": "after", "text": "With the file, it wrote nothing, in our test. It asked six questions first, like before tax or after?" },
-    { "id": "trick", "text": "That's rule one: think before coding. The other three: keep it simple, change only what you must, and work toward a goal you can check. Each one comes from his post." },
-    { "id": "catch", "text": "The catch: Karpathy didn't write it. A developer built it from his post. No updates since April, and no licence file, though it says MIT.", "say": "The catch: Karpathy didn't write it. A developer built it from his post. No updates since April, and no license file, though it says M.I.T." },
-    { "id": "install", "text": "If you code with Claude, it's two commands. Link in the description." },
-    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+    {
+      "id": "hook",
+      "text": "Give your AI a vague job and it guesses. This one file makes it ask first.",
+      "say": "Give your A.I. a vague job and it guesses. This one file makes it ask first."
+    },
+    {
+      "id": "intro",
+      "text": "Welcome to Claude Skills, by Curiously."
+    },
+    {
+      "id": "repo",
+      "text": "Andrej Karpathy listed what coding AIs get wrong. Someone turned it into one file, with over two hundred thousand stars.",
+      "say": "Andrej Karpathy listed what coding A.I.s get wrong. Someone turned it into one file, with over two hundred thousand stars."
+    },
+    {
+      "id": "task",
+      "text": "We gave Claude a vague job: add discount codes to a cart."
+    },
+    {
+      "id": "before",
+      "text": "Plain Claude just started. Fifteen new lines, built on rules it guessed, and it only told us after."
+    },
+    {
+      "id": "after",
+      "text": "With the file, it wrote nothing, in our test. It asked six questions first, like before tax or after?"
+    },
+    {
+      "id": "honest",
+      "text": "On clear bug fixes, plain Claude was already careful in our tests. The file matters when the job is vague."
+    },
+    {
+      "id": "catch",
+      "text": "The catch: Karpathy didn't write it. A developer built it from his post, and there's no licence file.",
+      "say": "The catch: Karpathy didn't write it. A developer built it from his post, and there's no license file."
+    },
+    {
+      "id": "install",
+      "text": "If you code with Claude, it's two commands. Link in the description."
+    },
+    {
+      "id": "cta",
+      "text": "If you like this kind of content, like, share and follow Curiously."
+    }
   ],
-  "keyterms": ["Claude", "Curiously", "Claude Skills", "Andrej Karpathy", "Karpathy", "MIT", "licence", "discount codes"],
+  "keyterms": [
+    "Claude",
+    "Curiously",
+    "Claude Skills",
+    "Andrej Karpathy",
+    "Karpathy",
+    "MIT",
+    "licence",
+    "discount codes"
+  ],
   "sources": [
     "github.com/multica-ai/andrej-karpathy-skills README, CLAUDE.md, skills/karpathy-guidelines/SKILL.md, plugin.json (read 15 Nov 2026)",
     "GitHub API: 233,419 stars, created 27 Jan 2026, last push 20 Apr 2026, no licence file (15 Nov 2026)",
     "Andrej Karpathy on X, 26 Jan 2026 (x.com/karpathy/status/2015883857489522876), quoted via the README",
     "The Decoder, 27 Jan 2026: Karpathy's post on AI coding mistakes",
-    "Curiously proof run, 15 Nov 2026: 'Add discount codes to the cart.' on a 31-line cart.js, one run without and one with the SKILL.md"
+    "Curiously proof run, 15 Nov 2026: 'Add discount codes to the cart.' on a 31-line cart.js, one run without and one with the SKILL.md",
+    "Curiously proof runs, 15 Nov 2026: proof/surgical (cart quantity bug) and proof/check (free shipping at exactly 500): without and with the file, both changed the same single line; neither wrote a test file"
   ]
 }

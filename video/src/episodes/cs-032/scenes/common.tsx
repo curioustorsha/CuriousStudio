@@ -114,3 +114,17 @@ export const lineTop = (winY: number, line: number, size: number, scroll = 0) =>
 
 /** Scroll that puts 1-based `line` at `rowsFromTop` rows below the top of the pane. */
 export const scrollTo = (line: number, size: number, rowsFromTop = 3) => Math.max(0, (line - 1 - rowsFromTop) * size * 1.55);
+
+/** Our own renders, cut and cropped to their main picture (proof/clips, see the script's sources). */
+export const CLIPS = {
+  network: { file: "network", label: "HIS-007 · How It Scales" },
+  magnifier: { file: "magnifier", label: "CL-005 · Claude Lab" },
+  numbers: { file: "numbers", label: "HIS-003 · How It Scales" },
+  product: { file: "product", label: "CS-016 · Claude Skills" },
+  city: { file: "city", label: "HIS-007 · How It Scales" },
+  workshop: { file: "workshop", label: "CL-005 · Claude Lab" },
+} as const;
+export type ClipId = keyof typeof CLIPS;
+
+/** Clip crop is 1080×860; the window shows it 960 wide. */
+export const CLIP_WIN = { x: 60, y: 430, w: 960, h: 52 + Math.round((860 * 960) / 1080) };

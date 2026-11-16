@@ -24,6 +24,8 @@ export type EpisodeDef = {
    * own sign-off end card (e.g. the "like, share and follow" card), so the video ends on it and loops cleanly.
    */
   endSting?: boolean;
+  /** Cut straight between scenes instead of the blur-fade in and out (Claude Skills: no dip to dark at every cut). */
+  hardCuts?: boolean;
 };
 
 const Progress: React.FC = () => {
@@ -108,7 +110,7 @@ export const makeEpisode = (def: EpisodeDef) => {
             const Scene = def.scenes[id] ?? (() => <MissingScene id={id} />);
             return (
               <Series.Sequence key={id} durationInFrames={t.sceneFrames(id)} name={id}>
-                <SceneShell enter={i !== 0} exit={sting || i !== t.ORDER.length - 1}>
+                <SceneShell enter={!def.hardCuts && i !== 0} exit={!def.hardCuts && (sting || i !== t.ORDER.length - 1)}>
                   <Scene />
                 </SceneShell>
                 <Audio src={staticFile(t.scene(id).file)} />

@@ -4,9 +4,8 @@ import { Cover } from "./Cover";
 // @scene-imports
 import { Hook } from "./scenes/Hook";
 import { Intro } from "./scenes/Intro";
-import { Task } from "./scenes/Task";
-import { Before } from "./scenes/Before";
-import { After } from "./scenes/After";
+import { Repo } from "./scenes/Repo";
+import { City, Numbers, Product, Workshop } from "./scenes/Montage";
 import { Trick } from "./scenes/Trick";
 import { Catch } from "./scenes/Catch";
 import { Install } from "./scenes/Install";
@@ -14,19 +13,22 @@ import { Cta } from "./scenes/Cta";
 
 export default makeEpisode({
   code: "CS-032",
-  title: "Remotion skills (remotion-dev/skills)",
+  title: "Remotion skills: this channel is made with it",
   seriesTag: "CLAUDE SKILLS",
   manifest,
   // The cta scene is the sign-off end card, so no generic logo sting after it.
   endSting: false,
+  hardCuts: true,
   Cover,
   scenes: {
     // @scenes
     hook: Hook,
     intro: Intro,
-    task: Task,
-    before: Before,
-    after: After,
+    repo: Repo,
+    city: City,
+    workshop: Workshop,
+    numbers: Numbers,
+    product: Product,
     trick: Trick,
     catch: Catch,
     install: Install,
