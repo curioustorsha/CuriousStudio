@@ -41,8 +41,8 @@ const iconProps = { className: "size-[17px]", strokeWidth: 1.8 };
 const WORKSPACE = [
   { href: "/", label: "Dashboard", icon: <LayoutGrid {...iconProps} /> },
   { href: "/ideas", label: "Ideas", icon: <Lightbulb {...iconProps} /> },
-  { href: "/board", label: "Pipeline", icon: <SquareKanban {...iconProps} /> },
   { href: "/calendar", label: "Calendar", icon: <CalendarDays {...iconProps} /> },
+  { href: "/board", label: "Pipeline", icon: <SquareKanban {...iconProps} /> },
   { href: "/series", label: "Series", icon: <Layers {...iconProps} /> },
 ];
 

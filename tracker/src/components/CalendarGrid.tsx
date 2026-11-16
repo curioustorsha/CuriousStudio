@@ -98,7 +98,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
     // shortcut: 14rem ≈ page header + padding + usage footer; a long subtitle or the queue-paused banner adds a little scroll.
     <div className="grid gap-6 xl:h-[calc(100dvh-14rem)] xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
       <div className="card flex min-h-0 flex-col overflow-hidden">
-        <div className="grid grid-cols-7 border-b border-line text-right text-[11px] font-semibold text-muted">
+        <div className="grid grid-cols-7 border-b border-line text-right text-[13px] font-semibold text-muted">
           {WEEKDAYS.map((d) => <div key={d} className="px-3 py-2.5">{d}</div>)}
         </div>
         <div className="grid flex-1 auto-rows-fr grid-cols-7">
@@ -134,12 +134,12 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
               >
                 <div className="mb-1 flex items-center justify-end gap-1">
                   {key === LAUNCH && (
-                    <span className="mr-auto flex items-center gap-1 rounded-md bg-fg/[0.06] px-1.5 py-0.5 text-[10px] font-semibold">
-                      <Rocket className="size-2.5" strokeWidth={2.4} /> Launch
+                    <span className="mr-auto flex items-center gap-1 rounded-md bg-fg/[0.06] px-1.5 py-0.5 text-[12px] font-semibold">
+                      <Rocket className="size-3" strokeWidth={2.4} /> Launch
                     </span>
                   )}
                   <span
-                    className={`grid size-6 place-items-center rounded-full text-[12px] tabular-nums ${
+                    className={`grid size-7 place-items-center rounded-full text-[14px] tabular-nums ${
                       key === today ? "bg-danger font-semibold text-white" : dim ? "text-faint" : "text-fg"
                     }`}
                   >
@@ -156,7 +156,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                         href={`/episodes/${e.id}`}
                         {...dragProps(e)}
                         title={`${e.code} · ${e.title}`}
-                        className={`flex items-start gap-1 rounded-md px-1.5 py-1 text-[11px] font-medium leading-tight transition-opacity hover:opacity-75 ${
+                        className={`flex items-start gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium leading-snug transition-opacity hover:opacity-75 ${
                           tall ? "" : "truncate"
                         } ${dragId === e.id ? "opacity-40" : ""}`}
                         style={{
@@ -165,7 +165,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                           color: late ? "var(--danger)" : undefined,
                         }}
                       >
-                        {e.stage === "posted" && <CircleCheck className="size-3 shrink-0 text-ok" strokeWidth={2.4} />}
+                        {e.stage === "posted" && <CircleCheck className="mt-0.5 size-3.5 shrink-0 text-ok" strokeWidth={2.4} />}
                         <span className={tall ? "" : "truncate"}>{e.title}</span>
                       </Link>
                     );
@@ -175,11 +175,11 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                     return (
                       <details key={s.id} className="relative">
                         <summary
-                          className="flex cursor-pointer list-none items-center gap-1 truncate rounded-md border border-dashed px-1.5 py-0.5 text-[10px] font-medium hover:bg-fg/[0.04] [&::-webkit-details-marker]:hidden"
+                          className="flex cursor-pointer list-none items-center gap-1 truncate rounded-md border border-dashed px-2 py-1 text-[12px] font-medium hover:bg-fg/[0.04] [&::-webkit-details-marker]:hidden"
                           style={{ borderColor: `color-mix(in srgb, ${s.color} 50%, transparent)`, color: s.color }}
                           title={`Open slot: ${s.name}. Drag an idea here, or click to pick one.`}
                         >
-                          <CircleDashed className="size-2.5 shrink-0" strokeWidth={2.4} />
+                          <CircleDashed className="size-3 shrink-0" strokeWidth={2.4} />
                           <span className="truncate">{s.name}</span>
                         </summary>
                         <div className={`card absolute top-full z-20 mt-1 w-64 p-1.5 shadow-lg ${[5, 6, 0].includes(weekday(key)) ? "right-0" : "left-0"}`}>
