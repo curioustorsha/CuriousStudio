@@ -28,7 +28,7 @@ const fmt = (d: Date, o: Intl.DateTimeFormatOptions) => d.toLocaleDateString("en
 export default async function CalendarPage({ searchParams }: PageProps<"/calendar">) {
   await requireUser();
   const { m, w, v } = await searchParams;
-  const view = v === "month" ? "month" : "weeks";
+  const view = v === "month" ? "month" : "week";
   const now = new Date();
   const today = iso(now);
   // Open slots only make sense once publishing has started.
@@ -53,10 +53,10 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
     launchHref = `/calendar?v=month&m=${LAUNCH.slice(0, 7)}`;
   } else {
     start = monday(typeof w === "string" && /^\d{4}-\d{2}-\d{2}$/.test(w) ? new Date(`${w}T00:00`) : now);
-    end = addDays(start, 13);
+    end = addDays(start, 6);
     title = `${fmt(start, { day: "numeric", month: "short" })} – ${fmt(end, { day: "numeric", month: "short", year: "numeric" })}`;
-    prev = `/calendar?w=${iso(addDays(start, -14))}`;
-    next = `/calendar?w=${iso(addDays(start, 14))}`;
+    prev = `/calendar?w=${iso(addDays(start, -7))}`;
+    next = `/calendar?w=${iso(addDays(start, 7))}`;
     todayHref = "/calendar";
     launchHref = `/calendar?w=${LAUNCH}`;
   }
@@ -69,7 +69,7 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
   const shown = all.filter((e) => e.publishDate && e.publishDate >= from && e.publishDate <= to).length;
   // Keep the page you're on when switching views.
   const firstShown = days.find((d) => !d.dim)!.key;
-  const weeksHref = view === "weeks" || firstShown.slice(0, 7) === today.slice(0, 7) ? todayHref.replace("?v=month", "") : `/calendar?w=${firstShown}`;
+  const weekHref = view === "week" || firstShown.slice(0, 7) === today.slice(0, 7) ? todayHref.replace("?v=month", "") : `/calendar?w=${firstShown}`;
   const monthHref = view === "month" ? todayHref : `/calendar?v=month&m=${firstShown.slice(0, 7)}`;
 
   return (
@@ -79,7 +79,7 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
         subtitle={`${shown} episodes scheduled here. Publishing starts ${fmt(new Date(`${LAUNCH}T00:00`), { day: "numeric", month: "long", year: "numeric" })}. Dashed slots mean a series is due that day but nothing is scheduled; drag an idea onto one.`}
       >
         <div className="segmented">
-          <Link href={weeksHref} data-active={view === "weeks"}>2 Weeks</Link>
+          <Link href={weekHref} data-active={view === "week"}>Week</Link>
           <Link href={monthHref} data-active={view === "month"}>Month</Link>
         </div>
         <Link href={launchHref} className="btn">
@@ -95,7 +95,7 @@ export default async function CalendarPage({ searchParams }: PageProps<"/calenda
           </Link>
         </div>
       </PageHeader>
-      <CalendarGrid days={days} episodes={all} series={seriesList} today={today} slotsFrom={slotsFrom} tall={view === "weeks"} />
+      <CalendarGrid days={days} episodes={all} series={seriesList} today={today} slotsFrom={slotsFrom} tall={view === "week"} />
     </div>
   );
 }

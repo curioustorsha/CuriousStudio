@@ -21,7 +21,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
   today: string;
   /** First day open slots (and drops) are allowed. */
   slotsFrom: string;
-  /** Two-week view: taller days, titles wrap. */
+  /** Week view: each day is a tall column, titles wrap. */
   tall: boolean;
 }) {
   const [items, applySchedule] = useOptimistic(episodes, (current, m: { id: number; date: string }) =>
@@ -29,6 +29,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
   );
   const [dragId, setDragId] = useState<number | null>(null);
   const [overDay, setOverDay] = useState<string | null>(null);
+  const [ideaSeries, setIdeaSeries] = useState<number | null>(null);
   const [, startTransition] = useTransition();
   const dialog = useDialog();
   const seriesById = new Map(series.map((s) => [s.id, s]));
@@ -72,7 +73,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
     },
   });
 
-  const ideas = items.filter((e) => e.stage === "idea" && !e.publishDate).sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
+  const ideas = items.filter((e) => e.stage === "idea" && !e.publishDate && (ideaSeries === null || e.seriesId === ideaSeries)).sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
   const unscheduled = items.filter((e) => !e.publishDate && stageIndex(e.stage) >= READY_FROM && e.stage !== "posted");
   const candidates = (seriesId: number) =>
     items
@@ -94,7 +95,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
   );
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[1fr_300px]">
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
       <div className="card overflow-hidden">
         <div className="grid grid-cols-7 border-b border-line text-right text-[11px] font-semibold text-muted">
           {WEEKDAYS.map((d) => <div key={d} className="px-3 py-2.5">{d}</div>)}
@@ -124,7 +125,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                   setDragId(null);
                   setOverDay(null);
                 }}
-                className={`${tall ? "min-h-44" : "min-h-28"} border-b border-r border-line p-1.5 transition-colors [&:nth-child(7n)]:border-r-0 ${
+                className={`${tall ? "min-h-[32rem]" : "min-h-28"} border-b border-r border-line p-1.5 transition-colors [&:nth-child(7n)]:border-r-0 ${
                   dim ? "opacity-40" : ""
                 } ${droppable ? (overDay === key ? "bg-accent/15 ring-2 ring-inset ring-accent/50" : "bg-accent/[0.06]") : ""} ${
                   dragging && !droppable ? "opacity-50" : ""
@@ -164,7 +165,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                         }}
                       >
                         {e.stage === "posted" && <CircleCheck className="size-3 shrink-0 text-ok" strokeWidth={2.4} />}
-                        <span className={tall ? "line-clamp-3" : "truncate"}>{e.title}</span>
+                        <span className={tall ? "" : "truncate"}>{e.title}</span>
                       </Link>
                     );
                   })}
@@ -219,6 +220,15 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
             <Lightbulb className="size-4" strokeWidth={2} /> Ideas
           </h2>
           <p className="mb-3 text-xs text-muted">Drag an idea onto a highlighted day of its series. It moves to Write.</p>
+          <div className="segmented mb-3 flex-wrap">
+            <button type="button" onClick={() => setIdeaSeries(null)} data-active={ideaSeries === null}>All</button>
+            {series.map((s) => (
+              <button key={s.id} type="button" onClick={() => setIdeaSeries(s.id)} data-active={ideaSeries === s.id}>
+                <span className="size-2 rounded-full" style={{ background: s.color }} />
+                {s.name}
+              </button>
+            ))}
+          </div>
           {ideas.length === 0 && <p className="py-2 text-[13px] text-faint">No ideas waiting.</p>}
           <ul className="scroll-thin -mx-2 max-h-[28rem] overflow-auto">{ideas.map(sideItem)}</ul>
         </aside>
