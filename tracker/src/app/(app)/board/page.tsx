@@ -37,7 +37,7 @@ export default async function BoardPage({ searchParams }: PageProps<"/board">) {
 
   return (
     <div>
-      <PageHeader title="Pipeline" subtitle="Drag cards between stages. Each card shows its checklist progress.">
+      <PageHeader title="Pipeline" subtitle="Drag cards between stages. Columns run by publish date, earliest first.">
         <Link href="/ideas" className="btn btn-primary">
           <Plus className="size-4" strokeWidth={2.2} /> New Idea
         </Link>

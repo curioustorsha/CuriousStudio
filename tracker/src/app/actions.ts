@@ -123,6 +123,19 @@ export async function moveEpisodeAction(id: number, stage: string, position?: un
   refreshAll();
 }
 
+/** Calendar drop: date an episode on one of its series' due days. An idea moves on to Write. */
+export async function scheduleEpisodeAction(id: number, date: string) {
+  const user = await requireUser();
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error("Bad date");
+  const [row] = await db.select().from(episodes).where(eq(episodes.id, id));
+  if (!row?.seriesId) throw new Error("Only episodes in a series can be scheduled");
+  const [s] = await db.select().from(series).where(eq(series.id, row.seriesId));
+  const due = s.cadenceDays.split(",").filter(Boolean).map(Number);
+  if (!due.includes(new Date(`${date}T00:00`).getDay())) throw new Error(`${s.name} isn't due on ${date}`);
+  await ep.updateEpisode(user.username, id, { publishDate: date, ...(row.stage === "idea" && { stage: "script" }) });
+  refreshAll();
+}
+
 /** Approve the current stage: move the episode to the next one. An optional note is kept in team chat. */
 export async function approveStageAction(id: number, formData: FormData) {
   const user = await requireUser();

@@ -9,6 +9,10 @@ import { canMove, checklistProgress, getStage, isFormat, makeSteps, stageIndex, 
 import { useDialog } from "./Dialog";
 import { Avatar, ChangesBadge, formatDate, PriorityDot, ReadyBadge, stageColor } from "./ui";
 
+/** Earliest publish date first; undated last, in code order. */
+const chronological = (a: Episode, b: Episode) =>
+  (a.publishDate ?? "9999").localeCompare(b.publishDate ?? "9999") || a.code.localeCompare(b.code, undefined, { numeric: true });
+
 export function Board({ episodes, series, changesRequested, sendBacks }: {
   episodes: Episode[];
   series: Series[];
@@ -20,12 +24,8 @@ export function Board({ episodes, series, changesRequested, sendBacks }: {
   // Server data is the source of truth; a drop shows instantly until the action + refresh lands.
   const [items, applyMove] = useOptimistic(
     episodes,
-    (current, move: { id: number; stage: string; position: number }) =>
-      current.map((e) =>
-        e.id === move.id
-          ? { ...e, stage: move.stage, position: move.position, readyForReview: e.stage === move.stage && e.readyForReview }
-          : e,
-      ),
+    (current, move: { id: number; stage: string }) =>
+      current.map((e) => (e.id === move.id ? { ...e, stage: move.stage, readyForReview: e.stage === move.stage && e.readyForReview } : e)),
   );
   const [dragId, setDragId] = useState<number | null>(null);
   const [overStage, setOverStage] = useState<string | null>(null);
@@ -38,7 +38,7 @@ export function Board({ episodes, series, changesRequested, sendBacks }: {
     return isFormat(f) ? f : "video";
   };
 
-  async function drop(stage: string, beforeId: number | null) {
+  async function drop(stage: string) {
     if (dragId === null) return;
     const card = items.find((e) => e.id === dragId);
     if (!card) return;
@@ -63,23 +63,18 @@ export function Board({ episodes, series, changesRequested, sendBacks }: {
         }));
       if (!ok) return;
     }
-    const column = items.filter((e) => e.stage === stage && e.id !== card.id).sort((a, b) => a.position - b.position);
-    let position: number;
-    const idx = beforeId === null ? -1 : column.findIndex((e) => e.id === beforeId);
-    if (idx === -1) position = (column.at(-1)?.position ?? 0) + 1;
-    else position = idx === 0 ? column[0].position - 1 : (column[idx - 1].position + column[idx].position) / 2;
-
+    if (stage === card.stage) return;
     const id = card.id;
     startTransition(async () => {
-      applyMove({ id, stage, position });
-      await moveEpisodeAction(id, stage, position);
+      applyMove({ id, stage });
+      await moveEpisodeAction(id, stage);
     });
   }
 
   return (
     <div className="scroll-thin -mx-5 flex gap-3 overflow-x-auto px-5 pb-6 md:-mx-10 md:px-10">
       {STAGES.map((stage) => {
-        const column = items.filter((e) => e.stage === stage.key).sort((a, b) => a.position - b.position);
+        const column = items.filter((e) => e.stage === stage.key).sort(chronological);
         const reachable = !dragging || canMove(dragging.stage, stage.key, formatOf(dragging));
         const isOver = overStage === stage.key && reachable;
         return (
@@ -96,7 +91,7 @@ export function Board({ episodes, series, changesRequested, sendBacks }: {
             }}
             onDrop={(e) => {
               e.preventDefault();
-              drop(stage.key, null);
+              drop(stage.key);
             }}
             className={`flex w-[272px] shrink-0 flex-col rounded-[18px] p-2 transition-colors ${
               isOver ? "bg-accent/10 ring-2 ring-accent/40" : "bg-fg/[0.035]"
@@ -125,11 +120,6 @@ export function Board({ episodes, series, changesRequested, sendBacks }: {
                     onDragEnd={() => {
                       setDragId(null);
                       setOverStage(null);
-                    }}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      drop(stage.key, ep.id);
                     }}
                     className={`card group relative cursor-pointer rounded-[14px] p-3 transition-all hover:shadow-[var(--shadow-lg)] active:cursor-grabbing ${
                       dragId === ep.id ? "scale-[0.98] opacity-40" : ""
