@@ -156,7 +156,7 @@ export async function startSession(user: AppUser) {
   (await cookies()).set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: !!process.env.VERCEL, // the Mac serves plain http on the home Wi-Fi
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   });

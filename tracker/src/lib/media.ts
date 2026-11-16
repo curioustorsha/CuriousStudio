@@ -1,10 +1,10 @@
 import "server-only";
-import { existsSync, readFileSync, statSync } from "node:fs";
-import { extname, join, resolve, sep } from "node:path";
-import { put } from "@vercel/blob";
-import { eq } from "drizzle-orm";
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmdirSync, statSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { basename, dirname, extname, join, resolve, sep } from "node:path";
+import { sql } from "drizzle-orm";
 import { db, episodes } from "@/db";
-import { getSetting, setSetting } from "./settings";
+import { getSetting } from "./settings";
 
 /**
  * Hosted on Vercel, the site only reads and writes the database. The tracker on the Mac is the worker: it runs
@@ -31,15 +31,11 @@ export const MEDIA_TYPES: Record<string, string> = {
   ".json": "application/json",
 };
 
-/** Files the episode page looks for in out/<code>/ besides the ones its fields link to. */
-const PAGE_FILES = ["cover.png", "final.mp4", "frames/sheet.jpg"];
-
 /**
  * Public Blob store URL plus a long random folder, e.g. https://abc.public.blob.vercel-storage.com/m-3f9…
  * The folder name is the secret: the site only hands these links to people who are signed in.
  */
 const BASE = process.env.MEDIA_BASE_URL?.replace(/\/$/, "") ?? "";
-const FOLDER = BASE ? new URL(BASE).pathname.slice(1) : "";
 
 /** Where a /media path (without "/media/") is served from on the hosted site. */
 export function mediaUrl(path: string) {
@@ -84,42 +80,62 @@ export async function readManifest(code: string): Promise<unknown> {
   return res.json();
 }
 
-/**
- * Uploads what the episode page shows (the files its fields link to, the cover, render, contact sheet and
- * scene timings) to Blob, skipping files that haven't changed since the last upload. Worker only; does
- * nothing until MEDIA_BASE_URL and BLOB_READ_WRITE_TOKEN are set.
- */
-export async function publishMedia(episodeId: number) {
-  if (!IS_WORKER || !FOLDER || !process.env.BLOB_READ_WRITE_TOKEN) return;
-  const [ep] = await db.select().from(episodes).where(eq(episodes.id, episodeId));
-  if (!ep) return;
-  const code = ep.code.toLowerCase();
-  const linked = [ep.voiceoverUrl, ep.renderUrl, ...ep.slides.split("\n")]
-    .map((u) => u.trim().split("?")[0])
-    .filter((u) => u.startsWith("/media/"))
-    .map((u) => u.slice("/media/".length));
-  const files = new Map<string, string>(); // media path → local file
-  for (const path of [...linked, ...PAGE_FILES.map((n) => `out/${code}/${n}`)]) {
-    const file = localMediaFile(path);
-    if (file && existsSync(/*turbopackIgnore: true*/ file)) files.set(path, file);
-  }
-  const manifest = join(PROJECT_DIR, "video", manifestPath(code));
-  if (existsSync(manifest)) files.set(manifestPath(code), manifest);
+/** iCloud Drive/Curiously/<YYYY-MM Month | Unscheduled>/<CODE – title>/: each episode's finished files. */
+const ICLOUD = join(homedir(), "Library", "Mobile Documents", "com~apple~CloudDocs", "Curiously");
+const SEP = " – ";
+const monthFolder = (date: string | null) =>
+  date ? `${date.slice(0, 7)} ${new Date(`${date}T00:00`).toLocaleString("en", { month: "long" })}` : "Unscheduled";
+const subdirs = (dir: string) =>
+  readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => join(dir, d.name));
 
-  const done = await uploaded(code);
-  for (const [path, file] of files) {
-    const { mtimeMs, size } = statSync(file);
-    const version = `${Math.round(mtimeMs)}:${size}`;
-    if (done[path] === version) continue;
-    await put(`${FOLDER}/${path}`, readFileSync(file), {
-      access: "public",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 60, // a re-render keeps its name, so don't let browsers hold the old one for long
-      contentType: MEDIA_TYPES[extname(path).toLowerCase()],
-      multipart: size > 50 * 1024 * 1024,
-    });
-    done[path] = version;
-    await setSetting(uploadedKey(code), JSON.stringify(done));
+let syncing: Promise<void> | null = null;
+
+/**
+ * Copies every episode's render, cover, slides and upload kit to iCloud, skipping unchanged files, and moves
+ * its folder when the publish date or title changes. Also saves a daily database copy to Backups/. Worker only; runs after each skill run and every 5 minutes.
+ */
+export function syncICloud() {
+  if (!IS_WORKER || !existsSync(dirname(ICLOUD))) return Promise.resolve();
+  return (syncing ??= doSync().finally(() => (syncing = null)));
+}
+
+async function doSync() {
+  mkdirSync(join(ICLOUD, "Backups"), { recursive: true });
+  // One database snapshot a day, all kept. VACUUM INTO gives a consistent copy even mid-write.
+  const backup = join(ICLOUD, "Backups", `tracker-${new Date().toLocaleDateString("en-CA")}.db`);
+  if (!existsSync(backup)) await db.run(sql`VACUUM INTO ${backup}`);
+  const current = new Map<string, string>(); // CODE → its folder in iCloud now
+  for (const month of subdirs(ICLOUD)) for (const dir of subdirs(month)) current.set(basename(dir).split(SEP)[0], dir);
+
+  for (const ep of await db.select().from(episodes)) {
+    const outDir = `out/${ep.code.toLowerCase()}/`;
+    const paths = [ep.renderUrl, ...ep.slides.split("\n"), `/media/${outDir}final.mp4`, `/media/${outDir}cover.png`]
+      .map((u) => u.trim().split("?")[0].replace(/^\/media\//, ""))
+      .filter((p) => p.startsWith(outDir));
+    const files = [...new Set(paths)]
+      .map((p) => [p.slice(outDir.length), localMediaFile(p)] as const)
+      .filter(([, f]) => f && existsSync(/*turbopackIgnore: true*/ f)) as [string, string][];
+    if (!files.length && !ep.publishPlan) continue; // nothing finished yet
+
+    const target = join(ICLOUD, monthFolder(ep.publishDate), `${ep.code}${SEP}${ep.title}`.replace(/[/:]/g, "-"));
+    const was = current.get(ep.code);
+    mkdirSync(dirname(target), { recursive: true });
+    if (was && was !== target) {
+      renameSync(was, target);
+      try { rmdirSync(dirname(was)); } catch {} // drop the old month folder once it's empty
+    }
+    for (const [name, file] of files) {
+      const dest = join(target, name);
+      const src = statSync(file);
+      const old = existsSync(dest) ? statSync(dest) : null;
+      if (old && old.size === src.size && old.mtimeMs >= src.mtimeMs) continue;
+      mkdirSync(dirname(dest), { recursive: true });
+      copyFileSync(file, dest);
+    }
+    const kit = join(target, "upload-kit.md");
+    if (ep.publishPlan && (!existsSync(kit) || readFileSync(kit, "utf8") !== ep.publishPlan)) {
+      mkdirSync(target, { recursive: true });
+      writeFileSync(kit, ep.publishPlan);
+    }
   }
 }

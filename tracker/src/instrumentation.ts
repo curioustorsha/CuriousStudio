@@ -11,4 +11,9 @@ export async function register() {
   const usage = () => pollClaudeUsage().catch((e) => console.error("Claude usage:", e.message));
   void usage();
   setInterval(usage, 5 * 60_000).unref();
+  // Finished files to iCloud, so publish-date and title changes move their folders too.
+  const { syncICloud } = await import("@/lib/media");
+  const icloud = () => syncICloud().catch((e) => console.error("iCloud sync:", e));
+  void icloud();
+  setInterval(icloud, 5 * 60_000).unref();
 }

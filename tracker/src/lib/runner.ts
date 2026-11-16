@@ -7,7 +7,7 @@ import { and, asc, desc, eq, inArray, isNotNull, isNull, lt, ne, notInArray, sql
 import { db, episodes, notifications, runs, series, type Episode, type Run } from "@/db";
 import { getStage } from "./stages";
 import { API_ACTOR, getReviewHistory, logActivity, staleStages } from "./episodes";
-import { IS_WORKER, PROJECT_DIR, publishMedia } from "./media";
+import { IS_WORKER, PROJECT_DIR, syncICloud } from "./media";
 import { elevenLabsUsage } from "./elevenlabs";
 import { getSetting, setSetting, stageModel } from "./settings";
 import { getSkill } from "./skills";
@@ -252,7 +252,7 @@ async function finish(id: number, status: Run["status"], result: string) {
     if (ep) await logActivity(API_ACTOR, `${status === "done" ? "finished" : "failed"} ${runLabel(ended)} on ${ep.code}`, ended.episodeId);
   }
   await notifyStarter(ended);
-  if (IS_WORKER && ended.skill !== IDEA_FILL) await publishMedia(ended.episodeId).catch((e) => console.error("Media upload:", e));
+  if (IS_WORKER && ended.skill !== IDEA_FILL) await syncICloud().catch((e) => console.error("iCloud sync:", e));
 }
 
 // ── Usage limits ──────────────────────────────────────────────────────
