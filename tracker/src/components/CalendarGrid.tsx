@@ -156,17 +156,20 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                         href={`/episodes/${e.id}`}
                         {...dragProps(e)}
                         title={`${e.code} · ${e.title}`}
-                        className={`flex items-start gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium leading-snug transition-opacity hover:opacity-75 ${
-                          tall ? "" : "truncate"
-                        } ${dragId === e.id ? "opacity-40" : ""}`}
+                        className={`flex flex-col items-start gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium leading-snug transition-opacity hover:opacity-75 ${
+                          dragId === e.id ? "opacity-40" : ""
+                        }`}
                         style={{
                           background: `color-mix(in srgb, ${s?.color ?? "#8e8e93"} 16%, transparent)`,
                           boxShadow: `inset 3px 0 0 ${s?.color ?? "#8e8e93"}`,
                           color: late ? "var(--danger)" : undefined,
                         }}
                       >
-                        {e.stage === "posted" && <CircleCheck className="mt-0.5 size-3.5 shrink-0 text-ok" strokeWidth={2.4} />}
-                        <span className={tall ? "" : "truncate"}>{e.title}</span>
+                        <span className="flex w-full min-w-0 items-start gap-1">
+                          {e.stage === "posted" && <CircleCheck className="mt-0.5 size-3.5 shrink-0 text-ok" strokeWidth={2.4} />}
+                          <span className={tall ? "" : "truncate"}>{e.title}</span>
+                        </span>
+                        <StageBadge stage={e.stage} />
                       </Link>
                     );
                   })}
