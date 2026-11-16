@@ -95,12 +95,13 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
   );
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-      <div className="card overflow-hidden">
+    // shortcut: 14rem ≈ page header + padding + usage footer; a long subtitle or the queue-paused banner adds a little scroll.
+    <div className="grid gap-6 xl:h-[calc(100dvh-14rem)] xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
+      <div className="card flex min-h-0 flex-col overflow-hidden">
         <div className="grid grid-cols-7 border-b border-line text-right text-[11px] font-semibold text-muted">
           {WEEKDAYS.map((d) => <div key={d} className="px-3 py-2.5">{d}</div>)}
         </div>
-        <div className="grid grid-cols-7">
+        <div className="grid flex-1 auto-rows-fr grid-cols-7">
           {days.map(({ key, dim }) => {
             const dayItems = byDate.get(key) ?? [];
             const droppable = !!dragging && canDrop(dragging, key);
@@ -125,7 +126,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                   setDragId(null);
                   setOverDay(null);
                 }}
-                className={`${tall ? "min-h-[32rem]" : "min-h-28"} border-b border-r border-line p-1.5 transition-colors [&:nth-child(7n)]:border-r-0 ${
+                className={`${tall ? "min-h-[32rem]" : "min-h-28"} scroll-thin overflow-y-auto xl:min-h-0 border-b border-r border-line p-1.5 transition-colors [&:nth-child(7n)]:border-r-0 ${
                   dim ? "opacity-40" : ""
                 } ${droppable ? (overDay === key ? "bg-accent/15 ring-2 ring-inset ring-accent/50" : "bg-accent/[0.06]") : ""} ${
                   dragging && !droppable ? "opacity-50" : ""
@@ -214,29 +215,29 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
         </div>
       </div>
 
-      <div className="space-y-6">
-        <aside className="card h-fit p-5">
+      <div className="flex min-h-0 flex-col gap-6">
+        <aside className="card flex min-h-0 flex-1 flex-col p-5">
           <h2 className="section-title mb-1 flex items-center gap-1.5">
             <Lightbulb className="size-4" strokeWidth={2} /> Ideas
           </h2>
           <p className="mb-3 text-xs text-muted">Drag an idea onto a highlighted day of its series. It moves to Write.</p>
-          <div className="segmented mb-3 flex-wrap">
-            <button type="button" onClick={() => setIdeaSeries(null)} data-active={ideaSeries === null}>All</button>
-            {series.map((s) => (
-              <button key={s.id} type="button" onClick={() => setIdeaSeries(s.id)} data-active={ideaSeries === s.id}>
-                <span className="size-2 rounded-full" style={{ background: s.color }} />
-                {s.name}
-              </button>
-            ))}
-          </div>
+          <select
+            aria-label="Filter ideas by series"
+            value={ideaSeries ?? ""}
+            onChange={(ev) => setIdeaSeries(ev.target.value ? Number(ev.target.value) : null)}
+            className="input mb-3"
+          >
+            <option value="">All series</option>
+            {series.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
           {ideas.length === 0 && <p className="py-2 text-[13px] text-faint">No ideas waiting.</p>}
-          <ul className="scroll-thin -mx-2 max-h-[28rem] overflow-auto">{ideas.map(sideItem)}</ul>
+          <ul className="scroll-thin -mx-2 min-h-0 flex-1 overflow-auto">{ideas.map(sideItem)}</ul>
         </aside>
-        <aside className="card h-fit p-5">
+        <aside className="card flex max-h-[40%] shrink-0 flex-col p-5">
           <h2 className="section-title mb-1">Ready, Not Scheduled</h2>
           <p className="mb-3 text-xs text-muted">Drag onto a highlighted day, or click a dashed slot.</p>
           {unscheduled.length === 0 && <p className="py-2 text-[13px] text-faint">Nothing waiting.</p>}
-          <ul className="-mx-2">{unscheduled.map(sideItem)}</ul>
+          <ul className="scroll-thin -mx-2 min-h-0 overflow-auto">{unscheduled.map(sideItem)}</ul>
         </aside>
       </div>
     </div>
