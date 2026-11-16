@@ -167,7 +167,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                       >
                         <span className="flex w-full min-w-0 items-start gap-1">
                           {e.stage === "posted" && <CircleCheck className="mt-0.5 size-3.5 shrink-0 text-ok" strokeWidth={2.4} />}
-                          <span className={tall ? "" : "truncate"}>{e.title}</span>
+                          <span>{e.title}</span>
                         </span>
                         <StageBadge stage={e.stage} />
                       </Link>
