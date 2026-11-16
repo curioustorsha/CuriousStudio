@@ -415,6 +415,25 @@ export function AutoSubmitSelect(props: React.ComponentProps<"select">) {
   return <select {...props} onChange={(event) => event.currentTarget.form?.requestSubmit()} />;
 }
 
+/** A date field that saves its form once the date is complete. Typing a year fires a change per digit
+ *  ("0002", "0020"…), so it waits a beat and skips years that can't be real. */
+export function AutoSubmitDate(props: Omit<React.ComponentProps<"input">, "type">) {
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  return (
+    <input
+      {...props}
+      type="date"
+      onChange={(event) => {
+        const input = event.currentTarget;
+        clearTimeout(timer.current);
+        timer.current = setTimeout(() => {
+          if (input.value === "" || Number(input.value.slice(0, 4)) >= 2020) input.form?.requestSubmit();
+        }, 700);
+      }}
+    />
+  );
+}
+
 export function SubmitButton({
   children,
   className = "btn btn-primary",

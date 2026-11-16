@@ -1,9 +1,9 @@
 import { ArrowRight, Lightbulb, MessageSquare, Plus, Search, Trash2 } from "lucide-react";
 import Form from "next/form";
 import Link from "next/link";
-import { createEpisodeAction, deleteIdeaAction, moveEpisodeAction } from "@/app/actions";
+import { createEpisodeAction, deleteIdeaAction, moveEpisodeAction, updateEpisodeAction } from "@/app/actions";
 import { db, series as seriesTable } from "@/db";
-import { AutoSubmitSelect, FillIdeasButton, SelectAllIdeas, SubmitButton } from "@/components/client";
+import { AutoSubmitDate, AutoSubmitSelect, FillIdeasButton, SelectAllIdeas, SubmitButton } from "@/components/client";
 import { PageHeader, PriorityDot, ReadyBadge, SeriesTag, StageBadge, timeAgo } from "@/components/ui";
 import { requireUser } from "@/lib/auth";
 import { commentCounts } from "@/lib/comments";
@@ -109,16 +109,17 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
             <FillIdeasButton formId="fill-selected" label="Fill empty fields with AI" />
           </div>
           <div className="card overflow-x-auto">
-            {/* Column shares of the width: 36 · 88 · 360 · 116 · 110 · 64 · 154 out of 928 */}
-            <table className="w-full min-w-[800px] table-fixed border-collapse text-[13px]">
+            {/* Column shares of the width: 36 · 88 · 280 · 116 · 110 · 130 · 64 · 154 out of 978 */}
+            <table className="w-full min-w-[880px] table-fixed border-collapse text-[13px]">
               <colgroup>
-                <col className="w-[3.9%]" />
-                <col className="w-[9.5%]" />
-                <col className="w-[38.8%]" />
-                <col className="w-[12.5%]" />
-                <col className="w-[11.8%]" />
-                <col className="w-[6.9%]" />
-                <col className="w-[16.6%]" />
+                <col className="w-[3.7%]" />
+                <col className="w-[9%]" />
+                <col className="w-[28.6%]" />
+                <col className="w-[11.9%]" />
+                <col className="w-[11.2%]" />
+                <col className="w-[13.3%]" />
+                <col className="w-[6.5%]" />
+                <col className="w-[15.8%]" />
               </colgroup>
               <thead>
                 <tr className="border-b border-fg/10 text-[10px] font-semibold uppercase tracking-wide text-faint">
@@ -132,6 +133,7 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
                   <th scope="col" className="px-2 py-2.5 text-left font-semibold">Idea</th>
                   <th scope="col" className="px-2 py-2.5 text-left font-semibold">Series</th>
                   <th scope="col" className="px-2 py-2.5 text-left font-semibold">Stage</th>
+                  <th scope="col" className="px-2 py-2.5 text-left font-semibold">Publish</th>
                   <th scope="col" className="px-2 py-2.5 text-left font-semibold">Added</th>
                   <th scope="col" className="px-3 py-2.5"><span className="sr-only">Action</span></th>
                 </tr>
@@ -162,6 +164,18 @@ export default async function IdeasPage({ searchParams }: PageProps<"/ideas">) {
                     </td>
                     <td className="px-2 py-2">
                       <StageBadge stage={idea.stage} />
+                    </td>
+                    <td className="px-2 py-2">
+                      {/* key: re-mount after a save so the field shows the stored date */}
+                      <form key={idea.publishDate ?? ""} action={updateEpisodeAction.bind(null, idea.id)}>
+                        <AutoSubmitDate
+                          name="publishDate"
+                          defaultValue={idea.publishDate ?? ""}
+                          aria-label={`Publish date for ${idea.code}`}
+                          className="input w-full"
+                          style={{ ...FILTER_STYLE, paddingLeft: 8, paddingRight: 4 }}
+                        />
+                      </form>
                     </td>
                     <td className="truncate px-2 py-2 text-xs text-faint">{timeAgo(idea.createdAt)}</td>
                     <td className="px-3 py-2 text-right">
