@@ -1,16 +1,15 @@
 import React from "react";
-import { AbsoluteFill, Audio, interpolate, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, useVideoConfig } from "remotion";
 import { Asterisk } from "../brand";
 import { Product } from "../products";
 import { C, F, FPS } from "../theme";
 
 /**
  * Carousel slides for picture-stack episodes (AI This Week). One fixed template every week so only the content
- * changes. The same slide renders at 4:5 (1080×1350, Instagram) and 9:16 (1080×1920, TikTok photo mode and the
- * slideshow Short): the layout keeps the safe zone of both.
+ * changes. The same slide renders at 4:5 (1080×1350, Instagram) and 9:16 (1080×1920, TikTok photo mode): the layout keeps the safe zone of both.
  *
  * Content comes from src/carousels/<slug>/slides.json (see scripts/carousel.mjs):
- *   { "series": "AI THIS WEEK", "music": "music.mp3", "slides": [ { "kind": "cover", … }, … ] }
+ *   { "series": "AI THIS WEEK", "slides": [ { "kind": "cover", … }, … ] }
  */
 
 export type Slide =
@@ -131,43 +130,5 @@ export const CarouselSlide: React.FC<SlideProps> = ({ slide, index, total, serie
       {slide.kind === "outro" && <OutroSlide s={slide} />}
       <Dots index={index} total={total} />
     </AbsoluteFill>
-  );
-};
-
-export type SlideshowProps = { slides: Slide[]; series: string; music?: string; secondsPerSlide?: number };
-
-export const slideshowFrames = (p: SlideshowProps) => Math.round(p.slides.length * (p.secondsPerSlide ?? 3) * FPS);
-
-/** The slideshow Short for YouTube: each slide for a few seconds with a quick push-in, over a music bed. */
-export const Slideshow: React.FC<SlideshowProps> = ({ slides, series, music, secondsPerSlide = 3 }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
-  const per = Math.round(secondsPerSlide * FPS);
-  return (
-    <AbsoluteFill style={{ background: C.bg }}>
-      {slides.map((slide, i) => (
-        <Sequence key={i} from={i * per} durationInFrames={per}>
-          <SlideIn>
-            <CarouselSlide slide={slide} index={i} total={slides.length} series={series} />
-          </SlideIn>
-        </Sequence>
-      ))}
-      {music && (
-        <Audio
-          src={staticFile(music)}
-          volume={() => 0.35 * Math.max(0, Math.min(1, frame / 8, (durationInFrames - frame) / 20))}
-        />
-      )}
-    </AbsoluteFill>
-  );
-};
-
-const SlideIn: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
-  const p = spring({ frame, fps: FPS, config: { damping: 18, stiffness: 160 } });
-  const zoom = interpolate(frame, [0, durationInFrames], [1, 1.03]);
-  return (
-    <AbsoluteFill style={{ opacity: Math.min(1, p * 1.5), transform: `translateX(${(1 - p) * 60}px) scale(${zoom})` }}>{children}</AbsoluteFill>
   );
 };

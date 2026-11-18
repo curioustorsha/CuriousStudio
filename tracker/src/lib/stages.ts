@@ -66,8 +66,8 @@ export const STAGES = [
     description: "Plan first (storyboard or slide plan) and pause for approval, then build: voiceover and animation for a video, slides for a carousel. Automatic checks at the end.",
     checklist: [
       "Plan approved (storyboard or slide plan)",
-      "Rendered at full size (1080×1920, and 4:5 slides for a carousel)",
-      "Automatic checks pass (specs, loudness, listen-back, frames)",
+      "Rendered at full size (1080×1920 video, or 4:5 and 9:16 slides for a carousel)",
+      "Automatic checks pass (specs, loudness, listen-back, frames; every slide for a carousel)",
       "Brand end card or slide template applied",
     ],
   },
@@ -79,7 +79,7 @@ export const STAGES = [
     skill: null,
     description: "Watch it on a phone with fresh eyes. To fix something, move it back to Make and request changes.",
     checklist: [
-      "Watched on a phone (sound on for video)",
+      "Checked on a phone (sound on for video, every slide for a carousel)",
       "Readable muted / without zooming",
       "Hook grabs in 2s (first frame or cover slide)",
       "Fixes done",
@@ -98,7 +98,7 @@ export const STAGES = [
       "Titles, captions and hashtags written",
       "Cover chosen",
       "Publish date set",
-      "Scheduled on YouTube",
+      "Scheduled on YouTube (videos only; carousels skip this)",
       "Scheduled on Instagram",
       "Scheduled on TikTok",
     ],
@@ -135,7 +135,6 @@ export function makeSteps(
     ? [
         { label: "Slide plan", done: Boolean(ep.storyboard) },
         { label: "Slides", done: Boolean(ep.slides) },
-        { label: "Short", done: Boolean(ep.renderUrl) },
       ]
     : [
         { label: "Storyboard", done: Boolean(ep.storyboard) },

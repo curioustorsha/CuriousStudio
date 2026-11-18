@@ -1,7 +1,5 @@
 {
   "series": "AI THIS WEEK",
-  "music": "audio/music.mp3",
-  "secondsPerSlide": 3,
   "slides": [
     { "kind": "cover", "kicker": "AI this week · #0", "title": "5 tech stories from this week", "icon": "news", "date": "Week of 26 Oct 2026" },
     { "kind": "story", "text": "One plain sentence on what happened, who did it and the one detail that matters. Facts only.", "source": "Company blog" },

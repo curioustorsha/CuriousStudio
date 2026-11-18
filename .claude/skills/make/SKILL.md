@@ -1,6 +1,6 @@
 ---
 name: make
-description: The Make stage of a Curiously episode, for every series - plan it (storyboard, or slide plan for a carousel) and pause for a person's approval, then build it (voiceover and animation for a video series, slides and slideshow Short for a carousel), run the automatic QA checks, and submit everything for the phone review. Use when asked to make, build, storyboard, animate or render an episode, usually from the tracker's Run button, including re-runs after "request changes" notes.
+description: The Make stage of a Curiously episode, for every series - plan it (storyboard, or slide plan for a carousel) and pause for a person's approval, then build it (voiceover and animation for a video series, 4:5 and 9:16 slide images for a carousel), run the automatic QA checks, and submit everything for the phone review. Use when asked to make, build, storyboard, animate or render an episode, usually from the tracker's Run button, including re-runs after "request changes" notes.
 ---
 
 # Make stage
@@ -60,7 +60,7 @@ node tracker/scripts/episode.mjs submit <CODE> voiceoverUrl=/media/out/<slug>/vo
 
 Build pass, carousel:
 ```bash
-node tracker/scripts/episode.mjs submit <CODE> slides=@<path>/slides.txt renderUrl=/media/out/<slug>/final.mp4 designNotes=@<path>/design-notes.md reviewReport=@<path>/qa.md checks=@<path>/checks.json sendBack=none
+node tracker/scripts/episode.mjs submit <CODE> slides=@<path>/slides.txt designNotes=@<path>/design-notes.md reviewReport=@<path>/qa.md checks=@<path>/checks.json sendBack=none
 ```
 
 **Send back** (only when an earlier stage has to change, never over taste): when a helper reports a problem that lives in the script or research (a line that can't be shown, a fact-check fix never applied, a number that contradicts the fact-check), submit `sendBack=@<path>/sendback.json` instead of `none`, with exact minimal fixes: `{ "stage": "script", "notes": "- **outro:** \"current line\" → \"replacement line\"" }`. A person decides with the **Send fixes to …** button.

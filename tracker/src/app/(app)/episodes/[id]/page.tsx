@@ -360,7 +360,7 @@ function makePhase(ep: Episode, format: Format, busy: boolean): MakePhase {
 /** The Make stage's two steps and the pause between them, with the one button that matters right now. */
 function MakeSteps({ ep, format, phase, hasNotes }: { ep: Episode; format: Format; phase: MakePhase; hasNotes: boolean }) {
   const plan = format === "carousel" ? "slide plan" : "storyboard";
-  const build = format === "carousel" ? "Slides and the slideshow Short, then automatic checks" : "Voiceover, animation and render, then automatic checks";
+  const build = format === "carousel" ? "Slides (4:5 and 9:16 images), then automatic checks" : "Voiceover, animation and render, then automatic checks";
   const steps = [
     {
       n: 1,
@@ -833,20 +833,6 @@ function fresh(ep: Episode, url: string) {
   return url.startsWith("/media/") ? `${url}${url.includes("?") ? "&" : "?"}v=${encodeURIComponent(ep.updatedAt)}` : url;
 }
 
-async function VideoPlayer({ ep, src }: { ep: Episode; src: string }) {
-  return (
-    <video
-      key={src}
-      src={fresh(ep, src)}
-      poster={(await outFile(ep, "cover.png")) ?? undefined}
-      controls
-      playsInline
-      preload="metadata"
-      className="aspect-[9/16] w-full max-w-[340px] rounded-2xl bg-black shadow-[var(--shadow-lg)]"
-    />
-  );
-}
-
 /** One titled block of the Make page (voiceover, video). Skills fill these in; nothing here is typed or saved. */
 function MakeSection({ title, hint, children }: { title: string; hint: string; children: React.ReactNode }) {
   return (
@@ -916,12 +902,6 @@ function DesignTab({ ep, save }: TabProps) {
       ) : (
         <p className="rounded-xl bg-panel-2 px-4 py-3 text-[13px] text-muted">No slides yet. Run Make above (after the slide plan is approved).</p>
       )}
-      {ep.renderUrl && (
-        <div>
-          <div className="label">Slideshow Short (YouTube)</div>
-          <VideoPlayer ep={ep} src={ep.renderUrl} />
-        </div>
-      )}
       <MarkdownField
         name="designNotes"
         label="Design notes"
@@ -931,9 +911,6 @@ function DesignTab({ ep, save }: TabProps) {
       />
       <Field label="Slides" hint="Set by the Design skill: one /media/… image path per line, in swipe order (4:5 versions).">
         <textarea name="slides" defaultValue={ep.slides} rows={4} className="input font-mono text-[12px]" />
-      </Field>
-      <Field label="Slideshow Short" hint="Set by the Design skill. A /media/… path plays here.">
-        <input name="renderUrl" defaultValue={ep.renderUrl} className="input font-mono text-[13px]" />
       </Field>
     </TabForm>
   );
@@ -960,7 +937,7 @@ async function ReviewTab(props: TabProps) {
         <TabForm save={save} readOnly={Boolean(ep.reviewReport)}>
           <SlideGallery ep={ep} />
           <div className="grid gap-5 md:grid-cols-[340px_1fr]">
-            {!video && (ep.renderUrl ? <VideoPlayer ep={ep} src={ep.renderUrl} /> : <p className="text-[13px] text-muted">No render yet.</p>)}
+            {format === "video" && !video && <p className="text-[13px] text-muted">No render yet.</p>}
             {sheet && (
               <div className={video ? "md:col-span-2" : undefined}>
                 <div className="label">Every 2 seconds</div>
@@ -982,7 +959,7 @@ async function ReviewTab(props: TabProps) {
   );
 }
 
-async function PackagingTab({ ep, save }: TabProps) {
+async function PackagingTab({ ep, format, save }: TabProps) {
   const cover = await outFile(ep, "cover.png");
   return (
     <TabForm save={save}>
@@ -993,12 +970,16 @@ async function PackagingTab({ ep, save }: TabProps) {
           <img src={cover} alt="Cover frame" className="aspect-[9/16] w-full max-w-[220px] rounded-xl" />
         </div>
       )}
-      <Field label="YouTube Shorts title" hint={`${ep.ytTitle.length}/100 characters`}>
-        <input name="ytTitle" defaultValue={ep.ytTitle} maxLength={100} className="input" />
-      </Field>
-      <Field label="YouTube description">
-        <textarea name="ytDescription" defaultValue={ep.ytDescription} rows={4} className="input" />
-      </Field>
+      {format === "video" && (
+        <>
+          <Field label="YouTube Shorts title" hint={`${ep.ytTitle.length}/100 characters`}>
+            <input name="ytTitle" defaultValue={ep.ytTitle} maxLength={100} className="input" />
+          </Field>
+          <Field label="YouTube description">
+            <textarea name="ytDescription" defaultValue={ep.ytDescription} rows={4} className="input" />
+          </Field>
+        </>
+      )}
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Instagram caption">
           <textarea name="igCaption" defaultValue={ep.igCaption} rows={6} className="input" />

@@ -64,10 +64,10 @@ Paste the three links into the Posted tab.
 ```
 
 **Carousel series** (`series.format` is `carousel`): the files are the slides, not one video. Change the plan like this:
-- **Files:** Instagram uses the 4:5 slides (the episode's `slides` field, `video/out/<slug>/slides/4x5/01.png …`, in order). TikTok uses the 9:16 slides (`…/slides/9x16/`). YouTube uses the slideshow Short (`video/out/<slug>/final.mp4`).
+- **Files:** Instagram uses the 4:5 slides (the episode's `slides` field, `video/out/<slug>/slides/4x5/01.png …`, in order). TikTok uses the 9:16 slides (`…/slides/9x16/`). Nothing goes to YouTube.
 - **Instagram carousel:** Create → Post → select the slides in order (up to 20) → caption → schedule in the app or Meta Business Suite. Rows: "Instagram carousel" instead of "Instagram Reels".
 - **TikTok photo post:** Upload → Photo mode → slides in order → title + caption from `tiktokCaption`. If TikTok's web scheduler doesn't offer photo posts on the day, write "post from the app at the time".
-- **YouTube Shorts:** as a normal Short, with the slideshow video and slide 1 as the cover. The narration line about AI content doesn't apply (no voice); only tick the altered-content box if the slides contain generated imagery.
+- **YouTube:** skip it. Drop the YouTube row from the plan; the "Scheduled on YouTube" checklist item doesn't apply.
 
 **Claude Skills** (series prefix `CS`): "After posting" also has the comment to pin on YouTube and Instagram: the repo link `github.com/owner/repo`, "checked on <date>", and one line on the catch, as packaging wrote it.
 

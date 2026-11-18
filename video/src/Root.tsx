@@ -15,7 +15,7 @@ import { Cover } from "./scenes/Cover";
 import { LOGO_FRAMES, LogoSting } from "./scenes/LogoSting";
 import { Asterisk, LogoMark } from "./brand";
 import { EPISODES } from "./episodes";
-import { CarouselSlide, Slideshow, slideshowFrames, type SlideProps, type SlideshowProps } from "./carousel/Slides";
+import { CarouselSlide, type SlideProps } from "./carousel/Slides";
 import { IsoDemo } from "./engine/IsoDemo";
 import { AsterSheet } from "./aster/Aster";
 import { ProductUISample, SAMPLE_FRAMES } from "./productui/Sample";
@@ -131,17 +131,10 @@ const SAMPLE_SLIDE: SlideProps = {
   total: 7,
   slide: {
     kind: "story",
-    kicker: "Anthropic",
-    title: "A sample headline that fits two lines",
-    body: "What happened, in one or two short sentences a phone can read without zooming.",
-    why: "The one-line reason a viewer should care.",
-    source: "Company blog, 30 Oct 2026",
-    icon: "ai",
-    stat: "2×",
+    text: "One plain sentence on what happened, who did it and the one detail that matters.",
+    source: "Company blog",
   },
 };
-
-const SAMPLE_SHOW: SlideshowProps = { series: "AI THIS WEEK", slides: [SAMPLE_SLIDE.slide] };
 
 // Square logo for profile pictures and app icons. `bg` null = transparent; the mark stays inside the circle crop.
 type AvatarProps = { bg: string | null; cColor: string };
@@ -158,16 +151,6 @@ export const RemotionRoot: React.FC = () => (
     {/* Carousel episodes: rendered with props from src/carousels/<slug>/slides.json by scripts/carousel.mjs */}
     <Still id="Slide-4x5" component={CarouselSlide} width={W} height={1350} defaultProps={SAMPLE_SLIDE} />
     <Still id="Slide-9x16" component={CarouselSlide} width={W} height={H} defaultProps={SAMPLE_SLIDE} />
-    <Composition
-      id="Slideshow"
-      component={Slideshow}
-      fps={FPS}
-      width={W}
-      height={H}
-      durationInFrames={slideshowFrames(SAMPLE_SHOW)}
-      defaultProps={SAMPLE_SHOW}
-      calculateMetadata={({ props }) => ({ durationInFrames: slideshowFrames(props) })}
-    />
     {/* Logo square: npx remotion still Avatar ../brand/curiously-logo-dark.png --props='{"bg":"#07080C","cColor":"#F5F5F7"}' */}
     <Still id="Avatar" component={Avatar} width={1024} height={1024} defaultProps={{ bg: C.bg, cColor: C.text } as AvatarProps} />
     {/* Isometric kit preview for How It Scales */}
