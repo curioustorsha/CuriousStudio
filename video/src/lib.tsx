@@ -106,7 +106,7 @@ export const Title: React.FC<{ children: React.ReactNode; size?: number; color?:
 );
 
 // Header block, centered at the top of the frame.
-export const Header: React.FC<{ children: React.ReactNode; top?: number }> = ({ children, top = 170 }) => (
+export const Header: React.FC<{ children: React.ReactNode; top?: number }> = ({ children, top = 270 }) => (
   <div
     style={{
       position: "absolute",
@@ -177,7 +177,7 @@ export const Source: React.FC<{ text: string; at?: number }> = ({ text, at = 10 
     <div
       style={{
         position: "absolute",
-        top: 1262,
+        top: 1340,
         left: 0,
         right: 0,
         textAlign: "center",
@@ -248,7 +248,7 @@ export const Captions: React.FC<{ id: SceneId }> = ({ id }) => {
     <div
       style={{
         position: "absolute",
-        top: 1340,
+        top: 1420,
         left: 120,
         right: 120,
         display: "flex",

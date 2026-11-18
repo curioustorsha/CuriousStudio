@@ -28,7 +28,8 @@ function useTopPad() {
 }
 
 const Brand: React.FC<{ series: string }> = ({ series }) => (
-  <div style={{ position: "absolute", top: 64, left: PAD, right: PAD, display: "flex", alignItems: "center", gap: 16 }}>
+  // 9:16 (TikTok photo mode): the top 260 px sit under the clock and the For You tabs.
+  <div style={{ position: "absolute", top: useVideoConfig().height > 1500 ? 260 : 64, left: PAD, right: PAD, display: "flex", alignItems: "center", gap: 16 }}>
     <div style={{ display: "flex", alignItems: "flex-start", fontFamily: F.sans, fontWeight: 800, fontSize: 34, color: C.text, letterSpacing: -0.5, lineHeight: 1 }}>
       curiously
       <span style={{ display: "flex", marginLeft: 3, marginTop: -3 }}>

@@ -57,7 +57,7 @@ Output: `video/out/<slug>/slides/4x5/NN.png`, `video/out/<slug>/slides/9x16/NN.p
 
 Open **every** PNG in both sizes with Read. Fix and re-render until all of these hold:
 - Nothing cut off or overlapping; the story sentence at most 6 lines and readable at phone size.
-- 9:16: nothing important in the bottom ~380 px or the right 120 px (platform buttons).
+- 9:16: nothing in the top 260 px (clock and For You tabs; the brand row sits at 260), nothing important in the bottom ~380 px or the right 120 px (platform buttons).
 - Every number and name matches the fact-check; every story slide names its source in a word or two (the dated link is in the references).
 - Icons fit the story; the cover makes someone want to swipe.
 - Page dots match the slide count.

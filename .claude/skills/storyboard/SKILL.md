@@ -31,12 +31,12 @@ The video is made in Remotion (`video/`). Before planning, look at:
 - `ls video/public/audio/sfx`: sound effects already in the library (reuse before inventing new ones).
 
 **Frame layout (1080×1920), fixed for every episode:**
-- Top 0–160: watermark and series tag (automatic).
-- 170–400: header area (kicker + title, ≤ 6 words).
-- 400–1250: the main visual.
-- 1262: the source line on fact scenes (`SOURCE · TechCrunch, 2012`).
-- 1300–1500: captions (automatic). Keep it clear.
-- Below 1550 and the right 120 px: covered by platform buttons on Shorts, Reels and TikTok. Nothing important there.
+- Top 0–260: covered by the phone's clock and the platform tabs (Reels / Friends, Following / For You). Nothing here, not even the brand.
+- 270–480: header area (kicker + title, ≤ 6 words).
+- 500–1320: the main visual.
+- 1340: the source line on fact scenes (`SOURCE · TechCrunch, 2012`).
+- 1420–1540: captions (automatic). Keep it clear.
+- Below 1560, the right 160 px below y 1200, and ~60 px on each side (tall phones crop the edges): covered or cut by platform UI on Shorts, Reels and TikTok. Nothing important there.
 
 ## 2b. Visual style
 
@@ -116,7 +116,7 @@ The visual metaphor, recurring objects, palette notes. One paragraph.
 
 ### hook · ~4s
 > Amazon's warehouses are a mess. On purpose.
-- **Visual:** what fills 400–1250.
+- **Visual:** what fills 500–1320.
 - **Animation:** what moves and on which spoken word ("on 'mess': items jitter; on 'purpose': stamp slams").
 - **On-screen text:** kicker + title, ≤ 6 words.
 - **Source line:** none / `SOURCE · …` (fact scenes: name the fact F#).

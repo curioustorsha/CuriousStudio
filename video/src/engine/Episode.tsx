@@ -1,7 +1,6 @@
 import React from "react";
-import { AbsoluteFill, Audio, Sequence, Series, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Audio, Series, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, F } from "../theme";
-import { Asterisk } from "../brand";
 import { LOGO_FRAMES, LogoSting } from "../scenes/LogoSting";
 import { Backdrop, Captions, SceneShell, TimingContext, useTiming } from "./kit";
 import { makeTiming, type Manifest } from "./timing";
@@ -10,7 +9,7 @@ export type EpisodeDef = {
   /** Tracker code, e.g. "HIS-003". Also the Remotion composition id. */
   code: string;
   title: string;
-  /** Series tag shown top-left, e.g. "HOW IT SCALES". */
+  /** Series tag, e.g. "HOW IT SCALES". No longer drawn on the video: the top 260 px sit under the platforms' status bar and tabs. */
   seriesTag: string;
   manifest: Manifest;
   /** One component per scene id in the manifest. */
@@ -37,33 +36,6 @@ const Progress: React.FC = () => {
     </div>
   );
 };
-
-/** Channel mark + series tag, top-left. */
-export const Watermark: React.FC<{ tag: string }> = ({ tag }) => (
-  <div style={{ position: "absolute", top: 56, left: 60, display: "flex", alignItems: "center", gap: 16 }}>
-    <div style={{ display: "flex", alignItems: "flex-start", fontFamily: F.sans, fontWeight: 800, fontSize: 32, color: "rgba(245,245,247,0.8)", letterSpacing: -0.5, lineHeight: 1 }}>
-      curiously
-      <span style={{ display: "flex", marginLeft: 3, marginTop: -3 }}>
-        <Asterisk size={15} />
-      </span>
-    </div>
-    <div
-      style={{
-        fontFamily: F.mono,
-        fontWeight: 700,
-        fontSize: 18,
-        letterSpacing: 2,
-        color: C.accent,
-        padding: "5px 12px",
-        borderRadius: 8,
-        border: "1px solid rgba(255,181,71,0.4)",
-        background: "rgba(255,181,71,0.08)",
-      }}
-    >
-      {tag}
-    </div>
-  </div>
-);
 
 // Music ducks under the narration and comes up in the gaps.
 const DUCKED = 0.09;
@@ -124,9 +96,6 @@ export const makeEpisode = (def: EpisodeDef) => {
             </Series.Sequence>
           )}
         </Series>
-        <Sequence durationInFrames={t.totalFrames()} layout="none">
-          <Watermark tag={def.seriesTag} />
-        </Sequence>
         <Progress />
       </AbsoluteFill>
     </TimingContext.Provider>

@@ -90,19 +90,19 @@ export const Ripple: React.FC<{ c: Pt; p: number; r?: number; color?: string }> 
   );
 };
 
-/** Kicker + title, centred in the header band (170–400). `kicker` may be a node (a logo kicker). */
+/** Kicker + title, centred in the header band (270–480). `kicker` may be a node (a logo kicker). */
 export const BeatHeader: React.FC<{ kicker: React.ReactNode; title: React.ReactNode; opacity?: number; dy?: number }> = ({ kicker, title, opacity = 1, dy = 0 }) =>
   opacity <= 0.001 ? null : (
-    <div style={{ position: "absolute", top: 170 + dy, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 26, opacity }}>
+    <div style={{ position: "absolute", top: 270 + dy, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 26, opacity }}>
       {typeof kicker === "string" ? <Kicker text={kicker} /> : kicker}
       <div style={{ fontFamily: F.sans, fontWeight: 900, fontSize: 80, lineHeight: 1.02, letterSpacing: -2.8, color: C.text, textAlign: "center" }}>{title}</div>
     </div>
   );
 
-/** Source line at y 1262 (plain-text citation), with its own opacity. */
+/** Source line at y 1340 (plain-text citation), with its own opacity. */
 export const SourceAt: React.FC<{ text: string; opacity: number }> = ({ text, opacity }) =>
   opacity <= 0.001 ? null : (
-    <div style={{ position: "absolute", top: 1262, left: 0, right: 0, textAlign: "center", fontFamily: F.mono, fontSize: 22, color: C.muted, letterSpacing: 1, opacity: 0.8 * opacity }}>SOURCE · {text}</div>
+    <div style={{ position: "absolute", top: 1340, left: 0, right: 0, textAlign: "center", fontFamily: F.mono, fontSize: 22, color: C.muted, letterSpacing: 1, opacity: 0.8 * opacity }}>SOURCE · {text}</div>
   );
 
 /** Crossfade helper: 1 before `t`, 0 after `t + dur`. */

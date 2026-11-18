@@ -49,10 +49,10 @@ npm --prefix video run ep:frames -- <CODE> --every 1    # closer look if needed
 Open `video/out/<slug>/frames/sheet.jpg` with Read, then the single frames (`t012.0.jpg` = 12 s) around anything suspicious. Check:
 - **Hook:** something moving and readable within the first 1–2 s; the first spoken line is the hook.
 - **Text:** nothing cut off or running off the frame; no typos; on-screen text short and readable at phone size.
-- **Captions:** never covered by a visual; visuals don't sit in 1300–1500.
-- **Safe zones:** nothing important below ~1550 px or in the right ~120 px (platform buttons).
+- **Captions:** never covered by a visual; visuals don't sit in 1420–1540, and there is no empty band of 100 px+ between the visual and the captions.
+- **Safe zones:** nothing at all in the top 260 px (clock, Reels / For You tabs); nothing important below ~1560 px, in the right ~160 px below y 1200 (platform buttons) or in the outer ~60 px each side. Any of these is a Major issue for Animation.
 - **Facts:** every number and name on screen matches the fact-check; fact scenes show a source line.
-- **Brand:** watermark and series tag present, logo end card at the end, no emoji.
+- **Brand:** logo end card at the end, no emoji, no watermark in the top 260 px.
 - **Style:** the look matches `series.visualStyle` (isometric: one consistent iso world, flat-shaded blocks, colour roles kept; flat-metaphor: flat shapes, each idea keeps its metaphor; product-ui: real proof files inside the windows, never a drawn copy of a tool's output, the maker's credit tag on screen whenever their demo shows, and the star count, repo name and install command matching the research; the key line or result readable at phone size, and no near-black gap between scenes). A scene in the wrong style is a Major issue for Animation.
 - **Flow:** no empty or frozen stretches; the last frame flows back into the first (loop).
 

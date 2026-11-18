@@ -8,7 +8,7 @@ import { ez, lerp, sp } from "../../../workshop";
 import { CENTRE } from "./Hook";
 import { Star } from "./common";
 
-const PHONE = { x: 330, y: 450, w: 420, h: 740 };
+const PHONE = { x: 330, y: 520, w: 420, h: 740 };
 const BODY_H = PHONE.h - 52;
 
 /** Rack lines on a server block's two visible faces. */
@@ -140,7 +140,7 @@ export const What: React.FC = () => {
   const up = ez(f, tWe - 8, tWe + 14);
   const groupTop = 655;
   const scale = lerp(1, 0.34, up);
-  const dy = lerp(0, 172 - groupTop, up);
+  const dy = lerp(0, 272 - groupTop, up);
   const title = ez(f, tWe + 4, tWe + 16);
 
   const phone = sp(f, tWe + 4, { damping: 16, stiffness: 150 });
@@ -176,7 +176,7 @@ export const What: React.FC = () => {
 
       {/* stopwatch chip */}
       {chip > 0.001 && (
-        <div style={{ position: "absolute", top: 1206, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: Math.min(1, chip * 1.5), transform: `scale(${0.7 + 0.3 * Math.min(1, chip)})` }}>
+        <div style={{ position: "absolute", top: 1276, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: Math.min(1, chip * 1.5), transform: `scale(${0.7 + 0.3 * Math.min(1, chip)})` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14, padding: "8px 22px 8px 12px", borderRadius: 999, background: "rgba(7,8,12,0.94)", border: `2px solid ${C.accent}` }}>
             <svg width={40} height={40} viewBox="-20 -20 40 40">
               <circle r={R} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth={4} />
@@ -196,7 +196,7 @@ export const What: React.FC = () => {
           </div>
         </div>
       )}
-      <div style={{ position: "absolute", top: 300, left: 0, right: 0, textAlign: "center", fontFamily: F.sans, fontWeight: 900, fontSize: 70, letterSpacing: -2.4, color: C.text, opacity: title, transform: `translateY(${(1 - title) * 20}px)` }}>
+      <div style={{ position: "absolute", top: 400, left: 0, right: 0, textAlign: "center", fontFamily: F.sans, fontWeight: 900, fontSize: 70, letterSpacing: -2.4, color: C.text, opacity: title, transform: `translateY(${(1 - title) * 20}px)` }}>
         Behind the <span style={{ color: C.accent }}>screen</span>
       </div>
     </>
