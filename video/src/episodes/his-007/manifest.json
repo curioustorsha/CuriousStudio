@@ -18,26 +18,26 @@
         {
           "text": "Google",
           "start": 0.48,
-          "end": 0.8
+          "end": 0.72
         },
         {
           "text": "Maps",
-          "start": 0.88,
+          "start": 0.8,
           "end": 1.12
         },
         {
           "text": "know",
-          "start": 1.28,
+          "start": 1.2,
           "end": 1.36
         },
         {
           "text": "about",
           "start": 1.44,
-          "end": 1.68
+          "end": 1.6
         },
         {
           "text": "a",
-          "start": 1.72,
+          "start": 1.68,
           "end": 1.76
         },
         {
@@ -86,7 +86,7 @@
         {
           "text": "Welcome",
           "start": 0,
-          "end": 0.32
+          "end": 0.4
         },
         {
           "text": "to",
@@ -106,20 +106,20 @@
         {
           "text": "Scales,",
           "start": 1.04,
-          "end": 1.68
+          "end": 1.76
         },
         {
           "text": "by",
-          "start": 1.8,
+          "start": 1.84,
           "end": 1.92
         },
         {
           "text": "Curiously.",
-          "start": 2.04,
-          "end": 3.12
+          "start": 2,
+          "end": 3.2
         }
       ],
-      "end": 3.12
+      "end": 3.2
     },
     {
       "id": "cart",
@@ -134,238 +134,341 @@
         {
           "text": "2020,",
           "start": 0.32,
-          "end": 1.24
+          "end": 1.16
         },
         {
           "text": "an",
-          "start": 1.28,
-          "end": 1.44
+          "start": 1.2,
+          "end": 1.36
         },
         {
           "text": "artist",
-          "start": 1.52,
-          "end": 1.84
+          "start": 1.44,
+          "end": 1.76
         },
         {
           "text": "in",
-          "start": 1.92,
-          "end": 2
+          "start": 1.84,
+          "end": 1.92
         },
         {
           "text": "Berlin",
-          "start": 2.08,
-          "end": 2.56
-        },
-        {
-          "text": "pulled",
-          "start": 2.6,
-          "end": 2.88
-        },
-        {
-          "text": "ninety-nine",
-          "start": 2.96,
-          "end": 3.68
-        },
-        {
-          "text": "second-hand",
-          "start": 3.84,
-          "end": 4.24
-        },
-        {
-          "text": "phones",
-          "start": 4.32,
-          "end": 4.64
-        },
-        {
-          "text": "through",
-          "start": 4.72,
-          "end": 4.88
-        },
-        {
-          "text": "the",
-          "start": 4.96,
-          "end": 5.04
-        },
-        {
-          "text": "streets",
-          "start": 5.12,
-          "end": 5.52
-        },
-        {
-          "text": "in",
-          "start": 5.6,
-          "end": 5.68
-        },
-        {
-          "text": "a",
-          "start": 5.72,
-          "end": 5.76
-        },
-        {
-          "text": "handcart.",
-          "start": 5.84,
-          "end": 6.92
-        },
-        {
-          "text": "On",
-          "start": 6.96,
-          "end": 7.12
-        },
-        {
-          "text": "Google",
-          "start": 7.24,
-          "end": 7.36
-        },
-        {
-          "text": "Maps,",
-          "start": 7.44,
-          "end": 8.04
-        },
-        {
-          "text": "those",
-          "start": 8.08,
-          "end": 8.32
-        },
-        {
-          "text": "streets",
-          "start": 8.4,
-          "end": 8.8
-        },
-        {
-          "text": "turned",
-          "start": 8.88,
-          "end": 9.2
-        },
-        {
-          "text": "red.",
-          "start": 9.6,
-          "end": 10.08
-        }
-      ],
-      "end": 10.08
-    },
-    {
-      "id": "phones",
-      "file": "episodes/his-007/vo/phones.mp3",
-      "text": "Google pools location data from lots of people's phones. When lots of them crawl along one road, Google can tell it's slow.",
-      "words": [
-        {
-          "text": "Google",
-          "start": 0,
-          "end": 0.32
-        },
-        {
-          "text": "pools",
-          "start": 0.48,
-          "end": 0.72
-        },
-        {
-          "text": "location",
-          "start": 0.8,
-          "end": 1.28
-        },
-        {
-          "text": "data",
-          "start": 1.36,
-          "end": 1.68
-        },
-        {
-          "text": "from",
-          "start": 1.76,
-          "end": 2
-        },
-        {
-          "text": "lots",
-          "start": 2.08,
-          "end": 2.32
-        },
-        {
-          "text": "of",
-          "start": 2.4,
+          "start": 2,
           "end": 2.48
         },
         {
-          "text": "people's",
-          "start": 2.64,
-          "end": 2.88
+          "text": "pulled",
+          "start": 2.587,
+          "end": 2.8
         },
         {
-          "text": "phones.",
-          "start": 2.96,
-          "end": 3.88
+          "text": "ninety-nine",
+          "start": 2.88,
+          "end": 3.52
         },
         {
-          "text": "When",
-          "start": 3.92,
+          "text": "second-hand",
+          "start": 3.68,
           "end": 4.08
         },
         {
-          "text": "lots",
-          "start": 4.16,
-          "end": 4.4
-        },
-        {
-          "text": "of",
-          "start": 4.44,
+          "text": "phones",
+          "start": 4.28,
           "end": 4.48
         },
         {
-          "text": "them",
+          "text": "through",
           "start": 4.56,
           "end": 4.72
         },
         {
-          "text": "crawl",
+          "text": "the",
           "start": 4.8,
-          "end": 4.96
+          "end": 4.88
         },
         {
-          "text": "along",
-          "start": 5.04,
+          "text": "streets",
+          "start": 4.96,
           "end": 5.36
         },
         {
-          "text": "one",
-          "start": 5.44,
-          "end": 5.6
+          "text": "in",
+          "start": 5.4,
+          "end": 5.44
         },
         {
-          "text": "road,",
-          "start": 5.68,
-          "end": 6.32
+          "text": "a",
+          "start": 5.6,
+          "end": 5.707
+        },
+        {
+          "text": "handcart.",
+          "start": 5.813,
+          "end": 6.68
+        },
+        {
+          "text": "On",
+          "start": 6.72,
+          "end": 6.8
         },
         {
           "text": "Google",
-          "start": 6.4,
+          "start": 6.88,
+          "end": 7.12
+        },
+        {
+          "text": "Maps,",
+          "start": 7.2,
+          "end": 7.8
+        },
+        {
+          "text": "those",
+          "start": 7.84,
+          "end": 8.08
+        },
+        {
+          "text": "streets",
+          "start": 8.16,
+          "end": 8.56
+        },
+        {
+          "text": "turned",
+          "start": 8.64,
+          "end": 8.96
+        },
+        {
+          "text": "red.",
+          "start": 9.32,
+          "end": 9.76
+        }
+      ],
+      "end": 9.76
+    },
+    {
+      "id": "phones",
+      "file": "episodes/his-007/vo/phones.mp3",
+      "text": "That's the first clue. Google pools location data from lots of people's phones. When many of them crawl along one road, Google can tell it's slow.",
+      "words": [
+        {
+          "text": "That's",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "the",
+          "start": 0.44,
+          "end": 0.56
+        },
+        {
+          "text": "first",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "text": "clue.",
+          "start": 0.96,
+          "end": 1.84
+        },
+        {
+          "text": "Google",
+          "start": 1.92,
+          "end": 2.24
+        },
+        {
+          "text": "pools",
+          "start": 2.32,
+          "end": 2.56
+        },
+        {
+          "text": "location",
+          "start": 2.64,
+          "end": 3.12
+        },
+        {
+          "text": "data",
+          "start": 3.2,
+          "end": 3.52
+        },
+        {
+          "text": "from",
+          "start": 3.6,
+          "end": 3.84
+        },
+        {
+          "text": "lots",
+          "start": 3.92,
+          "end": 4.16
+        },
+        {
+          "text": "of",
+          "start": 4.24,
+          "end": 4.32
+        },
+        {
+          "text": "people's",
+          "start": 4.44,
+          "end": 4.72
+        },
+        {
+          "text": "phones.",
+          "start": 5.16,
+          "end": 5.653
+        },
+        {
+          "text": "When",
+          "start": 5.707,
+          "end": 5.76
+        },
+        {
+          "text": "many",
+          "start": 5.84,
+          "end": 6.08
+        },
+        {
+          "text": "of",
+          "start": 6.16,
+          "end": 6.24
+        },
+        {
+          "text": "them",
+          "start": 6.32,
+          "end": 6.4
+        },
+        {
+          "text": "crawl",
+          "start": 6.48,
           "end": 6.64
         },
         {
-          "text": "can",
+          "text": "along",
           "start": 6.72,
-          "end": 6.88
+          "end": 7.04
+        },
+        {
+          "text": "one",
+          "start": 7.12,
+          "end": 7.28
+        },
+        {
+          "text": "road,",
+          "start": 7.36,
+          "end": 7.96
+        },
+        {
+          "text": "Google",
+          "start": 8,
+          "end": 8.24
+        },
+        {
+          "text": "can",
+          "start": 8.32,
+          "end": 8.48
         },
         {
           "text": "tell",
-          "start": 7.04,
-          "end": 7.2
+          "start": 8.64,
+          "end": 8.8
         },
         {
           "text": "it's",
-          "start": 7.28,
-          "end": 7.44
+          "start": 8.88,
+          "end": 9.04
         },
         {
           "text": "slow.",
-          "start": 7.52,
-          "end": 8.48
+          "start": 9.44,
+          "end": 9.92
         }
       ],
-      "end": 8.48
+      "end": 9.92
+    },
+    {
+      "id": "reports",
+      "file": "episodes/his-007/vo/reports.mp3",
+      "text": "Drivers' incident reports add closures and roadworks, and local governments add speed limits and tolls.",
+      "words": [
+        {
+          "text": "Drivers'",
+          "start": 0,
+          "end": 0.56
+        },
+        {
+          "text": "incident",
+          "start": 0.76,
+          "end": 0.96
+        },
+        {
+          "text": "reports",
+          "start": 1.04,
+          "end": 1.52
+        },
+        {
+          "text": "add",
+          "start": 1.6,
+          "end": 1.84
+        },
+        {
+          "text": "closures",
+          "start": 1.88,
+          "end": 2.4
+        },
+        {
+          "text": "and",
+          "start": 2.48,
+          "end": 2.56
+        },
+        {
+          "text": "roadworks,",
+          "start": 2.64,
+          "end": 3.573
+        },
+        {
+          "text": "and",
+          "start": 3.627,
+          "end": 3.68
+        },
+        {
+          "text": "local",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "text": "governments",
+          "start": 4.04,
+          "end": 4.56
+        },
+        {
+          "text": "add",
+          "start": 4.64,
+          "end": 4.8
+        },
+        {
+          "text": "speed",
+          "start": 4.88,
+          "end": 5.12
+        },
+        {
+          "text": "limits",
+          "start": 5.32,
+          "end": 5.52
+        },
+        {
+          "text": "and",
+          "start": 5.6,
+          "end": 5.68
+        },
+        {
+          "text": "tolls.",
+          "start": 5.76,
+          "end": 6.8
+        }
+      ],
+      "end": 6.8
     },
     {
       "id": "future",
       "file": "episodes/his-007/vo/future.mp3",
-      "text": "But you need to know the traffic ten, twenty, even fifty minutes into your drive.",
+      "text": "But a jam right now isn't enough. You need the traffic ten, twenty, even fifty minutes into your drive.",
       "words": [
         {
           "text": "But",
@@ -373,87 +476,107 @@
           "end": 0.08
         },
         {
-          "text": "you",
+          "text": "a",
           "start": 0.16,
-          "end": 0.32
+          "end": 0.24
+        },
+        {
+          "text": "jam",
+          "start": 0.32,
+          "end": 0.64
+        },
+        {
+          "text": "right",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "text": "now",
+          "start": 1.04,
+          "end": 1.44
+        },
+        {
+          "text": "isn't",
+          "start": 1.52,
+          "end": 1.68
+        },
+        {
+          "text": "enough.",
+          "start": 1.76,
+          "end": 2.6
+        },
+        {
+          "text": "You",
+          "start": 2.64,
+          "end": 2.72
         },
         {
           "text": "need",
-          "start": 0.44,
-          "end": 0.56
-        },
-        {
-          "text": "to",
-          "start": 0.64,
-          "end": 0.72
-        },
-        {
-          "text": "know",
-          "start": 0.8,
-          "end": 0.88
+          "start": 2.8,
+          "end": 2.96
         },
         {
           "text": "the",
-          "start": 0.96,
-          "end": 1.04
-        },
-        {
-          "text": "traffic",
-          "start": 1.28,
-          "end": 1.52
-        },
-        {
-          "text": "ten,",
-          "start": 1.68,
-          "end": 2.24
-        },
-        {
-          "text": "twenty,",
-          "start": 2.32,
+          "start": 3,
           "end": 3.04
         },
         {
-          "text": "even",
+          "text": "traffic",
           "start": 3.12,
-          "end": 3.44
+          "end": 3.6
+        },
+        {
+          "text": "ten,",
+          "start": 3.68,
+          "end": 4.2
+        },
+        {
+          "text": "twenty,",
+          "start": 4.24,
+          "end": 4.84
+        },
+        {
+          "text": "even",
+          "start": 4.88,
+          "end": 5.28
         },
         {
           "text": "fifty",
-          "start": 3.52,
-          "end": 3.84
+          "start": 5.32,
+          "end": 5.68
         },
         {
           "text": "minutes",
-          "start": 3.92,
-          "end": 4.24
+          "start": 5.76,
+          "end": 6.08
         },
         {
           "text": "into",
-          "start": 4.36,
-          "end": 4.48
+          "start": 6.2,
+          "end": 6.32
         },
         {
           "text": "your",
-          "start": 4.56,
-          "end": 4.64
+          "start": 6.4,
+          "end": 6.48
         },
         {
           "text": "drive.",
-          "start": 5.04,
-          "end": 5.52
+          "start": 6.92,
+          "end": 7.44
         }
       ],
-      "end": 5.52
+      "end": 7.44
     },
     {
       "id": "memory",
       "file": "episodes/his-007/vo/memory.mp3",
-      "text": "So Google also remembers how each road usually flows, and mixes that with live traffic.",
+      "text": "So Google also remembers how each road usually flows. One California freeway moves at sixty-five miles an hour early in the morning, but fifteen to twenty in the late afternoon.",
       "words": [
         {
           "text": "So",
           "start": 0,
-          "end": 0.08
+          "end": 0.16
         },
         {
           "text": "Google",
@@ -468,11 +591,11 @@
         {
           "text": "remembers",
           "start": 1.04,
-          "end": 1.6
+          "end": 1.52
         },
         {
           "text": "how",
-          "start": 1.72,
+          "start": 1.6,
           "end": 1.84
         },
         {
@@ -482,8 +605,8 @@
         },
         {
           "text": "road",
-          "start": 2.24,
-          "end": 2.56
+          "start": 2.32,
+          "end": 2.48
         },
         {
           "text": "usually",
@@ -491,47 +614,240 @@
           "end": 3.04
         },
         {
-          "text": "flows,",
+          "text": "flows.",
           "start": 3.12,
-          "end": 3.733
+          "end": 4.08
         },
         {
-          "text": "and",
-          "start": 3.787,
-          "end": 3.84
-        },
-        {
-          "text": "mixes",
-          "start": 3.92,
+          "text": "One",
+          "start": 4.16,
           "end": 4.32
         },
         {
-          "text": "that",
-          "start": 4.4,
-          "end": 4.56
-        },
-        {
-          "text": "with",
+          "text": "California",
           "start": 4.64,
-          "end": 4.8
+          "end": 4.96
         },
         {
-          "text": "live",
-          "start": 4.88,
-          "end": 5.12
+          "text": "freeway",
+          "start": 5.04,
+          "end": 5.44
         },
         {
-          "text": "traffic.",
-          "start": 5.56,
-          "end": 6.08
+          "text": "moves",
+          "start": 5.52,
+          "end": 5.68
+        },
+        {
+          "text": "at",
+          "start": 5.76,
+          "end": 5.92
+        },
+        {
+          "text": "sixty-five",
+          "start": 6.04,
+          "end": 6.48
+        },
+        {
+          "text": "miles",
+          "start": 6.56,
+          "end": 6.8
+        },
+        {
+          "text": "an",
+          "start": 6.84,
+          "end": 6.88
+        },
+        {
+          "text": "hour",
+          "start": 6.96,
+          "end": 7.2
+        },
+        {
+          "text": "early",
+          "start": 7.28,
+          "end": 7.44
+        },
+        {
+          "text": "in",
+          "start": 7.52,
+          "end": 7.6
+        },
+        {
+          "text": "the",
+          "start": 7.64,
+          "end": 7.68
+        },
+        {
+          "text": "morning,",
+          "start": 7.76,
+          "end": 8.48
+        },
+        {
+          "text": "but",
+          "start": 8.56,
+          "end": 8.64
+        },
+        {
+          "text": "fifteen",
+          "start": 8.72,
+          "end": 9.04
+        },
+        {
+          "text": "to",
+          "start": 9.12,
+          "end": 9.2
+        },
+        {
+          "text": "twenty",
+          "start": 9.4,
+          "end": 9.6
+        },
+        {
+          "text": "in",
+          "start": 9.76,
+          "end": 9.84
+        },
+        {
+          "text": "the",
+          "start": 9.88,
+          "end": 9.92
+        },
+        {
+          "text": "late",
+          "start": 10,
+          "end": 10.16
+        },
+        {
+          "text": "afternoon.",
+          "start": 10.24,
+          "end": 11.28
         }
       ],
-      "end": 6.08
+      "end": 11.28
     },
     {
-      "id": "graph",
-      "file": "episodes/his-007/vo/graph.mp3",
-      "text": "To forecast, Google teamed up with DeepMind, an Alphabet AI lab, on a graph neural network. Picture every stretch of road as a dot, with lines joining stretches that connect.",
+      "id": "lockdown",
+      "file": "episodes/his-007/vo/lockdown.mp3",
+      "text": "When lockdowns emptied the roads in 2020, Google started trusting the last two to four weeks of patterns more than older ones.",
+      "words": [
+        {
+          "text": "When",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "lockdowns",
+          "start": 0.24,
+          "end": 0.8
+        },
+        {
+          "text": "emptied",
+          "start": 0.88,
+          "end": 1.2
+        },
+        {
+          "text": "the",
+          "start": 1.28,
+          "end": 1.32
+        },
+        {
+          "text": "roads",
+          "start": 1.36,
+          "end": 1.6
+        },
+        {
+          "text": "in",
+          "start": 1.68,
+          "end": 1.76
+        },
+        {
+          "text": "2020,",
+          "start": 1.92,
+          "end": 2.96
+        },
+        {
+          "text": "Google",
+          "start": 3.04,
+          "end": 3.28
+        },
+        {
+          "text": "started",
+          "start": 3.36,
+          "end": 3.68
+        },
+        {
+          "text": "trusting",
+          "start": 3.76,
+          "end": 4.16
+        },
+        {
+          "text": "the",
+          "start": 4.24,
+          "end": 4.32
+        },
+        {
+          "text": "last",
+          "start": 4.52,
+          "end": 4.72
+        },
+        {
+          "text": "two",
+          "start": 4.8,
+          "end": 4.88
+        },
+        {
+          "text": "to",
+          "start": 4.96,
+          "end": 5.04
+        },
+        {
+          "text": "four",
+          "start": 5.12,
+          "end": 5.28
+        },
+        {
+          "text": "weeks",
+          "start": 5.4,
+          "end": 5.52
+        },
+        {
+          "text": "of",
+          "start": 5.6,
+          "end": 5.68
+        },
+        {
+          "text": "patterns",
+          "start": 5.76,
+          "end": 6.32
+        },
+        {
+          "text": "more",
+          "start": 6.4,
+          "end": 6.56
+        },
+        {
+          "text": "than",
+          "start": 6.68,
+          "end": 6.8
+        },
+        {
+          "text": "older",
+          "start": 6.88,
+          "end": 7.12
+        },
+        {
+          "text": "ones.",
+          "start": 7.2,
+          "end": 8
+        }
+      ],
+      "end": 8
+    },
+    {
+      "id": "super",
+      "file": "episodes/his-007/vo/super.mp3",
+      "text": "To forecast, Google teamed up with DeepMind, an Alphabet AI lab. They split roads into supersegments: runs of connected road that share a lot of traffic.",
       "words": [
         {
           "text": "To",
@@ -541,150 +857,238 @@
         {
           "text": "forecast,",
           "start": 0.16,
-          "end": 1.04
+          "end": 0.96
         },
         {
           "text": "Google",
-          "start": 1.12,
-          "end": 1.44
+          "start": 1.04,
+          "end": 1.36
         },
         {
           "text": "teamed",
-          "start": 1.52,
-          "end": 1.76
+          "start": 1.4,
+          "end": 1.6
         },
         {
           "text": "up",
-          "start": 1.84,
-          "end": 1.92
+          "start": 1.68,
+          "end": 1.84
         },
         {
           "text": "with",
-          "start": 2.04,
-          "end": 2.16
+          "start": 1.96,
+          "end": 2.08
         },
         {
           "text": "DeepMind,",
-          "start": 2.28,
-          "end": 2.96
+          "start": 2.2,
+          "end": 2.933
         },
         {
           "text": "an",
-          "start": 3.04,
-          "end": 3.12
+          "start": 2.987,
+          "end": 3.04
         },
         {
           "text": "Alphabet",
-          "start": 3.2,
-          "end": 3.6
+          "start": 3.12,
+          "end": 3.52
         },
         {
           "text": "AI",
-          "start": 3.76,
-          "end": 4.04
+          "start": 3.68,
+          "end": 3.88
         },
         {
-          "text": "lab,",
-          "start": 4.08,
-          "end": 4.52
+          "text": "lab.",
+          "start": 3.92,
+          "end": 4.76
         },
         {
-          "text": "on",
-          "start": 4.56,
-          "end": 4.64
-        },
-        {
-          "text": "a",
+          "text": "They",
           "start": 4.8,
-          "end": 4.933
+          "end": 4.96
         },
         {
-          "text": "graph",
-          "start": 5.067,
-          "end": 5.2
+          "text": "split",
+          "start": 5.04,
+          "end": 5.28
         },
         {
-          "text": "neural",
-          "start": 5.28,
-          "end": 5.6
+          "text": "roads",
+          "start": 5.36,
+          "end": 5.68
         },
         {
-          "text": "network.",
-          "start": 6.08,
-          "end": 6.6
+          "text": "into",
+          "start": 5.76,
+          "end": 6.08
         },
         {
-          "text": "Picture",
-          "start": 6.64,
-          "end": 7.04
+          "text": "supersegments:",
+          "start": 6.28,
+          "end": 7.32
         },
         {
-          "text": "every",
-          "start": 7.2,
-          "end": 7.44
-        },
-        {
-          "text": "stretch",
-          "start": 7.52,
-          "end": 7.76
+          "text": "runs",
+          "start": 7.36,
+          "end": 7.6
         },
         {
           "text": "of",
-          "start": 7.84,
-          "end": 7.92
+          "start": 7.68,
+          "end": 7.76
         },
         {
-          "text": "road",
-          "start": 8.08,
+          "text": "connected",
+          "start": 8,
           "end": 8.24
         },
         {
-          "text": "as",
+          "text": "road",
           "start": 8.32,
-          "end": 8.4
-        },
-        {
-          "text": "a",
-          "start": 8.56,
-          "end": 8.747
-        },
-        {
-          "text": "dot,",
-          "start": 8.933,
-          "end": 9.16
-        },
-        {
-          "text": "with",
-          "start": 9.2,
-          "end": 9.36
-        },
-        {
-          "text": "lines",
-          "start": 9.44,
-          "end": 9.84
-        },
-        {
-          "text": "joining",
-          "start": 10,
-          "end": 10.16
-        },
-        {
-          "text": "stretches",
-          "start": 10.24,
-          "end": 10.64
+          "end": 8.56
         },
         {
           "text": "that",
-          "start": 10.72,
-          "end": 10.8
+          "start": 8.68,
+          "end": 8.8
+        },
+        {
+          "text": "share",
+          "start": 8.92,
+          "end": 9.04
+        },
+        {
+          "text": "a",
+          "start": 9.12,
+          "end": 9.2
+        },
+        {
+          "text": "lot",
+          "start": 9.28,
+          "end": 9.44
+        },
+        {
+          "text": "of",
+          "start": 9.52,
+          "end": 9.6
+        },
+        {
+          "text": "traffic.",
+          "start": 10.08,
+          "end": 10.64
+        }
+      ],
+      "end": 10.64
+    },
+    {
+      "id": "graph",
+      "file": "episodes/his-007/vo/graph.mp3",
+      "text": "Then comes a graph neural network. Picture every stretch of road as a dot, with lines joining stretches that connect.",
+      "words": [
+        {
+          "text": "Then",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "comes",
+          "start": 0.32,
+          "end": 0.64
+        },
+        {
+          "text": "a",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "text": "graph",
+          "start": 1.08,
+          "end": 1.28
+        },
+        {
+          "text": "neural",
+          "start": 1.36,
+          "end": 1.68
+        },
+        {
+          "text": "network.",
+          "start": 1.92,
+          "end": 2.64
+        },
+        {
+          "text": "Picture",
+          "start": 2.88,
+          "end": 3.12
+        },
+        {
+          "text": "every",
+          "start": 3.28,
+          "end": 3.52
+        },
+        {
+          "text": "stretch",
+          "start": 3.6,
+          "end": 3.84
+        },
+        {
+          "text": "of",
+          "start": 3.92,
+          "end": 4
+        },
+        {
+          "text": "road",
+          "start": 4.16,
+          "end": 4.32
+        },
+        {
+          "text": "as",
+          "start": 4.4,
+          "end": 4.48
+        },
+        {
+          "text": "a",
+          "start": 4.64,
+          "end": 4.827
+        },
+        {
+          "text": "dot,",
+          "start": 5.013,
+          "end": 5.24
+        },
+        {
+          "text": "with",
+          "start": 5.28,
+          "end": 5.44
+        },
+        {
+          "text": "lines",
+          "start": 5.52,
+          "end": 5.92
+        },
+        {
+          "text": "joining",
+          "start": 6.08,
+          "end": 6.24
+        },
+        {
+          "text": "stretches",
+          "start": 6.32,
+          "end": 6.64
+        },
+        {
+          "text": "that",
+          "start": 6.72,
+          "end": 6.88
         },
         {
           "text": "connect.",
-          "start": 11.28,
-          "end": 11.84
+          "start": 7.32,
+          "end": 7.84
         }
       ],
-      "end": 11.84
+      "end": 7.84
     },
     {
       "id": "spill",
@@ -698,121 +1102,367 @@
         },
         {
           "text": "dots",
-          "start": 0.68,
+          "start": 0.56,
           "end": 0.88
         },
         {
           "text": "pass",
           "start": 0.96,
-          "end": 1.2
+          "end": 1.28
         },
         {
           "text": "messages",
-          "start": 1.28,
-          "end": 1.76
-        },
-        {
-          "text": "to",
-          "start": 1.8,
+          "start": 1.36,
           "end": 1.84
         },
         {
+          "text": "to",
+          "start": 1.88,
+          "end": 1.92
+        },
+        {
           "text": "each",
-          "start": 1.92,
+          "start": 2,
           "end": 2.08
         },
         {
           "text": "other,",
-          "start": 2.36,
-          "end": 2.68
-        },
-        {
-          "text": "so",
-          "start": 2.72,
+          "start": 2.16,
           "end": 2.8
         },
         {
-          "text": "the",
+          "text": "so",
           "start": 2.88,
           "end": 2.96
         },
         {
+          "text": "the",
+          "start": 3,
+          "end": 3.04
+        },
+        {
           "text": "model",
           "start": 3.12,
-          "end": 3.28
+          "end": 3.44
         },
         {
           "text": "learns",
-          "start": 3.4,
-          "end": 3.6
+          "start": 3.56,
+          "end": 3.84
         },
         {
           "text": "how",
-          "start": 3.68,
-          "end": 3.76
+          "start": 3.92,
+          "end": 4
         },
         {
           "text": "a",
-          "start": 3.92,
-          "end": 3.96
-        },
-        {
-          "text": "jam",
-          "start": 4,
+          "start": 4.08,
           "end": 4.16
         },
         {
+          "text": "jam",
+          "start": 4.32,
+          "end": 4.48
+        },
+        {
           "text": "on",
-          "start": 4.24,
-          "end": 4.32
+          "start": 4.52,
+          "end": 4.56
         },
         {
           "text": "a",
-          "start": 4.48,
-          "end": 4.587
-        },
-        {
-          "text": "side",
-          "start": 4.693,
+          "start": 4.64,
           "end": 4.8
         },
         {
-          "text": "street",
-          "start": 4.88,
-          "end": 5.28
+          "text": "side",
+          "start": 4.96,
+          "end": 5.12
         },
         {
-          "text": "spills",
-          "start": 5.44,
+          "text": "street",
+          "start": 5.2,
           "end": 5.68
         },
         {
-          "text": "onto",
+          "text": "spills",
           "start": 5.76,
-          "end": 6
+          "end": 6.08
+        },
+        {
+          "text": "onto",
+          "start": 6.16,
+          "end": 6.4
         },
         {
           "text": "a",
-          "start": 6.16,
-          "end": 6.187
+          "start": 6.48,
+          "end": 6.56
         },
         {
           "text": "bigger",
-          "start": 6.213,
-          "end": 6.48
+          "start": 6.6,
+          "end": 6.88
         },
         {
           "text": "road.",
-          "start": 6.84,
-          "end": 7.28
+          "start": 7.24,
+          "end": 7.68
         }
       ],
-      "end": 7.28
+      "end": 7.68
+    },
+    {
+      "id": "eta",
+      "file": "episodes/his-007/vo/eta.mp3",
+      "text": "The model predicts a travel time for each supersegment. Google uses those to work out your ETA, your estimated time of arrival, for every possible route.",
+      "words": [
+        {
+          "text": "The",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "model",
+          "start": 0.16,
+          "end": 0.48
+        },
+        {
+          "text": "predicts",
+          "start": 0.64,
+          "end": 0.88
+        },
+        {
+          "text": "a",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "travel",
+          "start": 1.12,
+          "end": 1.44
+        },
+        {
+          "text": "time",
+          "start": 1.6,
+          "end": 1.76
+        },
+        {
+          "text": "for",
+          "start": 1.84,
+          "end": 2
+        },
+        {
+          "text": "each",
+          "start": 2.08,
+          "end": 2.32
+        },
+        {
+          "text": "supersegment.",
+          "start": 2.4,
+          "end": 3.56
+        },
+        {
+          "text": "Google",
+          "start": 3.6,
+          "end": 3.92
+        },
+        {
+          "text": "uses",
+          "start": 4,
+          "end": 4.32
+        },
+        {
+          "text": "those",
+          "start": 4.4,
+          "end": 4.72
+        },
+        {
+          "text": "to",
+          "start": 4.8,
+          "end": 4.88
+        },
+        {
+          "text": "work",
+          "start": 5,
+          "end": 5.12
+        },
+        {
+          "text": "out",
+          "start": 5.2,
+          "end": 5.36
+        },
+        {
+          "text": "your",
+          "start": 5.48,
+          "end": 5.6
+        },
+        {
+          "text": "ETA,",
+          "start": 5.68,
+          "end": 6.613
+        },
+        {
+          "text": "your",
+          "start": 6.667,
+          "end": 6.72
+        },
+        {
+          "text": "estimated",
+          "start": 6.8,
+          "end": 7.36
+        },
+        {
+          "text": "time",
+          "start": 7.44,
+          "end": 7.6
+        },
+        {
+          "text": "of",
+          "start": 7.68,
+          "end": 7.76
+        },
+        {
+          "text": "arrival,",
+          "start": 8.08,
+          "end": 8.48
+        },
+        {
+          "text": "for",
+          "start": 8.56,
+          "end": 8.64
+        },
+        {
+          "text": "every",
+          "start": 8.72,
+          "end": 9.04
+        },
+        {
+          "text": "possible",
+          "start": 9.12,
+          "end": 9.52
+        },
+        {
+          "text": "route.",
+          "start": 9.6,
+          "end": 10.32
+        }
+      ],
+      "end": 10.32
+    },
+    {
+      "id": "route",
+      "file": "episodes/his-007/vo/route.mp3",
+      "text": "It ranks the routes by ETA And if it predicts traffic building ahead, it finds you a lower-traffic way around.",
+      "words": [
+        {
+          "text": "It",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "ranks",
+          "start": 0.24,
+          "end": 0.56
+        },
+        {
+          "text": "the",
+          "start": 0.6,
+          "end": 0.64
+        },
+        {
+          "text": "routes",
+          "start": 0.72,
+          "end": 0.96
+        },
+        {
+          "text": "by",
+          "start": 1.04,
+          "end": 1.2
+        },
+        {
+          "text": "ETA",
+          "start": 1.28,
+          "end": 2.24
+        },
+        {
+          "text": "And",
+          "start": 2.32,
+          "end": 2.56
+        },
+        {
+          "text": "if",
+          "start": 2.64,
+          "end": 2.72
+        },
+        {
+          "text": "it",
+          "start": 2.8,
+          "end": 2.88
+        },
+        {
+          "text": "predicts",
+          "start": 3.04,
+          "end": 3.28
+        },
+        {
+          "text": "traffic",
+          "start": 3.48,
+          "end": 3.68
+        },
+        {
+          "text": "building",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "text": "ahead,",
+          "start": 4.36,
+          "end": 4.76
+        },
+        {
+          "text": "it",
+          "start": 4.8,
+          "end": 4.96
+        },
+        {
+          "text": "finds",
+          "start": 5.08,
+          "end": 5.28
+        },
+        {
+          "text": "you",
+          "start": 5.36,
+          "end": 5.44
+        },
+        {
+          "text": "a",
+          "start": 5.52,
+          "end": 5.68
+        },
+        {
+          "text": "lower-traffic",
+          "start": 5.84,
+          "end": 6.32
+        },
+        {
+          "text": "way",
+          "start": 6.4,
+          "end": 6.48
+        },
+        {
+          "text": "around.",
+          "start": 6.56,
+          "end": 7.44
+        }
+      ],
+      "end": 7.44
     },
     {
       "id": "number",
       "file": "episodes/his-007/vo/number.mp3",
-      "text": "In 2020, Google said its arrival time predictions were accurate for over ninety-seven percent of trips.",
+      "text": "In 2020, Google said its arrival times were accurate for over ninety-seven percent of trips.",
       "words": [
         {
           "text": "In",
@@ -821,12 +1471,12 @@
         },
         {
           "text": "2020,",
-          "start": 0.32,
-          "end": 1.24
+          "start": 0.24,
+          "end": 1.28
         },
         {
           "text": "Google",
-          "start": 1.28,
+          "start": 1.36,
           "end": 1.6
         },
         {
@@ -837,65 +1487,60 @@
         {
           "text": "its",
           "start": 1.92,
-          "end": 2.08
+          "end": 2
         },
         {
           "text": "arrival",
-          "start": 2.16,
-          "end": 2.56
+          "start": 2.08,
+          "end": 2.48
         },
         {
-          "text": "time",
-          "start": 2.68,
+          "text": "times",
+          "start": 2.64,
           "end": 2.8
         },
         {
-          "text": "predictions",
-          "start": 3.08,
-          "end": 3.36
-        },
-        {
           "text": "were",
-          "start": 3.44,
-          "end": 3.52
+          "start": 2.88,
+          "end": 2.96
         },
         {
           "text": "accurate",
-          "start": 3.6,
-          "end": 4
+          "start": 3.04,
+          "end": 3.44
         },
         {
           "text": "for",
-          "start": 4.08,
-          "end": 4.16
+          "start": 3.52,
+          "end": 3.6
         },
         {
           "text": "over",
-          "start": 4.24,
-          "end": 4.56
+          "start": 3.68,
+          "end": 4
         },
         {
           "text": "ninety-seven",
-          "start": 4.64,
-          "end": 5.44
+          "start": 4.08,
+          "end": 4.72
         },
         {
           "text": "percent",
-          "start": 5.6,
-          "end": 5.76
+          "start": 4.88,
+          "end": 5.12
         },
         {
           "text": "of",
-          "start": 5.84,
-          "end": 5.92
+          "start": 5.2,
+          "end": 5.28
         },
         {
           "text": "trips.",
-          "start": 5.96,
-          "end": 6.8
+          "start": 5.36,
+          "end": 6.24
         }
       ],
-      "end": 6.8
+      "end": 6.24
     },
     {
       "id": "outro",
@@ -909,12 +1554,12 @@
         },
         {
           "text": "before",
-          "start": 0.32,
-          "end": 0.48
+          "start": 0.36,
+          "end": 0.56
         },
         {
           "text": "you",
-          "start": 0.56,
+          "start": 0.64,
           "end": 0.72
         },
         {
@@ -924,86 +1569,86 @@
         },
         {
           "text": "there,",
-          "start": 1.08,
+          "start": 1.04,
           "end": 1.52
         },
         {
           "text": "phones",
-          "start": 1.72,
-          "end": 1.92
+          "start": 1.6,
+          "end": 2
         },
         {
           "text": "already",
-          "start": 2,
-          "end": 2.4
+          "start": 2.08,
+          "end": 2.56
         },
         {
           "text": "stuck",
-          "start": 2.48,
-          "end": 2.72
+          "start": 2.64,
+          "end": 2.88
         },
         {
           "text": "in",
-          "start": 2.76,
-          "end": 2.8
-        },
-        {
-          "text": "the",
-          "start": 2.88,
+          "start": 2.92,
           "end": 2.96
         },
         {
+          "text": "the",
+          "start": 3,
+          "end": 3.04
+        },
+        {
           "text": "jam",
-          "start": 3.04,
-          "end": 3.28
+          "start": 3.12,
+          "end": 3.44
         },
         {
           "text": "have",
-          "start": 3.36,
-          "end": 3.52
+          "start": 3.56,
+          "end": 3.68
         },
         {
           "text": "helped",
-          "start": 3.6,
-          "end": 3.92
+          "start": 3.8,
+          "end": 4
         },
         {
           "text": "tell",
-          "start": 4,
-          "end": 4.24
+          "start": 4.08,
+          "end": 4.32
         },
         {
           "text": "Google.",
-          "start": 4.6,
-          "end": 5.04
+          "start": 4.52,
+          "end": 5.2
         },
         {
           "text": "Even",
-          "start": 5.12,
-          "end": 5.36
+          "start": 5.28,
+          "end": 5.52
         },
         {
           "text": "phones",
-          "start": 5.44,
-          "end": 5.68
+          "start": 5.6,
+          "end": 5.84
         },
         {
           "text": "in",
-          "start": 5.76,
-          "end": 5.8
+          "start": 5.92,
+          "end": 5.96
         },
         {
           "text": "a",
-          "start": 5.84,
-          "end": 5.92
+          "start": 6,
+          "end": 6.08
         },
         {
           "text": "handcart.",
-          "start": 6.08,
-          "end": 7.04
+          "start": 6.24,
+          "end": 7.2
         }
       ],
-      "end": 7.04
+      "end": 7.2
     },
     {
       "id": "cta",
@@ -1013,56 +1658,56 @@
         {
           "text": "If",
           "start": 0,
-          "end": 0.08
+          "end": 0.16
         },
         {
           "text": "you",
-          "start": 0.16,
+          "start": 0.2,
           "end": 0.24
         },
         {
           "text": "like",
           "start": 0.32,
-          "end": 0.48
+          "end": 0.56
         },
         {
           "text": "this",
-          "start": 0.56,
+          "start": 0.64,
           "end": 0.72
         },
         {
           "text": "kind",
           "start": 0.8,
-          "end": 0.88
+          "end": 0.96
         },
         {
           "text": "of",
-          "start": 0.96,
+          "start": 1,
           "end": 1.04
         },
         {
           "text": "content,",
-          "start": 1.28,
-          "end": 1.84
+          "start": 1.12,
+          "end": 1.92
         },
         {
           "text": "like,",
-          "start": 1.92,
+          "start": 2.08,
           "end": 2.48
         },
         {
           "text": "share",
           "start": 2.56,
-          "end": 2.96
+          "end": 2.88
         },
         {
           "text": "and",
-          "start": 3.04,
-          "end": 3.2
+          "start": 2.96,
+          "end": 3.12
         },
         {
           "text": "follow",
-          "start": 3.28,
+          "start": 3.2,
           "end": 3.6
         },
         {
@@ -1074,8 +1719,6 @@
       "end": 4.56
     }
   ],
-  "music": "episodes/his-007/music.mp3",
-  "sfx": {
-    "cart": "audio/sfx/cart.mp3"
-  }
+  "sfx": {},
+  "music": "episodes/his-007/music.mp3"
 }

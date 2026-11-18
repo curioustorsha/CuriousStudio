@@ -2,21 +2,94 @@
   "title": "How Google Maps knows there’s traffic",
   "voiceId": "EaBs7G1VibMrNAuz2Na7",
   "voiceName": "Monika Sogam - Natural Conversations",
-  "musicPrompt": "Calm, curious lo-fi electronic bed for an 86-second explainer, about 90 BPM, soft plucked synth arpeggio, warm sub bass, light clock-like hi-hats, a lift when the road turns into dots and lines around 45 seconds and a gentle resolve in the last 10 seconds, instrumental, no vocals.",
+  "musicPrompt": "Calm, curious lo-fi electronic bed for a two-minute explainer, about 90 BPM, soft plucked synth arpeggio, warm sub bass, light clock-like hi-hats, a lift around 60 seconds when the roads turn into dots and lines, steady build through the route-finding section, and a gentle resolve in the last 12 seconds, instrumental, no vocals.",
   "scenes": [
-    { "id": "hook", "text": "How does Google Maps know about a traffic jam before you even reach it?" },
-    { "id": "intro", "text": "Welcome to How It Scales, by Curiously." },
-    { "id": "cart", "text": "In 2020, an artist in Berlin pulled ninety-nine second-hand phones through the streets in a handcart. On Google Maps, those streets turned red." },
-    { "id": "phones", "text": "Google pools location data from lots of people's phones. When lots of them crawl along one road, Google can tell it's slow." },
-    { "id": "future", "text": "But you need to know the traffic ten, twenty, even fifty minutes into your drive." },
-    { "id": "memory", "text": "So Google also remembers how each road usually flows, and mixes that with live traffic." },
-    { "id": "graph", "text": "To forecast, Google teamed up with DeepMind, an Alphabet AI lab, on a graph neural network. Picture every stretch of road as a dot, with lines joining stretches that connect." },
-    { "id": "spill", "text": "Neighbouring dots pass messages to each other, so the model learns how a jam on a side street spills onto a bigger road." },
-    { "id": "number", "text": "In 2020, Google said its arrival time predictions were accurate for over ninety-seven percent of trips." },
-    { "id": "outro", "text": "So before you get there, phones already stuck in the jam have helped tell Google. Even phones in a handcart." },
-    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+    {
+      "id": "hook",
+      "text": "How does Google Maps know about a traffic jam before you even reach it?"
+    },
+    {
+      "id": "intro",
+      "text": "Welcome to How It Scales, by Curiously."
+    },
+    {
+      "id": "cart",
+      "text": "In 2020, an artist in Berlin pulled ninety-nine second-hand phones through the streets in a handcart. On Google Maps, those streets turned red."
+    },
+    {
+      "id": "phones",
+      "text": "That's the first clue. Google pools location data from lots of people's phones. When many of them crawl along one road, Google can tell it's slow."
+    },
+    {
+      "id": "reports",
+      "text": "Drivers' incident reports add closures and roadworks, and local governments add speed limits and tolls."
+    },
+    {
+      "id": "future",
+      "text": "But a jam right now isn't enough. You need the traffic ten, twenty, even fifty minutes into your drive."
+    },
+    {
+      "id": "memory",
+      "text": "So Google also remembers how each road usually flows. One California freeway moves at sixty-five miles an hour early in the morning, but fifteen to twenty in the late afternoon."
+    },
+    {
+      "id": "lockdown",
+      "text": "When lockdowns emptied the roads in 2020, Google started trusting the last two to four weeks of patterns more than older ones."
+    },
+    {
+      "id": "super",
+      "text": "To forecast, Google teamed up with DeepMind, an Alphabet AI lab. They split roads into supersegments: runs of connected road that share a lot of traffic."
+    },
+    {
+      "id": "graph",
+      "text": "Then comes a graph neural network. Picture every stretch of road as a dot, with lines joining stretches that connect."
+    },
+    {
+      "id": "spill",
+      "text": "Neighbouring dots pass messages to each other, so the model learns how a jam on a side street spills onto a bigger road."
+    },
+    {
+      "id": "eta",
+      "text": "The model predicts a travel time for each supersegment. Google uses those to work out your ETA, your estimated time of arrival, for every possible route.",
+      "say": "The model predicts a travel time for each supersegment. Google uses those to work out your E.T.A., your estimated time of arrival, for every possible route."
+    },
+    {
+      "id": "route",
+      "text": "It ranks the routes by ETA And if it predicts traffic building ahead, it finds you a lower-traffic way around.",
+      "say": "It ranks the routes by E.T.A. And if it predicts traffic building ahead, it finds you a lower-traffic way around."
+    },
+    {
+      "id": "number",
+      "text": "In 2020, Google said its arrival times were accurate for over ninety-seven percent of trips."
+    },
+    {
+      "id": "outro",
+      "text": "So before you get there, phones already stuck in the jam have helped tell Google. Even phones in a handcart."
+    },
+    {
+      "id": "cta",
+      "text": "If you like this kind of content, like, share and follow Curiously."
+    }
   ],
-  "keyterms": ["Google Maps", "Google", "DeepMind", "Alphabet", "graph neural network", "Berlin", "handcart", "second-hand", "Curiously", "How It Scales", "neighbouring"],
+  "keyterms": [
+    "Google Maps",
+    "Google",
+    "DeepMind",
+    "Alphabet",
+    "graph neural network",
+    "Berlin",
+    "handcart",
+    "second-hand",
+    "Curiously",
+    "How It Scales",
+    "neighbouring",
+    "supersegments",
+    "ETA",
+    "lockdowns",
+    "California",
+    "freeway",
+    "roadworks"
+  ],
   "sources": [
     "Google blog (Johann Lau), 3 Sep 2020: Google Maps 101: How AI helps predict traffic and determine routes",
     "DeepMind (Oliver Lange, Luis Perez), 3 Sep 2020: Traffic prediction with advanced Graph Neural Networks",

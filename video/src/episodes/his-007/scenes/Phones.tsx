@@ -59,7 +59,7 @@ export const Phones: React.FC = () => {
 
       <Header>
         <Reveal at={0}>
-          <LogoKicker logo="googlemaps" text="GOOGLE MAPS" />
+          <LogoKicker logo="googlemaps" text="STEP 1 · LIVE PINGS" />
         </Reveal>
         <Reveal at={4}>
           <Title size={80}>

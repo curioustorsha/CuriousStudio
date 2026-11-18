@@ -4,7 +4,7 @@ import { C, F } from "../../../theme";
 import { ease, Header, isoPoint, Reveal, Sfx, Source, Title, useIn, useIsoStage, useWord } from "../../../engine/kit";
 import { LogoKicker } from "../../../logos";
 import { hookSeg } from "./Hook";
-import { CITY, jamPhones, JUNCTION, mixCam, OFFICE, trafficPhones, useMove, World } from "./world";
+import { CITY, jamPhones, OFFICE, trafficPhones, World } from "./world";
 
 /** A clock-face chip (no time shown) floating over the office: "your arrival time". */
 const ClockChip: React.FC<{ p: number; frame: number }> = ({ p, frame }) => {
@@ -33,9 +33,9 @@ export const NumberScene: React.FC = () => {
   const tNinety = wf("number", "ninety");
   const tTrips = wf("number", "trips");
 
-  const back = useMove(0, 28);
-  const cam = mixCam(JUNCTION, CITY, back);
-  const graph = 1 - ease(frame, 2, 22);
+  // Follows the routing scene, already on the whole city.
+  const cam = CITY;
+  const graph = 0;
 
   const pClock = useIn(tArr, { damping: 11, stiffness: 210 });
   const pBig = useIn(tNinety - 2, { damping: 9, stiffness: 240 });
@@ -44,7 +44,6 @@ export const NumberScene: React.FC = () => {
 
   return (
     <>
-      <Sfx name="whoosh" at={0} volume={0.22} />
       <Sfx name="pop" at={tArr} volume={0.3} />
       <Sfx name="impact" at={tNinety} volume={0.3} />
       <Sfx name="ding" at={tTrips} volume={0.3} />
