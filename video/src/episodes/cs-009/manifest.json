@@ -1,0 +1,937 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/cs-009/vo/hook.mp3",
+      "text": "Ask Claude how your app works, and get a clickable map that links to the exact lines of code.",
+      "words": [
+        {
+          "text": "Ask",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "Claude",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "text": "how",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "your",
+          "start": 1,
+          "end": 1.12
+        },
+        {
+          "text": "app",
+          "start": 1.24,
+          "end": 1.36
+        },
+        {
+          "text": "works,",
+          "start": 1.44,
+          "end": 1.92
+        },
+        {
+          "text": "and",
+          "start": 2,
+          "end": 2.08
+        },
+        {
+          "text": "get",
+          "start": 2.12,
+          "end": 2.16
+        },
+        {
+          "text": "a",
+          "start": 2.24,
+          "end": 2.32
+        },
+        {
+          "text": "clickable",
+          "start": 2.4,
+          "end": 2.8
+        },
+        {
+          "text": "map",
+          "start": 2.88,
+          "end": 3.12
+        },
+        {
+          "text": "that",
+          "start": 3.2,
+          "end": 3.36
+        },
+        {
+          "text": "links",
+          "start": 3.44,
+          "end": 3.68
+        },
+        {
+          "text": "to",
+          "start": 3.72,
+          "end": 3.76
+        },
+        {
+          "text": "the",
+          "start": 3.84,
+          "end": 3.92
+        },
+        {
+          "text": "exact",
+          "start": 4.2,
+          "end": 4.48
+        },
+        {
+          "text": "lines",
+          "start": 4.56,
+          "end": 4.72
+        },
+        {
+          "text": "of",
+          "start": 4.8,
+          "end": 4.88
+        },
+        {
+          "text": "code.",
+          "start": 4.96,
+          "end": 5.68
+        }
+      ],
+      "end": 5.68
+    },
+    {
+      "id": "intro",
+      "file": "episodes/cs-009/vo/intro.mp3",
+      "text": "Welcome to Claude Skills, by Curiously.",
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "to",
+          "start": 0.4,
+          "end": 0.48
+        },
+        {
+          "text": "Claude",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "text": "Skills,",
+          "start": 0.88,
+          "end": 1.52
+        },
+        {
+          "text": "by",
+          "start": 1.6,
+          "end": 1.68
+        },
+        {
+          "text": "Curiously.",
+          "start": 1.76,
+          "end": 2.96
+        }
+      ],
+      "end": 2.96
+    },
+    {
+      "id": "map",
+      "file": "episodes/cs-009/vo/map.mp3",
+      "text": "This is Archify. Ask it about one feature of your repo. It reads the real code, and its architecture boxes can open the files and lines behind them.",
+      "words": [
+        {
+          "text": "This",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "is",
+          "start": 0.24,
+          "end": 0.4
+        },
+        {
+          "text": "Archify.",
+          "start": 0.48,
+          "end": 1.48
+        },
+        {
+          "text": "Ask",
+          "start": 1.52,
+          "end": 1.76
+        },
+        {
+          "text": "it",
+          "start": 1.8,
+          "end": 1.84
+        },
+        {
+          "text": "about",
+          "start": 1.92,
+          "end": 2.24
+        },
+        {
+          "text": "one",
+          "start": 2.32,
+          "end": 2.56
+        },
+        {
+          "text": "feature",
+          "start": 2.72,
+          "end": 2.88
+        },
+        {
+          "text": "of",
+          "start": 2.96,
+          "end": 3.04
+        },
+        {
+          "text": "your",
+          "start": 3.12,
+          "end": 3.2
+        },
+        {
+          "text": "repo.",
+          "start": 3.64,
+          "end": 4.12
+        },
+        {
+          "text": "It",
+          "start": 4.16,
+          "end": 4.32
+        },
+        {
+          "text": "reads",
+          "start": 4.48,
+          "end": 4.64
+        },
+        {
+          "text": "the",
+          "start": 4.72,
+          "end": 4.8
+        },
+        {
+          "text": "real",
+          "start": 4.88,
+          "end": 5.12
+        },
+        {
+          "text": "code,",
+          "start": 5.2,
+          "end": 5.707
+        },
+        {
+          "text": "and",
+          "start": 5.733,
+          "end": 5.76
+        },
+        {
+          "text": "its",
+          "start": 5.88,
+          "end": 6
+        },
+        {
+          "text": "architecture",
+          "start": 6.08,
+          "end": 6.56
+        },
+        {
+          "text": "boxes",
+          "start": 6.8,
+          "end": 7.04
+        },
+        {
+          "text": "can",
+          "start": 7.16,
+          "end": 7.28
+        },
+        {
+          "text": "open",
+          "start": 7.36,
+          "end": 7.6
+        },
+        {
+          "text": "the",
+          "start": 7.68,
+          "end": 7.76
+        },
+        {
+          "text": "files",
+          "start": 7.84,
+          "end": 8.16
+        },
+        {
+          "text": "and",
+          "start": 8.24,
+          "end": 8.32
+        },
+        {
+          "text": "lines",
+          "start": 8.4,
+          "end": 8.72
+        },
+        {
+          "text": "behind",
+          "start": 8.84,
+          "end": 9.12
+        },
+        {
+          "text": "them.",
+          "start": 9.2,
+          "end": 9.92
+        }
+      ],
+      "end": 9.92
+    },
+    {
+      "id": "explore",
+      "file": "episodes/cs-009/vo/explore.mp3",
+      "text": "Pick a box and trace everything upstream or downstream. Pick a start and an end, and it traces the route between them.",
+      "words": [
+        {
+          "text": "Pick",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "a",
+          "start": 0.2,
+          "end": 0.24
+        },
+        {
+          "text": "box",
+          "start": 0.32,
+          "end": 0.72
+        },
+        {
+          "text": "and",
+          "start": 0.8,
+          "end": 0.96
+        },
+        {
+          "text": "trace",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "text": "everything",
+          "start": 1.44,
+          "end": 1.92
+        },
+        {
+          "text": "upstream",
+          "start": 2,
+          "end": 2.56
+        },
+        {
+          "text": "or",
+          "start": 2.64,
+          "end": 2.72
+        },
+        {
+          "text": "downstream.",
+          "start": 2.8,
+          "end": 3.8
+        },
+        {
+          "text": "Pick",
+          "start": 3.84,
+          "end": 3.92
+        },
+        {
+          "text": "a",
+          "start": 4.08,
+          "end": 4.12
+        },
+        {
+          "text": "start",
+          "start": 4.16,
+          "end": 4.56
+        },
+        {
+          "text": "and",
+          "start": 4.6,
+          "end": 4.64
+        },
+        {
+          "text": "an",
+          "start": 4.72,
+          "end": 4.8
+        },
+        {
+          "text": "end,",
+          "start": 4.96,
+          "end": 5.48
+        },
+        {
+          "text": "and",
+          "start": 5.52,
+          "end": 5.6
+        },
+        {
+          "text": "it",
+          "start": 5.68,
+          "end": 5.76
+        },
+        {
+          "text": "traces",
+          "start": 5.84,
+          "end": 6.16
+        },
+        {
+          "text": "the",
+          "start": 6.24,
+          "end": 6.32
+        },
+        {
+          "text": "route",
+          "start": 6.44,
+          "end": 6.56
+        },
+        {
+          "text": "between",
+          "start": 6.64,
+          "end": 6.96
+        },
+        {
+          "text": "them.",
+          "start": 7.04,
+          "end": 7.68
+        }
+      ],
+      "end": 7.68
+    },
+    {
+      "id": "beyond",
+      "file": "episodes/cs-009/vo/beyond.mp3",
+      "text": "And it's not just for code. It knows ten diagram types, and it'll even map out a job search.",
+      "words": [
+        {
+          "text": "And",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "it's",
+          "start": 0.12,
+          "end": 0.32
+        },
+        {
+          "text": "not",
+          "start": 0.44,
+          "end": 0.56
+        },
+        {
+          "text": "just",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "for",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "code.",
+          "start": 0.96,
+          "end": 1.733
+        },
+        {
+          "text": "It",
+          "start": 1.787,
+          "end": 1.84
+        },
+        {
+          "text": "knows",
+          "start": 1.96,
+          "end": 2.16
+        },
+        {
+          "text": "ten",
+          "start": 2.24,
+          "end": 2.48
+        },
+        {
+          "text": "diagram",
+          "start": 2.56,
+          "end": 2.96
+        },
+        {
+          "text": "types,",
+          "start": 3.04,
+          "end": 3.56
+        },
+        {
+          "text": "and",
+          "start": 3.6,
+          "end": 3.68
+        },
+        {
+          "text": "it'll",
+          "start": 3.72,
+          "end": 3.92
+        },
+        {
+          "text": "even",
+          "start": 4,
+          "end": 4.24
+        },
+        {
+          "text": "map",
+          "start": 4.32,
+          "end": 4.4
+        },
+        {
+          "text": "out",
+          "start": 4.48,
+          "end": 4.56
+        },
+        {
+          "text": "a",
+          "start": 4.64,
+          "end": 4.72
+        },
+        {
+          "text": "job",
+          "start": 4.84,
+          "end": 4.96
+        },
+        {
+          "text": "search.",
+          "start": 5.04,
+          "end": 5.84
+        }
+      ],
+      "end": 5.84
+    },
+    {
+      "id": "trick",
+      "file": "episodes/cs-009/vo/trick.mp3",
+      "text": "The trick? Claude never draws the picture. It writes a list of boxes and arrows, and Archify's checker bounces anything broken back to Claude. You get one HTML file to share.",
+      "words": [
+        {
+          "text": "The",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "trick?",
+          "start": 0.16,
+          "end": 0.96
+        },
+        {
+          "text": "Claude",
+          "start": 1.04,
+          "end": 1.52
+        },
+        {
+          "text": "never",
+          "start": 1.6,
+          "end": 1.84
+        },
+        {
+          "text": "draws",
+          "start": 1.92,
+          "end": 2.16
+        },
+        {
+          "text": "the",
+          "start": 2.2,
+          "end": 2.24
+        },
+        {
+          "text": "picture.",
+          "start": 2.32,
+          "end": 3.16
+        },
+        {
+          "text": "It",
+          "start": 3.2,
+          "end": 3.28
+        },
+        {
+          "text": "writes",
+          "start": 3.36,
+          "end": 3.6
+        },
+        {
+          "text": "a",
+          "start": 3.64,
+          "end": 3.68
+        },
+        {
+          "text": "list",
+          "start": 3.76,
+          "end": 4
+        },
+        {
+          "text": "of",
+          "start": 4.08,
+          "end": 4.16
+        },
+        {
+          "text": "boxes",
+          "start": 4.4,
+          "end": 4.64
+        },
+        {
+          "text": "and",
+          "start": 4.72,
+          "end": 4.88
+        },
+        {
+          "text": "arrows,",
+          "start": 4.96,
+          "end": 5.64
+        },
+        {
+          "text": "and",
+          "start": 5.68,
+          "end": 5.84
+        },
+        {
+          "text": "Archify's",
+          "start": 5.92,
+          "end": 6.4
+        },
+        {
+          "text": "checker",
+          "start": 6.48,
+          "end": 6.88
+        },
+        {
+          "text": "bounces",
+          "start": 6.96,
+          "end": 7.36
+        },
+        {
+          "text": "anything",
+          "start": 7.44,
+          "end": 7.76
+        },
+        {
+          "text": "broken",
+          "start": 7.84,
+          "end": 8.32
+        },
+        {
+          "text": "back",
+          "start": 8.44,
+          "end": 8.56
+        },
+        {
+          "text": "to",
+          "start": 8.6,
+          "end": 8.64
+        },
+        {
+          "text": "Claude.",
+          "start": 8.72,
+          "end": 9.48
+        },
+        {
+          "text": "You",
+          "start": 9.52,
+          "end": 9.6
+        },
+        {
+          "text": "get",
+          "start": 9.68,
+          "end": 9.92
+        },
+        {
+          "text": "one",
+          "start": 10.08,
+          "end": 10.24
+        },
+        {
+          "text": "HTML",
+          "start": 10.48,
+          "end": 10.96
+        },
+        {
+          "text": "file",
+          "start": 11.08,
+          "end": 11.2
+        },
+        {
+          "text": "to",
+          "start": 11.28,
+          "end": 11.36
+        },
+        {
+          "text": "share.",
+          "start": 11.76,
+          "end": 12.24
+        }
+      ],
+      "end": 12.24
+    },
+    {
+      "id": "catch",
+      "file": "episodes/cs-009/vo/catch.mp3",
+      "text": "The catch: it maps what you ask about, not your whole codebase. And it checks for updates about once a day, unless you turn that off.",
+      "words": [
+        {
+          "text": "The",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "catch:",
+          "start": 0.16,
+          "end": 0.96
+        },
+        {
+          "text": "it",
+          "start": 1.04,
+          "end": 1.12
+        },
+        {
+          "text": "maps",
+          "start": 1.28,
+          "end": 1.44
+        },
+        {
+          "text": "what",
+          "start": 1.52,
+          "end": 1.6
+        },
+        {
+          "text": "you",
+          "start": 1.68,
+          "end": 1.84
+        },
+        {
+          "text": "ask",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "about,",
+          "start": 2.16,
+          "end": 2.76
+        },
+        {
+          "text": "not",
+          "start": 2.8,
+          "end": 2.96
+        },
+        {
+          "text": "your",
+          "start": 3.04,
+          "end": 3.2
+        },
+        {
+          "text": "whole",
+          "start": 3.28,
+          "end": 3.52
+        },
+        {
+          "text": "codebase.",
+          "start": 3.64,
+          "end": 4.6
+        },
+        {
+          "text": "And",
+          "start": 4.64,
+          "end": 4.88
+        },
+        {
+          "text": "it",
+          "start": 4.96,
+          "end": 5.04
+        },
+        {
+          "text": "checks",
+          "start": 5.16,
+          "end": 5.28
+        },
+        {
+          "text": "for",
+          "start": 5.36,
+          "end": 5.44
+        },
+        {
+          "text": "updates",
+          "start": 5.52,
+          "end": 5.92
+        },
+        {
+          "text": "about",
+          "start": 6,
+          "end": 6.32
+        },
+        {
+          "text": "once",
+          "start": 6.4,
+          "end": 6.56
+        },
+        {
+          "text": "a",
+          "start": 6.6,
+          "end": 6.64
+        },
+        {
+          "text": "day,",
+          "start": 6.72,
+          "end": 7.16
+        },
+        {
+          "text": "unless",
+          "start": 7.2,
+          "end": 7.44
+        },
+        {
+          "text": "you",
+          "start": 7.48,
+          "end": 7.52
+        },
+        {
+          "text": "turn",
+          "start": 7.6,
+          "end": 7.76
+        },
+        {
+          "text": "that",
+          "start": 7.84,
+          "end": 7.92
+        },
+        {
+          "text": "off.",
+          "start": 8,
+          "end": 8.72
+        }
+      ],
+      "end": 8.72
+    },
+    {
+      "id": "install",
+      "file": "episodes/cs-009/vo/install.mp3",
+      "text": "Install it with one command, link in the description.",
+      "words": [
+        {
+          "text": "Install",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "it",
+          "start": 0.44,
+          "end": 0.48
+        },
+        {
+          "text": "with",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "text": "one",
+          "start": 0.88,
+          "end": 1.04
+        },
+        {
+          "text": "command,",
+          "start": 1.12,
+          "end": 1.84
+        },
+        {
+          "text": "link",
+          "start": 1.92,
+          "end": 2.08
+        },
+        {
+          "text": "in",
+          "start": 2.12,
+          "end": 2.16
+        },
+        {
+          "text": "the",
+          "start": 2.2,
+          "end": 2.24
+        },
+        {
+          "text": "description.",
+          "start": 2.76,
+          "end": 3.36
+        }
+      ],
+      "end": 3.36
+    },
+    {
+      "id": "cta",
+      "file": "episodes/cs-009/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "you",
+          "start": 0.16,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.36,
+          "end": 0.48
+        },
+        {
+          "text": "this",
+          "start": 0.56,
+          "end": 0.64
+        },
+        {
+          "text": "kind",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "text": "of",
+          "start": 0.92,
+          "end": 0.96
+        },
+        {
+          "text": "content,",
+          "start": 1.04,
+          "end": 1.88
+        },
+        {
+          "text": "like,",
+          "start": 1.92,
+          "end": 2.36
+        },
+        {
+          "text": "share",
+          "start": 2.4,
+          "end": 2.8
+        },
+        {
+          "text": "and",
+          "start": 2.92,
+          "end": 3.04
+        },
+        {
+          "text": "follow",
+          "start": 3.12,
+          "end": 3.44
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.52,
+          "end": 4.48
+        }
+      ],
+      "end": 4.48
+    }
+  ],
+  "music": "episodes/cs-009/music.mp3"
+}

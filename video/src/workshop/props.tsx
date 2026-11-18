@@ -90,11 +90,12 @@ export const PaperStack: React.FC<{ x: number; drop: number; pack: number }> = (
 };
 
 /** The mountain of paper on the back wall (training text). `grow` 0→1 stacks it up bottom-first. */
-export const PaperMountain: React.FC<{ grow: number; cx?: number; base?: number }> = ({ grow, cx = 300, base = WS.benchTop + 4 }) => {
+export const PaperMountain: React.FC<{ grow: number; cx?: number; base?: number; scale?: number; opacity?: number }> = ({ grow, cx = 300, base = WS.benchTop + 4, scale = 1, opacity = 1 }) => {
   const rows = 16;
   const shown = grow * rows;
   return (
-    <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+    <svg width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity }}>
+      <g transform={scale === 1 ? undefined : `translate(${cx} ${base}) scale(${scale}) translate(${-cx} ${-base})`}>
       {Array.from({ length: rows }).map((_, r) => {
         const vis = Math.max(0, Math.min(1, shown - r));
         if (vis <= 0) return null;
@@ -119,6 +120,7 @@ export const PaperMountain: React.FC<{ grow: number; cx?: number; base?: number 
           </g>
         );
       })}
+      </g>
     </svg>
   );
 };

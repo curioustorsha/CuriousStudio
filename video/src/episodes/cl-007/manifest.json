@@ -1,0 +1,1207 @@
+{
+  "scenes": [
+    {
+      "id": "hook",
+      "file": "episodes/cl-007/vo/hook.mp3",
+      "text": "Everything Claude can see at once fits on one desk. Here's what's on it.",
+      "words": [
+        {
+          "text": "Everything",
+          "start": 0,
+          "end": 0.48
+        },
+        {
+          "text": "Claude",
+          "start": 0.56,
+          "end": 0.8
+        },
+        {
+          "text": "can",
+          "start": 0.88,
+          "end": 0.96
+        },
+        {
+          "text": "see",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "at",
+          "start": 1.28,
+          "end": 1.36
+        },
+        {
+          "text": "once",
+          "start": 1.44,
+          "end": 1.84
+        },
+        {
+          "text": "fits",
+          "start": 1.92,
+          "end": 2.16
+        },
+        {
+          "text": "on",
+          "start": 2.24,
+          "end": 2.32
+        },
+        {
+          "text": "one",
+          "start": 2.48,
+          "end": 2.64
+        },
+        {
+          "text": "desk.",
+          "start": 2.72,
+          "end": 3.32
+        },
+        {
+          "text": "Here's",
+          "start": 3.52,
+          "end": 3.76
+        },
+        {
+          "text": "what's",
+          "start": 3.84,
+          "end": 4
+        },
+        {
+          "text": "on",
+          "start": 4.04,
+          "end": 4.08
+        },
+        {
+          "text": "it.",
+          "start": 4.16,
+          "end": 4.56
+        }
+      ],
+      "end": 4.56
+    },
+    {
+      "id": "intro",
+      "file": "episodes/cl-007/vo/intro.mp3",
+      "text": "Welcome to Claude Lab, by Curiously.",
+      "words": [
+        {
+          "text": "Welcome",
+          "start": 0,
+          "end": 0.4
+        },
+        {
+          "text": "to",
+          "start": 0.48,
+          "end": 0.56
+        },
+        {
+          "text": "Claude",
+          "start": 0.64,
+          "end": 0.88
+        },
+        {
+          "text": "Lab,",
+          "start": 0.96,
+          "end": 1.44
+        },
+        {
+          "text": "by",
+          "start": 1.52,
+          "end": 1.68
+        },
+        {
+          "text": "Curiously.",
+          "start": 1.76,
+          "end": 2.96
+        }
+      ],
+      "end": 2.96
+    },
+    {
+      "id": "callback",
+      "file": "episodes/cl-007/vo/callback.mp3",
+      "text": "Last time, text became tokens. They have to sit somewhere.",
+      "words": [
+        {
+          "text": "Last",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "time,",
+          "start": 0.4,
+          "end": 0.88
+        },
+        {
+          "text": "text",
+          "start": 0.96,
+          "end": 1.28
+        },
+        {
+          "text": "became",
+          "start": 1.36,
+          "end": 1.68
+        },
+        {
+          "text": "tokens.",
+          "start": 1.76,
+          "end": 2.72
+        },
+        {
+          "text": "They",
+          "start": 2.8,
+          "end": 2.88
+        },
+        {
+          "text": "have",
+          "start": 2.96,
+          "end": 3.04
+        },
+        {
+          "text": "to",
+          "start": 3.12,
+          "end": 3.2
+        },
+        {
+          "text": "sit",
+          "start": 3.32,
+          "end": 3.44
+        },
+        {
+          "text": "somewhere.",
+          "start": 3.52,
+          "end": 4.32
+        }
+      ],
+      "end": 4.32
+    },
+    {
+      "id": "desk",
+      "file": "episodes/cl-007/vo/desk.mp3",
+      "text": "That place is called the context window. Picture it as Claude's desk.",
+      "words": [
+        {
+          "text": "That",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "place",
+          "start": 0.32,
+          "end": 0.64
+        },
+        {
+          "text": "is",
+          "start": 0.72,
+          "end": 0.88
+        },
+        {
+          "text": "called",
+          "start": 1,
+          "end": 1.12
+        },
+        {
+          "text": "the",
+          "start": 1.2,
+          "end": 1.28
+        },
+        {
+          "text": "context",
+          "start": 1.36,
+          "end": 1.84
+        },
+        {
+          "text": "window.",
+          "start": 1.92,
+          "end": 2.84
+        },
+        {
+          "text": "Picture",
+          "start": 2.88,
+          "end": 3.2
+        },
+        {
+          "text": "it",
+          "start": 3.28,
+          "end": 3.36
+        },
+        {
+          "text": "as",
+          "start": 3.44,
+          "end": 3.6
+        },
+        {
+          "text": "Claude's",
+          "start": 3.72,
+          "end": 4.08
+        },
+        {
+          "text": "desk.",
+          "start": 4.16,
+          "end": 5.12
+        }
+      ],
+      "end": 5.12
+    },
+    {
+      "id": "notpaper",
+      "file": "episodes/cl-007/vo/notpaper.mp3",
+      "text": "The mountain of text Claude learned from stays on the back wall. This desk holds only what's in front of Claude right now.",
+      "words": [
+        {
+          "text": "The",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "mountain",
+          "start": 0.16,
+          "end": 0.48
+        },
+        {
+          "text": "of",
+          "start": 0.56,
+          "end": 0.72
+        },
+        {
+          "text": "text",
+          "start": 0.88,
+          "end": 1.04
+        },
+        {
+          "text": "Claude",
+          "start": 1.12,
+          "end": 1.44
+        },
+        {
+          "text": "learned",
+          "start": 1.52,
+          "end": 1.76
+        },
+        {
+          "text": "from",
+          "start": 1.84,
+          "end": 2.16
+        },
+        {
+          "text": "stays",
+          "start": 2.32,
+          "end": 2.48
+        },
+        {
+          "text": "on",
+          "start": 2.56,
+          "end": 2.64
+        },
+        {
+          "text": "the",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "back",
+          "start": 2.92,
+          "end": 3.04
+        },
+        {
+          "text": "wall.",
+          "start": 3.12,
+          "end": 4.04
+        },
+        {
+          "text": "This",
+          "start": 4.08,
+          "end": 4.24
+        },
+        {
+          "text": "desk",
+          "start": 4.32,
+          "end": 4.64
+        },
+        {
+          "text": "holds",
+          "start": 4.72,
+          "end": 5.04
+        },
+        {
+          "text": "only",
+          "start": 5.12,
+          "end": 5.44
+        },
+        {
+          "text": "what's",
+          "start": 5.52,
+          "end": 5.64
+        },
+        {
+          "text": "in",
+          "start": 5.68,
+          "end": 5.84
+        },
+        {
+          "text": "front",
+          "start": 5.96,
+          "end": 6.08
+        },
+        {
+          "text": "of",
+          "start": 6.16,
+          "end": 6.24
+        },
+        {
+          "text": "Claude",
+          "start": 6.32,
+          "end": 6.64
+        },
+        {
+          "text": "right",
+          "start": 6.72,
+          "end": 6.96
+        },
+        {
+          "text": "now.",
+          "start": 7.36,
+          "end": 7.84
+        }
+      ],
+      "end": 7.84
+    },
+    {
+      "id": "onit",
+      "file": "episodes/cl-007/vo/onit.mp3",
+      "text": "What goes on it? Your messages, any file you share, and every reply Claude writes.",
+      "words": [
+        {
+          "text": "What",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "goes",
+          "start": 0.32,
+          "end": 0.48
+        },
+        {
+          "text": "on",
+          "start": 0.56,
+          "end": 0.64
+        },
+        {
+          "text": "it?",
+          "start": 0.76,
+          "end": 1.28
+        },
+        {
+          "text": "Your",
+          "start": 1.36,
+          "end": 1.52
+        },
+        {
+          "text": "messages,",
+          "start": 2,
+          "end": 2.56
+        },
+        {
+          "text": "any",
+          "start": 2.64,
+          "end": 2.72
+        },
+        {
+          "text": "file",
+          "start": 2.8,
+          "end": 3.04
+        },
+        {
+          "text": "you",
+          "start": 3.12,
+          "end": 3.28
+        },
+        {
+          "text": "share,",
+          "start": 3.56,
+          "end": 3.92
+        },
+        {
+          "text": "and",
+          "start": 4,
+          "end": 4.08
+        },
+        {
+          "text": "every",
+          "start": 4.16,
+          "end": 4.4
+        },
+        {
+          "text": "reply",
+          "start": 4.48,
+          "end": 4.88
+        },
+        {
+          "text": "Claude",
+          "start": 4.96,
+          "end": 5.28
+        },
+        {
+          "text": "writes.",
+          "start": 5.72,
+          "end": 6.24
+        }
+      ],
+      "end": 6.24
+    },
+    {
+      "id": "pile",
+      "file": "episodes/cl-007/vo/pile.mp3",
+      "text": "Share a report and ask three questions. The report lands first. Every question and answer piles on top.",
+      "words": [
+        {
+          "text": "Share",
+          "start": 0,
+          "end": 0.24
+        },
+        {
+          "text": "a",
+          "start": 0.32,
+          "end": 0.36
+        },
+        {
+          "text": "report",
+          "start": 0.4,
+          "end": 0.88
+        },
+        {
+          "text": "and",
+          "start": 0.96,
+          "end": 1.12
+        },
+        {
+          "text": "ask",
+          "start": 1.2,
+          "end": 1.52
+        },
+        {
+          "text": "three",
+          "start": 1.64,
+          "end": 1.76
+        },
+        {
+          "text": "questions.",
+          "start": 1.84,
+          "end": 2.84
+        },
+        {
+          "text": "The",
+          "start": 2.88,
+          "end": 2.96
+        },
+        {
+          "text": "report",
+          "start": 3.2,
+          "end": 3.44
+        },
+        {
+          "text": "lands",
+          "start": 3.52,
+          "end": 3.84
+        },
+        {
+          "text": "first.",
+          "start": 3.92,
+          "end": 4.68
+        },
+        {
+          "text": "Every",
+          "start": 4.72,
+          "end": 5.04
+        },
+        {
+          "text": "question",
+          "start": 5.12,
+          "end": 5.44
+        },
+        {
+          "text": "and",
+          "start": 5.52,
+          "end": 5.6
+        },
+        {
+          "text": "answer",
+          "start": 5.68,
+          "end": 6.08
+        },
+        {
+          "text": "piles",
+          "start": 6.16,
+          "end": 6.48
+        },
+        {
+          "text": "on",
+          "start": 6.56,
+          "end": 6.64
+        },
+        {
+          "text": "top.",
+          "start": 6.72,
+          "end": 7.44
+        }
+      ],
+      "end": 7.44
+    },
+    {
+      "id": "keeps",
+      "file": "episodes/cl-007/vo/keeps.mp3",
+      "text": "Claude doesn't wipe the desk between your messages. Each time you write, the whole chat so far comes along with it.",
+      "words": [
+        {
+          "text": "Claude",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "doesn't",
+          "start": 0.4,
+          "end": 0.72
+        },
+        {
+          "text": "wipe",
+          "start": 0.8,
+          "end": 1.04
+        },
+        {
+          "text": "the",
+          "start": 1.12,
+          "end": 1.2
+        },
+        {
+          "text": "desk",
+          "start": 1.36,
+          "end": 1.52
+        },
+        {
+          "text": "between",
+          "start": 1.68,
+          "end": 1.84
+        },
+        {
+          "text": "your",
+          "start": 1.92,
+          "end": 2
+        },
+        {
+          "text": "messages.",
+          "start": 2.56,
+          "end": 3.16
+        },
+        {
+          "text": "Each",
+          "start": 3.2,
+          "end": 3.36
+        },
+        {
+          "text": "time",
+          "start": 3.48,
+          "end": 3.6
+        },
+        {
+          "text": "you",
+          "start": 3.68,
+          "end": 3.76
+        },
+        {
+          "text": "write,",
+          "start": 4.04,
+          "end": 4.36
+        },
+        {
+          "text": "the",
+          "start": 4.4,
+          "end": 4.56
+        },
+        {
+          "text": "whole",
+          "start": 4.64,
+          "end": 4.88
+        },
+        {
+          "text": "chat",
+          "start": 4.96,
+          "end": 5.2
+        },
+        {
+          "text": "so",
+          "start": 5.28,
+          "end": 5.44
+        },
+        {
+          "text": "far",
+          "start": 5.52,
+          "end": 5.84
+        },
+        {
+          "text": "comes",
+          "start": 5.92,
+          "end": 6.08
+        },
+        {
+          "text": "along",
+          "start": 6.16,
+          "end": 6.4
+        },
+        {
+          "text": "with",
+          "start": 6.48,
+          "end": 6.56
+        },
+        {
+          "text": "it.",
+          "start": 6.88,
+          "end": 7.28
+        }
+      ],
+      "end": 7.28
+    },
+    {
+      "id": "gatsby",
+      "file": "episodes/cl-007/vo/gatsby.mp3",
+      "text": "In 2023, Anthropic put all of The Great Gatsby on an early Claude's desk and changed one line. It found the change in twenty-two seconds.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.16
+        },
+        {
+          "text": "2023,",
+          "start": 0.32,
+          "end": 1.4
+        },
+        {
+          "text": "Anthropic",
+          "start": 1.44,
+          "end": 2
+        },
+        {
+          "text": "put",
+          "start": 2.16,
+          "end": 2.32
+        },
+        {
+          "text": "all",
+          "start": 2.4,
+          "end": 2.56
+        },
+        {
+          "text": "of",
+          "start": 2.64,
+          "end": 2.72
+        },
+        {
+          "text": "The",
+          "start": 2.8,
+          "end": 2.88
+        },
+        {
+          "text": "Great",
+          "start": 3,
+          "end": 3.12
+        },
+        {
+          "text": "Gatsby",
+          "start": 3.2,
+          "end": 3.68
+        },
+        {
+          "text": "on",
+          "start": 3.76,
+          "end": 3.84
+        },
+        {
+          "text": "an",
+          "start": 3.92,
+          "end": 4
+        },
+        {
+          "text": "early",
+          "start": 4.08,
+          "end": 4.32
+        },
+        {
+          "text": "Claude's",
+          "start": 4.4,
+          "end": 4.72
+        },
+        {
+          "text": "desk",
+          "start": 4.96,
+          "end": 5.2
+        },
+        {
+          "text": "and",
+          "start": 5.28,
+          "end": 5.44
+        },
+        {
+          "text": "changed",
+          "start": 5.68,
+          "end": 5.92
+        },
+        {
+          "text": "one",
+          "start": 6,
+          "end": 6.16
+        },
+        {
+          "text": "line.",
+          "start": 6.24,
+          "end": 7.08
+        },
+        {
+          "text": "It",
+          "start": 7.12,
+          "end": 7.28
+        },
+        {
+          "text": "found",
+          "start": 7.4,
+          "end": 7.52
+        },
+        {
+          "text": "the",
+          "start": 7.6,
+          "end": 7.68
+        },
+        {
+          "text": "change",
+          "start": 7.88,
+          "end": 8.08
+        },
+        {
+          "text": "in",
+          "start": 8.16,
+          "end": 8.24
+        },
+        {
+          "text": "twenty-two",
+          "start": 8.32,
+          "end": 9.04
+        },
+        {
+          "text": "seconds.",
+          "start": 9.56,
+          "end": 10.16
+        }
+      ],
+      "end": 10.16
+    },
+    {
+      "id": "size",
+      "file": "episodes/cl-007/vo/size.mp3",
+      "text": "Today, Claude's newest models have a desk of up to one million tokens. That's roughly five hundred fifty-five thousand words.",
+      "words": [
+        {
+          "text": "Today,",
+          "start": 0,
+          "end": 0.72
+        },
+        {
+          "text": "Claude's",
+          "start": 0.8,
+          "end": 1.2
+        },
+        {
+          "text": "newest",
+          "start": 1.28,
+          "end": 1.6
+        },
+        {
+          "text": "models",
+          "start": 1.8,
+          "end": 2
+        },
+        {
+          "text": "have",
+          "start": 2.08,
+          "end": 2.16
+        },
+        {
+          "text": "a",
+          "start": 2.24,
+          "end": 2.28
+        },
+        {
+          "text": "desk",
+          "start": 2.32,
+          "end": 2.56
+        },
+        {
+          "text": "of",
+          "start": 2.6,
+          "end": 2.64
+        },
+        {
+          "text": "up",
+          "start": 2.72,
+          "end": 2.8
+        },
+        {
+          "text": "to",
+          "start": 2.88,
+          "end": 3.04
+        },
+        {
+          "text": "one",
+          "start": 3.12,
+          "end": 3.44
+        },
+        {
+          "text": "million",
+          "start": 3.52,
+          "end": 3.92
+        },
+        {
+          "text": "tokens.",
+          "start": 4,
+          "end": 4.92
+        },
+        {
+          "text": "That's",
+          "start": 4.96,
+          "end": 5.12
+        },
+        {
+          "text": "roughly",
+          "start": 5.2,
+          "end": 5.6
+        },
+        {
+          "text": "five",
+          "start": 5.72,
+          "end": 5.84
+        },
+        {
+          "text": "hundred",
+          "start": 5.92,
+          "end": 6.24
+        },
+        {
+          "text": "fifty-five",
+          "start": 6.347,
+          "end": 6.96
+        },
+        {
+          "text": "thousand",
+          "start": 7.04,
+          "end": 7.44
+        },
+        {
+          "text": "words.",
+          "start": 7.52,
+          "end": 8.48
+        }
+      ],
+      "end": 8.48
+    },
+    {
+      "id": "fixed",
+      "file": "episodes/cl-007/vo/fixed.mp3",
+      "text": "Big, but fixed. The desk doesn't grow as you chat. Only the pile on it does.",
+      "words": [
+        {
+          "text": "Big,",
+          "start": 0,
+          "end": 0.72
+        },
+        {
+          "text": "but",
+          "start": 0.84,
+          "end": 0.96
+        },
+        {
+          "text": "fixed.",
+          "start": 1.04,
+          "end": 1.92
+        },
+        {
+          "text": "The",
+          "start": 2,
+          "end": 2.08
+        },
+        {
+          "text": "desk",
+          "start": 2.24,
+          "end": 2.4
+        },
+        {
+          "text": "doesn't",
+          "start": 2.48,
+          "end": 2.8
+        },
+        {
+          "text": "grow",
+          "start": 2.96,
+          "end": 3.12
+        },
+        {
+          "text": "as",
+          "start": 3.2,
+          "end": 3.28
+        },
+        {
+          "text": "you",
+          "start": 3.36,
+          "end": 3.44
+        },
+        {
+          "text": "chat.",
+          "start": 3.52,
+          "end": 4.2
+        },
+        {
+          "text": "Only",
+          "start": 4.24,
+          "end": 4.48
+        },
+        {
+          "text": "the",
+          "start": 4.56,
+          "end": 4.64
+        },
+        {
+          "text": "pile",
+          "start": 4.72,
+          "end": 4.96
+        },
+        {
+          "text": "on",
+          "start": 5.04,
+          "end": 5.12
+        },
+        {
+          "text": "it",
+          "start": 5.2,
+          "end": 5.28
+        },
+        {
+          "text": "does.",
+          "start": 5.68,
+          "end": 6.16
+        }
+      ],
+      "end": 6.16
+    },
+    {
+      "id": "outro",
+      "file": "episodes/cl-007/vo/outro.mp3",
+      "text": "Every answer is worked out at that desk. So what happens when the desk is full?",
+      "words": [
+        {
+          "text": "Every",
+          "start": 0,
+          "end": 0.32
+        },
+        {
+          "text": "answer",
+          "start": 0.4,
+          "end": 0.88
+        },
+        {
+          "text": "is",
+          "start": 0.96,
+          "end": 1.12
+        },
+        {
+          "text": "worked",
+          "start": 1.2,
+          "end": 1.44
+        },
+        {
+          "text": "out",
+          "start": 1.52,
+          "end": 1.76
+        },
+        {
+          "text": "at",
+          "start": 1.84,
+          "end": 2
+        },
+        {
+          "text": "that",
+          "start": 2.08,
+          "end": 2.24
+        },
+        {
+          "text": "desk.",
+          "start": 2.32,
+          "end": 3.2
+        },
+        {
+          "text": "So",
+          "start": 3.28,
+          "end": 3.68
+        },
+        {
+          "text": "what",
+          "start": 3.76,
+          "end": 3.92
+        },
+        {
+          "text": "happens",
+          "start": 4,
+          "end": 4.32
+        },
+        {
+          "text": "when",
+          "start": 4.4,
+          "end": 4.48
+        },
+        {
+          "text": "the",
+          "start": 4.52,
+          "end": 4.56
+        },
+        {
+          "text": "desk",
+          "start": 4.68,
+          "end": 4.8
+        },
+        {
+          "text": "is",
+          "start": 4.88,
+          "end": 5.04
+        },
+        {
+          "text": "full?",
+          "start": 5.4,
+          "end": 5.84
+        }
+      ],
+      "end": 5.84
+    },
+    {
+      "id": "next",
+      "file": "episodes/cl-007/vo/next.mp3",
+      "text": "In the next episode, we'll talk about why Claude forgets.",
+      "words": [
+        {
+          "text": "In",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "the",
+          "start": 0.16,
+          "end": 0.24
+        },
+        {
+          "text": "next",
+          "start": 0.36,
+          "end": 0.48
+        },
+        {
+          "text": "episode,",
+          "start": 0.56,
+          "end": 1.28
+        },
+        {
+          "text": "we'll",
+          "start": 1.32,
+          "end": 1.52
+        },
+        {
+          "text": "talk",
+          "start": 1.64,
+          "end": 1.76
+        },
+        {
+          "text": "about",
+          "start": 1.84,
+          "end": 2.08
+        },
+        {
+          "text": "why",
+          "start": 2.16,
+          "end": 2.48
+        },
+        {
+          "text": "Claude",
+          "start": 2.56,
+          "end": 2.88
+        },
+        {
+          "text": "forgets.",
+          "start": 2.96,
+          "end": 4.08
+        }
+      ],
+      "end": 4.08
+    },
+    {
+      "id": "cta",
+      "file": "episodes/cl-007/vo/cta.mp3",
+      "text": "If you like this kind of content, like, share and follow Curiously.",
+      "words": [
+        {
+          "text": "If",
+          "start": 0,
+          "end": 0.08
+        },
+        {
+          "text": "you",
+          "start": 0.16,
+          "end": 0.24
+        },
+        {
+          "text": "like",
+          "start": 0.32,
+          "end": 0.56
+        },
+        {
+          "text": "this",
+          "start": 0.64,
+          "end": 0.72
+        },
+        {
+          "text": "kind",
+          "start": 0.8,
+          "end": 0.88
+        },
+        {
+          "text": "of",
+          "start": 0.96,
+          "end": 1.04
+        },
+        {
+          "text": "content,",
+          "start": 1.12,
+          "end": 1.84
+        },
+        {
+          "text": "like,",
+          "start": 1.92,
+          "end": 2.4
+        },
+        {
+          "text": "share",
+          "start": 2.48,
+          "end": 2.8
+        },
+        {
+          "text": "and",
+          "start": 2.88,
+          "end": 3.04
+        },
+        {
+          "text": "follow",
+          "start": 3.12,
+          "end": 3.44
+        },
+        {
+          "text": "Curiously.",
+          "start": 3.52,
+          "end": 4.48
+        }
+      ],
+      "end": 4.48
+    }
+  ],
+  "music": "episodes/cl-007/music.mp3"
+}

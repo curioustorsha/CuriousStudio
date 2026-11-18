@@ -1,0 +1,56 @@
+{
+  "title": "Archify: click your codebase",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Sleek, curious product-launch bed for a 75-second tech short, about 100 BPM, soft analog synth pulses, warm sub bass, crisp light hi-hats and glassy plucks, a small lift around 50 seconds and a calm resolve into the end card, instrumental, no vocals.",
+  "scenes": [
+    {
+      "id": "hook",
+      "text": "Ask Claude how your app works, and get a clickable map that links to the exact lines of code."
+    },
+    {
+      "id": "intro",
+      "text": "Welcome to Claude Skills, by Curiously."
+    },
+    {
+      "id": "map",
+      "text": "This is Archify. Ask it about one feature of your repo. It reads the real code, and its architecture boxes can open the files and lines behind them.",
+      "say": "This is Arkify. Ask it about one feature of your repo. It reads the real code, and its architecture boxes can open the files and lines behind them."
+    },
+    {
+      "id": "explore",
+      "text": "Pick a box and trace everything upstream or downstream. Pick a start and an end, and it traces the route between them."
+    },
+    {
+      "id": "beyond",
+      "text": "And it's not just for code. It knows ten diagram types, and it'll even map out a job search."
+    },
+    {
+      "id": "trick",
+      "text": "The trick? Claude never draws the picture. It writes a list of boxes and arrows, and Archify's checker bounces anything broken back to Claude. You get one HTML file to share.",
+      "say": "The trick? Claude never draws the picture. It writes a list of boxes and arrows, and Arkify's checker bounces anything broken back to Claude. You get one HTML file to share."
+    },
+    {
+      "id": "catch",
+      "text": "The catch: it maps what you ask about, not your whole codebase. And it checks for updates about once a day, unless you turn that off."
+    },
+    {
+      "id": "install",
+      "text": "Install it with one command, link in the description."
+    },
+    {
+      "id": "cta",
+      "text": "If you like this kind of content, like, share and follow Curiously."
+    }
+  ],
+  "keyterms": ["Claude", "Curiously", "Claude Skills", "Archify", "repo", "upstream", "downstream", "HTML", "codebase"],
+  "sources": [
+    "GitHub API tt-a1i/archify: 97,473 stars, Apache-2.0, checked 17 Nov 2026",
+    "Archify README_EN: source links (SRC), viewer reach and route probe, one portable HTML file, update check",
+    "archify/SKILL.md v3.2: candidate.json, finalize validates and returns rule codes for repair; ten diagram types",
+    "archify/references/repository-authoring.md: reads a connected slice of the real code; repo-relative paths and line ranges",
+    "archify/scripts/check-update.mjs: once-a-day GET of a fixed manifest; ARCHIFY_UPDATE_CHECK_DISABLED=1 turns it off",
+    "llms.txt v3.2.0: install command for Claude Code",
+    "docs/cases/mco-runtime.architecture.html and docs/cases/life/job-search.lifecycle: the maker's committed examples, shown on screen"
+  ]
+}

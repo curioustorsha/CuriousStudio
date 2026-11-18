@@ -2,7 +2,7 @@
 
 Claude Lab teaches Claude from zero to power user, one short at a time. Every episode builds on the one before it and ends by setting up the next. Someone who finds episode 30 can scroll back to the start, and someone who starts at episode 1 has a reason to keep going.
 
-**52 episodes in 8 modules.** That's one per Wednesday for all of 2027. If Claude Skills starts as a parallel series, Claude Lab can slow down or keep going alongside it.
+**52 episodes in 8 modules.** That's one per Tuesday for all of 2027. If Claude Skills starts as a parallel series, Claude Lab can slow down or keep going alongside it.
 
 **Order:** start with what everyone uses (the chat app), then Claude doing work for you (Cowork), then Claude Code for builders, then the API underneath, and finally skills as the bridge into the Claude Skills series.
 
@@ -136,7 +136,10 @@ One world, **Claude's workshop**, used in every episode. Each idea gets its obje
 | Tokens | Small chunky cream tiles with a slate bottom lip and mono lettering, that text (word cards, your question) is cut into. Any split shown is labelled as an example: Claude's tokenizer isn't published | 2 |
 | Input and output tokens | Two trays on the bench: `IN` (what you send, slid in from the left) and `OUT` (what Claude writes, placed by Aster) | 2 |
 | Price | Flat cream coins stacked beside a tray | 2 |
-| Context window | The desk: fixed size, everything Claude can see | 3 |
+| Context window | The desk: a fixed amber outline marked on the workbench (x 150–930, bench top up to y 680) with heavier corner brackets and a mono `CONTEXT WINDOW` tag. Never changes size or moves; everything inside is what Claude can see | 3 |
+| A message on the desk | A flat slab in a front-on pile on the left of the desk: dark with an amber edge = you, cream = Claude's reply, tiny mono tags (`Q1`, `A1`) | 3 |
+| A file you share | A grey document with a folded corner and a mono name tag (`REPORT.pdf`); on the pile it becomes a thick grey bundle of page slabs | 3 |
+| How full the desk is | A thin ruler up the desk's right edge, top mark `1M TOKENS` (the current figure), an amber marker at the pile's level | 3 |
 | Compaction | Sweeping the desk into one summary card | 4 |
 | Opus / Sonnet / Haiku | Three workers: careful senior, fast all-rounder, quick runner | 5 |
 | Prompt | A briefing card handed across the desk | 8 |

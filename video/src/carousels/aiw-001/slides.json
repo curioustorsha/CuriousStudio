@@ -1,0 +1,14 @@
+{
+  "series": "AI THIS WEEK",
+  "music": "audio/music.mp3",
+  "secondsPerSlide": 6,
+  "slides": [
+    { "kind": "cover", "kicker": "AI this week · #1", "title": "5 tech stories from this week", "icon": "news", "date": "Week of 10 Nov 2026" },
+    { "kind": "story", "text": "Nvidia said Jensen Huang has resigned as CEO, effective immediately, with finance chief Colette Kress as interim CEO while the board looks for a permanent one.", "source": "Nvidia" },
+    { "kind": "story", "text": "Anthropic, the company behind Claude, started pitching its planned stock market debut to investors: 825 million shares at an expected $70 to $78 each, with a planned Nasdaq listing.", "source": "Anthropic" },
+    { "kind": "story", "text": "Google released Gemini 4 Carbon, which it calls its strongest model, for paying developers and Ultra subscribers, then Gemini 4 Hydrogen, a faster model that free users get through automatic model selection.", "source": "Google" },
+    { "kind": "story", "text": "OpenAI launched ChatGPT Wallet for US Pro users, so its AI agents can pay without seeing the real card number, and the user approves each purchase.", "source": "OpenAI" },
+    { "kind": "story", "text": "Apple launched a US research app to study how people use AI for health, aiming for up to 200,000 iPhone users in a study lasting more than a year.", "source": "TechCrunch" },
+    { "kind": "outro", "title": "Like, share and follow", "cta": "Follow Curiously for more" }
+  ]
+}

@@ -5,3 +5,4 @@ export * from "./props";
 export * from "./host";
 export * from "./tokens";
 export * from "./intro";
+export * from "./desk";

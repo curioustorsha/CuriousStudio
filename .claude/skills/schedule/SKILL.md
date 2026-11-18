@@ -28,9 +28,11 @@ Run `node tracker/scripts/episode.mjs slot <CODE>`. It returns the next free pub
 
 ## 3. Times
 
-Default to the evening in India Standard Time: YouTube 6:00 PM IST, Instagram 7:30 PM IST, TikTok 7:30 PM IST (adjust if a note or past results say otherwise). Write times in IST and UTC.
+The team posts from the US, for an audience in India and the US. Defaults (adjust if a note or past results say otherwise):
+- **YouTube Shorts 7:30 PM IST** and **Instagram Reels 8:30 PM IST**: India's evening, which is the US morning.
+- **TikTok 7:00 PM US Eastern**: TikTok has been blocked in India since 2020, so its audience is the US evening.
 
-TikTok has been unavailable in India since 2020. If the team posts from India, say so in the plan and mark TikTok as "skip unless posting from an account outside India".
+Write every time in IST, US Eastern and US Pacific; the person schedules in their own US time zone. India has no daylight saving: IST is ET + 10:30 and PT + 13:30 in US standard time (early Nov to the second Sunday of March), and ET + 9:30 / PT + 12:30 in US daylight time. Convert for the actual date, and say which one the plan uses. Keep the YouTube and Instagram times anchored in IST and the TikTok time anchored in ET.
 
 ## 4. The publishing plan
 
@@ -39,11 +41,11 @@ Write `publishPlan` as Markdown:
 ```markdown
 **Date:** Fri 8 Jan 2027 · How It Scales (Mon) → next free slot
 
-| Platform | When (IST) | When (UTC) | Status |
-|---|---|---|---|
-| YouTube Shorts | 6:00 PM | 12:30 | to schedule |
-| Instagram Reels | 7:30 PM | 14:00 | to schedule |
-| TikTok | 7:30 PM | 14:00 | to schedule |
+| Platform | India (IST) | US Eastern | US Pacific | Status |
+|---|---|---|---|---|
+| YouTube Shorts | 7:30 PM | 9:00 AM | 6:00 AM | to schedule |
+| Instagram Reels | 8:30 PM | 10:00 AM | 7:00 AM | to schedule |
+| TikTok | 5:30 AM next day | 7:00 PM | 4:00 PM | to schedule (US audience; TikTok is blocked in India) |
 
 ## Files
 Video: Download video (Scheduled tab) · Cover: Download cover

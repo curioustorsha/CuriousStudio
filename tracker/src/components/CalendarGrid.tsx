@@ -1,17 +1,19 @@
 "use client";
 
-import { CircleCheck, CircleDashed, Lightbulb, Rocket } from "lucide-react";
+import { CircleCheck, CircleDashed, Hourglass, Lightbulb, Rocket } from "lucide-react";
 import Link from "next/link";
 import { useOptimistic, useState, useTransition } from "react";
 import { scheduleEpisodeAction } from "@/app/actions";
 import type { Episode, Series } from "@/db";
-import { LAUNCH, READY_FROM, stageIndex } from "@/lib/stages";
+import { getStage, LAUNCH, READY_FROM, stageIndex } from "@/lib/stages";
 import { useDialog } from "./Dialog";
 import { StageBadge } from "./ui";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const dueDays = (s: Series) => s.cadenceDays.split(",").filter(Boolean).map(Number);
 const weekday = (key: string) => new Date(`${key}T00:00`).getDay();
+/** Publish stage means the video or post is finished; anything before it is still being made. */
+const isReady = (e: Episode) => stageIndex(e.stage) >= stageIndex("publish");
 
 export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }: {
   /** ISO dates shown, Monday first; `dim` greys out days outside the month. */
@@ -73,6 +75,18 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
     },
   });
 
+  const openSlotsFor = (key: string) =>
+    key >= slotsFrom
+      ? series.filter((s) => dueDays(s).includes(weekday(key)) && !(byDate.get(key) ?? []).some((e) => e.seriesId === s.id))
+      : [];
+  const shownDays = days.filter((d) => !d.dim).map((d) => d.key);
+  const shownEps = shownDays.flatMap((k) => byDate.get(k) ?? []);
+  const counts = {
+    ready: shownEps.filter(isReady).length,
+    notReady: shownEps.filter((e) => !isReady(e)).length,
+    open: shownDays.reduce((n, k) => n + openSlotsFor(k).length, 0),
+  };
+
   const ideas = items.filter((e) => e.stage === "idea" && !e.publishDate && (ideaSeries === null || e.seriesId === ideaSeries)).sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
   const unscheduled = items.filter((e) => !e.publishDate && stageIndex(e.stage) >= READY_FROM && e.stage !== "posted");
   const candidates = (seriesId: number) =>
@@ -98,6 +112,17 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
     // shortcut: 14rem ≈ page header + padding + usage footer; a long subtitle or the queue-paused banner adds a little scroll.
     <div className="grid gap-6 xl:h-[calc(100dvh-14rem)] xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
       <div className="card flex min-h-0 flex-col overflow-hidden">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 border-b border-line px-3 py-2.5 text-[12px] font-medium">
+          <span className="flex items-center gap-1.5 text-ok">
+            <CircleCheck className="size-3.5" strokeWidth={2.4} /> {counts.ready} ready (in Publish)
+          </span>
+          <span className="flex items-center gap-1.5 text-warn">
+            <Hourglass className="size-3.5" strokeWidth={2.4} /> {counts.notReady} not ready yet
+          </span>
+          <span className="flex items-center gap-1.5 text-muted">
+            <CircleDashed className="size-3.5" strokeWidth={2.4} /> {counts.open} empty slots (no idea given)
+          </span>
+        </div>
         <div className="grid grid-cols-7 border-b border-line text-right text-[13px] font-semibold text-muted">
           {WEEKDAYS.map((d) => <div key={d} className="px-3 py-2.5">{d}</div>)}
         </div>
@@ -105,10 +130,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
           {days.map(({ key, dim }) => {
             const dayItems = byDate.get(key) ?? [];
             const droppable = !!dragging && canDrop(dragging, key);
-            const openSlots =
-              key >= slotsFrom
-                ? series.filter((s) => dueDays(s).includes(weekday(key)) && !dayItems.some((e) => e.seriesId === s.id))
-                : [];
+            const openSlots = openSlotsFor(key);
             return (
               <div
                 key={key}
@@ -150,6 +172,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                   {dayItems.map((e) => {
                     const s = e.seriesId ? seriesById.get(e.seriesId) : null;
                     const late = key < today && e.stage !== "posted";
+                    const ready = isReady(e);
                     return (
                       <Link
                         key={e.id}
@@ -158,18 +181,24 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                         title={`${e.code} · ${e.title}`}
                         className={`flex flex-col items-start gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium leading-snug transition-opacity hover:opacity-75 ${
                           dragId === e.id ? "opacity-40" : ""
-                        }`}
+                        } ${ready ? "" : "border border-dashed border-warn/60"}`}
                         style={{
-                          background: `color-mix(in srgb, ${s?.color ?? "#8e8e93"} 16%, transparent)`,
+                          // Ready: solid series colour. Not ready: no fill, so it reads as unfinished at a glance.
+                          background: ready ? `color-mix(in srgb, ${s?.color ?? "#8e8e93"} 16%, transparent)` : undefined,
                           boxShadow: `inset 3px 0 0 ${s?.color ?? "#8e8e93"}`,
                           color: late ? "var(--danger)" : undefined,
                         }}
                       >
-                        <span className="flex w-full min-w-0 items-start gap-1">
-                          {e.stage === "posted" && <CircleCheck className="mt-0.5 size-3.5 shrink-0 text-ok" strokeWidth={2.4} />}
-                          <span>{e.title}</span>
-                        </span>
-                        <StageBadge stage={e.stage} />
+                        <span>{e.title}</span>
+                        {ready ? (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-ok/15 px-2 py-0.5 text-[11px] font-semibold text-ok">
+                            <CircleCheck className="size-3" strokeWidth={2.6} /> {e.stage === "posted" ? "Posted" : "Ready"}
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-warn/15 px-2 py-0.5 text-[11px] font-semibold text-warn">
+                            <Hourglass className="size-3" strokeWidth={2.6} /> Not ready · {getStage(e.stage).label}
+                          </span>
+                        )}
                       </Link>
                     );
                   })}
@@ -183,7 +212,7 @@ export function CalendarGrid({ days, episodes, series, today, slotsFrom, tall }:
                           title={`Open slot: ${s.name}. Drag an idea here, or click to pick one.`}
                         >
                           <CircleDashed className="size-3 shrink-0" strokeWidth={2.4} />
-                          <span className="truncate">{s.name}</span>
+                          <span className="truncate">{s.name} · empty</span>
                         </summary>
                         <div className={`card absolute top-full z-20 mt-1 w-64 p-1.5 shadow-lg ${[5, 6, 0].includes(weekday(key)) ? "right-0" : "left-0"}`}>
                           <div className="px-2 pb-1 pt-0.5 text-[11px] font-semibold text-muted">

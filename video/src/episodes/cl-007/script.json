@@ -1,0 +1,29 @@
+{
+  "title": "Lesson 3 · The context window: Claude's desk",
+  "voiceId": "EaBs7G1VibMrNAuz2Na7",
+  "voiceName": "Monika Sogam - Natural Conversations",
+  "musicPrompt": "Warm, curious workshop bed for a 90-second lesson, about 95 BPM, soft marimba and pizzicato plucks, light woodblock ticks, a gentle bass, a small lift at the Gatsby find around 55 seconds and a quiet unresolved hang before the end card, instrumental, no vocals.",
+  "scenes": [
+    { "id": "hook", "text": "Everything Claude can see at once fits on one desk. Here's what's on it." },
+    { "id": "intro", "text": "Welcome to Claude Lab, by Curiously." },
+    { "id": "callback", "text": "Last time, text became tokens. They have to sit somewhere." },
+    { "id": "desk", "text": "That place is called the context window. Picture it as Claude's desk." },
+    { "id": "notpaper", "text": "The mountain of text Claude learned from stays on the back wall. This desk holds only what's in front of Claude right now." },
+    { "id": "onit", "text": "What goes on it? Your messages, any file you share, and every reply Claude writes." },
+    { "id": "pile", "text": "Share a report and ask three questions. The report lands first. Every question and answer piles on top." },
+    { "id": "keeps", "text": "Claude doesn't wipe the desk between your messages. Each time you write, the whole chat so far comes along with it." },
+    { "id": "gatsby", "text": "In 2023, Anthropic put all of The Great Gatsby on an early Claude's desk and changed one line. It found the change in twenty-two seconds." },
+    { "id": "size", "text": "Today, Claude's newest models have a desk of up to one million tokens. That's roughly five hundred fifty-five thousand words." },
+    { "id": "fixed", "text": "Big, but fixed. The desk doesn't grow as you chat. Only the pile on it does." },
+    { "id": "outro", "text": "Every answer is worked out at that desk. So what happens when the desk is full?" },
+    { "id": "next", "text": "In the next episode, we'll talk about why Claude forgets." },
+    { "id": "cta", "text": "If you like this kind of content, like, share and follow Curiously." }
+  ],
+  "keyterms": ["Claude", "Curiously", "Claude Lab", "tokens", "context window", "Anthropic", "The Great Gatsby", "Gatsby"],
+  "sources": [
+    "Claude Docs (Anthropic): Context windows, accessed 16 Nov 2026",
+    "Claude Docs (Anthropic): Models overview, accessed 16 Nov 2026",
+    "Claude Help Center (Anthropic): How large is the context window on paid Claude plans?, accessed 16 Nov 2026",
+    "Anthropic, 11 May 2023: Introducing 100K Context Windows"
+  ]
+}

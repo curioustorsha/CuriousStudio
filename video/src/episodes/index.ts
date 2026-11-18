@@ -10,6 +10,8 @@ import ep_cs_016 from "./cs-016";
 import ep_cs_015 from "./cs-015";
 import ep_pb_001 from "./pb-001";
 import ep_cs_032 from "./cs-032";
+import ep_cl_007 from "./cl-007";
+import ep_cs_009 from "./cs-009";
 // @episodes-imports
 
 export const EPISODES: Episode[] = [
@@ -22,5 +24,7 @@ export const EPISODES: Episode[] = [
   ep_cs_015,
   ep_pb_001,
   ep_cs_032,
+  ep_cl_007,
+  ep_cs_009,
   // @episodes-list
 ];
