@@ -677,7 +677,7 @@ export type WorldProps = {
   plainSign?: boolean;
 };
 
-const MASK = "linear-gradient(180deg, transparent 0px, transparent 400px, black 500px, black 1190px, transparent 1290px)";
+const MASK = "linear-gradient(180deg, transparent 0px, transparent 450px, black 530px, black 1250px, transparent 1320px)";
 const ROAD = "#1E2230";
 const PLOT = "#10131B";
 

@@ -15,7 +15,7 @@ export const FRAGMENTS = ["wrong assumptions", "overcomplicate code", "change/re
 export const clampI = (f: number, a: number, b: number, from = 0, to = 1) =>
   interpolate(f, [a, b], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-/** Kicker + title in the header area (170–400). */
+/** Kicker + title in the header area (170–400; the episode shifts it 80 px down). */
 export const Header: React.FC<{ title: string; opacity?: number; accent?: string }> = ({ title, opacity = 1, accent }) => (
   <div style={{ opacity }}>
     <Label text={KICKER} style={{ top: 200, left: 60, right: 60, fontSize: 19, letterSpacing: 1 }} />

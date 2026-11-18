@@ -77,7 +77,7 @@ export const Scale: React.FC = () => {
       />
 
       {/* Header: the counter is the title */}
-      <div style={{ position: "absolute", top: 170, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div style={{ position: "absolute", top: 270, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Reveal at={0}>
           <LogoKicker text="STORES" />
         </Reveal>

@@ -25,6 +25,8 @@ export type EpisodeDef = {
   endSting?: boolean;
   /** Cut straight between scenes instead of the blur-fade in and out (Claude Skills: no dip to dark at every cut). */
   hardCuts?: boolean;
+  /** Moves every scene's picture down (captions stay put). For episodes laid out before the 2026-11-18 safe zones. */
+  shiftY?: number;
 };
 
 const Progress: React.FC = () => {
@@ -83,7 +85,13 @@ export const makeEpisode = (def: EpisodeDef) => {
             return (
               <Series.Sequence key={id} durationInFrames={t.sceneFrames(id)} name={id}>
                 <SceneShell enter={!def.hardCuts && i !== 0} exit={!def.hardCuts && (sting || i !== t.ORDER.length - 1)}>
-                  <Scene />
+                  {def.shiftY ? (
+                    <AbsoluteFill style={{ transform: `translateY(${def.shiftY}px)` }}>
+                      <Scene />
+                    </AbsoluteFill>
+                  ) : (
+                    <Scene />
+                  )}
                 </SceneShell>
                 <Audio src={staticFile(t.scene(id).file)} />
                 <Captions id={id} />

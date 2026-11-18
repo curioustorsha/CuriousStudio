@@ -14,7 +14,7 @@ const SpeedCard: React.FC<{ when: string; speed: string; color: string; x: numbe
   <div
     style={{
       position: "absolute",
-      top: 420,
+      top: 520,
       left: x,
       width: 430,
       transform: `translateX(-50%) scale(${0.6 + 0.4 * Math.min(1, p)})`,
@@ -94,7 +94,7 @@ export const Memory: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          top: 360,
+          top: 460,
           left: 0,
           right: 0,
           textAlign: "center",

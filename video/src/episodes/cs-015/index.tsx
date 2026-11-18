@@ -17,6 +17,8 @@ export default makeEpisode({
   code: "CS-015",
   title: "Karpathy's CLAUDE.md: it asks first",
   seriesTag: "CLAUDE SKILLS",
+  // Laid out before the safe zones (kicker 200, source 1262): 80 px down puts them at 280 / 1342.
+  shiftY: 80,
   manifest,
   // The cta scene is the sign-off end card, so no generic logo sting after it.
   endSting: false,

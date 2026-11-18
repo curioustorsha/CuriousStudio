@@ -18,7 +18,7 @@ export const TEST_SOURCE = "SOURCE · Curiously test, 15 Nov 2026";
 export const clampI = (f: number, a: number, b: number, from = 0, to = 1) =>
   interpolate(f, [a, b], [from, to], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
-/** Kicker (with the Remotion mark, the company maker) + title in the header area (170–400). */
+/** Kicker (with the Remotion mark, the company maker) + title in the header area (170–400; the episode shifts it 80 px down). */
 export const Header: React.FC<{ title: string; opacity?: number; accent?: string }> = ({ title, opacity = 1, accent }) => (
   <div style={{ opacity }}>
     <div style={{ position: "absolute", top: 194, left: 60 }}>

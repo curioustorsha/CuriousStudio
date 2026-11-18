@@ -62,7 +62,7 @@ export const Offload: React.FC = () => {
         overlay={<>{stream}</>}
       />
 
-      <StatCard x={700} y={420} p={frame >= tMost + 4 ? pCard : 0} big={`${pct}%`} sub="OF UNCHANGING CONTENT" size={86} />
+      <StatCard x={700} y={520} p={frame >= tMost + 4 ? pCard : 0} big={`${pct}%`} sub="OF UNCHANGING CONTENT" size={86} />
       <RailwaysTag p={frame >= tRail ? pTag : 0} x={540} y={1192} text="THE RAILWAYS SAYS" />
       <Source text="Ministry of Railways, Jun 2025" at={tMost} />
     </>

@@ -16,6 +16,8 @@ export default makeEpisode({
   code: "CS-016",
   title: "Ponytail: 335 lines → 10",
   seriesTag: "CLAUDE SKILLS",
+  // Laid out before the safe zones (kicker 200, source 1262): 80 px down puts them at 280 / 1342.
+  shiftY: 80,
   manifest,
   // The cta scene is the sign-off end card, so no generic logo sting after it.
   endSting: false,
