@@ -57,7 +57,7 @@ The one question this episode answers, as a viewer would ask it.
 What a viewer should walk away knowing, in everyday words.
 
 ## The big idea
-The one real technical term this episode teaches (e.g. graph neural network, caching, a queue), the everyday picture that explains it (dots and lines, a counter with a line of people), and the facts it rests on (F5, F6).
+The one real technical term this episode teaches (e.g. graph neural network, caching, a queue; How It Scales: the mechanism and up to 3 named parts), the everyday picture that explains it (dots and lines, a counter with a line of people), and the facts it rests on (F5, F6).
 
 ## Picture options
 2–3 everyday pictures for the big idea, one line each, with how each part maps onto the real system ("menus on every table = copies near you (CDN); waiter = IRCTC's servers; order = your booking (a write)"). Mark the one the script uses with **(used)**. A picture only counts if every moving part of the mechanism has a match; drop any that leave a part out. The reviewer can pick another with a note. Skip this section when the picture is already fixed (Claude Lab's workshop sheet, Claude Skills, carousels).
@@ -118,7 +118,7 @@ Spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and conversa
 - **Hook in the first line.** It has to stop the scroll in 2 seconds. Follow the playbook's hook rule (How It Scales always opens with a question the viewer has already half-wondered: "How does Google Maps know there's a traffic jam before you reach it?"). No "Have you ever wondered".
 - **Answer the hook.** The script exists to answer that one question. Cut anything that doesn't serve the answer, however interesting.
 - **Plain words first.** Explain what happens behind the scenes the way you'd tell a friend, with everyday comparisons.
-- **Then one big idea.** Teach exactly one real technical term from "The big idea": name it once, and explain it straight away with its everyday picture ("Think of every stretch of road as a dot…"). The visuals will draw that picture. No other jargon: anything else gets described, not named.
+- **Then one big idea.** Teach exactly one real technical term from "The big idea" (or, when the playbook allows it, as How It Scales does, up to 3 named parts of one mechanism, each matched to a piece of the same picture): name it once, and explain it straight away with its everyday picture ("Think of every stretch of road as a dot…"). The visuals will draw that picture. No other jargon: anything else gets described, not named.
 - **One number moment.** At most one simple number moment: a striking sourced figure, or a comparison a viewer can do in their head. No multi-step maths.
 - **Length** (intro and sign-off included): about `series.targetSeconds × 2.3` words (≈140 for 60s), never over `series.targetSeconds × 2.5`, and never more than 2 minutes. If it doesn't fit, narrow the answer instead of rushing the read.
 - **Short spoken sentences.** One idea each. Contractions are fine. Write numbers the way they should be said: "seven hundred seventy-five million dollars"; years as digits.

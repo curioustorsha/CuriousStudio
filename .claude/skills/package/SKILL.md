@@ -27,6 +27,8 @@ Run from the Curiously project root. Read `title`, `hook`, `script`, `research` 
 
 **Claude Skills** (series prefix `CS`): every caption and the description carry the repo link `github.com/owner/repo` and "checked on <date>" (from the research). The first two description lines say what the repo does and who it's for; then the install command; then "Sources:" (the repo pages); then a "Demo:" credit line naming the maker for any of their demo footage used. Tell the schedule step: the pinned comment is the repo link plus one line on the catch. Maker's claims stay attributed ("the maker says"). Hashtags include #claude #claudecode #aitools and the repo's subject (#webdesign, #coding…).
 
+**How It Scales** (series prefix `HIS`): after the description's first two lines, add "Under the hood:" with 2–3 short lines naming the real components the episode shows (the same names as the on-screen labels in the storyboard), each with its engineering source (company blog, docs, talk), then "Sources:" as usual. Plain words, one sentence per line.
+
 ## 2. Voice
 
 Read `.claude/skills/package/voice.md`. When the **yt-package** skill (or yt-comment) ask for `~/.claude/youtube/voice.md`, use this file instead. Don't ask for three videos and don't create the home-folder file. No emoji anywhere.
