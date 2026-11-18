@@ -29,7 +29,7 @@ Run from the Curiously project root. Read `script`, `factcheck`, `storyboard`, `
 npm --prefix video run ep:measure -- <CODE>
 ```
 
-Must be 1080×1920, 30 fps, 15–90 s, about -14 LUFS, true peak ≤ -1 dBTP, with audio.
+Must be 1080×1920, 30 fps, within the series' length in its playbook (How It Scales 2–3 min, Claude Lab about 90 s, Claude Skills 60–90 s; never over 3 min), about -14 LUFS, true peak ≤ -1 dBTP, with audio.
 
 ## 3. Listen back
 

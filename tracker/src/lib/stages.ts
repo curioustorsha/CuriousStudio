@@ -50,7 +50,7 @@ export const STAGES = [
       "2+ credible sources linked, every number sourced",
       "Hook in the first line (a question for How It Scales)",
       "Plain words, plus one big idea explained simply",
-      "Length fits the target (never over 2 minutes)",
+      "Length fits the series (How It Scales 2+ min, never over 3)",
       "Every claim checked against its source",
       "Second person read-through",
     ],

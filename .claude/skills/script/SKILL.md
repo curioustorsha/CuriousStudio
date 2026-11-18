@@ -109,7 +109,7 @@ Task: "…"
 
 `sources` lists the repo pages you opened (README, SKILL.md, API data) and any independent source.
 
-**Writing it:** advanced viewers, so naming tools and terms is fine, but keep the sentences plain and spoken. No "one big idea" or "one number" rule: the six beats in the playbook replace them. The hook states the biggest result plainly, never the setup or a name-drop. The "what it can do" beat shows 2–3 capabilities, one short line each. Length: target `series.targetSeconds`; go up to 90s (about 207 words) only when there are three strong, real demos, and say so in the checklist. Name the repo and maker the way the repo does. The catch is always said out loud. The install line is said briefly ("Install it with one command, link in the description") and shown on screen.
+**Writing it:** advanced viewers, so naming tools and terms is fine, but keep the sentences plain and spoken. No "one big idea" or "one number" rule: the six beats in the playbook replace them. The hook states the biggest result plainly, never the setup or a name-drop. The "what it can do" beat shows 2–3 capabilities, one short line each. Length: 60–90s (about 140–207 words); use the longer end when there are three strong, real demos. Name the repo and maker the way the repo does. The catch is always said out loud. The install line is said briefly ("Install it with one command, link in the description") and shown on screen.
 
 ## 3. Write it for the ear
 
@@ -120,7 +120,7 @@ Spoken by an ElevenLabs voice (Monika Sogam: young, Indian, natural and conversa
 - **Plain words first.** Explain what happens behind the scenes the way you'd tell a friend, with everyday comparisons.
 - **Then one big idea.** Teach exactly one real technical term from "The big idea" (or, when the playbook allows it, as How It Scales does, up to 3 named parts of one mechanism, each matched to a piece of the same picture): name it once, and explain it straight away with its everyday picture ("Think of every stretch of road as a dot…"). The visuals will draw that picture. No other jargon: anything else gets described, not named.
 - **One number moment.** At most one simple number moment: a striking sourced figure, or a comparison a viewer can do in their head. No multi-step maths.
-- **Length** (intro and sign-off included): about `series.targetSeconds × 2.3` words (≈140 for 60s), never over `series.targetSeconds × 2.5`, and never more than 2 minutes. If it doesn't fit, narrow the answer instead of rushing the read.
+- **Length** (intro and sign-off included): about `series.targetSeconds × 2.3` words (≈140 for 60s), never over `series.targetSeconds × 2.5`, never under the playbook's minimum (How It Scales: 2 minutes), and never more than 3 minutes. If it doesn't fit, narrow the answer instead of rushing the read.
 - **Short spoken sentences.** One idea each. Contractions are fine. Write numbers the way they should be said: "seven hundred seventy-five million dollars"; years as digits.
 - **Series intro (every video):** the second scene is always `**intro:** Welcome to <series.name>, by Curiously.` Nothing else on that line, no facts.
 - **Ending:** the last content scene answers the hook in one line (a callback to the opening moment is good).

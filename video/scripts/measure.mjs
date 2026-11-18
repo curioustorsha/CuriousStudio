@@ -32,7 +32,7 @@ const result = {
 result.checks = {
   "1080x1920": result.width === 1080 && result.height === 1920,
   "30 fps": result.fps === 30,
-  "15-90 s": result.seconds >= 15 && result.seconds <= 90,
+  "15-180 s": result.seconds >= 15 && result.seconds <= 180, // series lengths are checked by the qa skill
   "-14 LUFS ±1": Math.abs(result.lufs + 14) <= 1,
   "true peak ≤ -1 dBTP": result.truePeakDb <= -1,
 };
