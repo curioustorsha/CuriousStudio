@@ -176,28 +176,23 @@ Before submitting, check yourself: every factual line has an F-number in the tab
 When `series.format` is `carousel` (AI This Week), nobody speaks: people read slides while swiping. Write the copy for each slide in the fixed weekly template, still built only from your research facts:
 
 ```markdown
-**cover:** 3 AI stories you missed
+**cover:** 5 tech stories from this week
 - kicker: AI this week · #4
 - date: Week of 2 Nov 2026
 
-**story1:** Claude gets a new memory feature
-- kicker: Anthropic
-- body: Projects now remember your files between chats. (≤ 22 words)
-- why: You stop re-uploading the same docs every time. (≤ 12 words)
-- stat: 2× (optional, a number from the research only)
-- source: Anthropic blog, 30 Oct 2026
+**story1:** Anthropic gave Claude Projects a memory, so files and notes now carry over between chats without being uploaded again. (one sentence, ≤ 35 words)
+- source: Anthropic (1–2 words; the dated link goes in the references)
 
 **story2:** …
 **story3:** …
-
-**takeaway:** The short version
-- point: … (3 points, ≤ 8 words each)
+**story4:** …
+**story5:** …
 
 **outro:** Like, share and follow
 - cta: Follow Curiously for more
 ```
 
-Rules: 3–4 stories (from `series.formatNotes`); headline ≤ 9 words; every story has a source with a date from this week; the cover is the hook (same job as a video's first line); plain words, no hype, no em dashes. Run the copy through the **humanizer** skill (headlines may stay punchy). Replace the header line with `**Slides:** 7 · **Words:** 118` and keep the facts table (one row per slide id). The script checklist items about voiceover length apply as: "~150 words or less" = total slide copy; the last slide is always the like, share and follow slide above (same every week, never about the stories).
+Rules: exactly 5 stories, the top 5 tech stories of the week (from `series.formatNotes`); each story is one plain sentence (who did what, plus the one detail that matters), no headline, no opinion or adjectives (calm, news-desk tone); the source on the slide is 1–2 words, and every story has a dated source from this week in the references; the cover is the hook (same job as a video's first line); plain words, no hype, no em dashes. Run the copy through the **humanizer** skill (headlines may stay punchy). Replace the header line with `**Slides:** 7 · **Words:** 150` and keep the facts table (one row per slide id). The script checklist items about voiceover length apply as: "~150 words or less" = total slide copy; the last slide is always the like, share and follow slide above (same every week, never about the stories).
 
 ## 5c. Fact-check before you submit
 

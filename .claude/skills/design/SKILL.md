@@ -23,12 +23,10 @@ Run from the Curiously project root. Read `storyboard` (the slide plan), `script
 
 - `video/src/carousel/Slides.tsx`: slide kinds and their fields:
   - `cover`: `kicker`, `title`, `icon?`, `date?`
-  - `story`: `kicker`, `title`, `body`, `why`, `source`, `icon?`, `logo?`, `stat?`
-  - `takeaway`: `title`, `points` (3)
+  - `story`: `text` (one news sentence), `source` (1–2 words). Text only: no logo or icon
   - `outro`: `title`, `cta`
 - `video/src/carousels/example/slides.json`: a complete example deck.
 - `video/src/products.tsx`: the icon names (`ai`, `robot`, `brain`, `chip`, `code`, `chat`, `image`, `lock`, `bolt`, `chart`, `shield`, `rocket`, `news`…). Use only names that exist; add a Phosphor icon there if the plan asks for a new one (duotone, with a tint). **No emoji, no photos of people.**
-- `video/src/logos.tsx`: company logos. **Whenever a story is about a named company, set `"logo": "<key>"`** (it replaces the icon). If the company isn't in `LOGOS` yet, add it: inline SVG from a public-domain or properly licensed source (e.g. Wikimedia Commons, PD-textlogo), with the source and licence in the file's header comment. If no clean logo exists, use the icon and flag it in the notes.
 
 ## 3. Write the deck
 
@@ -40,8 +38,8 @@ Create `video/src/carousels/<slug>/slides.json` (slug = code in lowercase, e.g. 
   "music": "audio/music.mp3",
   "secondsPerSlide": 3,
   "slides": [
-    { "kind": "cover", "kicker": "AI this week · #4", "title": "3 AI stories you missed", "icon": "news", "date": "Week of 2 Nov 2026" },
-    { "kind": "story", "kicker": "Anthropic", "title": "…", "body": "…", "why": "…", "source": "Anthropic blog, 30 Oct 2026", "icon": "ai" }
+    { "kind": "cover", "kicker": "AI this week · #4", "title": "5 tech stories from this week", "icon": "news", "date": "Week of 2 Nov 2026" },
+    { "kind": "story", "text": "…", "source": "Anthropic" }
   ]
 }
 ```
@@ -62,7 +60,7 @@ Output: `video/out/<slug>/slides/4x5/NN.png`, `video/out/<slug>/slides/9x16/NN.p
 Open **every** PNG in both sizes with Read. Fix and re-render until all of these hold:
 - Nothing cut off or overlapping; headlines at most 3 lines; body text readable at phone size.
 - 9:16: nothing important in the bottom ~380 px or the right 120 px (platform buttons).
-- Every number and name matches the fact-check; every story slide has a dated source.
+- Every number and name matches the fact-check; every story slide names its source in a word or two (the dated link is in the references).
 - Icons fit the story; the cover makes someone want to swipe.
 - Page dots match the slide count.
 

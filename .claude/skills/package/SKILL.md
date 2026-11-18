@@ -21,7 +21,7 @@ Run from the Curiously project root. Read `title`, `hook`, `script`, `research` 
 
 **Carousel series** (`series.format` is `carousel`, AI This Week): the same fields, adjusted per platform:
 - **YouTube:** the title and description are for the **slideshow Short** (`video/out/<slug>/final.mp4`). The "cover" is slide 1; check `video/out/<slug>/slides/4x5/01.png` instead of `cover.png`. If slide 1's text must change, that's a send-back to `design`.
-- **Instagram carousel caption:** first line is the hook and ends with a swipe cue ("3 stories, swipe →"); then one line per story; then the follow line and hashtags.
+- **Instagram carousel caption:** first line is the hook and ends with a swipe cue ("5 stories, swipe →"); then one line per story; then the follow line and hashtags.
 - **TikTok photo post:** TikTok photo posts have a title (≤ 90 characters) and a caption. Put the title on the first line of `tiktokCaption`, then a blank line, then a 1–2 line caption.
 - Hashtags: 5–8, e.g. #ai #ainews plus the companies named in the stories.
 

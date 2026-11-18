@@ -3,9 +3,8 @@
   "music": "audio/music.mp3",
   "secondsPerSlide": 3,
   "slides": [
-    { "kind": "cover", "kicker": "AI this week · #0", "title": "3 AI stories you missed", "icon": "news", "date": "Week of 26 Oct 2026" },
-    { "kind": "story", "kicker": "Sample lab", "title": "A sample headline that fits two lines", "body": "What happened, in one or two short sentences.", "why": "The one-line reason a viewer should care.", "source": "Company blog, 30 Oct 2026", "icon": "ai" },
-    { "kind": "takeaway", "title": "The short version", "points": ["First thing to do or know", "Second thing", "Third thing"] },
+    { "kind": "cover", "kicker": "AI this week · #0", "title": "5 tech stories from this week", "icon": "news", "date": "Week of 26 Oct 2026" },
+    { "kind": "story", "text": "One plain sentence on what happened, who did it and the one detail that matters. Facts only.", "source": "Company blog" },
     { "kind": "outro", "title": "New stories every Friday", "cta": "Follow @curiously" }
   ]
 }

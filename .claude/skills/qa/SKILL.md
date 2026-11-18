@@ -67,7 +67,7 @@ Quote its numbers in the report. If a model command fails because its models are
 ## 5b. Carousel: check the slides
 
 Slides are listed in the episode's `slides` field (4:5) and also exist at `video/out/<slug>/slides/9x16/`. The slideshow Short is `video/out/<slug>/final.mp4`.
-- Open **every** slide in both sizes with Read. Check: text fits and nothing is cut off; readable at phone size; nothing important in the bottom ~380 px or right 120 px of the 9:16 versions; no typos; every number and name matches the fact-check; every story slide has a source with a date; page dots match the slide count; brand and series tag on every slide; no logos or photos of real companies or people.
+- Open **every** slide in both sizes with Read. Check: text fits and nothing is cut off; readable at phone size; nothing important in the bottom ~380 px or right 120 px of the 9:16 versions; no typos; every number and name matches the fact-check; every story slide names its source in a word or two; page dots match the slide count; brand and series tag on every slide; no logos or photos of real companies or people.
 - The cover slide is the hook: it should make someone swipe. Say whether it does.
 - Short: `npm --prefix video run ep:measure -- <CODE>` (1080×1920, 30 fps, about -14 LUFS if it has music) and `npm --prefix video run ep:frames -- <CODE>`; check each slide is on screen long enough to read (about 3 s).
 - Use slide numbers instead of timestamps in the Issues table ("Slide 3"), with "Fix in: Make" (or Script for wording or facts).

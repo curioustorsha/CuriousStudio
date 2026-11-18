@@ -42,7 +42,7 @@ The video is made in Remotion (`video/`). Before planning, look at:
 
 Plan every scene in the style named by `series.visualStyle`. Name the style in "Look", and describe each scene's Visual in its terms. If it's empty, follow `series.formatNotes` and say in your report that the series has no style set.
 
-**Show the technical layer, every series.** Each named mechanism, concept or calculation in the script gets its own visible beat, not just a caption. For example: a skill card where only the title line glows until it's triggered, then the full card unfolds (Claude Lab); a counter that works out the maths step by step (How It Scales); the key spec shown as a stat on the slide (AI This Week). Say which scene shows which concept.
+**Show the technical layer, every series.** Each named mechanism, concept or calculation in the script gets its own visible beat, not just a caption. For example: a skill card where only the title line glows until it's triggered, then the full card unfolds (Claude Lab); a counter that works out the maths step by step (How It Scales); none for AI This Week, whose story slides are one plain sentence. Say which scene shows which concept.
 
 ### isometric
 How It Scales. The system is an isometric 2D world seen at 30°: servers, databases, stores and warehouses are blocks on a floor grid; requests, orders and riders are packets moving along routes.
@@ -138,7 +138,7 @@ Rules: on-screen text is short and never repeats the captions word for word; eve
 
 ## 3b. Carousel series: a slide plan instead of scenes
 
-When `series.format` is `carousel`, plan one entry per slide of the script's slide copy, for the fixed template in `video/src/carousel/Slides.tsx` (kinds: `cover`, `story`, `takeaway`, `outro`; 4:5 for Instagram and 9:16 for TikTok and the slideshow Short). Write `storyboard` in this shape:
+When `series.format` is `carousel`, plan one entry per slide of the script's slide copy, for the fixed template in `video/src/carousel/Slides.tsx` (kinds: `cover`, `story`, `outro`; 4:5 for Instagram and 9:16 for TikTok and the slideshow Short). Write `storyboard` in this shape:
 
 ```markdown
 ## Look
@@ -151,8 +151,8 @@ Same weekly template. This week's cover icon and anything unusual. One or two li
 - **Text:** kicker / title / date, exactly as the script has them.
 
 ### story1
-- **Kind:** story · **Icon:** `ai` · **Stat:** 2× (or none)
-- **Text:** kicker / title / body / why / source.
+- **Kind:** story (text only, no logo or icon)
+- **Text:** the one sentence / source (1–2 words).
 - **Fact:** F3 (the fact-check row this slide's numbers come from).
 
 (… one block per slide, in swipe order)
@@ -164,7 +164,7 @@ Seconds per slide (default 3) and the music: reuse `audio/music.mp3` or a one-se
 Which slide is the cover for each platform (usually slide 1) and the YouTube Short's cover text (≤ 3 words).
 ```
 
-Rules: text fits the template's lengths (headline ≤ 9 words, body ≤ 22, why ≤ 12); icons only from `video/src/products.tsx` (say "new icon: …" if one is needed); every number matches the fact-check; every company a slide names shows its logo (from `video/src/logos.tsx`; say "new logo: …" if one is missing); no photos of people.
+Rules: text fits the template's lengths (story sentence ≤ 35 words, source 1–2 words); icons only from `video/src/products.tsx` (say "new icon: …" if one is needed); every number matches the fact-check; no logos on news slides; no photos of people.
 
 ## 4. Hand back to make
 
