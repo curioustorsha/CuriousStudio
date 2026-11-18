@@ -24,7 +24,7 @@ import {
 } from "@/app/actions";
 import { db, series as seriesTable, type Episode, type Run } from "@/db";
 import { FeedItems } from "@/components/FeedItems";
-import { Checklist, FeedDisclosure, FillIdeasButton, Markdown, MarkdownField, MentionInput, SubmitButton } from "@/components/client";
+import { Checklist, CopyButton, FeedDisclosure, FillIdeasButton, Markdown, MarkdownField, MentionInput, SubmitButton } from "@/components/client";
 import { StageFlow } from "@/components/StageFlow";
 import { Avatar, ReadyBadge, StageBadge, timeAgo } from "@/components/ui";
 import { listUsers, requireUser } from "@/lib/auth";
@@ -689,10 +689,17 @@ function TabForm({ save, readOnly, children }: { save: TabProps["save"]; readOnl
   );
 }
 
-function Field({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) {
+function Field({ label, children, hint, copy }: { label: string; children: React.ReactNode; hint?: string; copy?: string }) {
   return (
     <div>
-      <label className="label">{label}</label>
+      {copy ? (
+        <div className="mb-2 flex items-center justify-between gap-3">
+          <label className="label mb-0">{label}</label>
+          <CopyButton name={copy} />
+        </div>
+      ) : (
+        <label className="label">{label}</label>
+      )}
       {children}
       {hint && <p className="mt-1.5 text-xs text-faint">{hint}</p>}
     </div>
@@ -972,24 +979,24 @@ async function PackagingTab({ ep, format, save }: TabProps) {
       )}
       {format === "video" && (
         <>
-          <Field label="YouTube Shorts title" hint={`${ep.ytTitle.length}/100 characters`}>
+          <Field label="YouTube Shorts title" copy="ytTitle" hint={`${ep.ytTitle.length}/100 characters`}>
             <input name="ytTitle" defaultValue={ep.ytTitle} maxLength={100} className="input" />
           </Field>
-          <Field label="YouTube description">
+          <Field label="YouTube description" copy="ytDescription">
             <textarea name="ytDescription" defaultValue={ep.ytDescription} rows={4} className="input" />
           </Field>
         </>
       )}
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Instagram caption">
+        <Field label="Instagram caption" copy="igCaption">
           <textarea name="igCaption" defaultValue={ep.igCaption} rows={6} className="input" />
         </Field>
-        <Field label="TikTok caption">
+        <Field label="TikTok caption" copy="tiktokCaption">
           <textarea name="tiktokCaption" defaultValue={ep.tiktokCaption} rows={6} className="input" />
         </Field>
       </div>
-      <Field label="Hashtags"><input name="hashtags" defaultValue={ep.hashtags} className="input" placeholder="#systemdesign #claudecode" /></Field>
-      <Field label="Cover or thumbnail notes"><textarea name="thumbnailNotes" defaultValue={ep.thumbnailNotes} rows={2} className="input" /></Field>
+      <Field label="Hashtags" copy="hashtags"><input name="hashtags" defaultValue={ep.hashtags} className="input" placeholder="#systemdesign #claudecode" /></Field>
+      <Field label="Cover or thumbnail notes" copy="thumbnailNotes"><textarea name="thumbnailNotes" defaultValue={ep.thumbnailNotes} rows={2} className="input" /></Field>
     </TabForm>
   );
 }
@@ -1019,6 +1026,7 @@ async function ScheduledTab({ ep, save }: TabProps) {
       <MarkdownField
         name="publishPlan"
         label="Publishing plan"
+        copy
         defaultValue={ep.publishPlan}
         rows={14}
         placeholder="Times per platform and the copy-paste upload kit."

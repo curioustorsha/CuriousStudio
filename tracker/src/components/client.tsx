@@ -536,6 +536,35 @@ export function Markdown({ children }: { children: string }) {
   );
 }
 
+/** Copies the current value of the form field called `name`, edits included. */
+export function CopyButton({ name }: { name: string }) {
+  const [copied, setCopied] = useState(false);
+  async function copy() {
+    const text = document.querySelector<HTMLInputElement | HTMLTextAreaElement>(`[name="${name}"]`)?.value ?? "";
+    // navigator.clipboard only exists on https or localhost; phones open the Mac at http://….local:3000.
+    if (navigator.clipboard) await navigator.clipboard.writeText(text);
+    else {
+      const t = document.createElement("textarea");
+      t.value = text;
+      t.setAttribute("readonly", "");
+      t.style.position = "fixed";
+      t.style.opacity = "0";
+      document.body.appendChild(t);
+      t.select();
+      t.setSelectionRange(0, text.length); // iOS ignores select() alone
+      document.execCommand("copy");
+      t.remove();
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }
+  return (
+    <button type="button" onClick={copy} className="text-xs font-medium text-accent hover:opacity-80">
+      {copied ? "Copied" : "Copy"}
+    </button>
+  );
+}
+
 export function MarkdownField({
   name,
   label,
@@ -544,6 +573,7 @@ export function MarkdownField({
   rows = 12,
   hint,
   showWordCount,
+  copy,
 }: {
   name: string;
   label: string;
@@ -552,6 +582,7 @@ export function MarkdownField({
   rows?: number;
   hint?: string;
   showWordCount?: boolean;
+  copy?: boolean;
 }) {
   const [value, setValue] = useState(defaultValue);
   // Notes are read, not edited: anything with content shows as formatted Markdown, and changes normally go
@@ -571,6 +602,7 @@ export function MarkdownField({
               {words} words · ~{Math.round(words / 2.5)}s spoken
             </span>
           )}
+          {copy && hasContent && <CopyButton name={name} />}
           {hasContent && preview && (
             <button type="button" onClick={() => setPreview(false)} className="text-xs font-medium text-accent hover:opacity-80">
               Edit
