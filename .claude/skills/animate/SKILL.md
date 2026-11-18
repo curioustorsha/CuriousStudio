@@ -21,7 +21,7 @@ Run from the Curiously project root. Read `storyboard` (the plan), `script`, `fa
 
 ## 2. Read before you write
 
-- The **remotion-best-practices** skill: load `remotion-markup/REFERENCE.md` (animate with `useCurrentFrame()` and `interpolate()`/`spring()`; CSS transitions and animations don't render; fonts; sequencing; transitions).
+- Remotion rules: animate with `useCurrentFrame()` and `interpolate()`/`spring()`; CSS transitions and animations don't render.
 - `video/src/engine/kit.tsx` and `video/src/engine/Episode.tsx`: what the engine already does (backdrop, captions, music ducking, watermark, progress bar, logo end card, scene enter/exit).
 - Two or three of episode 1's scenes, e.g. `video/src/scenes/Hook.tsx`, `Stow.tsx`, `Kiva.tsx`: the level of craft expected (layered motion, springs, word cues, product icons, sound on every beat).
 - `video/src/theme.ts` (colours `C`, fonts `F`), `video/src/products.tsx` (Phosphor icons via `<Product p="…" />`), `video/src/brand.tsx`.
@@ -76,11 +76,9 @@ Claude Skills. A product launch look: glossy app windows in a dark, deep space, 
 ## 3. Sound
 
 - Library: `ls video/public/audio/sfx`. Reuse these first; play them with `<Sfx name="pop" at={frame} volume={0.5} />`.
-- **New effects come from real recordings first.** Use the **real-sound** skill's sourcing and licence rules (Freesound CC0 / CC BY, Mixkit; never NC, ND or SA; licence read on each item's own page) and the **earshot** skill to choose and trim the cleanest moment (`earshot rank`, `earshot find`). Download with `curl -sSfL -o video/public/audio/assets/<category>/<source>-<id>_<slug>.<ext> <url>` (one at a time, politely), cut the chosen window with `tools/earshot/.venv/bin/ffmpeg -ss <start> -to <end> -i <asset> video/public/audio/sfx/<name>.wav`, and add a line per sound to `video/public/audio/sfx/CREDITS.md` (name, source URL, author, licence). Then play it with `<Sfx>` like any library sound. Use only real-sound's sourcing, licences, earshot trims and credits: **not** its mixer or mux. Our narration is mixed and ducked by the video engine, which real-sound doesn't handle.
-- Only if no real recording fits: generate it with ElevenLabs. Add it to `video/src/episodes/<slug>/sfx.json` as `{ "name": { "text": "short clean description", "duration": 1.0 } }` (the **elevenlabs-sound-effects** skill has the prompt rules), then `npm --prefix video run ep:audio -- <CODE> --only=sfx`.
+- New effect only if nothing in the library fits: generate it with ElevenLabs. Add it to `video/src/episodes/<slug>/sfx.json` as `{ "name": { "text": "short clean description", "duration": 1.0 } }`, then `npm --prefix video run ep:audio -- <CODE> --only=sfx`.
 - Every new sound joins the shared library for future episodes. Say in the render notes which sounds are new, and which are CC BY (they need a credit in the description).
-- Music: put the storyboard's Music prompt into `script.json` as `"musicPrompt"` and run `npm --prefix video run ep:audio -- <CODE> --only=music` (see **elevenlabs-music**). Generate it once; reuse it on revisions unless a note asks for new music.
-- Check the mix with the **earshot** skill: `tools/earshot/.venv/bin/python -m earshot timeline video/out/<slug>/final.mp4` (what happens when, sync to picture, loudness). `earshot measure` works without its models; if a model command fails with a missing-model error, say so and fall back to `measure` and the listen-back.
+- Music: put the storyboard's Music prompt into `script.json` as `"musicPrompt"` and run `npm --prefix video run ep:audio -- <CODE> --only=music`. Generate it once; reuse it on revisions unless a note asks for new music.
 
 ## 4. Build
 

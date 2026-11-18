@@ -5,7 +5,7 @@ description: Generate a Curiously episode's narration with ElevenLabs (Monika So
 
 # Voiceover (part of Make)
 
-Turn the approved script into narration: one clip per scene, word-level timings for captions and animation cues, every line listened back. Uses the ElevenLabs text-to-speech and speech-to-text skills (**elevenlabs-text-to-speech**, **elevenlabs-speech-to-text**) through the video project's scripts.
+Turn the approved script into narration: one clip per scene, word-level timings for captions and animation cues, every line listened back. ElevenLabs is called through the video project's scripts.
 
 ## 1. Load the episode
 

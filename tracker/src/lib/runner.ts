@@ -17,8 +17,7 @@ const RUNS_DIR = join(process.cwd(), ".runs");
 /**
  * What a run may do: read, research, write and edit files (episode scenes, temp files), talk to the tracker
  * through the helper script, and run the video project's episode scripts (npm --prefix video run ep:…).
- * earshot (tools/earshot) listens to and measures audio. Real-sound sourcing may download recordings into
- * video/public/audio/assets/ only, cut them with earshot's ffmpeg, and run real-sound's licence scripts.
+ * ffmpeg/ffprobe come from earshot's venv (tools/earshot), e.g. to turn repo demo GIFs into MP4.
  */
 const ALLOWED_TOOLS = [
   "Read",
@@ -34,15 +33,11 @@ const ALLOWED_TOOLS = [
   "Bash(node tracker/scripts/episode.mjs *)",
   "Bash(npm --prefix video run *)",
   "Bash(python3 .claude/skills/yt-package/title.py *)",
-  "Bash(tools/earshot/.venv/bin/python -m earshot *)",
-  "Bash(mkdir -p video/public/audio/assets/*)",
-  "Bash(curl -sSfL -o video/public/audio/assets/*)",
   "Bash(tools/earshot/.venv/bin/ffmpeg *)",
   // Claude Skills proof media (repo demos, before/after outputs) lives in the episode's proof folder.
   "Bash(mkdir -p video/public/episodes/*/proof*)",
   "Bash(curl -sSfL -o video/public/episodes/*/proof/*)",
   "Bash(tools/earshot/.venv/bin/ffprobe *)",
-  "Bash(tools/earshot/.venv/bin/python -I .claude/skills/real-sound/scripts/*)",
 ];
 
 /**

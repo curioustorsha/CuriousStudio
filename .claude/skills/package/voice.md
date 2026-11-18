@@ -1,6 +1,6 @@
 # Curiously voice
 
-Use this in place of `~/.claude/youtube/voice.md` whenever the yt-package, yt-seo or yt-comment skills ask for the voice profile.
+Use this in place of `~/.claude/youtube/voice.md` whenever the yt-package or yt-comment skills ask for the voice profile.
 
 ## Who we're talking to
 

@@ -1,6 +1,6 @@
 ---
 name: package
-description: Write a Curiously episode's packaging (YouTube Shorts title and description, Instagram and TikTok captions, hashtags, cover text) using the yt-package, yt-seo and humanizer skills, lint the title and check the cover frame. The first step of the publish skill.
+description: Write a Curiously episode's packaging (YouTube Shorts title and description, Instagram and TikTok captions, hashtags, cover text) using the yt-package title linter, lint the title and check the cover frame. The first step of the publish skill.
 ---
 
 # Packaging (part of Publish)
@@ -29,7 +29,7 @@ Run from the Curiously project root. Read `title`, `hook`, `script`, `research` 
 
 ## 2. Voice
 
-Read `.claude/skills/package/voice.md`. When the **yt-package** or **yt-seo** skills (or yt-comment) ask for `~/.claude/youtube/voice.md`, use this file instead. Don't ask for three videos and don't create the home-folder file. No emoji anywhere.
+Read `.claude/skills/package/voice.md`. When the **yt-package** skill (or yt-comment) ask for `~/.claude/youtube/voice.md`, use this file instead. Don't ask for three videos and don't create the home-folder file. No emoji anywhere.
 
 ## 3. Title and cover (yt-package)
 
@@ -39,9 +39,8 @@ Follow the **yt-package** skill: title and cover are one unit.
 3. Keep the best. The cover text (≤ 3 words) must say something the title doesn't.
 4. Look at the cover: open `video/out/<slug>/cover.png` with Read. If its text doesn't match the chosen cover text, update `video/src/episodes/<slug>/Cover.tsx` and re-render only the cover with `npm --prefix video run ep:still -- <CODE> --cover`, then check it again.
 
-## 4. Description (yt-seo)
+## 4. Description
 
-Follow **yt-seo**:
 - The first two lines say what the viewer learns, in words people search.
 - Then "Sources:", one line per source from the fact-check.
 - End with `#Shorts`.
@@ -57,7 +56,7 @@ If the episode uses any CC BY sound (see the render notes and `video/public/audi
 - **TikTok:** one or two short lines, under about 150 characters before the hashtags.
 - **Hashtags:** 5–8, mixing broad (#tech) and specific (#systemdesign, #amazon). No banned or misleading tags.
 
-Run the description and both captions through **humanizer** (embedded mode). Keep them short; plain spoken sentences are fine.
+Keep the description and captions short and plain, with none of voice.md's banned words.
 
 ## 6. Notes
 

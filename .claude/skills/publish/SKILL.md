@@ -21,7 +21,7 @@ Run from the Curiously project root. Read the series playbook (`series.formatNot
 
 ## 2. Packaging
 
-Follow the **package** skill: title and cover (yt-package), description (yt-seo), Instagram and TikTok captions and hashtags. Every company the episode names should be tagged or mentioned in the captions the way the playbook says.
+Follow the **package** skill: title and cover (yt-package), description, Instagram and TikTok captions and hashtags. Every company the episode names should be tagged or mentioned in the captions the way the playbook says.
 
 ## 3. Date and upload kit
 
@@ -43,6 +43,6 @@ node tracker/scripts/episode.mjs submit <CODE> ytTitle=@<p>/title.txt ytDescript
 
 ## 6. Report back
 
-- **Helpers:** every helper skill you loaded or read this run, each with one line on what it actually changed ("yt-seo: rewrote the first two description lines for search") or "loaded, didn't change anything". Also name any helper these instructions mention that you didn't use, and why. This decides which helpers stay, so be honest.
+- **Helpers:** every helper skill you loaded or read this run, each with one line on what it actually changed ("yt-package: its linter changed which title won") or "loaded, didn't change anything". Also name any helper these instructions mention that you didn't use, and why. This decides which helpers stay, so be honest.
 
 The chosen title (with its score), the cover text, the first two description lines, the date and why, anything flagged, and: "Schedule it in each app using the plan, tick the three boxes, then move it to Posted." Link: `/episodes/<id>`. End with the gate the yt skills use: **ship it, or change it?**

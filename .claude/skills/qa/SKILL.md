@@ -1,6 +1,6 @@
 ---
 name: qa
-description: Automatic quality checks on a rendered Curiously episode or carousel: technical specs and loudness, a speech-to-text listen-back against the script, a frame-by-frame pass for overlaps, cut-off text, unsafe zones and wrong numbers, and an optional earshot scorecard. The last step of the make skill; the phone review afterwards is done by people.
+description: Automatic quality checks on a rendered Curiously episode or carousel: technical specs and loudness, a speech-to-text listen-back against the script, a frame-by-frame pass for overlaps, cut-off text, unsafe zones and wrong numbers. The last step of the make skill; the phone review afterwards is done by people.
 ---
 
 # QA checks (part of Make)
@@ -15,13 +15,13 @@ node tracker/scripts/episode.mjs get <CODE>
 
 Run from the Curiously project root. Read `script`, `factcheck`, `storyboard`, `renderNotes`, `title`, `series.format`, `series.visualStyle`.
 
-**Carousel series** (`series.format` is `carousel`): skip sections 2–5 and do section 5b instead; the rest (report, checklist, send-back, submit) is the same, with `design` as the usual send-back target.
+**Carousel series** (`series.format` is `carousel`): skip sections 2–4 and do section 5b instead; the rest (report, checklist, send-back, submit) is the same, with `design` as the usual send-back target.
 
 **Where this runs.** Inside the **make** skill, as its last step, after the render (`stage` is `make`). `video/out/<slug>/final.mp4` (or the slides) must exist. If a Major issue is something make can fix itself (an overlap, a wrong number on screen), tell make so it fixes it and runs you again before submitting.
 
 **Revision:** on a re-run after fixes, re-check everything and say for each issue in the previous report whether it's fixed.
 
-**Pinned-note re-run** (make says every note was pinned and only some scenes changed): run section 2, then `ep:frames` and check the sheet plus the frames inside the changed scenes and across their cuts. Skip the listen-back and scorecard unless narration, music or a sound effect changed; if a sound changed, run `earshot measure` on the video. In the report, name the scenes checked and say that the rest was carried over from the previous version.
+**Pinned-note re-run** (make says every note was pinned and only some scenes changed): run section 2, then `ep:frames` and check the sheet plus the frames inside the changed scenes and across their cuts. Skip the listen-back unless narration, music or a sound effect changed. In the report, name the scenes checked and say that the rest was carried over from the previous version.
 
 ## 2. Technical
 
@@ -37,7 +37,7 @@ Must be 1080×1920, 30 fps, 15–90 s, about -14 LUFS, true peak ≤ -1 dBTP, wi
 npm --prefix video run ep:stt -- <CODE> --final
 ```
 
-Scribe transcribes the finished video and compares it with the script (the **elevenlabs-speech-to-text** skill covers Scribe's options). Missing words in the mix usually mean a sound effect or the music is masking the narration: note the line and roughly where it falls. Ignore number-format differences.
+Scribe transcribes the finished video and compares it with the script. Missing words in the mix usually mean a sound effect or the music is masking the narration: note the line and roughly where it falls. Ignore number-format differences.
 
 ## 4. Look
 
@@ -55,14 +55,6 @@ Open `video/out/<slug>/frames/sheet.jpg` with Read, then the single frames (`t01
 - **Brand:** watermark and series tag present, logo end card at the end, no emoji.
 - **Style:** the look matches `series.visualStyle` (isometric: one consistent iso world, flat-shaded blocks, colour roles kept; flat-metaphor: flat shapes, each idea keeps its metaphor; product-ui: real proof files inside the windows, never a drawn copy of a tool's output, the maker's credit tag on screen whenever their demo shows, and the star count, repo name and install command matching the research; the key line or result readable at phone size, and no near-black gap between scenes). A scene in the wrong style is a Major issue for Animation.
 - **Flow:** no empty or frozen stretches; the last frame flows back into the first (loop).
-
-## 5. Audio scorecard (if available)
-
-If `tools/earshot/.venv` exists, use the **earshot** skill:
-```bash
-tools/earshot/.venv/bin/python -m earshot critique video/out/<slug>/final.mp4 --fast
-```
-Quote its numbers in the report. If a model command fails because its models aren't downloaded yet, use `earshot measure` (no models needed) and write "earshot models not downloaded: measured loudness only".
 
 ## 5b. Carousel: check the slides
 
