@@ -21,11 +21,14 @@ Run from the Curiously project root. If the tracker isn't reachable, tell the us
 - **Idea:** `title`, `hook`, `summary`, `audience`, `keyPoints`, `visualIdeas`. The target length is `series.targetSeconds`.
 - **Series playbook:** `series.formatNotes`: structure, hook rule, tone, company and freshness rules. Follow it. `series.format` is `video` (a spoken script) or `carousel` (slide copy, section 5b).
 - **Revision context:** `review.openFeedback` entries with `stage: "script"`, and the current `research`, `script`, `factcheck`, `sources` (the previous version).
+- **Series lessons:** `.claude/skills/script/lessons/<prefix>.md` (e.g. `HIS.md`), if it exists: the reviewer's standing notes from earlier episodes. Follow them like the playbook; where one disagrees with a default in this skill (length, for example), the lesson wins.
 - **Direction for v1:** open notes with `stage: "script"` and no `version` were written before the first version: they're the team's brief. If one says "Build the script around these research facts", those facts are the backbone: give each real time, and say in "Changes in this version" how each was used.
 
 **Check the stage.** If `stage` is not `script`, stop and say which stage it's in. Only a person moves stages.
 
 **First version or revision?** No open feedback and no script: write v1 from scratch. Open feedback: treat each note as a required change, keep what wasn't criticised (including research that still holds; only research again what the notes need), and answer every note in "Changes in this version".
+
+**Notes that apply to every episode.** If a review note reads as a rule for the whole series rather than this episode ("add numbers for scale", not "the counter scene is too long"), add it as one short line to that series' lessons file (create it if needed; keep it under about 10 lines, merging near-duplicates) and say so in "Changes in this version". A note that names a series ("only for Claude Lab") goes in that series' file only.
 
 ## 2. Research (just enough)
 
@@ -55,6 +58,9 @@ What a viewer should walk away knowing, in everyday words.
 
 ## The big idea
 The one real technical term this episode teaches (e.g. graph neural network, caching, a queue), the everyday picture that explains it (dots and lines, a counter with a line of people), and the facts it rests on (F5, F6).
+
+## Picture options
+2–3 everyday pictures for the big idea, one line each, with how each part maps onto the real system ("menus on every table = copies near you (CDN); waiter = IRCTC's servers; order = your booking (a write)"). Mark the one the script uses with **(used)**. A picture only counts if every moving part of the mechanism has a match; drop any that leave a part out. The reviewer can pick another with a note. Skip this section when the picture is already fixed (Claude Lab's workshop sheet, Claude Skills, carousels).
 
 ## Key facts
 - **F1.** Claim in plain words. "Exact quote or figure." ([Publisher, 12 Mar 2025](https://…)) · Primary
